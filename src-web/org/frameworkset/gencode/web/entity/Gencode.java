@@ -45,12 +45,12 @@ public class Gencode implements java.io.Serializable {
 	private String company;
 	@Column(type = "clob")
 	private String controlparams;
-	private Timestamp createtime;
+	private long createtime;
 	private String dbname;
 	@Column(type = "clob")
 	private String fieldinfos;
 	private String tablename;
-	private Timestamp updatetime;
+	private long updatetime;
 
 	public Gencode() {
 	}
@@ -87,11 +87,11 @@ public class Gencode implements java.io.Serializable {
 		return controlparams;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
+	public void setCreatetime(long createtime) {
 		this.createtime = createtime;
 	}
 
-	public Timestamp getCreatetime() {
+	public long getCreatetime() {
 		return createtime;
 	}
 
@@ -119,11 +119,11 @@ public class Gencode implements java.io.Serializable {
 		return tablename;
 	}
 
-	public void setUpdatetime(Timestamp updatetime) {
+	public void setUpdatetime(long updatetime) {
 		this.updatetime = updatetime;
 	}
 
-	public Timestamp getUpdatetime() {
+	public long getUpdatetime() {
 		return updatetime;
 	}
 }

@@ -67,6 +67,14 @@
 			<param-name>messagesources</param-name>
 			<param-value>/WEB-INF/conf/gencode/messages_gencode</param-value>
 	</init-param> 
+	<init-param>
+			<param-name>iocLifeCycleEventListeners</param-name>
+			<param-value>org.frameworkset.gencode.web.GencodeIocLifeCycleEventListener</param-value>
+		</init-param>
+		<init-param>
+			<param-name>iocLifeCycleEventListenerParams</param-name>
+			<param-value>sqlitepath=d:/gencodedb</param-value>
+		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -75,7 +83,7 @@
 	</servlet-mapping>
 	
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
   

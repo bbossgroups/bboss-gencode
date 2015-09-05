@@ -174,7 +174,7 @@ public class GencodeController {
 	public String selecttable(ModelMap model,GencodeCondition conditions) {
 		List<String> dbs = DBUtil.getAllPoolNames();
 		model.addAttribute("dbs", dbs);
-		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas("bspf");
+		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbs.get(0));
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
 			for (TableMetaData meta : tableMetas) {
@@ -627,7 +627,7 @@ public class GencodeController {
 			Gencode gencode = new Gencode();
 			gencode.setAuthor(controlInfo.getAuthor());
 			gencode.setCompany(controlInfo.getCompany());
-			gencode.setCreatetime(new Timestamp(System.currentTimeMillis()));
+			gencode.setCreatetime(System.currentTimeMillis());
 			gencode.setDbname(controlInfo.getDbname());
 			gencode.setTablename(controlInfo.getTableName());
 			gencode.setUpdatetime(gencode.getCreatetime());

@@ -53,7 +53,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public void addGencode(Gencode gencode) throws GencodeException {
 		// 业务组件
 		try {
-			executor.insertBean("addGencode", gencode);
+			executor.insertBean("gencode","addGencode", gencode);
 		} catch (Throwable e) {
 			throw new GencodeException("add Gencode failed:", e);
 		}
@@ -62,7 +62,7 @@ public class GencodeServiceImpl implements GencodeService {
 
 	public void deleteGencode(String id) throws GencodeException {
 		try {
-			executor.delete("deleteByKey", id);
+			executor.deleteWithDBName("gencode","deleteByKey", id);
 		} catch (Throwable e) {
 			throw new GencodeException("delete Gencode failed::id=" + id, e);
 		}
@@ -73,7 +73,7 @@ public class GencodeServiceImpl implements GencodeService {
 		TransactionManager tm = new TransactionManager();
 		try {
 			tm.begin();
-			executor.deleteByKeys("deleteByKey", ids);
+			executor.deleteByKeysWithDBName("gencode","deleteByKey", ids);
 			tm.commit();
 		} catch (Throwable e) {
 
@@ -87,7 +87,7 @@ public class GencodeServiceImpl implements GencodeService {
 
 	public void updateGencode(Gencode gencode) throws GencodeException {
 		try {
-			executor.updateBean("updateGencode", gencode);
+			executor.updateBean("gencode","updateGencode", gencode);
 		} catch (Throwable e) {
 			throw new GencodeException("update Gencode failed::", e);
 		}
@@ -97,7 +97,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public Gencode getGencode(String id) throws GencodeException {
 		try {
 			Gencode bean = executor
-					.queryObject(Gencode.class, "selectById", id);
+					.queryObjectWithDBName(Gencode.class,"gencode", "selectById", id);
 			return bean;
 		} catch (Throwable e) {
 			throw new GencodeException("get Gencode failed::id=" + id, e);
@@ -109,7 +109,7 @@ public class GencodeServiceImpl implements GencodeService {
 			long offset, int pagesize) throws GencodeException {
 		ListInfo datas = null;
 		try {
-			datas = executor.queryListInfoBean(Gencode.class,
+			datas = executor.queryListInfoBeanWithDBName(Gencode.class,"gencode",
 					"queryListGencode", offset, pagesize, conditions);
 		} catch (Exception e) {
 			throw new GencodeException("pagine query Gencode failed:", e);
@@ -121,7 +121,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public List<Gencode> queryListGencodes(GencodeCondition conditions)
 			throws GencodeException {
 		try {
-			List<Gencode> beans = executor.queryListBean(Gencode.class,
+			List<Gencode> beans = executor.queryListBeanWithDBName(Gencode.class,"gencode",
 					"queryListGencode", conditions);
 			return beans;
 		} catch (Exception e) {
