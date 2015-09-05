@@ -58,32 +58,7 @@
 							<!--/span-->
 						</div>
 						<!--/row-->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label col-md-3">主键名称</label>
-									<div class="col-md-9">
-										<input id="pkname" name="pkname" type="text"
-											class="form-control" placeholder="主键名称" value="<pg:cell colName="pkname"/>"> <span
-											class="help-block"><font color="blue">对应于tableinfo表中的table_name字段
-										</font></span>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label col-md-3">系统名称</label>
-									<div class="col-md-9">
-										<input id="system" name="system" type="text"
-											class="form-control" placeholder="系统名称" value="<pg:cell colName="system"/>"><span
-											class="help-block"><font color="blue">可选项 </font></span>
-									</div>
-								</div>
-							</div>
-							<!--/span-->
-
-							<!--/span-->
-						</div>
+						
 
 						<div class="row">
 							<div class="col-md-6">
@@ -136,6 +111,7 @@
 
 							<!--/span-->
 						</div>
+						
 						<div class="row">
 
 						
@@ -199,7 +175,32 @@
 
 							<!--/span-->
 						</div>
-						 
+						 <div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">主键名称</label>
+									<div class="col-md-9">
+										<input id="pkname" name="pkname" type="text"
+											class="form-control" placeholder="主键名称，没有不填" value="<pg:cell colName="pkname"/>"> <span
+											class="help-block"><font color="blue">对应于tableinfo表中的table_name字段
+										</font></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-3">系统名称</label>
+									<div class="col-md-9">
+										<input id="system" name="system" type="text"
+											class="form-control" placeholder="系统名称" value="<pg:cell colName="system"/>"><span
+											class="help-block"><font color="blue">可选项 </font></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+
+							<!--/span-->
+						</div>
 						<h3 class="form-section">版权信息</h3>
 						<!--/row-->
 						<div class="row">
@@ -322,6 +323,7 @@
 											<option value="int" <pg:equal value="int">selected</pg:equal>>int</option>
 											<option value="Timestamp" <pg:equal value="Timestamp">selected</pg:equal>>Timestamp</option>
 											<option value="Date" <pg:equal value="Date">selected</pg:equal>>Date</option>
+											<option value="UtilDate" <pg:equal value="UtilDate">selected</pg:equal>>UtilDate</option>
 											<option value="url" <pg:equal value="url">selected</pg:equal>>url</option>
 											<option value="creditcard" <pg:equal value="creditcard">selected</pg:equal>>creditcard</option>
 											<option value="email" <pg:equal value="email">selected</pg:equal>>email</option>
@@ -576,7 +578,7 @@ jQuery(document).ready(function() {
                      				  "onclick": null,
                      				  "showDuration": "0",
                      				  "hideDuration": "0",
-                     				  "timeOut": "0",
+                     				  "timeOut": "10000",
                      				  "extendedTimeOut": "0",
                      				  "showEasing": "swing",
                      				  "hideEasing": "linear",
@@ -656,7 +658,7 @@ function tempsave()
          				  "onclick": null,
          				  "showDuration": "0",
          				  "hideDuration": "0",
-         				  "timeOut": "0",
+         				  "timeOut": "10000",
          				  "extendedTimeOut": "0",
          				  "showEasing": "swing",
          				  "hideEasing": "linear",

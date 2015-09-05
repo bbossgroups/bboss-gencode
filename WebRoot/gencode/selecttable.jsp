@@ -89,13 +89,13 @@
 									Columns <i class="fa fa-angle-down"></i>
 									</a>
 									<div id="sample_5_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-										<label><input type="checkbox" checked data-column="2"><pg:message code="gencode.id"/></label>
-										<label><input type="checkbox" checked data-column="3"><pg:message code="gencode.author"/></label>
-										<label><input type="checkbox" checked data-column="4"><pg:message code="gencode.company"/></label>
-										<label><input type="checkbox" checked data-column="5"><pg:message code="gencode.tablename"/></label>
-										<label><input type="checkbox" checked data-column="6"><pg:message code="gencode.dbname"/></label>
-										<label><input type="checkbox" checked data-column="7"><pg:message code="gencode.createtime"/></label>
-										<label><input type="checkbox" checked data-column="8"><pg:message code="gencode.updatetime"/></label>
+										
+										<label><input type="checkbox" checked data-column="2"><pg:message code="gencode.author"/></label>
+										<label><input type="checkbox" checked data-column="3"><pg:message code="gencode.company"/></label>
+										<label><input type="checkbox" checked data-column="4"><pg:message code="gencode.tablename"/></label>
+										<label><input type="checkbox" checked data-column="5"><pg:message code="gencode.dbname"/></label>
+										<label><input type="checkbox" checked data-column="6"><pg:message code="gencode.createtime"/></label>
+										<label><input type="checkbox" checked data-column="7"><pg:message code="gencode.updatetime"/></label>
 									</div>
 								</div>
 							</div>
@@ -110,7 +110,7 @@
 								</th>
 								
 								<th>序号</th>							
-					       		<th><pg:message code="gencode.id"/></th>       		
+					       	     		
 					       		<th><pg:message code="gencode.author"/></th>       		
 					       		<th class="hidden-xs"><pg:message code="gencode.company"/></th> 
 					       		<th class="hidden-xs"><pg:message code="gencode.dbname"/></th> 
@@ -131,14 +131,14 @@
 									<input id="id" type="hidden" name="id" value="<pg:cell colName="id" />"/>
 								</td>
 								<td><pg:rowid increament="1" offset="false"/></td>    
-				                <td><pg:cell colName="id"/></td>
+				               
 				                <td><pg:cell colName="author"/></td>
 				                <td><pg:cell colName="company"/></td>
 				               
 				                <td><pg:cell colName="dbname"/></td>
 				                <td><pg:cell colName="tablename"/></td>
-				                 <td><pg:cell colName="createtime"/></td>
-				                <td><pg:cell colName="updatetime"/></td>				        		
+				                 <td><pg:cell colName="createtime" dateformat="yyyy-MM-dd HH:mm:ss"/></td>
+				                <td><pg:cell colName="updatetime" dateformat="yyyy-MM-dd HH:mm:ss"/></td>				        		
 				                <td >
 				                <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
 										<i class="fa fa-edit"></i> 编辑 </a>
