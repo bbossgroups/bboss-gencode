@@ -44,7 +44,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 		try {
 			SQLExecutor.queryObjectWithDBName(int.class,"gencode", exist);
 		} catch (Exception e) {
-			String tsql = "create table BBOSS_GENCODE (ID string,TABLENAME string,DBNAME string,FIELDINFOS CLOB,AUTHOR string,"
+			String tsql = "create table BBOSS_GENCODE (ID string,TABLENAME string,DBNAME string,FIELDINFOS TEXT,AUTHOR string,"
 				       + "COMPANY string,"
 				       + "CREATETIME number(10),"
 				       + "UPDATETIME number(10),"
