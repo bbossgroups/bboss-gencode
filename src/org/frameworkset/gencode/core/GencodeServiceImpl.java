@@ -114,6 +114,10 @@ public class GencodeServiceImpl {
 	private List<Field> addShowFields;
 	private List<SQL> sqls;
 	/**
+	 * ui界面上是否需要引入日期控件
+	 */
+	private boolean needDateComponent;
+	/**
 	 * 所有字段
 	 */
 //	private List<Field> allfields;
@@ -295,8 +299,11 @@ public class GencodeServiceImpl {
 			mvcConfDir.mkdirs();
 		}
 		mvcconf = new File(getMvcConfDir(),"bboss-"+getModuleMetaInfo().getModuleName()+".xml");
-		this.i18nen_US = new File(getMvcConfDir(),"messages_"+getModuleMetaInfo().getModuleName()+"_en_US.properties");
-		this.i18nzh_CN = new File(getMvcConfDir(),"messages_"+getModuleMetaInfo().getModuleName()+"_zh_CN.properties");
+		if(this.isGenI18n())
+		{
+			this.i18nen_US = new File(getMvcConfDir(),"messages_"+getModuleMetaInfo().getModuleName()+"_en_US.properties");
+			this.i18nzh_CN = new File(getMvcConfDir(),"messages_"+getModuleMetaInfo().getModuleName()+"_zh_CN.properties");
+		}
 		readme = new File(this.rootdir,"readme.txt");
 		webxmlFile = new File(this.rootdir,"WebRoot/WEB-INF/web.xml");
 //		if(!webxmlFile.exists())
@@ -624,7 +631,10 @@ public class GencodeServiceImpl {
 			 genException(entityName + "Exception", this.moduleMetaInfo.getModuleCNName()+"管理异常处理类",exception);
 			 genServiceImpl(entityName + "ServiceImpl",serviceInfType ,this.moduleMetaInfo.getModuleCNName()+"管理业务处理类",serviceImpl);
 			 genActionCode(entityName+"Controller",null,serviceInfType,  this.moduleMetaInfo.getModuleCNName()+"管理控制器处理类",controller);
-			 genRPC();
+			 if(this.controlParam.isGenRPCservice())
+			 {
+				 genRPC();
+			 }
 		} catch (Exception e) {
 			log.error("gen java source file failed:",e);
 		}
@@ -2077,6 +2087,12 @@ import com.frameworkset.util.StringUtil;
 	public int getExcelVersion() {
 		return this.controlParam.getExcelVersion();
 	}
+	public boolean isGenRPCservice() {
+		return controlParam.isGenRPCservice();
+	}
+	public void setGenRPCservice(boolean genRPCservice) {
+		this.controlParam.setGenRPCservice(genRPCservice);
+	}
 	public void setExcelVersion(int excelVersion) {
 		this.controlParam.setExcelVersion(excelVersion);
 	}
@@ -2135,5 +2151,13 @@ import com.frameworkset.util.StringUtil;
 
 	public void setDefaultSortField(Field defaultSortField) {
 		this.defaultSortField = defaultSortField;
+	}
+
+	public boolean isNeedDateComponent() {
+		return needDateComponent;
+	}
+
+	public void setNeedDateComponent(boolean needDateComponent) {
+		this.needDateComponent = needDateComponent;
 	}
 }

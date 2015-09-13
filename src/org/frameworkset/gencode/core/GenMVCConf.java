@@ -39,6 +39,7 @@ public class GenMVCConf extends AbstractGencode{
 			 context.put("entityVarName", gencodeService.getEntityParamName());
 			 context.put("entityName", gencodeService.getEntityName());
 			 context.put("relativePath", gencodeService.getRelativePath());
+			 context.put("genRPC", gencodeService.isGenRPCservice());
 			 gencodeService.writFile(context,conftempalte,conf,gencodeService.getModuleMetaInfo().getEncodecharset());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

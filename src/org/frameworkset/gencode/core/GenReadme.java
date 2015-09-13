@@ -30,6 +30,7 @@ public class GenReadme  extends AbstractGencode{
 			 context.put("relativePath", gencodeService.getRelativePath());			 
 			 context.put("wsclassinf", gencodeService.getWsclassinf());
 			 context.put("servicePort", gencodeService.getServicePort());
+			 context.put("genRPC", gencodeService.isGenRPCservice());
 			 if(gencodeService.getModuleMetaInfo().getSystem() != null)
 			 {
 				 context.put("system", gencodeService.getModuleMetaInfo().getSystem());

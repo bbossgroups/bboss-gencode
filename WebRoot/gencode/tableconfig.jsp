@@ -403,7 +403,7 @@
 										<td >
 										<input type="hidden" id="inlist" name="inlist"
 											class="form-control  select2  input-medium inlist"
-											value="<pg:cell colName="inlist" defaultValue="包含"/>">
+											value="<pg:cell colName="inlist" defaultValue="显示"/>">
 										
 										</div>																
 									 	</td>
@@ -604,16 +604,16 @@ jQuery(document).ready(function() {
          tags: ["geni18n", "clearSourcedir","genRPC","autopk","genwf","print"]
      });
 	 $(".editcontrolParams").select2({
-         tags: ["显示","隐藏", "编辑", "必填"]
+         tags: ["显示","隐藏", "编辑", "必填","只读","忽略"]
      });
 	 $(".addcontrolParams").select2({
-         tags: ["显示","隐藏", "必填"]
+         tags: ["显示","隐藏", "编辑", "必填","只读","忽略"]
      });
 	 $(".viewcontrolParams").select2({
-         tags: ["显示","隐藏"]
+         tags: ["显示","隐藏","忽略"]
      });
 	 $(".inlist").select2({
-         tags: ["显示", "隐藏"]
+         tags: ["显示", "隐藏","忽略"]
      });
 	 
 });

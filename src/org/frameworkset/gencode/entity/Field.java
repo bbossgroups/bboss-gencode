@@ -32,12 +32,15 @@ public class Field {
 	private boolean sortField;
 	private boolean desc = true;
 	private boolean defaultSortField ;
+	
 	private List<Annotation> annos;
 	private int maxlength = 0;
 	private int minlength = 0;
 	private boolean required;
+	private boolean readonly;
 	private String replace;
 	private boolean typecheck;
+	private boolean datetype;
 	private boolean daterange;
 	private String dateformat;
 	private String numformat;
@@ -201,6 +204,18 @@ public class Field {
 	}
 	public void setExtendType(String extendType) {
 		this.extendType = extendType;
+	}
+	public boolean isReadonly() {
+		return readonly;
+	}
+	public void setReadonly(boolean readonly) {
+		this.readonly = readonly;
+	}
+	public boolean isDatetype() {
+		return datetype;
+	}
+	public void setDatetype(boolean datetype) {
+		this.datetype = datetype;
 	}
 
 }

@@ -1,6 +1,5 @@
 package org.frameworkset.gencode.web.action;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -334,6 +333,9 @@ public class GencodeController {
 		
 		else if(fieldInfo.getColumntype().startsWith("TIMESTAMP") || fieldInfo.getColumntype().equals("DATE") )
 		{
+			f.setDatetype(true);
+			if(!gencodeService.isNeedDateComponent())
+				gencodeService.setNeedDateComponent(true);
 			if(fieldInfo.getDateformat() != null && !fieldInfo.getDateformat().equals(""))
 			{
 				Annotation anno = new Annotation();
@@ -392,13 +394,16 @@ public class GencodeController {
     	 f.setMinlength(fieldInfo.getMinlength());
     	 if(Util.addpage == pagetype)
     	 {
-	    	 f.setEditable(true);
+    		 f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
 	    	 f.setRequired(fieldInfo.getAddcontrolParams().contains("必填"));
+	    	 f.setReadonly(fieldInfo.getEditcontrolParams().contains("只读"));
     	 }
-    	 else if(Util.editpage == pagetype)
+    	 else if(Util.editpage == pagetype)//"显示","隐藏", "编辑", "必填","只读","忽略"
     	 {
 	    	 f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
 	    	 f.setRequired(fieldInfo.getEditcontrolParams().contains("必填"));
+	    	 f.setReadonly(fieldInfo.getEditcontrolParams().contains("只读"));
+	    	 
     	 }
     	 
     	 if(isp)
@@ -424,33 +429,43 @@ public class GencodeController {
 			FieldInfo fieldInfo = fields.get(i);
 			String inlist = fieldInfo.getInlist();
 			Field f = new Field();
-			if(inlist != null && inlist.contains("显示"))
+			if(inlist != null)
 			{
 				
 				
-				
-				
-				 f.setSortField(true);
-				 f.setDesc(fieldInfo.getStype() == 1);
-				convertField(gencodeService,fieldInfo,f,Util.listpage);
-				if(f.isPk())
+				if(inlist.contains("显示"))
 				{
-					listShowFields.add(0, f);
+				
+					
+					convertField(gencodeService,fieldInfo,f,Util.listpage);
+					if(f.isPk())
+					{
+						listShowFields.add(0, f);
+					}
+					else
+					{
+						listShowFields.add(f);
+					}
 				}
-				else
+				else if(inlist.contains("隐藏"))
 				{
-					listShowFields.add(f);
+					
+					convertField(gencodeService,fieldInfo,f,Util.listpage);
+					if(f.isPk())
+					{
+						listHiddenFields.add(0, f);
+					}
+					else
+					{
+						listHiddenFields.add(f);
+					}
+				}
+				else if(inlist.contains("忽略") || inlist.trim().equals(""))
+				{
+					continue;
 				}
 				
 			}
-			else 
-			{
-				 f.setSortField(true);
-				 f.setDesc(fieldInfo.getStype() == 1);
-				convertField(gencodeService,fieldInfo,f,Util.listpage);
-				listHiddenFields.add(f);
-			}
-			
 			
 			
 			
@@ -512,20 +527,31 @@ public class GencodeController {
 			FieldInfo fieldInfo = fields.get(i);
 			String inlist = fieldInfo.getEditcontrolParams();
 			Field f = new Field();
-			if(inlist != null && inlist.contains("显示"))
+			if(inlist != null)//"显示","隐藏", "编辑", "必填","只读","忽略"
 			{
-				convertField(gencodeService,fieldInfo,f,Util.editpage);
-				if(f.isPk())
-					editShowFields.add(0, f);
+				if( inlist.contains("显示"))
+				{
+					convertField(gencodeService,fieldInfo,f,Util.editpage);
+					if(f.isPk())
+						editShowFields.add(0, f);
+					else
+						editShowFields.add(f);
+				}
+				else if( inlist.contains("隐藏"))
+				{
+					convertField(gencodeService,fieldInfo,f,Util.editpage);
+					if(f.isPk())
+						editHiddenFields.add(0, f);
+					else
+						editHiddenFields.add(f);
+				}
 				else
-					editShowFields.add(f);
+				{
+					continue;
+				}
 				
 			}
-			else
-			{
-				convertField(gencodeService,fieldInfo,f,Util.editpage);
-				editHiddenFields.add(f);
-			}
+			
 			
 		}
 		gencodeService.setEditShowFields(editShowFields);
@@ -586,6 +612,7 @@ public class GencodeController {
 		String date = format.format(new Date());
 		moduleMetaInfo.setDate(date);//指定日期
 		gencodeService.setGenI18n(controlInfo.getControlParams().contains("geni18n"));//生成国际化属性配置文件
+		gencodeService.setGenRPCservice(controlInfo.getControlParams().contains("genRPC"));
 		moduleMetaInfo.setClearSourcedir(controlInfo.getControlParams().contains("clearSourcedir"));//是否清空源码目录
 		gencodeService.setExcelVersion(controlInfo.getExcelVersion());
 		gencodeService.setExportExcel(gencodeService.getExcelVersion() != -1);

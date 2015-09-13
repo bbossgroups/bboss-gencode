@@ -11,11 +11,12 @@
 	版本:$version 
 	日期:$gendate
 -->
-
+#set( $str_shell = '#' )
+#set( $str_money = '$' )
 <head>
 <title>${moduleCNName}管理</title>
 <%@ include file="/common/jsp/css-lhgdialog.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath}/html2/js/common.js"></script>
+<script type="text/javascript" src="${str_money}{pageContext.request.contextPath}/html2/js/common.js"></script>
 
 </head>
 	<body>
@@ -44,8 +45,19 @@
 											<tr>
 											#end
 												<th>#if(!$genI18n)${condition.fieldCNName}#else<pg:message code="$namespacei18n.$condition.fieldName"/>#end：</th>
-												<td><input id="${condition.fieldName}" name="${condition.fieldName}" type="text"
-														value="" class="w120"/></td>
+												<td>
+												#if($condition.datetype)
+													#if($condition.daterange)
+													<input type="text" class="Wdate" id="${condition.fieldName}_start" name="${condition.fieldName}_start" onFocus="var ${condition.fieldName}_end=${str_money}dp.${str_money}('${condition.fieldName}_end');WdatePicker({#if($condition.dateformat && !$condition.dateformat.equals("")) dateFmt:'$condition.dateformat',#end onpicked:function(){${condition.fieldName}_end.focus();},maxDate:'${str_shell}F{${str_money}dp.${str_money}D(\'${condition.fieldName}_end\')}'})" value="起始日期"/> 至 
+	      											<input type="text" class="Wdate" id="${condition.fieldName}_end" name="${condition.fieldName}_end" onFocus="WdatePicker({#if($condition.dateformat && !$condition.dateformat.equals("")) dateFmt:'$condition.dateformat',#end minDate:'${str_shell}F{$dp.$D(\'${condition.fieldName}_start\')}'})" value="截止日期"//>
+	      											#else
+	      											<input type="text" class="Wdate" id="${condition.fieldName}" name="${condition.fieldName}" onClick="WdatePicker(#if($condition.dateformat && !$condition.dateformat.equals("")){dateFmt:'$condition.dateformat'}#end)">
+	      											#end
+												#else
+													<input id="${condition.fieldName}" name="${condition.fieldName}" type="text"
+															value="" class="w120"/>
+												#end		
+												</td>
 												
 												
 													#if($velocityCount == ($conditions.size() - 1))
