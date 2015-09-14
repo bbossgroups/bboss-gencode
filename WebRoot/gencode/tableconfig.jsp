@@ -417,8 +417,8 @@
 											class="form-control  select2  input-small viewcontrolParams"
 											value="<pg:cell colName="viewcontrolParams" />" placeholder="显示"></td>
 										<td><input type="text" placeholder="<pg:cell colName="fieldName"/>"  name="defaultValue" class="form-control  input-small" value="<pg:cell colName="defaultValue"/>"></td>
-										<td><input type="text" placeholder="<pg:cell colName="0"/>"  name="maxlength" class="form-control  input-small" value="<pg:cell colName="maxlength"/>"></td>
-										<td><input type="text" placeholder="<pg:cell colName="..."/>"  name="replace" class="form-control  input-small" value="<pg:cell colName="replace"/>"></td></tr>
+										<td><input type="text" placeholder="maxlength"  name="maxlength" class="form-control  input-small" value="<pg:cell colName="maxlength"/>"></td>
+										<td><input type="text" placeholder="replace"  name="replace" class="form-control  input-small" value="<pg:cell colName="replace"/>"></td></tr>
 								</pg:list>	
 								
 								</tbody>

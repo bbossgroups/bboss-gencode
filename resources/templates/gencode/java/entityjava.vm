@@ -35,19 +35,64 @@ import $import;
 public class $classname implements java.io.Serializable
 {
 #foreach($filed in $fields)	
-    #if($filed.annos && $filed.annos.size() > 0)
-     #foreach($anno in $filed.annos)
-     	$attoken$anno.name
-		  #if($anno.params.size() > 0)
-			  $start
-			  	#foreach($annoparam in $anno.params) 
-			  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
-			  	#end
-			  $end
+	#if(!$iscondition)
+	    #if($filed.annos && $filed.annos.size() > 0)
+	     #foreach($anno in $filed.annos)
+	     	$attoken$anno.name
+			  #if($anno.params.size() > 0)
+				  $start
+				  	#foreach($annoparam in $anno.params) 
+				  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
+				  	#end
+				  $end
+			  #end
 		  #end
-	  #end
-    #end
-	private $filed.type $filed.fieldName #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal$filed.defaultValue#end;	
+	    #end
+		private $filed.type $filed.fieldName #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal$filed.defaultValue#end;	
+	#else
+		#if(!$filed.daterange)
+		   #if($filed.annos && $filed.annos.size() > 0)
+		     #foreach($anno in $filed.annos)
+		     	$attoken$anno.name
+				  #if($anno.params.size() > 0)
+					  $start
+					  	#foreach($annoparam in $anno.params) 
+					  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
+					  	#end
+					  $end
+				  #end
+			  #end
+		    #end
+			private $filed.type $filed.fieldName #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal$filed.defaultValue#end;
+		#else
+			#if($filed.annos && $filed.annos.size() > 0)
+		     #foreach($anno in $filed.annos)
+		     	$attoken$anno.name
+				  #if($anno.params.size() > 0)
+					  $start
+					  	#foreach($annoparam in $anno.params) 
+					  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
+					  	#end
+					  $end
+				  #end
+			  #end
+		    #end
+			private $filed.type ${filed.fieldName}_start #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal$filed.defaultValue#end;
+			#if($filed.annos && $filed.annos.size() > 0)
+		     #foreach($anno in $filed.annos)
+		     	$attoken$anno.name
+				  #if($anno.params.size() > 0)
+					  $start
+					  	#foreach($annoparam in $anno.params) 
+					  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
+					  	#end
+					  $end
+				  #end
+			  #end
+		    #end
+			private $filed.type ${filed.fieldName}_end #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal$filed.defaultValue#end;
+		#end	
+	#end	
 #end
 	public $classname$start$end
 	{
