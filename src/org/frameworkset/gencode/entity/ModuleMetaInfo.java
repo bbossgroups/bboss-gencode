@@ -32,10 +32,10 @@ public class ModuleMetaInfo {
 	private String packagePath;
 	private String tableName;
 	/**
-	 * 表主键名称，对应tableinfo表中的表名称
+	 * 表主键seq名称，对应tableinfo表中的表名称
 	 */
 	private String pkname;
-	 
+	
 	 
 	/**
 	 * 生成代码时是否清除源码目录

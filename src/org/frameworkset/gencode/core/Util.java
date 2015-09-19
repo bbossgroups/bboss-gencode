@@ -37,10 +37,15 @@ public class Util {
 		else
 			return type;
 	}
+	public static boolean ispk(String column,TableMetaData tableMeta)
+	{
+		return tableMeta.getPrimaryKeyMetaData(column) != null;
+	}
 
 	public static List<FieldInfo> getSimpleFields(TableMetaData tableMeta)
 	{
 		Set<ColumnMetaData> columns = tableMeta.getColumns();
+		
 		if(columns.size() > 0)
 		{
 			 
@@ -72,7 +77,11 @@ public class Util {
 		        	 f.setFieldName(fieldName);
 		        	 f.setColumnname(c.getColumnName());
 		        	 f.setColumntype(c.getTypeName());
-		        	 fs.add(f);
+		        	 f.setPk(ispk(f.getColumnname(),tableMeta));
+		        	 if(f.isPk())
+		        		 fs.add(0,f);
+		        	 else
+		        		 fs.add(f);
 		        	
 		         }
 		         catch (EngineException e)

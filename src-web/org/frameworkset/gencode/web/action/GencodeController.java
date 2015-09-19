@@ -246,7 +246,15 @@ public class GencodeController {
 			}
 		}
 	}
-	
+	private void handlePK(GencodeServiceImpl gencodeService,List<FieldInfo> fields,ControlInfo controlInfo)
+	{
+		for(int i = 0; fields != null && i < fields.size(); i ++)
+		{
+			FieldInfo fieldInfo = fields.get(i);
+			Field f = new Field();
+			convertPKField(  gencodeService,  fieldInfo,  f,Util.other,controlInfo.getPrimaryKeyName());
+		}
+	}
 	private void handleSortFields(GencodeServiceImpl gencodeService,List<FieldInfo> fields)
 	{
 		for(int i = 0; fields != null && i < fields.size(); i ++)
@@ -288,9 +296,10 @@ public class GencodeController {
 		else
 			return type;
 	}
-	
-	private Field convertField(GencodeServiceImpl gencodeService,FieldInfo fieldInfo,Field f,int pagetype)
+	private void convertPKField(GencodeServiceImpl gencodeService,FieldInfo fieldInfo,Field f,int pagetype,String primaryKeyName)
 	{
+		if(!primaryKeyName.equals(fieldInfo.getColumnname()))
+			return ;
 		f.setType(extendType(fieldInfo.getType()));
 		f.setExtendType(fieldInfo.getType());
 		f.setFieldCNName(fieldInfo.getFieldCNName());
@@ -300,9 +309,8 @@ public class GencodeController {
 			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
 		}
 		
-		f.setPk(fieldInfo.isPk());
-		boolean isp = false;
-		if(gencodeService.getModuleMetaInfo().isAutogenprimarykey() && f.isPk())
+		f.setPk(true);
+		if(gencodeService.getModuleMetaInfo().isAutogenprimarykey() )
 		{
 			Annotation anno = new Annotation();
 			anno.setName("PrimaryKey");
@@ -311,7 +319,7 @@ public class GencodeController {
 				anno.addAnnotationParam("pkname", gencodeService.getModuleMetaInfo().getPkname(),AnnoParam.V_STRING);
 			}
 			f.addAnnotation(anno);
-			isp = true;
+			
 			gencodeService.addEntityImport("com.frameworkset.orm.annotation.PrimaryKey");
 		}
 		if(fieldInfo.getColumntype().equals("CLOB"))
@@ -404,18 +412,119 @@ public class GencodeController {
 	    	 f.setRequired(fieldInfo.getEditcontrolParams().contains("必填"));
 	    	 f.setReadonly(fieldInfo.getEditcontrolParams().contains("只读"));
 	    	 
+    	 } 
+    	 
+		 gencodeService.setPrimaryField(f);
+		 gencodeService.setPrimaryKeyName(f.getFieldName());
+
+        
+	}
+	private Field convertField(GencodeServiceImpl gencodeService,FieldInfo fieldInfo,Field f,int pagetype)
+	{
+		f.setType(extendType(fieldInfo.getType()));
+		f.setExtendType(fieldInfo.getType());
+		f.setFieldCNName(fieldInfo.getFieldCNName());
+		f.setColumntype(fieldInfo.getColumntype());
+		if(gencodeService.isGenI18n())
+		{
+			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+		}
+		
+		
+		f.setPk(gencodeService.getPrimaryKeyColumnName() != null && gencodeService.getPrimaryKeyColumnName().equals(fieldInfo.getColumnname()));
+		if(fieldInfo.getColumntype().equals("CLOB"))
+		{
+			Annotation anno = new Annotation();
+			anno.setName("Column");
+			anno.addAnnotationParam("type", "clob",AnnoParam.V_STRING);
+			f.addAnnotation(anno);
+			gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
+		}
+		else if(fieldInfo.getColumntype().equals("BLOB"))
+		{
+			Annotation anno = new Annotation();
+			anno.setName("Column");
+			anno.addAnnotationParam("type", "blob",AnnoParam.V_STRING);
+			gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
+			f.addAnnotation(anno);
+		}
+		
+		else if(fieldInfo.getColumntype().startsWith("TIMESTAMP") || fieldInfo.getColumntype().equals("DATE") )
+		{
+			f.setDatetype(true);
+			if(!gencodeService.isNeedDateComponent())
+				gencodeService.setNeedDateComponent(true);
+			if(fieldInfo.getDateformat() != null && !fieldInfo.getDateformat().equals(""))
+			{
+				Annotation anno = new Annotation();
+				anno.setName("RequestParam");
+				anno.addAnnotationParam("dateformat", fieldInfo.getDateformat(),AnnoParam.V_STRING);
+				
+				gencodeService.addEntityImport("org.frameworkset.util.annotations.RequestParam");
+				
+				f.addAnnotation(anno);
+			}
+			if(f instanceof ConditionField)
+			{
+				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				{
+					gencodeService.addConditionImport("java.util.Date");
+				}
+				else
+				{
+					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
+						gencodeService.addConditionImport("java.sql.Timestamp");
+					else
+						gencodeService.addConditionImport("java.sql.Date");
+				}
+			}
+			else
+			{
+				
+				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				{
+					gencodeService.addConditionImport("java.util.Date");
+				}
+				else
+				{
+					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
+						gencodeService.addConditionImport("java.sql.Timestamp");
+					else
+						gencodeService.addConditionImport("java.sql.Date");
+				}
+			}
+		}
+		
+		
+         	 
+    	 f.setMfieldName(fieldInfo.getMfieldName());
+    	 f.setFieldName(fieldInfo.getFieldName());
+    	 f.setColumnname(fieldInfo.getColumnname());
+    	 
+    	 f.setTypecheck(fieldInfo.getTypecheck() == 1);
+    	 f.setDaterange(fieldInfo.getDaterange() == 1);
+    	 f.setDateformat(fieldInfo.getDateformat());
+    	 f.setNumformat(fieldInfo.getNumformat());
+    	 
+    	 f.setDefaultValue(fieldInfo.getDefaultValue());
+    	 f.setReplace(fieldInfo.getReplace());
+    	 f.setMaxlength(fieldInfo.getMaxlength());
+    	 f.setMinlength(fieldInfo.getMinlength());
+    	 if(Util.addpage == pagetype)
+    	 {
+    		 f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
+	    	 f.setRequired(fieldInfo.getAddcontrolParams().contains("必填"));
+	    	 f.setReadonly(fieldInfo.getEditcontrolParams().contains("只读"));
+    	 }
+    	 else if(Util.editpage == pagetype)//"显示","隐藏", "编辑", "必填","只读","忽略"
+    	 {
+	    	 f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
+	    	 f.setRequired(fieldInfo.getEditcontrolParams().contains("必填"));
+	    	 f.setReadonly(fieldInfo.getEditcontrolParams().contains("只读"));
+	    	 
     	 }
     	 
-    	 if(isp)
-    	 {
-    		 gencodeService.setPrimaryField(f);
-    		 gencodeService.setPrimaryKeyName(f.getFieldName());
-//    		 fields.add(0, f);
-    	 }
-    	 else
-    	 {
-//    		 fields.add(f);
-    	 }
+    	
          return f;
         
 	}
@@ -585,6 +694,8 @@ public class GencodeController {
 		gencodeService.setViewShowFields(viewShowFields);
 		gencodeService.setViewHiddenFields(viewHiddenFields);
 	}
+	
+	
 	public @ResponseBody
 	Map<String, String> gencode(ControlInfo controlInfo, List<FieldInfo> fields,String gencodeid) {
 		Map<String, String> ret = new HashMap<String, String>();
@@ -618,6 +729,8 @@ public class GencodeController {
 		gencodeService.setExportExcel(gencodeService.getExcelVersion() != -1);
 		gencodeService.setTheme(controlInfo.getTheme());//设置默认主题风格		
 		gencodeService.setModuleMetaInfo(moduleMetaInfo);
+		//处理主键信息
+		handlePK(gencodeService,fields,controlInfo);
 		/************以下代码片段指定界面查询字段，以及查询条件组合方式、是否是模糊查询等*******/
 		handleConditionFields(  gencodeService, fields);
 //		ConditionField bm = new ConditionField();

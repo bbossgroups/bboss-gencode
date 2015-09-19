@@ -43,6 +43,7 @@ public class ControlInfo {
 	private String company;
 	private String author;
 	private String version;
+	private String primaryKeyName;
 	/**
 	 * 0:2003 1:2007 2:2010 2:2013
 	 */
@@ -185,5 +186,15 @@ public class ControlInfo {
 	public void setDbname(String dbname) {
 		this.dbname = dbname;
 	}
+
+	public String getPrimaryKeyName() {
+		return primaryKeyName;
+	}
+
+	public void setPrimaryKeyName(String primaryKeyName) {
+		this.primaryKeyName = primaryKeyName;
+	}
+
+	
 
 }
