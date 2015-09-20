@@ -624,7 +624,7 @@ public class GencodeServiceImpl {
 
 			 
 				 
-				 genConditionEntity(  conditionEntityName,   this.moduleMetaInfo.getModuleCNName()+"管理查询条件实体类",controllerJavaName);
+				 genConditionEntity(  conditionEntityName,   this.moduleMetaInfo.getModuleCNName()+"管理查询条件实体类",conditionEntityJavaName);
 			 
 			  
 			 genServiceInf(  this.serviceInfType, this.moduleMetaInfo.getModuleCNName()+"管理服务接口", serviceInf);

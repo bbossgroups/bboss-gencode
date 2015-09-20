@@ -10,6 +10,10 @@
 -->
 #set( $start = '${' )
 #set( $end = '}' )
+#macro( fieldattr $field)
+#if($field.dateformat && !$field.dateformat.equals("")) dateformat="$field.dateformat" #end #if($field.numformat  && !$field.numformat.equals("")) numberformat="$field.numformat" #end
+#end
+
 <div id="customContent">
 <pg:empty actual="$start${entityVarName}s$end" evalbody="true">
     <pg:yes>
@@ -27,7 +31,11 @@
 		 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="stable" id="tb">
 	        <pg:header>
 	            <th align=center><input id="CKA" name="CKA" type="checkbox" 
-								onClick="checkAll('CKA','CK')"></th>
+								onClick="checkAll('CKA','CK')">
+				#foreach($field in $hiddenfields)
+				<input id="$field.fieldName" type="hidden" name="$field.fieldName" value="<pg:cell colName="$field.fieldName" #fieldattr($field)  />"/>
+				#end				
+				</th>
 				<th>序号</th>				
 #foreach($field in $fields)
 #if($field.sortField)				
@@ -42,14 +50,14 @@
 	
 	   		<tr onDblClick="view${entityName}('<pg:cell colName="${primaryKeyName}" />')">
 	   		        <td class="td_center">
-	                    <input id="CK" type="checkbox" name="CK" onClick="checkOne('CKA','CK')" value="<pg:cell colName="${primaryKeyName}" />"/>
-	                    <input id="${primaryKeyName}" type="hidden" name="${primaryKeyName}" value="<pg:cell colName="${primaryKeyName}" />"/></td>
+	                    <input id="CK" type="checkbox" name="CK" onClick="checkOne('CKA','CK')" value="<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField) />"/>
+	                    <input id="${primaryKeyName}" type="hidden" name="${primaryKeyName}" value="<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField) />"/></td>
 	                <td><pg:rowid increament="1" offset="false"/></td>    
 #foreach($field in $fields)	                    
-	                <td>#if($field.maxlength>0)<span class="toolTip" title="<pg:cell colName="$field.fieldName"/>"><pg:cell colName="$field.fieldName" maxlength="$field.maxlength" #if($field.replace)replace="$field.replace"#end/></span>#else<pg:cell colName="$field.fieldName"/>#end</td>
+	                <td>#if($field.maxlength>0)<span class="toolTip" title="<pg:cell colName="$field.fieldName"/>"><pg:cell colName="$field.fieldName" maxlength="$field.maxlength" #if($field.replace)replace="$field.replace"#end/></span>#else<pg:cell colName="$field.fieldName" #fieldattr($field)/>#end</td>
 #end	                
 	        		
-	                <td class="td_center"><a href="javascript:void(0)" id="read${entityName}" onclick="view${entityName}('<pg:cell colName="${primaryKeyName}" />')">查看</a><a href="javascript:void(0)" id="edit${entityName}" onclick="edit${entityName}('<pg:cell colName="${primaryKeyName}" />')">编辑</a><a href="javascript:void(0)" id="del${entityName}" onclick="del${entityName}('<pg:cell colName="${primaryKeyName}" />')">删除</a></td>    
+	                <td class="td_center"><a href="javascript:void(0)" id="read${entityName}" onclick="view${entityName}('<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField)/>')">查看</a><a href="javascript:void(0)" id="edit${entityName}" onclick="edit${entityName}('<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField)/>')">编辑</a><a href="javascript:void(0)" id="del${entityName}" onclick="del${entityName}('<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField)/>')">删除</a></td>    
 	                 
 	        </tr>
 		 </pg:list>

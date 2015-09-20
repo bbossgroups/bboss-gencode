@@ -45,6 +45,7 @@ public class GenListInfoJsp  extends AbstractGencode {
 			 context.put("entityVarName", gencodeService.getEntityParamName());
 			 context.put("entityName", gencodeService.getEntityName());
 			 context.put("primaryKeyName", gencodeService.getPrimaryKeyName());
+			 context.put("primaryKeyField", gencodeService.getPrimaryField());
 			 context.put("genI18n", gencodeService.isGenI18n());
 			 context.put("relativePath", gencodeService.getRelativePath());
 			 context.put("namespacei18n", gencodeService.getNamespacei18n());
