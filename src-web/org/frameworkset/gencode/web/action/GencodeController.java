@@ -322,7 +322,7 @@ public class GencodeController {
 			
 			gencodeService.addEntityImport("com.frameworkset.orm.annotation.PrimaryKey");
 		}
-		if(fieldInfo.getColumntype().equals("CLOB"))
+		if(fieldInfo.getColumntype().equals("CLOB") || fieldInfo.getColumntype().equals("TEXT"))
 		{
 			Annotation anno = new Annotation();
 			anno.setName("Column");
@@ -338,8 +338,8 @@ public class GencodeController {
 			gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
 			f.addAnnotation(anno);
 		}
-		
 		else if(fieldInfo.getColumntype().startsWith("TIMESTAMP") || fieldInfo.getColumntype().equals("DATE") )
+//		else if(fieldInfo.getType().equals("UtilDate") || fieldInfo.getType().equals("Timestamp") || fieldInfo.getType().equals("Date") )
 		{
 			f.setDatetype(true);
 			if(!gencodeService.isNeedDateComponent())
@@ -356,31 +356,37 @@ public class GencodeController {
 			}
 			if(f instanceof ConditionField)
 			{
-				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				if(fieldInfo.getType().equals("UtilDate"))
 				{
 					gencodeService.addConditionImport("java.util.Date");
+					f.setType("Date");
 				}
-				else
+				else if(fieldInfo.getType().equals("Timestamp"))
 				{
-					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
-						gencodeService.addConditionImport("java.sql.Timestamp");
-					else
-						gencodeService.addConditionImport("java.sql.Date");
+					gencodeService.addConditionImport("java.sql.Timestamp");
+					
+				}
+				else if(fieldInfo.getType().equals("Date"))
+				{
+					gencodeService.addConditionImport("java.sql.Date");
 				}
 			}
 			else
 			{
 				
-				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				if(fieldInfo.getType().equals("UtilDate"))
 				{
-					gencodeService.addConditionImport("java.util.Date");
+					gencodeService.addEntityImport("java.util.Date");
+					f.setType("Date");
 				}
-				else
+				else if(fieldInfo.getType().equals("Timestamp"))
 				{
-					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
-						gencodeService.addConditionImport("java.sql.Timestamp");
-					else
-						gencodeService.addConditionImport("java.sql.Date");
+					gencodeService.addEntityImport("java.sql.Timestamp");
+					
+				}
+				else if(fieldInfo.getType().equals("Date"))
+				{
+					gencodeService.addEntityImport("java.sql.Date");
 				}
 			}
 		}
@@ -432,7 +438,7 @@ public class GencodeController {
 		
 		
 		f.setPk(gencodeService.getPrimaryKeyColumnName() != null && gencodeService.getPrimaryKeyColumnName().equals(fieldInfo.getColumnname()));
-		if(fieldInfo.getColumntype().equals("CLOB"))
+		if(fieldInfo.getColumntype().equals("CLOB") || fieldInfo.getColumntype().equals("TEXT"))
 		{
 			Annotation anno = new Annotation();
 			anno.setName("Column");
@@ -449,8 +455,11 @@ public class GencodeController {
 			f.addAnnotation(anno);
 		}
 		
+		
 		else if(fieldInfo.getColumntype().startsWith("TIMESTAMP") || fieldInfo.getColumntype().equals("DATE") )
+//		else if(fieldInfo.getType().equals("UtilDate") || fieldInfo.getType().equals("Timestamp") || fieldInfo.getType().equals("Date") )
 		{
+			
 			f.setDatetype(true);
 			if(!gencodeService.isNeedDateComponent())
 				gencodeService.setNeedDateComponent(true);
@@ -466,31 +475,37 @@ public class GencodeController {
 			}
 			if(f instanceof ConditionField)
 			{
-				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				if(fieldInfo.getType().equals("UtilDate"))
 				{
 					gencodeService.addConditionImport("java.util.Date");
+					f.setType("Date");
 				}
-				else
+				else if(fieldInfo.getType().equals("Timestamp"))
 				{
-					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
-						gencodeService.addConditionImport("java.sql.Timestamp");
-					else
-						gencodeService.addConditionImport("java.sql.Date");
+					gencodeService.addConditionImport("java.sql.Timestamp");
+					
+				}
+				else if(fieldInfo.getType().equals("Date"))
+				{
+					gencodeService.addConditionImport("java.sql.Date");
 				}
 			}
 			else
 			{
 				
-				if(fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate"))
+				if(fieldInfo.getType().equals("UtilDate"))
 				{
-					gencodeService.addConditionImport("java.util.Date");
+					gencodeService.addEntityImport("java.util.Date");
+					f.setType("Date");
 				}
-				else
+				else if(fieldInfo.getType().equals("Timestamp"))
 				{
-					if(fieldInfo.getColumntype().startsWith("TIMESTAMP"))
-						gencodeService.addConditionImport("java.sql.Timestamp");
-					else
-						gencodeService.addConditionImport("java.sql.Date");
+					gencodeService.addEntityImport("java.sql.Timestamp");
+					
+				}
+				else if(fieldInfo.getType().equals("Date"))
+				{
+					gencodeService.addEntityImport("java.sql.Date");
 				}
 			}
 		}

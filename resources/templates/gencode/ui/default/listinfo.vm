@@ -48,7 +48,7 @@
 	       	</pg:header>	
 	      <pg:list>
 	
-	   		<tr onDblClick="view${entityName}('<pg:cell colName="${primaryKeyName}" />')">
+	   		<tr onDblClick="view${entityName}('<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField) />')">
 	   		        <td class="td_center">
 	                    <input id="CK" type="checkbox" name="CK" onClick="checkOne('CKA','CK')" value="<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField) />"/>
 	                    <input id="${primaryKeyName}" type="hidden" name="${primaryKeyName}" value="<pg:cell colName="${primaryKeyName}" #fieldattr($primaryKeyField) />"/></td>
