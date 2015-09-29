@@ -305,8 +305,8 @@
 										<th scope="col">编辑控制</th>
 										<th scope="col">添加控制</th>
 										<th scope="col">查看控制</th>
-										<th scope="col">最大值</th>
-										<th scope="col">最小值</th>
+										<th scope="col">默认值</th>
+										<th scope="col">显示长度</th>
 										<th scope="col">替换串</th>
 									</tr>
 								</thead>
