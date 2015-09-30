@@ -520,74 +520,10 @@ License: You must have a valid license purchased only from themeforest(the above
 							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
 							表单管理 </a>
 						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							Ajax Link Sample 3 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							Ajax Link Sample 4 </a>
-						</li>
+						
 					</ul>
 				</li>
-				<li>
-					<a href="javascript:;">
-					<i class="fa fa-cogs"></i>
-					<span class="title">
-					Ajax Submenu 2 </span>
-					<span class="selected">
-					</span>
-					<span class="arrow">
-					</span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							Ajax Link Sample 1 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							Ajax Link Sample 2 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							Ajax Link Sample 3 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							Ajax Link Sample 4 </a>
-						</li>
-					</ul>
-				</li>
-				<li class="last">
-					<a href="javascript:;">
-					<i class="fa fa-cogs"></i>
-					<span class="title">
-					Ajax Submenu 3 </span>
-					<span class="selected">
-					</span>
-					<span class="arrow">
-					</span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							Ajax Link Sample 1 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							Ajax Link Sample 2 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							Ajax Link Sample 3 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							Ajax Link Sample 4 </a>
-						</li>
-					</ul>
-				</li>
+				 
 			</ul>
 			<!-- END SIDEBAR MENU1 -->
 		</div>
