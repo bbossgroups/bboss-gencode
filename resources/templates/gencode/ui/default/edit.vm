@@ -37,8 +37,16 @@
 							#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end：
 						</th>
 						<td width=140px>
-							<input id="$field.fieldName" name="$field.fieldName" type="text" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"
+							
+							#if($field.datetype)								
+								<input type="text"  id="${field.fieldName}" name="${field.fieldName}" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" onClick="WdatePicker(#if($field.dateformat && !$field.dateformat.equals("")){dateFmt:'$field.dateformat'}#end)"
+								#if($field.required)class="Wdate input_default easyui-validatebox" required="true"/><font color="red">*</font>#else class="Wdate"/>#end								
+							#else
+								<input id="$field.fieldName" name="$field.fieldName" type="text" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"
 								#if($field.required)class="w120 input_default easyui-validatebox" required="true"/><font color="red">*</font>#else/>#end
+							#end	
+							
+							
 						</td>
 						#if($velocityCount == ($fields.size() - 1))						
 					</tr>	

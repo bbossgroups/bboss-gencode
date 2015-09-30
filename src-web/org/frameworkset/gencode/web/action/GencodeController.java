@@ -438,6 +438,20 @@ public class GencodeController {
 		
 		
 		f.setPk(gencodeService.getPrimaryKeyColumnName() != null && gencodeService.getPrimaryKeyColumnName().equals(fieldInfo.getColumnname()));
+		if(f.isPk())
+		{
+			if(gencodeService.getModuleMetaInfo().isAutogenprimarykey() )
+			{
+				Annotation anno = new Annotation();
+				anno.setName("PrimaryKey");
+				if(SimpleStringUtil.isNotEmpty(gencodeService.getModuleMetaInfo().getPkname()))
+				{
+					anno.addAnnotationParam("pkname", gencodeService.getModuleMetaInfo().getPkname(),AnnoParam.V_STRING);
+				}
+				f.addAnnotation(anno);
+				
+			}
+		}
 		if(fieldInfo.getColumntype().equals("CLOB") || fieldInfo.getColumntype().equals("TEXT"))
 		{
 			Annotation anno = new Annotation();
