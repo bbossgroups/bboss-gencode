@@ -1,5 +1,6 @@
 package org.frameworkset.gencode.core;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -484,5 +485,16 @@ alter table TA_FGW_XMSBK
 		
 		gencodeService.setModuleMetaInfo(moduleMetaInfo);
 		gencodeService.genCode();//执行代码生成逻辑
+	}
+	@Test
+	public void testdate() throws ParseException
+	{
+		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d = s.parse("2015-06-01 00:00:00");
+		System.out.println("startid:" + d.getTime());
+		System.out.println("startid:" + d);
+		d = s.parse("2015-08-31 23:59:59");
+		System.out.println("endid:" + d.getTime());
+		System.out.println("endid:" + d);
 	}
 }
