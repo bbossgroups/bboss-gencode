@@ -60,6 +60,25 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 			}
 		}
 		
+		exist = "select 1 from BBOSS_DATASOURCE";
+		
+		try {
+			SQLExecutor.updateWithDBName("gencode","drop table BBOSS_DATASOURCE");
+			SQLExecutor.queryObjectWithDBName(int.class,"gencode", exist);
+		} catch (Exception e) {
+			String tsql = "create table BBOSS_DATASOURCE (ID string,DBNAME string,DBURL string,DBDRIVER string,validationQuery string,DBUSER string,DBPASSWORD string,"
+				       + "dbdesc string,"				       
+				       + "  PRIMARY KEY (ID))";
+			log.info("BBOSS_DATASOURCE table 不存在，创建BBOSS_DATASOURCE表："+tsql+"。",e);
+			try {
+				SQLExecutor.updateWithDBName("gencode",tsql);
+				log.info("创建BBOSS_DATASOURCE表成功："+tsql+"。");
+			} catch (SQLException e1) {
+				log.info("创建BBOSS_DATASOURCE表失败："+tsql+"。",e1);
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 	@Override
 	public void beforestart() {

@@ -26,7 +26,35 @@
  **
  -->
 <properties>
-	
+	<property name="addDatasource">
+		<![CDATA[
+			insert into BBOSS_DATASOURCE (ID,dbdesc,DBNAME,DBPASSWORD,DBURL,DBUSER,DBDRIVER,validationQuery) values(#[id],#[dbdesc],#[dbname],#[dbpassword],#[dburl],#[dbuser],#[dbdriver],#[validationQuery])
+		]]>
+	</property>
+		<property name="deleteDSByKey">
+		<![CDATA[
+			delete from BBOSS_DATASOURCE where DBNAME=?
+		]]>
+	</property>
+		<property name="updateDatasource">
+		<![CDATA[
+			update BBOSS_DATASOURCE set ID=#[id],dbdesc=#[dbdesc],DBNAME=#[dbname],DBPASSWORD=#[dbpassword],DBURL=#[dburl],DBUSER=#[dbuser],DBDRIVER=#[dbdriver],validationQuery=#[validationQuery]  where DBNAME=#[dbname]
+		]]>
+	</property>
+		<property name="getDatasource">
+		<![CDATA[
+			select * from BBOSS_DATASOURCE where DBNAME=?
+		]]>
+	</property>
+		<property name="queryListDatasource">
+		<![CDATA[
+			select * from BBOSS_DATASOURCE where 1=1
+#if($sortKey && !$sortKey.equals(""))
+	order by $sortKey #if($sortDesc)desc#else asc#end
+#else
+#end
+		]]>
+	</property>
 		<property name="addGencode">
 		<![CDATA[
 			insert into BBOSS_GENCODE (ID,AUTHOR,COMPANY,CONTROLPARAMS,CREATETIME,DBNAME,FIELDINFOS,TABLENAME,UPDATETIME) values(#[id],#[author],#[company],#[controlparams],#[createtime],#[dbname],#[fieldinfos],#[tablename],#[updatetime])

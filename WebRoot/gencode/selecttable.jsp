@@ -39,7 +39,7 @@
 							<div class="col-md-9">
 								<select name="dbname" id="dbname" class="select2me form-control" onchange="ComponentsDropdowns.loadtables(event,'tableName')">
 								<pg:list requestKey="dbs">
-									<option value="<pg:cell/>"><pg:cell/></option>
+									<option value="<pg:cell colName="dbname"/>"><pg:cell colName="dbname"/></option>
 								</pg:list>	
 									
 								</select> 
@@ -80,7 +80,7 @@
 <div class="portlet box blue">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-edit"></i>Editable Table
+								<i class="fa fa-edit"></i>数据源管理
 							</div>
 							<div class="tools">
 								<a href="javascript:;" class="collapse">
@@ -98,69 +98,71 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="btn-group">
-											<button id="sample_editable_1_new" class="btn green">
-											Add New <i class="fa fa-plus"></i>
+											<button id="ds_editable_new" class="btn green">
+											新增DS <i class="fa fa-plus"></i>
 											</button>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="btn-group pull-right">
-											<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-											</button>
-											<ul class="dropdown-menu pull-right">
-												<li>
-													<a href="#">
-													Print </a>
-												</li>
-												<li>
-													<a href="#">
-													Save as PDF </a>
-												</li>
-												<li>
-													<a href="#">
-													Export to Excel </a>
-												</li>
-											</ul>
-										</div>
-									</div>
+									 
 								</div>
 							</div>
-							<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+							<table class="table table-striped table-hover table-bordered" id="ds_editable">
 							<thead>
 							<tr>
+								
 								<th>
-									 Username
+									 数据源名称
 								</th>
 								<th>
-									 Full Name
+									 数据源地址
 								</th>
 								<th>
-									 Points
+									 数据源驱动
 								</th>
 								<th>
-									 Notes
+									 数据源用户
 								</th>
 								<th>
-									 Edit
+									 数据源口令
 								</th>
 								<th>
-									 Delete
+									 数据源校验sql
+								</th>
+								<th>
+									 描述
+								</th>
+								<th >
+									 操作
+								</th>
+								<th >
+									 操作
 								</th>
 							</tr>
 							</thead>
 							<tbody>
+							<pg:list requestKey="dbs">
 							<tr>
-								<td>
-									 alex
+								
+								<td> 
+									 <pg:cell colName="dbname"/>
 								</td>
 								<td>
-									 Alex Nilson
+									 <pg:cell colName="dburl"/>
 								</td>
 								<td>
-									 1234
+									 <pg:cell colName="dbdriver"/>
+								</td>
+								<td>
+									 <pg:cell colName="dbuser"/>
 								</td>
 								<td class="center">
-									 power user
+									 <pg:cell colName="dbpassword"/>
+								</td>
+								<td>
+									 <pg:cell colName="validationQuery"/>
+								</td>
+								<td class="center">
+									 <pg:cell colName="dbdesc"/>
 								</td>
 								<td>
 									<a class="edit" href="javascript:;">
@@ -171,200 +173,16 @@
 									Delete </a>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									 lisa
-								</td>
-								<td>
-									 Lisa Wong
-								</td>
-								<td>
-									 434
-								</td>
-								<td class="center">
-									 new user
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									 nick12
-								</td>
-								<td>
-									 Nick Roberts
-								</td>
-								<td>
-									 232
-								</td>
-								<td class="center">
-									 power user
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									 goldweb
-								</td>
-								<td>
-									 Sergio Jackson
-								</td>
-								<td>
-									 132
-								</td>
-								<td class="center">
-									 elite user
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									 webriver
-								</td>
-								<td>
-									 Antonio Sanches
-								</td>
-								<td>
-									 462
-								</td>
-								<td class="center">
-									 new user
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									 gist124
-								</td>
-								<td>
-									 Nick Roberts
-								</td>
-								<td>
-									 62
-								</td>
-								<td class="center">
-									 new user
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-							</tbody>
-							</table>
-						</div>
-					</div>
-
-<div class="portlet box yellow">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-globe"></i>数据源管理
-							</div>
-							<div class="tools">
-								<a href="javascript:;" class="collapse"> </a> <a
-									href="#portlet-config" data-toggle="modal" class="config"> </a> <a
-									href="javascript:;" class="reload"> </a> <a href="javascript:;"
-									class="remove"> </a>
-							</div>
-							<div class="actions">
-								<div class="btn-group">
-									<a class="btn default" href="#" data-toggle="dropdown">
-									Columns <i class="fa fa-angle-down"></i>
-									</a>
-									<div id="ds_6_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-										
-										<label><input type="checkbox" checked data-column="2">数据源名称</label>
-										<label><input type="checkbox" checked data-column="3">数据源地址</label>
-										<label><input type="checkbox" checked data-column="4">数据源用户</label>
-										<label><input type="checkbox" checked data-column="5">数据源口令</label>										
-										
-									</div>
-								</div>
-							</div>
+									 
+								</pg:list>	
 							
-						</div>
-
-						<div class="portlet-body">
-							<table class="table table-striped table-hover" id="ds_6">
-							<thead>
-							<tr>
-								<th class="table-checkbox">
-									<input type="checkbox" id="ds-group-checkable" data-set="ds_6 .checkboxes"/>
-								</th>
-								
-								<th>序号</th>							
-					       	     		
-					       		<th class="hidden-xs">数据源名称</th>       		
-					       		<th class="hidden-xs">数据源地址</th> 
-					       		<th class="hidden-xs">数据源用户</th> 
-					       		<th class="hidden-xs">数据源口令</th>    					       		    		
-								<th>操作</th>
-								
-								
-							</tr>
-							</thead>
-							<tbody>
-							<pg:list requestKey="dses">
-	
-					   		<tr >
-					   			<td>
-									<input name="dscked" type="checkbox" class="checkboxes" value="<pg:cell colName="id" />"/>
-									<input id="dsid" type="hidden" name="dsid" value="<pg:cell colName="id" />"/>
-								</td>
-								<td><pg:rowid increament="1" offset="false"/></td>    
-				               
-				                <td><pg:cell colName="dbname"/></td>
-				                <td><pg:cell colName="dburl"/></td>
-				               
-				                <td><pg:cell colName="dbuser"/></td>
-				                <td><pg:cell colName="dbpassword"/></td>
-				                 				        		
-				                <td >
-				                <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
-										<i class="fa fa-edit"></i> 编辑 </a>
-								
-								 <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs black">
-										<i class="fa fa-trash-o"></i> 删除 </a>
-				                </td>    
-			                 
-	        				</tr>
-							</pg:list>
 							
 							</tbody>
 							</table>
 						</div>
 					</div>
+
+
 
 <div class="portlet box green-haze">
 						<div class="portlet-title">

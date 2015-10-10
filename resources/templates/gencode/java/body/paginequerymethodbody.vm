@@ -11,23 +11,25 @@ try{
 return datas;
 #elseif($componentType == 2)
 try {
-    if(sortKey != null && !sortKey.equals(""))
-    {
-    	conditions.setSortKey(sortKey);
-    	conditions.setSortDesc(desc);
-    }
-    #if($conditionFields && $conditionFields.size() > 0)
-    	#foreach($cf in $conditionFields)
-    		#if($cf.like)
-    		     $cf.type $cf.fieldName = conditions.get$cf.mfieldName$start$end;
-    		     if(${cf.fieldName} != null && !${cf.fieldName}.equals(""))
-    		     {
-    		     	conditions.set$cf.mfieldName$start"%"+$cf.fieldName+"%"$end;
-    		     }
-    		#end
-    	#end
-	#end    
-	ListInfo ${entityVarName}s = ${entityVarName}Service.queryListInfo${entityName}s(conditions,offset,pagesize);
+	#if($needcondition)
+	    if(sortKey != null && !sortKey.equals(""))
+	    {
+	    	conditions.setSortKey(sortKey);
+	    	conditions.setSortDesc(desc);
+	    }
+	    #if($conditionFields && $conditionFields.size() > 0)
+	    	#foreach($cf in $conditionFields)
+	    		#if($cf.like)
+	    		     $cf.type $cf.fieldName = conditions.get$cf.mfieldName$start$end;
+	    		     if(${cf.fieldName} != null && !${cf.fieldName}.equals(""))
+	    		     {
+	    		     	conditions.set$cf.mfieldName$start"%"+$cf.fieldName+"%"$end;
+	    		     }
+	    		#end
+	    	#end
+		#end
+	#end	    
+	ListInfo ${entityVarName}s = ${entityVarName}Service.queryListInfo${entityName}s(#if($needcondition)conditions,#end offset,pagesize);
 	model.addAttribute("${entityVarName}s", ${entityVarName}s);
 	return "path:queryListInfo${entityName}s";
 } catch ($exception e) {
@@ -37,7 +39,7 @@ try {
 }
 #elseif($componentType == 5)//webservice服务
 try {
-	ListInfo ${entityVarName}s = ${entityVarName}Service.queryListInfo${entityName}s(conditions,offset,pagesize);
+	ListInfo ${entityVarName}s = ${entityVarName}Service.queryListInfo${entityName}s(#if($needcondition)conditions,#end offset,pagesize);
 	return new RListInfo(${entityVarName}s);
 }
  catch ($exception e) {

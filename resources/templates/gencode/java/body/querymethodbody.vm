@@ -10,19 +10,20 @@ try{
 }
 #elseif($componentType == 2)
 try {
-
-    #if($conditionFields && $conditionFields.size() > 0)
-    	#foreach($cf in $conditionFields)
-    		#if($cf.like)
-    		     $cf.type ${cf.fieldName} = conditions.get$cf.mfieldName$start$end;
-    		     if(${cf.fieldName} != null && !${cf.fieldName}.equals(""))
-    		     {
-    		     	conditions.set$cf.mfieldName$start"%"+${cf.fieldName}+"%"$end;
-    		     }
-    		#end
-    	#end
-	#end    
-	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(conditions);
+	#if($needcondition)
+	    #if($conditionFields && $conditionFields.size() > 0)
+	    	#foreach($cf in $conditionFields)
+	    		#if($cf.like)
+	    		     $cf.type ${cf.fieldName} = conditions.get$cf.mfieldName$start$end;
+	    		     if(${cf.fieldName} != null && !${cf.fieldName}.equals(""))
+	    		     {
+	    		     	conditions.set$cf.mfieldName$start"%"+${cf.fieldName}+"%"$end;
+	    		     }
+	    		#end
+	    	#end
+		#end  
+	#end  
+	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition)conditions#end );
 	model.addAttribute("${entityVarName}s", ${entityVarName}s);
 	return "path:queryList${entityName}s";
 } catch ($exception e) {
@@ -32,7 +33,7 @@ try {
 }	
 #elseif($componentType == 5)//webservice服务
 try {
-	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(conditions);
+	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition)conditions#end );
 	return ${entityVarName}s;
 }
  catch ($exception e) {

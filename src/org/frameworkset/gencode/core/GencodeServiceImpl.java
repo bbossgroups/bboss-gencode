@@ -740,7 +740,10 @@ public class GencodeServiceImpl {
 		
 	}
 	
-	
+	public boolean needcondition()
+	{
+		return this.getConditions() != null && this.getConditions().size() > 0;
+	}
 	
 	private void genServiceInf(String serviceinfName,  String description,File serviceInf) throws Exception
 	{
@@ -759,6 +762,7 @@ public class GencodeServiceImpl {
 		 context.put("author", this.moduleMetaInfo.getAuthor());
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
+		 context.put("needcondition",this.needcondition());
 		 List<Method> methods = getMethods(0);
 		 context.put("methods", methods);
 	 
@@ -790,6 +794,7 @@ public class GencodeServiceImpl {
 		 context.put("author", this.moduleMetaInfo.getAuthor());
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
+		 context.put("needcondition",this.needcondition());
 		 List<Method> methods = getMethods(Constant.component_type_wsserviceinf);
 		 context.put("methods", methods);
 	 
@@ -847,7 +852,7 @@ public class GencodeServiceImpl {
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("componentType",Constant.component_type_serivceimpl);
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 
+		 context.put("needcondition",this.needcondition());
 		 List<Method> methods = getMethods(Constant.component_type_serivceimpl);
 		 context.put("methods", methods);
 		 
@@ -883,7 +888,7 @@ public class GencodeServiceImpl {
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("componentType",Constant.component_type_wsserivceimpl);
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 
+		 context.put("needcondition",this.needcondition());
 		 List<Method> methods = getMethods(Constant.component_type_wsserivceimpl);
 		 context.put("methods", methods);
 		 
@@ -916,6 +921,7 @@ public class GencodeServiceImpl {
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
 		 List<Method> methods = getMethods(2);
 		 context.put("methods", methods);
+		 context.put("needcondition",this.needcondition());
 		 context.put("conditionFields", this.conditions);
 	 
 		 writFile(context,serviceinftempalte,action,this.moduleMetaInfo.getEncodecharset());
@@ -1082,14 +1088,18 @@ public class GencodeServiceImpl {
 		
 		Method paginequery = new Method();//定义获取方法
 		paginequery.setMethodname("queryListInfo"+entityName+"s");
-		paginequery.setReturntype("String");		
+		paginequery.setReturntype("String");	
 		params = new ArrayList<MethodParam>();
-		param = new MethodParam();
+		if(this.needcondition())
+		{
 		
-//		param.addAnnotation(new Annotation("MapKey").addAnnotationParam("pattern","condition_*"));
-		param.setType(this.conditionEntityName);
-		param.setName("conditions");
-		params.add(param);
+			param = new MethodParam();
+			
+	//		param.addAnnotation(new Annotation("MapKey").addAnnotationParam("pattern","condition_*"));
+			param.setType(this.conditionEntityName);
+			param.setName("conditions");
+			params.add(param);
+		}
 		
 		
 		param = new MethodParam();		
@@ -1130,12 +1140,15 @@ public class GencodeServiceImpl {
 		query.setMethodname("queryList"+entityName+"s");
 		query.setReturntype("String");		
 		params = new ArrayList<MethodParam>();
-		param = new MethodParam();
-		
-		
-		param.setType(this.conditionEntityName);
-		param.setName("conditions");
-		params.add(param);
+		if(this.needcondition())
+		{
+			param = new MethodParam();
+			
+			
+			param.setType(this.conditionEntityName);
+			param.setName("conditions");
+			params.add(param);
+		}
 		param = new MethodParam();
 		param.setName("model");
 		param.setType("ModelMap");
@@ -1492,23 +1505,26 @@ public class GencodeServiceImpl {
 			 paginequery.addAnnotation(anno);
 		}
 		params = new ArrayList<MethodParam>();
-		param = new MethodParam();
-		
-		
-		param.setType(this.conditionEntityName);
-		param.setName("conditions");
-		if(classtype == Constant.component_type_wsserviceinf)
+		if(this.needcondition())
 		{
-			/**
-			 * name = "appid", partName = "partAppid"
-			 */
-			 Annotation anno = new Annotation();
-			 anno.setName("WebParam");
-			 anno.addAnnotationParam("name", "conditions");
-			 anno.addAnnotationParam("partName", "partConditions");
-			 param.addAnnotation(anno);
+			param = new MethodParam();
+			
+			
+			param.setType(this.conditionEntityName);
+			param.setName("conditions");
+			if(classtype == Constant.component_type_wsserviceinf)
+			{
+				/**
+				 * name = "appid", partName = "partAppid"
+				 */
+				 Annotation anno = new Annotation();
+				 anno.setName("WebParam");
+				 anno.addAnnotationParam("name", "conditions");
+				 anno.addAnnotationParam("partName", "partConditions");
+				 param.addAnnotation(anno);
+			}
+			params.add(param);
 		}
-		params.add(param);
 		
 		param = new MethodParam();
 		param.setType("long");
@@ -1576,23 +1592,26 @@ public class GencodeServiceImpl {
 			 query.addAnnotation(anno);
 		}
 		params = new ArrayList<MethodParam>();
-		param = new MethodParam();
-		
-		
-		param.setType(this.conditionEntityName);
-		param.setName("conditions");
-		if(classtype == Constant.component_type_wsserviceinf)
+		if(this.needcondition())
 		{
-			/**
-			 * name = "appid", partName = "partAppid"
-			 */
-			 Annotation anno = new Annotation();
-			 anno.setName("WebParam");
-			 anno.addAnnotationParam("name", "conditions");
-			 anno.addAnnotationParam("partName", "partConditions");
-			 param.addAnnotation(anno);
+			param = new MethodParam();
+			
+			
+			param.setType(this.conditionEntityName);
+			param.setName("conditions");
+			if(classtype == Constant.component_type_wsserviceinf)
+			{
+				/**
+				 * name = "appid", partName = "partAppid"
+				 */
+				 Annotation anno = new Annotation();
+				 anno.setName("WebParam");
+				 anno.addAnnotationParam("name", "conditions");
+				 anno.addAnnotationParam("partName", "partConditions");
+				 param.addAnnotation(anno);
+			}
+			params.add(param);
 		}
-		params.add(param);
 		query.setExceptions(exceptions);		
 		query.setParams(params);
 		 

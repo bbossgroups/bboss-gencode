@@ -98,18 +98,81 @@ var TableAdvanced = function () {
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
             jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-            jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
-            jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
+            jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
+            jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
+            jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
+            jqTds[7].innerHTML = '<a class="edit" href="">Save</a>';
+            jqTds[8].innerHTML = '<a class="cancel" href="">Cancel</a>';
         }
 
+       
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+            var dbname = jqInputs[0].value;
+            var dburl = jqInputs[1].value;
+            var dbdriver = jqInputs[2].value;
+            var dbuser = jqInputs[3].value;            
+            var dbpassword = jqInputs[4].value;
+            var validationQuery = jqInputs[5].value;
+            var dbdesc = jqInputs[6].value;
+            
+            $.ajax({
+     		   type: "POST",
+     			url : "addDatasource.page",
+     			data :{dbname:dbname,dburl:dburl,dbuser:dbuser,dbpassword:dbpassword,dbdesc:dbdesc,dbdriver:dbdriver,validationQuery:validationQuery},
+     			dataType : 'json',
+     			async:false,
+     			beforeSend: function(XMLHttpRequest){
+     				Metronic.startPageLoading();			 	
+     				},
+     			
+     				error : function(xhr, ajaxOptions, thrownError) {
+        				Metronic.stopPageLoading();
+        			},
+
+        			success : function(responseText, statusText, xhr, $form) {
+        				Metronic.stopPageLoading();
+
+        				var msg = responseText;
+        				 
+        				var title = '数据源保存';
+        				if (msg == 'success') {
+        					title = '数据源保存成功！';
+        					 
+        				} else
+        					title = responseText;
+
+        				toastr.options = {
+        					"closeButton" : true,
+        					"debug" : false,
+        					"positionClass" : "toast-top-center",
+        					"onclick" : null,
+        					"showDuration" : "0",
+        					"hideDuration" : "0",
+        					"timeOut" : "10000",
+        					"extendedTimeOut" : "0",
+        					"showEasing" : "swing",
+        					"hideEasing" : "linear",
+        					"showMethod" : "fadeIn",
+        					"hideMethod" : "fadeOut"
+        				};
+
+        				toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+        				ComponentsDropdowns.loadds(event,"dbname");
+        			}
+     				
+     		  });
+        	 
+           
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+            oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
+            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 8, false);
             oTable.fnDraw();
         }
 
@@ -119,11 +182,14 @@ var TableAdvanced = function () {
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
+            oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+            oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+            oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
             oTable.fnDraw();
         }
 
-        var table = $('#sample_editable_1');
+        var table = $('#ds_editable');
 
         var oTable = table.dataTable({
 
@@ -149,18 +215,16 @@ var TableAdvanced = function () {
                 "lengthMenu": " _MENU_ records"
             },
             "columnDefs": [{ // set default column settings
-                'orderable': true,
-                'targets': [0]
+                'orderable': false,
+                'targets': [0,1,2,3,4,5,6,7,8]
             }, {
-                "searchable": true,
+                "searchable": false,
                 "targets": [0]
             }],
-            "order": [
-                [0, "asc"]
-            ] // set first column as a default sort by asc
+            "order": [            ] // set first column as a default sort by asc
         });
 
-        var tableWrapper = $("#sample_editable_1_wrapper");
+        var tableWrapper = $("#ds_editable_wrapper");
 
         tableWrapper.find(".dataTables_length select").select2({
             showSearchInput: false //hide search box with special css class
@@ -169,7 +233,7 @@ var TableAdvanced = function () {
         var nEditing = null;
         var nNew = false;
 
-        $('#sample_editable_1_new').click(function (e) {
+        $('#ds_editable_new').click(function (e) {
             e.preventDefault();
 
             if (nNew && nEditing) {
@@ -188,7 +252,7 @@ var TableAdvanced = function () {
                 }
             }
 
-            var aiNew = oTable.fnAddData(['', '', '', '', '', '']);
+            var aiNew = oTable.fnAddData(['test','jdbc:oracle:thin:@//10.0.14.213:1521/orcl', 'oracle.jdbc.driver.OracleDriver', 'testpdp', 'testpdp', 'SELECT 1 from dual', '测试数据源', '', '']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow);
             nEditing = nRow;
@@ -203,8 +267,56 @@ var TableAdvanced = function () {
             }
 
             var nRow = $(this).parents('tr')[0];
+            var jqInputs = $('td', nRow);
+             var dbname = jqInputs[0].innerText;
             oTable.fnDeleteRow(nRow);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
+            $.ajax({
+      		   type: "POST",
+      			url : "deleteDatasource.page",
+      			data :{"dbname":dbname },
+      			dataType : 'json',
+      			async:false,
+      			beforeSend: function(XMLHttpRequest){
+      				Metronic.startPageLoading();			 	
+      				},
+      			
+      				error : function(xhr, ajaxOptions, thrownError) {
+         				Metronic.stopPageLoading();
+         			},
+
+         			success : function(responseText, statusText, xhr, $form) {
+         				Metronic.stopPageLoading();
+
+         				var msg = responseText;
+         				 
+         				var title = '删除数据源';
+         				if (msg == 'success') {
+         					title = '删除数据源成功！';
+         					 
+         				} else
+         					title = responseText;
+
+         				toastr.options = {
+         					"closeButton" : true,
+         					"debug" : false,
+         					"positionClass" : "toast-top-center",
+         					"onclick" : null,
+         					"showDuration" : "0",
+         					"hideDuration" : "0",
+         					"timeOut" : "10000",
+         					"extendedTimeOut" : "0",
+         					"showEasing" : "swing",
+         					"hideEasing" : "linear",
+         					"showMethod" : "fadeIn",
+         					"hideMethod" : "fadeOut"
+         				};
+
+         				toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+         				ComponentsDropdowns.loadds(event,"dbname");
+         			}
+      				
+      		  });
+            
         });
 
         table.on('click', '.cancel', function (e) {
@@ -234,7 +346,7 @@ var TableAdvanced = function () {
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
+              
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);
@@ -330,7 +442,7 @@ var TableAdvanced = function () {
 
             
             initTable5();
-            initDSTable();
+            //initDSTable();
             handleTable();
 
             //console.log('me 2');

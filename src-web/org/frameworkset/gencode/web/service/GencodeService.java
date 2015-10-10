@@ -18,6 +18,7 @@ package org.frameworkset.gencode.web.service;
 
 import java.util.List;
 
+import org.frameworkset.gencode.web.entity.Datasource;
 import org.frameworkset.gencode.web.entity.Gencode;
 import org.frameworkset.gencode.web.entity.GencodeCondition;
 
@@ -52,11 +53,23 @@ public interface GencodeService {
 
 	public Gencode getGencode(String id) throws GencodeException;
 
-	public ListInfo queryListInfoGencodes(GencodeCondition conditions,
-			long offset, int pagesize) throws GencodeException;
-
-	public List<Gencode> queryListGencodes(GencodeCondition conditions)
+	public ListInfo queryListInfoGencodes(GencodeCondition conditions, long offset, int pagesize)
 			throws GencodeException;
 
-	
+	public List<Gencode> queryListGencodes(GencodeCondition conditions) throws GencodeException;
+
+	public void addDatasource(Datasource datasource) throws DatasourceException;
+
+	public void deleteDatasource(String dbname) throws DatasourceException;
+
+
+	public void updateDatasource(Datasource datasource) throws DatasourceException;
+
+	public List<Datasource> queryListDatasources(
+
+	) throws DatasourceException;
+	public  Datasource getDatasource(
+			String dbname
+) 	throws 				DatasourceException;
+
 }
