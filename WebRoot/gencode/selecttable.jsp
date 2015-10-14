@@ -35,7 +35,8 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-3">数据源</label>
+							<label class="control-label col-md-3">数据源</label><span
+											class="required"> * </span>
 							<div class="col-md-9">
 								<select name="dbname" id="dbname" class="select2me form-control" onchange="ComponentsDropdowns.loadtables(event,'tableName')">
 								<pg:list requestKey="dbs">
@@ -67,9 +68,9 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<a href="javascript:void(0);"  class="btn blue" onclick="totableconfig('tableconfig',event)"> 进入表单配置</a>
+						<button type="submit" class="btn green"> 进入表单配置</button>
 						<a href="tableconfig.page"  class="btn blue ajaxify display-hide" id="tableconfig" formid="tableform"> 进入表单配置步骤</a>
-						<a href="javascript:void(0);"  class="btn blue" onclick="refreshdb('tableName',event)"> 刷新表结构</a>
+						<a href="javascript:void(0);"  class="btn blue" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>
 					</div>
 				</div>
 			</div>
@@ -93,92 +94,104 @@
 								</a>
 							</div>
 						</div>
-						<div class="portlet-body">
-							<div class="table-toolbar">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="btn-group">
-											<button id="ds_editable_new" class="btn green">
-											新增DS <i class="fa fa-plus"></i>
-											</button>
-										</div>
-									</div>
-									 
+						<div class="portlet-body form">
+						<form action="#" id="dsform" class="form-horizontal">
+							<div class="form-body">
+								<div class="alert alert-danger display-hide">
+									<button class="close" data-close="alert"></button>
+									You have some form errors. Please check below.
 								</div>
+								<div class="alert alert-success display-hide">
+									<button class="close" data-close="alert"></button>
+									Your form validation is successful!
+								</div>
+								<div class="table-toolbar">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="btn-group">
+												<button id="ds_editable_new" class="btn green">
+												新增DS <i class="fa fa-plus"></i>
+												</button>
+											</div>
+										</div>
+										 
+									</div>
+								</div>
+								<table class="table table-striped table-hover table-bordered" id="ds_editable">
+								<thead>
+								<tr>
+									
+									<th>
+										 数据源名称
+									</th>
+									<th>
+										 数据源地址
+									</th>
+									<th>
+										 数据源驱动
+									</th>
+									<th>
+										 数据源用户
+									</th>
+									<th>
+										 数据源口令
+									</th>
+									<th>
+										 数据源校验sql
+									</th>
+									<th>
+										 描述
+									</th>
+									<th >
+										 操作
+									</th>
+									<th >
+										 操作
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								<pg:list requestKey="dbs">
+								<tr>
+									
+									<td> 
+										 <pg:cell colName="dbname"/>
+									</td>
+									<td>
+										 <pg:cell colName="dburl"/>
+									</td>
+									<td>
+										 <pg:cell colName="dbdriver"/>
+									</td>
+									<td>
+										 <pg:cell colName="dbuser"/>
+									</td>
+									<td class="center">
+										 <pg:cell colName="dbpassword"/>
+									</td>
+									<td>
+										 <pg:cell colName="validationQuery"/>
+									</td>
+									<td class="center">
+										 <pg:cell colName="dbdesc"/>
+									</td>
+									<td>
+										<a class="edit" href="javascript:;">
+										Edit </a>
+									</td>
+									<td>
+										<a class="delete" href="javascript:;">
+										Delete </a>
+									</td>
+								</tr>
+										 
+									</pg:list>	
+								
+								
+								</tbody>
+								</table>
 							</div>
-							<table class="table table-striped table-hover table-bordered" id="ds_editable">
-							<thead>
-							<tr>
-								
-								<th>
-									 数据源名称
-								</th>
-								<th>
-									 数据源地址
-								</th>
-								<th>
-									 数据源驱动
-								</th>
-								<th>
-									 数据源用户
-								</th>
-								<th>
-									 数据源口令
-								</th>
-								<th>
-									 数据源校验sql
-								</th>
-								<th>
-									 描述
-								</th>
-								<th >
-									 操作
-								</th>
-								<th >
-									 操作
-								</th>
-							</tr>
-							</thead>
-							<tbody>
-							<pg:list requestKey="dbs">
-							<tr>
-								
-								<td> 
-									 <pg:cell colName="dbname"/>
-								</td>
-								<td>
-									 <pg:cell colName="dburl"/>
-								</td>
-								<td>
-									 <pg:cell colName="dbdriver"/>
-								</td>
-								<td>
-									 <pg:cell colName="dbuser"/>
-								</td>
-								<td class="center">
-									 <pg:cell colName="dbpassword"/>
-								</td>
-								<td>
-									 <pg:cell colName="validationQuery"/>
-								</td>
-								<td class="center">
-									 <pg:cell colName="dbdesc"/>
-								</td>
-								<td>
-									<a class="edit" href="javascript:;">
-									Edit </a>
-								</td>
-								<td>
-									<a class="delete" href="javascript:;">
-									Delete </a>
-								</td>
-							</tr>
-									 
-								</pg:list>	
-							
-							
-							</tbody>
-							</table>
+						</form>
 						</div>
 					</div>
 
@@ -290,4 +303,6 @@
 <!-- END PAGE CONTENT-->
 <script>jQuery(document).ready(function() {
  TableAdvanced.init();
+ FormValidation.initselecttableform();
+
 });

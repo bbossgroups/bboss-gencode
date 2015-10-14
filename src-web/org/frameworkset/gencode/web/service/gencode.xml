@@ -28,7 +28,7 @@
 <properties>
 	<property name="addDatasource">
 		<![CDATA[
-			insert into BBOSS_DATASOURCE (ID,dbdesc,DBNAME,DBPASSWORD,DBURL,DBUSER,DBDRIVER,validationQuery) values(#[id],#[dbdesc],#[dbname],#[dbpassword],#[dburl],#[dbuser],#[dbdriver],#[validationQuery])
+			insert into BBOSS_DATASOURCE (ID,dbdesc,DBNAME,DBPASSWORD,DBURL,DBUSER,DBDRIVER,validationQuery,CREATETIME ) values(#[id],#[dbdesc],#[dbname],#[dbpassword],#[dburl],#[dbuser],#[dbdriver],#[validationQuery],#[createDate])
 		]]>
 	</property>
 		<property name="deleteDSByKey">
@@ -38,7 +38,7 @@
 	</property>
 		<property name="updateDatasource">
 		<![CDATA[
-			update BBOSS_DATASOURCE set ID=#[id],dbdesc=#[dbdesc],DBNAME=#[dbname],DBPASSWORD=#[dbpassword],DBURL=#[dburl],DBUSER=#[dbuser],DBDRIVER=#[dbdriver],validationQuery=#[validationQuery]  where DBNAME=#[dbname]
+			update BBOSS_DATASOURCE set ID=#[id],dbdesc=#[dbdesc],DBNAME=#[dbname],DBPASSWORD=#[dbpassword],DBURL=#[dburl],DBUSER=#[dbuser],DBDRIVER=#[dbdriver],validationQuery=#[validationQuery],UPDATETIME=#[updateDate]  where DBNAME=#[dbname]
 		]]>
 	</property>
 		<property name="getDatasource">
@@ -52,6 +52,7 @@
 #if($sortKey && !$sortKey.equals(""))
 	order by $sortKey #if($sortDesc)desc#else asc#end
 #else
+ order by CREATETIME desc
 #end
 		]]>
 	</property>

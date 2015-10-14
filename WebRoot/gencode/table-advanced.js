@@ -94,19 +94,32 @@ var TableAdvanced = function () {
         function editRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-            jqTds[4].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[4] + '">';
-            jqTds[5].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[5] + '">';
-            jqTds[6].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[6] + '">';
+            jqTds[0].innerHTML = '<input type="text" id="dsdbname" name="dsdbname" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[1].innerHTML = '<input type="text" id="dsdburl" name="dsdburl" class="form-control input-small" value="' + aData[1] + '">';
+            jqTds[2].innerHTML = '<input type="text" id="dsdbdriver" name="dsdbdriver" class="form-control input-small" value="' + aData[2] + '">';
+            jqTds[3].innerHTML = '<input type="text" id="dsdbuser" name="dsdbuser" class="form-control input-small" value="' + aData[3] + '">';
+            jqTds[4].innerHTML = '<input type="text" id="dsdbpassword" name="dsdbpassword" class="form-control input-small" value="' + aData[4] + '">';
+            jqTds[5].innerHTML = '<input type="text" id="dsvalidationQuery" name="dsvalidationQuery" class="form-control input-small" value="' + aData[5] + '">';
+            jqTds[6].innerHTML = '<input type="text" id="dsdbdesc"  name="dsdbdesc"  class="form-control input-small" value="' + aData[6] + '">';
             jqTds[7].innerHTML = '<a class="edit" href="">Save</a>';
             jqTds[8].innerHTML = '<a class="cancel" href="">Cancel</a>';
+            FormValidation.initdsform();
         }
 
        
         function saveRow(oTable, nRow) {
+        	var dsform  = $("#dsform");
+        	  var validrs = dsform.valid() ;
+              
+              if(!validrs)
+              	return false;
+              else
+              {
+            	  
+            	  
+            	  var error1 = $('.alert-danger', dsform);
+            	  error1.hide();
+              }  
             var jqInputs = $('input', nRow);
             var dbname = jqInputs[0].value;
             var dburl = jqInputs[1].value;
@@ -115,7 +128,7 @@ var TableAdvanced = function () {
             var dbpassword = jqInputs[4].value;
             var validationQuery = jqInputs[5].value;
             var dbdesc = jqInputs[6].value;
-            
+          
             $.ajax({
      		   type: "POST",
      			url : "addDatasource.page",
@@ -238,6 +251,7 @@ var TableAdvanced = function () {
 
             if (nNew && nEditing) {
                 if (confirm("Previose row not saved. Do you want to save it ?")) {
+                	 
                     saveRow(oTable, nEditing); // save
                     $(nEditing).find("td:first").html("Untitled");
                     nEditing = null;
@@ -339,11 +353,13 @@ var TableAdvanced = function () {
 
             if (nEditing !== null && nEditing != nRow) {
                 /* Currently editing - but not this row - restore the old before continuing to edit mode */
+            	
                 restoreRow(oTable, nEditing);
                 editRow(oTable, nRow);
                 nEditing = nRow;
             } else if (nEditing == nRow && this.innerHTML == "Save") {
                 /* Editing this row and want to save it */
+            	 
                 saveRow(oTable, nEditing);
                 nEditing = null;
               

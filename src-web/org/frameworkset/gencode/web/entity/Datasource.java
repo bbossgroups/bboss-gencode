@@ -115,4 +115,20 @@ public class Datasource implements java.io.Serializable {
 	public void setValidationQuery(String validationQuery) {
 		this.validationQuery = validationQuery;
 	}
+
+	public long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
+	}
+
+	public long getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(long updateDate) {
+		this.updateDate = updateDate;
+	}
 }

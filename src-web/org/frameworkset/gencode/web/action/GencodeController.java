@@ -45,11 +45,16 @@ public class GencodeController {
 		try {
 			Datasource olddatasource =this.gencodeService.getDatasource(datasource.getDbname()); 
 			if(olddatasource == null)
+			{
 				gencodeService.addDatasource(datasource);
+				
+			}
 			else
 			{
 				DBUtil.stopPool(datasource.getDbname());
 				datasource.setId(olddatasource.getId());
+				datasource.setCreateDate(olddatasource.getCreateDate());
+				datasource.setUpdateDate(System.currentTimeMillis());
 				gencodeService.updateDatasource(datasource);
 			}
 			return "success";
