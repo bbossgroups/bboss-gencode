@@ -728,6 +728,7 @@ public class GencodeController {
 		moduleMetaInfo.setAuthor(controlInfo.getAuthor());// 程序作者
 		moduleMetaInfo.setCompany(controlInfo.getCompany());// 公司信息
 		moduleMetaInfo.setVersion(controlInfo.getVersion());// 版本信息
+		moduleMetaInfo.setJsppath(controlInfo.getJsppath());
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = format.format(new Date());
 		moduleMetaInfo.setDate(date);// 指定日期
@@ -738,6 +739,7 @@ public class GencodeController {
 		gencodeService.setExportExcel(gencodeService.getExcelVersion() != -1);
 		gencodeService.setTheme(controlInfo.getTheme());// 设置默认主题风格
 		gencodeService.setModuleMetaInfo(moduleMetaInfo);
+		
 		// 处理主键信息
 		handlePK(gencodeService, fields, controlInfo);
 		/************ 以下代码片段指定界面查询字段，以及查询条件组合方式、是否是模糊查询等 *******/

@@ -123,8 +123,8 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">jsp相对路径</label>
 										<div class="col-md-9">
-											<input id="sourcedir" name="sourcedir" type="text"
-												value="<pg:cell colName="sourcedir"/>" class="form-control"
+											<input id="jsppath" name="jsppath" type="text"
+												value="<pg:cell colName="jsppath"/>" class="form-control"
 												placeholder="jsp相对路径，相对于WebRoot，例如：/test/sss">
 										</div>
 									</div>

@@ -55,7 +55,7 @@ public class ModuleMetaInfo {
 	private String company;
 	private String author;
 	private String version;
-
+	private String jsppath;
 	
 	private boolean ignoreEntityFirstToken = false;
 	
@@ -195,6 +195,12 @@ public class ModuleMetaInfo {
 	}
 	public void setSystem(String system) {
 		this.system = system;
+	}
+	public String getJsppath() {
+		return jsppath;
+	}
+	public void setJsppath(String jsppath) {
+		this.jsppath = jsppath;
 	}
 	
 	

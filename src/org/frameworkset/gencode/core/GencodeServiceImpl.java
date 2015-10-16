@@ -233,11 +233,12 @@ public class GencodeServiceImpl {
 		}
 		this.rootdir = f;
 		modulePackage = moduleMetaInfo.getPackagePath().replace(".", "/") ;
-		modulePackage = modulePackage.endsWith("/") ? modulePackage + moduleMetaInfo.getModuleName():
-			modulePackage + "/" + moduleMetaInfo.getModuleName();
-		javamodulePackage = !moduleMetaInfo.getPackagePath().endsWith(".")? 
-						moduleMetaInfo.getPackagePath() + "." +moduleMetaInfo.getModuleName()
-						:moduleMetaInfo.getPackagePath() +moduleMetaInfo.getModuleName();
+//		modulePackage = modulePackage.endsWith("/") ? modulePackage + moduleMetaInfo.getModuleName():
+//			modulePackage + "/" + moduleMetaInfo.getModuleName();
+//		javamodulePackage = !moduleMetaInfo.getPackagePath().endsWith(".")? 
+//						moduleMetaInfo.getPackagePath() + "." +moduleMetaInfo.getModuleName()
+//						:moduleMetaInfo.getPackagePath() +moduleMetaInfo.getModuleName();
+		javamodulePackage = moduleMetaInfo.getPackagePath();
 		javaSourceDir = new File(this.rootdir,"src/"+modulePackage);
 		
 		if(!javaSourceDir.exists())
@@ -270,10 +271,21 @@ public class GencodeServiceImpl {
 		{
 			resourcedir.mkdirs();
 		}
-		if(this.moduleMetaInfo.getSystem() == null || this.moduleMetaInfo.getSystem().equals(""))
-			jspSourceDir = new File(this.rootdir,"WebRoot/"+ moduleMetaInfo.getModuleName());
+//		if(this.moduleMetaInfo.getSystem() == null || this.moduleMetaInfo.getSystem().equals(""))
+//			jspSourceDir = new File(this.rootdir,"WebRoot/"+ moduleMetaInfo.getModuleName());
+//		else
+//			jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName());
+		if(moduleMetaInfo.getJsppath() == null || moduleMetaInfo.getJsppath().trim().equals(""))
+		{
+			if(this.moduleMetaInfo.getSystem() == null || this.moduleMetaInfo.getSystem().equals(""))
+				jspSourceDir = new File(this.rootdir,"WebRoot/"+ moduleMetaInfo.getModuleName());
+			else
+				jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName());
+		}
 		else
-			jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName());
+		{
+			jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getJsppath());
+		}
 		if(!jspSourceDir.exists())
 		{
 			jspSourceDir.mkdirs();
