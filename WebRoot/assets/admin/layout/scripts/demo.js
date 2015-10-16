@@ -247,7 +247,7 @@ var Demo = function() {
         var sidebarPosOption = $('.sidebar-pos-option', panel).val();
         var sidebarStyleOption = $('.sidebar-style-option', panel).val();
         var sidebarMenuOption = $('.sidebar-menu-option', panel).val();
-
+      
         $('.layout-option, .page-header-option, .page-header-top-dropdown-style-option, .sidebar-option, .page-footer-option, .sidebar-pos-option, .sidebar-style-option, .sidebar-menu-option', panel).change(setLayout);
     };
 

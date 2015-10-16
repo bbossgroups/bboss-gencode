@@ -90,17 +90,7 @@
 								<!--/span-->
 							</div>
 							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label col-md-3">包路径<span
-											class="required"> * </span></label>
-										<div class="col-md-9">
-											<input id="packagePath" name="packagePath" type="text"
-												value="<pg:cell colName="packagePath"/>"
-												class="form-control" placeholder="包路径">
-										</div>
-									</div>
-								</div>
+								
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label col-md-3">源码存放路径<span
@@ -112,11 +102,42 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">包路径<span
+											class="required"> * </span></label>
+										<div class="col-md-9">
+											<input id="packagePath" name="packagePath" type="text"
+												value="<pg:cell colName="packagePath"/>"
+												class="form-control" placeholder="包路径,例如：org.bboss.test">
+										</div>
+									</div>
+								</div>
 								<!--/span-->
 
 								<!--/span-->
 							</div>
+							<div class="row">
+								
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">jsp相对路径</label>
+										<div class="col-md-9">
+											<input id="sourcedir" name="sourcedir" type="text"
+												value="<pg:cell colName="sourcedir"/>" class="form-control"
+												placeholder="jsp相对路径，相对于WebRoot，例如：/test/sss">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										
+									</div>
+								</div>
+								<!--/span-->
 
+								<!--/span-->
+							</div>
 							<div class="row">
 
 								<div class="col-md-6">

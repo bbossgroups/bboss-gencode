@@ -16,7 +16,6 @@
 
 package org.frameworkset.gencode.web.entity;
 
-import java.sql.Timestamp;
 import com.frameworkset.orm.annotation.Column;
 import com.frameworkset.orm.annotation.PrimaryKey;
 

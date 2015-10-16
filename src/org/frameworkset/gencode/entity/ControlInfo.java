@@ -11,6 +11,8 @@ public class ControlInfo {
 	 * jsp相对于WebRoot的存放根路径（可选）
 	 */
 	private String system;
+	private String jsppath;
+	
 	/**
 	 * 业务模块的名称，根据模块名称生成存放java源码、前端界面和资源文件、配置文件的存放目录
 	 */
@@ -193,6 +195,14 @@ public class ControlInfo {
 
 	public void setPrimaryKeyName(String primaryKeyName) {
 		this.primaryKeyName = primaryKeyName;
+	}
+
+	public String getJsppath() {
+		return jsppath;
+	}
+
+	public void setJsppath(String jsppath) {
+		this.jsppath = jsppath;
 	}
 
 	

@@ -20,12 +20,14 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Metronic | Page Layouts - Content Loading via Ajax</title>
+<title>BBoss Gencode</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <meta content="" name="description"/>
 <meta content="" name="author"/>
+<link rel="dns-prefetch" href="//localhost/">
+<link rel="dns-prerender" href="//localhost/">
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="../assets/global/fonts/font.css" rel="stylesheet" type="text/css"/>
 <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -49,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="../assets/admin/layout/css/themes/light2.css" rel="stylesheet" type="text/css"/>
 <link href="../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
@@ -73,7 +75,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="../templates/admin/index.html">
-			<img src="../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+			<img src="../assets/admin/layout/img/logo-invert.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 			</div>
@@ -543,7 +545,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span>
 						THEME COLOR </span>
 						<ul>
-							<li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default">
+							<li class="color-default  tooltips" data-style="default" data-container="body" data-original-title="Default">
 							</li>
 							<li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
 							</li>
@@ -553,7 +555,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</li>
 							<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
 							</li>
-							<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
+							<li class="color-light2 current tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
 							</li>
 						</ul>
 					</div>

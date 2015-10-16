@@ -2,10 +2,10 @@
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-	自动代码生成框架
+	首页
 </h3>
 
-<div class="portlet box green">
+<div class="portlet">
 	<div class="portlet-title">
 		<div class="caption">
 			<i class="fa fa-gift"></i>选择数据源和数据库表
@@ -35,8 +35,8 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-3">数据源</label><span
-											class="required"> * </span>
+							<label class="control-label col-md-3">数据源<span
+											class="required"> * </span></label>
 							<div class="col-md-9">
 								<select name="dbname" id="dbname" class="select2me form-control" onchange="ComponentsDropdowns.loadtables(event,'tableName')">
 								<pg:list requestKey="dbs">
@@ -50,7 +50,8 @@
 					<!--/span-->
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="control-label col-md-3">选择表 </label>
+							<label class="control-label col-md-3">选择表 <span
+											class="required"> * </span></label>
 										
 										
 							<div class="col-md-9">
@@ -68,9 +69,9 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<button type="submit" class="btn green"> 进入表单配置</button>
+						<button type="submit" class="btn blue"> 进入表单配置</button>
 						<a href="tableconfig.page"  class="btn blue ajaxify display-hide" id="tableconfig" formid="tableform"> 进入表单配置步骤</a>
-						<a href="javascript:void(0);"  class="btn blue" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>
+						<a href="javascript:void(0);"  class="btn default" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>
 					</div>
 				</div>
 			</div>
@@ -78,7 +79,7 @@
 	</div>
 </div>
 
-<div class="portlet box blue">
+<div class="portlet  ">
 						<div class="portlet-title">
 							<div class="caption">
 								<i class="fa fa-edit"></i>数据源管理
@@ -109,7 +110,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="btn-group">
-												<button id="ds_editable_new" class="btn green">
+												<button id="ds_editable_new" class="btn blue">
 												新增DS <i class="fa fa-plus"></i>
 												</button>
 											</div>
@@ -143,10 +144,10 @@
 										 描述
 									</th>
 									<th >
-										 操作
+										 编辑
 									</th>
 									<th >
-										 操作
+										 删除
 									</th>
 								</tr>
 								</thead>
@@ -197,7 +198,7 @@
 
 
 
-<div class="portlet box green-haze">
+<div class="portlet">
 						<div class="portlet-title">
 							<div class="caption">
 								<i class="fa fa-globe"></i>代码生成记录
