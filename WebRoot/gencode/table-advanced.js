@@ -266,7 +266,7 @@ var TableAdvanced = function () {
                 }
             }
 
-            var aiNew = oTable.fnAddData(['test','jdbc:oracle:thin:@//10.0.14.213:1521/orcl', 'oracle.jdbc.driver.OracleDriver', 'testpdp', 'testpdp', 'SELECT 1 from dual', '测试数据源', '', '']);
+            var aiNew = oTable.fnAddData(['test','jdbc:oracle:thin:@//localhost:1521/orcl', 'oracle.jdbc.driver.OracleDriver', 'testpdp', 'testpdp', 'SELECT 1 from dual', '测试数据源', '', '']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
             editRow(oTable, nRow);
             nEditing = nRow;

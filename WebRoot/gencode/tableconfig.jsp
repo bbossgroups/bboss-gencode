@@ -504,7 +504,7 @@
 											<td><input type="hidden" id="viewcontrolParams"
 												name="viewcontrolParams"
 												class="form-control  select2  input-small viewcontrolParams"
-												value="<pg:cell colName="viewcontrolParams" />"
+												value="<pg:cell colName="viewcontrolParams" defaultValue="显示"/>"
 												placeholder="显示"></td>
 											<td><input type="text"
 												placeholder="<pg:cell colName="fieldName"/>"
