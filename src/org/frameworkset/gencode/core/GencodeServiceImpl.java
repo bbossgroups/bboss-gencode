@@ -29,9 +29,6 @@ import org.frameworkset.gencode.entity.MethodParam;
 import org.frameworkset.gencode.entity.ModuleMetaInfo;
 import org.frameworkset.gencode.entity.SortField;
 
-import bboss.org.apache.velocity.Template;
-import bboss.org.apache.velocity.VelocityContext;
-
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.ColumnMetaData;
 import com.frameworkset.common.poolman.sql.TableMetaData;
@@ -41,6 +38,9 @@ import com.frameworkset.orm.engine.model.NameGenerator;
 import com.frameworkset.util.FileUtil;
 import com.frameworkset.util.SimpleStringUtil;
 import com.frameworkset.util.VelocityUtil;
+
+import bboss.org.apache.velocity.Template;
+import bboss.org.apache.velocity.VelocityContext;
 
 /**
  * 生成代码业务组件
@@ -74,6 +74,7 @@ public class GencodeServiceImpl {
 	private File updateJsp;
 	private File viewJsp;
 	private File webxmlFile;
+	private String jsppath;
 	private ModuleMetaInfo moduleMetaInfo;
 	private String exceptionName;
 	private String entityName;
@@ -231,6 +232,18 @@ public class GencodeServiceImpl {
 			FileUtil.deleteSubfiles(f.getAbsolutePath());
 			f.mkdirs();
 		}
+		this.jsppath = moduleMetaInfo.getJsppath();
+		if(jsppath != null )
+		{
+			jsppath = jsppath.trim();
+			if( !jsppath.startsWith("/"))
+				jsppath = "/"+jsppath;
+			
+			if( jsppath.endsWith("/"))
+				jsppath = jsppath.substring(0, jsppath.length() - 1);
+			
+			
+		}
 		this.rootdir = f;
 		modulePackage = moduleMetaInfo.getPackagePath().replace(".", "/") ;
 //		modulePackage = modulePackage.endsWith("/") ? modulePackage + moduleMetaInfo.getModuleName():
@@ -275,16 +288,23 @@ public class GencodeServiceImpl {
 //			jspSourceDir = new File(this.rootdir,"WebRoot/"+ moduleMetaInfo.getModuleName());
 //		else
 //			jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName());
-		if(moduleMetaInfo.getJsppath() == null || moduleMetaInfo.getJsppath().trim().equals(""))
+		if(jsppath == null )
 		{
 			if(this.moduleMetaInfo.getSystem() == null || this.moduleMetaInfo.getSystem().equals(""))
+			{
 				jspSourceDir = new File(this.rootdir,"WebRoot/"+ moduleMetaInfo.getModuleName());
+				this.relativePath =  "/"+moduleMetaInfo.getModuleName();
+			}
 			else
+			{
+				this.relativePath =   "/"+this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName();
 				jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName());
+			}
 		}
 		else
 		{
-			jspSourceDir = new File(this.rootdir,"WebRoot/"+ this.moduleMetaInfo.getJsppath());
+			this.relativePath = jsppath;
+			jspSourceDir = new File(this.rootdir,SimpleStringUtil.getRealPath("WebRoot", jsppath));
 		}
 		if(!jspSourceDir.exists())
 		{
@@ -292,12 +312,12 @@ public class GencodeServiceImpl {
 		}
 		if(this.moduleMetaInfo.getSystem() == null || this.moduleMetaInfo.getSystem().equals(""))
 		{
-			this.relativePath = moduleMetaInfo.getModuleName();
+			
 			this.namespacei18n = moduleMetaInfo.getModuleName();
 		}
 		else
 		{
-			this.relativePath =   this.moduleMetaInfo.getSystem() + "/"+moduleMetaInfo.getModuleName();
+			
 			namespacei18n =this.moduleMetaInfo.getSystem() + "."+moduleMetaInfo.getModuleName();
 		}
 		
@@ -1842,6 +1862,8 @@ import com.frameworkset.util.StringUtil;
 
 	public static void main(String[] args)
 	{
+		String jsppath = "aaa/";
+		jsppath =		jsppath.substring(0, jsppath.length() - 1);
 		 List inputs = new ArrayList(2);
          inputs.add("td_tableinfo_name");
          inputs.add( NameGenerator.CONV_METHOD_UNDERSCORE);
@@ -2190,5 +2212,13 @@ import com.frameworkset.util.StringUtil;
 
 	public void setNeedDateComponent(boolean needDateComponent) {
 		this.needDateComponent = needDateComponent;
+	}
+
+	public String getJsppath() {
+		return jsppath;
+	}
+
+	public void setJsppath(String jsppath) {
+		this.jsppath = jsppath;
 	}
 }

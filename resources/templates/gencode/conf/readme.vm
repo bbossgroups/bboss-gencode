@@ -10,7 +10,7 @@
 	i18n:en_US="$moduleName demo" id="${moduleName}Manage"  showleftmenu="true" menuType="type1">
 	<top>header.page</top>
 	<workspace>
-		<content>/$relativePath/index.page</content>
+		<content>$relativePath/index.page</content>
 	</workspace>
 </item> 
 

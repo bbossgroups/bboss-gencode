@@ -70,7 +70,7 @@
 										<div class="col-md-9">
 											<input id="moduleName" name="moduleName" type="text"
 												value="<pg:cell colName="moduleName"/>" class="form-control"
-												placeholder="模块名称">
+												placeholder="模块名称,国际化命名空间用到，mvc配置文件存放目录和名称用到">
 										</div>
 									</div>
 								</div>
