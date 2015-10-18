@@ -162,10 +162,10 @@
 														<pg:equal value="default">selected</pg:equal>>default</option>
 													<option value="common"
 														<pg:equal value="common">selected</pg:equal>>common</option>
-													<option value="bootstrap"
-														<pg:equal value="bootstrap">selected</pg:equal>>bootstrap</option>
-													<option value="mobile"
-														<pg:equal value="default">mobile</pg:equal>>mobile</option>
+<!-- 													<option value="bootstrap" -->
+<!-- 														<pg:equal value="bootstrap">selected</pg:equal>>bootstrap</option> -->
+<!-- 													<option value="mobile" -->
+<!-- 														<pg:equal value="default">mobile</pg:equal>>mobile</option> -->
 												</pg:case>
 											</select>
 										</div>
