@@ -14,6 +14,7 @@
 		path:index="/gencode/main.jsp"
 		path:tableconfig="/gencode/tableconfig.jsp"
 		path:selecttable="/gencode/selecttable.jsp"
+		path:genlist="/gencode/genlist.jsp"
 		f:gencodeService="attr:gencode.gencodeService"
 		class="org.frameworkset.gencode.web.action.GencodeController" >
 	</property>

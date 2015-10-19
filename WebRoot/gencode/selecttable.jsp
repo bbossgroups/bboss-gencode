@@ -94,6 +94,23 @@
 								<a href="javascript:;" class="remove">
 								</a>
 							</div>
+							<div class="actions">
+								<div class="btn-group">
+									<a class="btn default" href="#" data-toggle="dropdown">
+									Columns <i class="fa fa-angle-down"></i>
+									</a>
+									<div id="ds_editable_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+										
+										<label><input type="checkbox" checked data-column="0"><pg:message code="数据源名称"/></label>
+										<label><input type="checkbox" checked data-column="1"><pg:message code="数据源地址"/></label>
+										<label><input type="checkbox" checked data-column="2"><pg:message code="数据源驱动"/></label>
+										<label><input type="checkbox" checked data-column="3"><pg:message code="数据源用户"/></label>
+										<label><input type="checkbox" checked data-column="4"><pg:message code="数据源口令"/></label>
+										<label><input type="checkbox" checked data-column="5"><pg:message code="数据源校验sql"/></label>
+										<label><input type="checkbox" checked data-column="6"><pg:message code="描述"/></label>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="portlet-body form">
 						<form action="#" id="dsform" class="form-horizontal">
@@ -196,25 +213,29 @@
 						</div>
 					</div>
 
-
-
 <div class="portlet">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-globe"></i>代码生成记录
+								<i class="fa fa-gift"></i>代码生成记录
 							</div>
 							<div class="tools">
-								<a href="javascript:;" class="collapse"> </a> <a
-									href="#portlet-config" data-toggle="modal" class="config"> </a> <a
-									href="javascript:;" class="reload"> </a> <a href="javascript:;"
-									class="remove"> </a>
+								<a href="#" class="collapse">
+								</a>
+								<a href="#portlet-config" data-toggle="modal" class="config">
+								</a>
+								<a href="#" id="reloadbuttom" data-url="genlist.page" class="reload">
+								</a>
+								<a href="#" class="fullscreen">
+								</a>
+								<a href="#" class="remove">
+								</a>
 							</div>
 							<div class="actions">
 								<div class="btn-group">
 									<a class="btn default" href="#" data-toggle="dropdown">
 									Columns <i class="fa fa-angle-down"></i>
 									</a>
-									<div id="sample_5_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+									<div id="gencodelist_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
 										
 										<label><input type="checkbox" checked data-column="2"><pg:message code="gencode.author"/></label>
 										<label><input type="checkbox" checked data-column="3"><pg:message code="gencode.company"/></label>
@@ -226,61 +247,11 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="portlet-body">
-							<table class="table table-striped table-hover" id="sample_5">
-							<thead>
-							<tr>
-								<th class="table-checkbox">
-									<input type="checkbox" id="group-checkable" data-set="#sample_5 .checkboxes"/>
-								</th>
-								
-								<th>序号</th>							
-					       	     		
-					       		<th><pg:message code="gencode.author"/></th>       		
-					       		<th class="hidden-xs"><pg:message code="gencode.company"/></th> 
-					       		<th class="hidden-xs"><pg:message code="gencode.dbname"/></th> 
-					       		<th class="hidden-xs"><pg:message code="gencode.tablename"/></th>    
-					       		<th class="hidden-xs"><pg:message code="gencode.createtime"/></th>        		
-					       		<th class="hidden-xs"><pg:message code="gencode.updatetime"/></th>       		
-								<th>操作</th>
-								
-								
-							</tr>
-							</thead>
-							<tbody>
-							<pg:list requestKey="gencodes">
-	
-					   		<tr >
-					   			<td>
-									<input name="cked" type="checkbox" class="checkboxes" value="<pg:cell colName="id" />"/>
-									<input id="id" type="hidden" name="id" value="<pg:cell colName="id" />"/>
-								</td>
-								<td><pg:rowid increament="1" offset="false"/></td>    
-				               
-				                <td><pg:cell colName="author"/></td>
-				                <td><pg:cell colName="company"/></td>
-				               
-				                <td><pg:cell colName="dbname"/></td>
-				                <td><pg:cell colName="tablename"/></td>
-				                 <td><pg:cell colName="createtime" dateformat="yyyy-MM-dd HH:mm:ss"/></td>
-				                <td><pg:cell colName="updatetime" dateformat="yyyy-MM-dd HH:mm:ss"/></td>				        		
-				                <td >
-				                <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
-										<i class="fa fa-edit"></i> 编辑 </a>
-								<a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
-										<i class="fa fa-edit"></i>下载 </a>
-								 <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs black">
-										<i class="fa fa-trash-o"></i> 删除 </a>
-				                </td>    
-			                 
-	        				</tr>
-							</pg:list>
-							
-							</tbody>
-							</table>
+						<div class="portlet-body portlet-empty">
 						</div>
 					</div>
+
+
 
 <div class="note note-success">
 							<h4 class="block">自动代码生成框架功能说明</h4>

@@ -18,11 +18,20 @@ var ComponentsDropdowns = function () {
                 success: function (tables) {
                 	 Metronic.stopPageLoading();
                 	 var hcontent = "";
+                	 var t = '';
                 	 for(var table in tables)
                 	{
                 		 hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
+                		 if(t == '')
+                			 t = tables[table];
                 	}
-                    $("#"+targetE).html(hcontent);
+                	var e = $("#"+targetE); 
+                    e.html(hcontent);
+                    e.select2({
+                        placeholder: "Select",
+                        allowClear: true
+                    });
+                   
                     
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -50,6 +59,10 @@ var ComponentsDropdowns = function () {
                 		 hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
                 	}
                     $("#tableName").html(hcontent);
+                    $("#tableName").select2({
+                        placeholder: "Select",
+                        allowClear: true
+                    });
                     
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -82,6 +95,11 @@ var ComponentsDropdowns = function () {
 	            	}
 	            	 
 	                $("#"+targetE).html(hcontent);
+	                $("#"+targetE).select2({
+                        placeholder: "Select",
+                        allowClear: true
+                    });
+                   
 	                ComponentsDropdowns.loadtablesofdbname(dbname)
 	                
 	            },

@@ -834,5 +834,25 @@ public class GencodeController {
 	public String formlist(ModelMap model) {
 		return "path:formlist";
 	}
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	public String genlist(ModelMap model, GencodeCondition conditions)
+	{
+		String tablename = conditions.getTablename();
+		if (tablename != null && !tablename.equals("")) {
+			conditions.setTablename("%" + tablename + "%");
+		}
+		String author = conditions.getAuthor();
+		if (author != null && !author.equals("")) {
+			conditions.setAuthor("%" + author + "%");
+		}
+		List<Gencode> gencodes = gencodeService.queryListGencodes(conditions);
+	
+		model.addAttribute("gencodes", gencodes);
+		return "path:genlist";
+	}
 
 }
