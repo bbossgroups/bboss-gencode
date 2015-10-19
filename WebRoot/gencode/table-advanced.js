@@ -36,7 +36,7 @@ var TableAdvanced = function () {
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
-            "pageLength": 10 // set the initial value            
+            "pageLength": 5 // set the initial value            
         });
 
         $('#group-checkable').change(function () {
@@ -222,7 +222,7 @@ var TableAdvanced = function () {
             //},
 
             // set the initial value
-            "pageLength": 10,
+            "pageLength": 5,
 
             "language": {
                 "lengthMenu": " _MENU_ records"
@@ -401,7 +401,7 @@ var TableAdvanced = function () {
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
-            "pageLength": 10 // set the initial value            
+            "pageLength": 5 // set the initial value            
         });
 
         $('#ds-group-checkable').change(function () {
