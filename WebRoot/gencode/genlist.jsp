@@ -1,5 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8" session="false"%>
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
+<div id="ajax-modal" class="modal  container fade" tabindex="-1">
+</div>
+<a id="downfile" target="_blank"/>
 <table class="table table-striped table-hover" id="gencodelist">
 							<thead>
 							<tr>
@@ -40,8 +43,13 @@
 				                <td >
 				                <a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
 										<i class="fa fa-edit"></i> 编辑 </a>
-								<a href="javascript:void(0)" onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)" class="btn default btn-xs purple">
-										<i class="fa fa-edit"></i>下载 </a>
+								<pg:true colName="fileexist">		
+									<a href="javascript:void(0)" onclick="TableAdvanced.readme('<pg:cell colName="id" />',event)" class="btn default btn-xs purple">
+											<i class="fa fa-edit"></i>查看部署说明</a>	
+												
+									<a  target="_blank" href="downcode.page?genid=<pg:cell colName="id" />" class="btn default btn-xs purple">
+											<i class="fa fa-edit"></i>下载 </a>
+								</pg:true>		
 								 <a href="javascript:void(0)" onclick="TableAdvanced.deletegencode('<pg:cell colName="id" />',event)" class="btn default btn-xs black">
 										<i class="fa fa-trash-o"></i> 删除 </a>
 				                </td>    
@@ -54,6 +62,6 @@
 							
 							<script>jQuery(document).ready(function() {
 							 TableAdvanced.initgencodelist();
-							  
+							 UIExtendedModals.init();
 							
 							});

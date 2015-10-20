@@ -158,8 +158,15 @@ public class GencodeServiceImpl {
 			 genI18N();
 		 }
 		 genReadme();
-		 
+		 genzipfile();
 		return "success";
+	}
+	private void genzipfile()
+	{
+		 File zip = new File(this.moduleMetaInfo.getSourcedir(), this.moduleMetaInfo.getModuleName() + ".zip");
+			if(zip.exists())
+				zip.delete();
+			FileUtil.zip(new File(this.moduleMetaInfo.getSourcedir(), this.moduleMetaInfo.getModuleName()), zip);
 	}
 	
 	private void genI18N()

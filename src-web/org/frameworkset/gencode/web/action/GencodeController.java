@@ -1,5 +1,12 @@
 package org.frameworkset.gencode.web.action;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 import org.frameworkset.gencode.core.GencodeServiceImpl;
@@ -32,6 +41,7 @@ import org.frameworkset.web.servlet.ModelMap;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.TableMetaData;
+import com.frameworkset.util.FileUtil;
 import com.frameworkset.util.ListInfo;
 import com.frameworkset.util.SimpleStringUtil;
 import com.frameworkset.util.StringUtil;
@@ -43,14 +53,11 @@ public class GencodeController {
 	public @ResponseBody String addDatasource(Datasource datasource) {
 		// 控制器
 		try {
-			Datasource olddatasource =this.gencodeService.getDatasource(datasource.getDbname()); 
-			if(olddatasource == null)
-			{
+			Datasource olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
+			if (olddatasource == null) {
 				gencodeService.addDatasource(datasource);
-				
-			}
-			else
-			{
+
+			} else {
 				DBUtil.stopPool(datasource.getDbname());
 				datasource.setId(olddatasource.getId());
 				datasource.setCreateDate(olddatasource.getCreateDate());
@@ -83,12 +90,6 @@ public class GencodeController {
 
 	}
 
-
-
-	
-
-
-
 	public String queryListDatasources(
 
 	ModelMap model) throws DatasourceException {
@@ -104,16 +105,11 @@ public class GencodeController {
 		}
 
 	}
-	
+
 	public @ResponseBody List<Datasource> loadds() {
-		
-		
+
 		return this.gencodeService.queryListDatasources();
 	}
-
-
-	
- 
 
 	public @ResponseBody String deleteGencode(String id) {
 		try {
@@ -227,8 +223,6 @@ public class GencodeController {
 		}
 		return tables;
 	}
-	
-	
 
 	public @ResponseBody List<String> refreshtables(String dbname) {
 		initDatasource(gencodeService.getDatasource(dbname));
@@ -243,20 +237,20 @@ public class GencodeController {
 		return tables;
 	}
 
-	private void initDatasource(Datasource ds)
-	{
-		DBUtil.startNoPool(ds.getDbname(), ds.getDbdriver(), ds.getDburl(), ds.getDbuser(),ds.getDbpassword(), ds.getValidationQuery());
+	private void initDatasource(Datasource ds) {
+		DBUtil.startNoPool(ds.getDbname(), ds.getDbdriver(), ds.getDburl(), ds.getDbuser(), ds.getDbpassword(),
+				ds.getValidationQuery());
 	}
+
 	public String selecttable(ModelMap model, GencodeCondition conditions) {
 		List<Datasource> ds = gencodeService.queryListDatasources();
 		model.addAttribute("dbs", ds);
 		Set<TableMetaData> tableMetas = null;
-		if(ds != null && ds.size() > 0)
-		{
+		if (ds != null && ds.size() > 0) {
 			initDatasource(ds.get(0));
 			tableMetas = DBUtil.getTableMetaDatas(ds.get(0).getDbname());
 		}
-		
+
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
 			for (TableMetaData meta : tableMetas) {
@@ -272,10 +266,10 @@ public class GencodeController {
 			conditions.setAuthor("%" + author + "%");
 		}
 		List<Gencode> gencodes = gencodeService.queryListGencodes(conditions);
-	
+
 		model.addAttribute("gencodes", gencodes);
 		model.addAttribute("tables", tables);
-	 
+
 		return "path:selecttable";
 	}
 
@@ -739,7 +733,7 @@ public class GencodeController {
 		gencodeService.setExportExcel(gencodeService.getExcelVersion() != -1);
 		gencodeService.setTheme(controlInfo.getTheme());// 设置默认主题风格
 		gencodeService.setModuleMetaInfo(moduleMetaInfo);
-		
+
 		// 处理主键信息
 		handlePK(gencodeService, fields, controlInfo);
 		/************ 以下代码片段指定界面查询字段，以及查询条件组合方式、是否是模糊查询等 *******/
@@ -834,13 +828,13 @@ public class GencodeController {
 	public String formlist(ModelMap model) {
 		return "path:formlist";
 	}
+
 	/**
 	 * 
 	 * @param model
 	 * @return
 	 */
-	public String genlist(ModelMap model, GencodeCondition conditions)
-	{
+	public String genlist(ModelMap model, GencodeCondition conditions) {
 		String tablename = conditions.getTablename();
 		if (tablename != null && !tablename.equals("")) {
 			conditions.setTablename("%" + tablename + "%");
@@ -850,9 +844,97 @@ public class GencodeController {
 			conditions.setAuthor("%" + author + "%");
 		}
 		List<Gencode> gencodes = gencodeService.queryListGencodes(conditions);
-	
+		for (int i = 0; gencodes != null && i < gencodes.size(); i++) {
+			Gencode gencode = gencodes.get(i);
+
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
+				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + "/readme.txt");
+				if (f.exists()) {
+					gencode.setFileexist(true);
+				}
+			}
+		}
+
 		model.addAttribute("gencodes", gencodes);
 		return "path:genlist";
 	}
+
+	public @ResponseBody String deletegencode(String genid) {
+
+		Gencode gencode = gencodeService.getGencode(genid);
+		if (gencode == null) {
+			return "norecord";
+		} else {
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
+				File f = new File(controlInfo.getSourcedir());
+				FileUtil.deleteFile(f.getAbsolutePath());
+			}
+			gencodeService.deleteGencode(genid);
+		}
+		return "success";
+	}
+
+	public String readme(String genid, ModelMap model) {
+		Gencode gencode = gencodeService.getGencode(genid);
+		if (gencode == null) {
+			model.addAttribute("msg", "norecord");
+			model.addAttribute("modulename", "");
+		} else {
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
+					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
+			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
+				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + "/readme.txt");
+				if (!f.exists()) {
+					model.addAttribute("msg", "nofile:" + f.getAbsolutePath());
+				} else {
+
+					String content = null;
+					try {
+						content = FileUtil.getFileContent(f, "UTF-8");
+						model.addAttribute("readme", StringUtil.HTMLEncode(content));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						log.error("readme failed:", e);
+						model.addAttribute("msg", StringUtil.exceptionToString(e));
+					}
+
+				}
+			} else {
+				model.addAttribute("msg", "nofile");
+			}
+		}
+		return "path:readme";
+	}
+
+	public @ResponseBody File downcode(String genid) {
+		Gencode gencode = gencodeService.getGencode(genid);
+		if (gencode == null) {
+			return null;
+		} else {
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
+
+				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName());
+				if (!f.exists()) {
+					return null;
+				} else {
+					File ret = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + ".zip");
+					if(ret.exists())
+						return ret;
+					FileUtil.zip(f, ret);
+					return ret;
+				}
+					
+			} else {
+				return null;
+			}
+		}
+	}
+	
+
+	
 
 }

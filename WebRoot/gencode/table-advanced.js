@@ -1,6 +1,61 @@
 var TableAdvanced = function () {
 
+	var  deletegencode = function(genid,event)
+	{
+		$.ajax({
+  		   type: "POST",
+  			url : "deletegencode.page",
+  			data :{genid:genid},
+  			dataType : 'json',
+  			async:false,
+  			beforeSend: function(XMLHttpRequest){
+  				Metronic.startPageLoading();			 	
+  				},
+  			
+  				error : function(xhr, ajaxOptions, thrownError) {
+     				Metronic.stopPageLoading();
+     			},
 
+     			success : function(responseText, statusText, xhr, $form) {
+     				Metronic.stopPageLoading();
+
+     				var msg = responseText;
+     				 
+     				var title = '记录删除';
+     				if (msg == 'success') {
+     					title = '记录删除成功！';
+     					ComponentsDropdowns.loadds(event,"dbname");
+     					$('#reloadbuttom').click();
+     				}
+     				else if (msg == 'norecord') {
+     					title = '要删除的记录不存在！';
+     					 
+     				} 
+     					
+     				else
+     					title = responseText;
+
+     				toastr.options = {
+     					"closeButton" : true,
+     					"debug" : false,
+     					"positionClass" : "toast-top-center",
+     					"onclick" : null,
+     					"showDuration" : "0",
+     					"hideDuration" : "0",
+     					"timeOut" : "10000",
+     					"extendedTimeOut" : "0",
+     					"showEasing" : "swing",
+     					"hideEasing" : "linear",
+     					"showMethod" : "fadeIn",
+     					"hideMethod" : "fadeOut"
+     				};
+
+     				toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+     				
+     			}
+  				
+  		  });
+	};
     var initgencodelist = function () {
 
         var table = $('#gencodelist');
@@ -211,7 +266,7 @@ var TableAdvanced = function () {
             // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
             // So when dropdowns used the scrollable div should be removed. 
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-
+        	paging:false,
             "lengthMenu": [
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
@@ -477,7 +532,41 @@ var TableAdvanced = function () {
         {
         	initgencodelist();
         }
-        
+        ,
+        deletegencode:function(genid,event)
+        {
+        	 deletegencode(genid,event)
+        }
+        ,
+        readme:function(genid,event)
+        {
+        	 $('body').modalmanager('loading');
+        	 var $modal = $('#ajax-modal');
+
+             setTimeout(function(){
+                 $modal.load('readme.page?genid='+genid, '', function(){
+                 $modal.modal();
+               });
+             }, 1000);
+             
+             $modal.on('click', '.update', function(){
+                 $modal.modal('loading');
+                 setTimeout(function(){
+                   $modal
+                     .modal('loading')
+                     .find('.modal-body')
+                       .prepend('<div class="alert alert-info fade in">' +
+                         'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                       '</div>');
+                 }, 1000);
+               });
+        },
+        downcode:function(genid,event)
+        {
+        	var a =  $('#downfile');
+        	 a.attr("href","downcode.page?genid="+genid);
+        	 a.click();
+        }
         
 
     };

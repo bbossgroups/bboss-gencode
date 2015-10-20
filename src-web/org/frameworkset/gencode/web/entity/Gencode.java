@@ -50,6 +50,7 @@ public class Gencode implements java.io.Serializable {
 	private String fieldinfos;
 	private String tablename;
 	private long updatetime;
+	private boolean fileexist;
 
 	public Gencode() {
 	}
@@ -124,5 +125,13 @@ public class Gencode implements java.io.Serializable {
 
 	public long getUpdatetime() {
 		return updatetime;
+	}
+
+	public boolean isFileexist() {
+		return fileexist;
+	}
+
+	public void setFileexist(boolean fileexist) {
+		this.fileexist = fileexist;
 	}
 }
