@@ -11,7 +11,7 @@
 								</th>
 								
 								<th>序号</th>							
-					       	     		
+					       	    <th>代码模块</th>       		 		
 					       		<th><pg:message code="gencode.author"/></th>       		
 					       		<th class="hidden-xs"><pg:message code="gencode.company"/></th> 
 					       		<th class="hidden-xs"><pg:message code="gencode.dbname"/></th> 
@@ -32,7 +32,7 @@
 									<input id="id" type="hidden" name="id" value="<pg:cell colName="id" />"/>
 								</td>
 								<td><pg:rowid increament="1" offset="false"/></td>    
-				               
+				               <td><pg:cell colName="moudleName"/> <pg:cell colName="moudleCNName"/></td>
 				                <td><pg:cell colName="author"/></td>
 				                <td><pg:cell colName="company"/></td>
 				               

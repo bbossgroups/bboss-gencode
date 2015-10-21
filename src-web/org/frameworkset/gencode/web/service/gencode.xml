@@ -58,7 +58,7 @@
 	</property>
 		<property name="addGencode">
 		<![CDATA[
-			insert into BBOSS_GENCODE (ID,AUTHOR,COMPANY,CONTROLPARAMS,CREATETIME,DBNAME,FIELDINFOS,TABLENAME,UPDATETIME) values(#[id],#[author],#[company],#[controlparams],#[createtime],#[dbname],#[fieldinfos],#[tablename],#[updatetime])
+			insert into BBOSS_GENCODE (ID,AUTHOR,COMPANY,CONTROLPARAMS,CREATETIME,DBNAME,FIELDINFOS,TABLENAME,UPDATETIME,moudleCNName,moudleName) values(#[id],#[author],#[company],#[controlparams],#[createtime],#[dbname],#[fieldinfos],#[tablename],#[updatetime],#[moudleCNName], #[moudleName])
 		]]>
 	</property>
 		<property name="deleteByKey">
@@ -68,7 +68,7 @@
 	</property>
 		<property name="updateGencode">
 		<![CDATA[
-			update BBOSS_GENCODE set ID=#[id],AUTHOR=#[author],COMPANY=#[company],CONTROLPARAMS=#[controlparams],CREATETIME=#[createtime],DBNAME=#[dbname],FIELDINFOS=#[fieldinfos],TABLENAME=#[tablename],UPDATETIME=#[updatetime] where ID=#[id]
+			update BBOSS_GENCODE set ID=#[id],AUTHOR=#[author],COMPANY=#[company],CONTROLPARAMS=#[controlparams],CREATETIME=#[createtime],DBNAME=#[dbname],FIELDINFOS=#[fieldinfos],TABLENAME=#[tablename],UPDATETIME=#[updatetime],moudleCNName=#[moudleCNName],moudleName=#[moudleName] where ID=#[id]
 		]]>
 	</property>
 		<property name="selectById">
@@ -82,7 +82,7 @@
 				      COMPANY ,
 				      CREATETIME ,
 				      UPDATETIME ,
-				      CONTROLPARAMS from BBOSS_GENCODE where 1=1
+				      CONTROLPARAMS,moudleCNName,moudleName from BBOSS_GENCODE where 1=1
 #if($tablename && !$tablename.equals(""))
 	and TABLENAME like #[tablename]		
 #end

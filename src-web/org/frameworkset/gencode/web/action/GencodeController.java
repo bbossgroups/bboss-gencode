@@ -792,6 +792,8 @@ public class GencodeController {
 			gencode.setUpdatetime(gencode.getCreatetime());
 			gencode.setControlparams(ObjectSerializable.toXML(controlInfo));
 			gencode.setFieldinfos(ObjectSerializable.toXML(fields));
+			gencode.setMoudleCNName(controlInfo.getModuleCNName());
+			gencode.setMoudleName(controlInfo.getModuleName());
 			if (gencodeid == null || gencodeid.equals("")) {
 				gencodeService.addGencode(gencode);
 				ret.put("gencodeid", gencode.getId());

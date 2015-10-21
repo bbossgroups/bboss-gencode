@@ -236,13 +236,13 @@
 									Columns <i class="fa fa-angle-down"></i>
 									</a>
 									<div id="gencodelist_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
-										
-										<label><input type="checkbox" checked data-column="2"><pg:message code="gencode.author"/></label>
-										<label><input type="checkbox" checked data-column="3"><pg:message code="gencode.company"/></label>
-										<label><input type="checkbox" checked data-column="4"><pg:message code="gencode.tablename"/></label>
-										<label><input type="checkbox" checked data-column="5"><pg:message code="gencode.dbname"/></label>
-										<label><input type="checkbox" checked data-column="6"><pg:message code="gencode.createtime"/></label>
-										<label><input type="checkbox" checked data-column="7"><pg:message code="gencode.updatetime"/></label>
+										<label><input type="checkbox" checked data-column="2">代码模块</label>
+										<label><input type="checkbox" checked data-column="3"><pg:message code="gencode.author"/></label>
+										<label><input type="checkbox" checked data-column="4"><pg:message code="gencode.company"/></label>
+										<label><input type="checkbox" checked data-column="5"><pg:message code="gencode.tablename"/></label>
+										<label><input type="checkbox" checked data-column="6"><pg:message code="gencode.dbname"/></label>
+										<label><input type="checkbox" checked data-column="7"><pg:message code="gencode.createtime"/></label>
+										<label><input type="checkbox" checked data-column="8"><pg:message code="gencode.updatetime"/></label>
 									</div>
 								</div>
 							</div>

@@ -51,6 +51,8 @@ public class Gencode implements java.io.Serializable {
 	private String tablename;
 	private long updatetime;
 	private boolean fileexist;
+	private String moudleName;
+	private String moudleCNName;
 
 	public Gencode() {
 	}
@@ -133,5 +135,21 @@ public class Gencode implements java.io.Serializable {
 
 	public void setFileexist(boolean fileexist) {
 		this.fileexist = fileexist;
+	}
+
+	public String getMoudleName() {
+		return moudleName;
+	}
+
+	public void setMoudleName(String moudleName) {
+		this.moudleName = moudleName;
+	}
+
+	public String getMoudleCNName() {
+		return moudleCNName;
+	}
+
+	public void setMoudleCNName(String moudleCNName) {
+		this.moudleCNName = moudleCNName;
 	}
 }

@@ -71,6 +71,8 @@ var TableAdvanced = function () {
             "columns": [{
                 "orderable": false
             }, {
+                "orderable": false
+            }, {
                 "orderable": true
             }, {
                 "orderable": true

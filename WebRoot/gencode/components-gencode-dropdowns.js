@@ -7,7 +7,7 @@ var ComponentsDropdowns = function () {
     
     	loadtables:function(event,targetE)
     	{
-    		 Metronic.startPageLoading();
+    		 Metronic.startPageLoading({message:"装载中..."});
     		var dbname = $(event.currentTarget).val();
     		$.ajax({
                 type: "POST",
@@ -44,7 +44,7 @@ var ComponentsDropdowns = function () {
     	loadtablesofdbname:function(dbname)
     	{
     		 
-    		 
+    		 Metronic.startPageLoading();
     		$.ajax({
                 type: "POST",
                 cache: false,
@@ -63,7 +63,7 @@ var ComponentsDropdowns = function () {
                         placeholder: "Select",
                         allowClear: true
                     });
-                    
+                    Metronic.stopPageLoading();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                 	 alert(thrownError);
