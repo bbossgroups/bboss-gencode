@@ -90,18 +90,22 @@
 								<!--/span-->
 							</div>
 							<div class="row">
-								
+								<pg:empty actual="${DEFAULT_SOURCEPATH }" >
 								<div class="col-md-6">
+								
 									<div class="form-group">
 										<label class="control-label col-md-3">源码存放路径<span
 											class="required"> * </span></label>
 										<div class="col-md-9">
-											<input id="sourcedir" name="sourcedir" type="text"
-												value="<pg:cell colName="sourcedir"/>" class="form-control"
-												placeholder="源码存放路径">
+											
+												<input id="sourcedir" name="sourcedir" type="text"
+													value="<pg:cell colName="sourcedir"/>" class="form-control"
+													placeholder="源码存放路径">
+											
 										</div>
 									</div>
 								</div>
+								</pg:empty>	
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label col-md-3">包路径<span

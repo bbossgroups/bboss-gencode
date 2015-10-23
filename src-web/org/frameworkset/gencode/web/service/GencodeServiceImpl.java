@@ -50,6 +50,7 @@ public class GencodeServiceImpl implements GencodeService {
 	private static Logger log = Logger.getLogger(GencodeServiceImpl.class);
 
 	private ConfigSQLExecutor executor;
+	
 
 	public void addDatasource(Datasource datasource) throws DatasourceException {
 		// 业务组件

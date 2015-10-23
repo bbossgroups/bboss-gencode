@@ -2,6 +2,7 @@ package org.frameworkset.gencode.core;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.core.formatter.CodeFormatterApplication;
 import org.frameworkset.gencode.core.ui.GenAddJsp;
 import org.frameworkset.gencode.core.ui.GenI8N;
 import org.frameworkset.gencode.core.ui.GenListInfoJsp;
@@ -49,6 +51,8 @@ import bboss.org.apache.velocity.VelocityContext;
  */
 public class GencodeServiceImpl {
 	private static final Logger log = Logger.getLogger(GencodeServiceImpl.class);
+	public static String DEFAULT_SOURCEPATH;
+	public static String SQLITEPATH;
 	/**
 	 * 代码存放目录
 	 */
@@ -158,8 +162,22 @@ public class GencodeServiceImpl {
 			 genI18N();
 		 }
 		 genReadme();
+		 formatcode();
 		 genzipfile();
+		 
 		return "success";
+	}
+	
+	private void formatcode()  
+	{
+		String path = "";
+		 try {
+			 path = new File(this.moduleMetaInfo.getSourcedir(), this.moduleMetaInfo.getModuleName()).getCanonicalPath();
+			 CodeFormatterApplication c = new CodeFormatterApplication();
+				c.starts(path);
+		} catch (Exception e) {
+			log.error("format java code in path["+path+"] failed：",e);
+		}
 	}
 	private void genzipfile()
 	{
@@ -701,7 +719,7 @@ public class GencodeServiceImpl {
 		{
 			serviceimpl.delete();
 		}
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".ws";
+		 String entityPackageInfo = javamodulePackage+".ws";
 		try {
 			genWSServiceInf(wsserviceInf,entityPackageInfo,serviceinf, this.moduleMetaInfo.getModuleCNName() + "webservice服务和hessian服务接口.") ;
 			genWSServiceImpl(wsserviceimpl,wsserviceInf, this.moduleMetaInfo.getModuleCNName() + "webservice服务和hessian服务实现类.",  entityPackageInfo ,serviceimpl);
@@ -719,7 +737,7 @@ public class GencodeServiceImpl {
 		 Template entitytempalte = VelocityUtil.getTemplate("gencode/java/entityjava.vm");
 		 VelocityContext context = new VelocityContext();
 		 context.put("fields", this.entityFields);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity";
+		 String entityPackageInfo = javamodulePackage+".entity";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", entityName);
@@ -764,7 +782,7 @@ public class GencodeServiceImpl {
 		 desc.setType("boolean");
 		 _conditions.add(desc);
 		 context.put("fields", _conditions);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity";
+		 String entityPackageInfo = javamodulePackage+".entity";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", entityName);
@@ -791,7 +809,7 @@ public class GencodeServiceImpl {
 		 Template serviceinftempalte = VelocityUtil.getTemplate("gencode/java/serviceinfjava.vm");
 		 VelocityContext context = new VelocityContext();
 		 context.put("fields", null);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service";
+		 String entityPackageInfo = javamodulePackage+".service";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", serviceinfName);
@@ -847,7 +865,7 @@ public class GencodeServiceImpl {
 		log4j.setStaticed(true);
 		log4j.setFieldName("log");
 		log4j.setType("Logger");
-		String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service";
+		String entityPackageInfo = javamodulePackage+".service";
 		log4j.setDefaultValue("Logger.getLogger("+entityPackageInfo + "."+serviceName+".class)");
 		fields.add(log4j);
 		
@@ -878,7 +896,7 @@ public class GencodeServiceImpl {
 		 VelocityContext context = new VelocityContext();
 		 List<Field> fields = getServiceImplFields(serviceName);
 		 context.put("fields", fields);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service";
+		 String entityPackageInfo = javamodulePackage+".service";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", serviceName);
@@ -945,7 +963,7 @@ public class GencodeServiceImpl {
 		 String serviceName = (serviceInfName.charAt(0)+"").toLowerCase() + serviceInfName.substring(1);
 		 List<Field> fields = getActionImplFields(actionName,serviceInfName,serviceName);
 		 context.put("fields", fields);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".action";
+		 String entityPackageInfo = javamodulePackage+".action";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", actionName);
@@ -1742,7 +1760,7 @@ public class GencodeServiceImpl {
 		 Template serviceinftempalte = VelocityUtil.getTemplate("gencode/java/exception.vm");
 		 VelocityContext context = new VelocityContext();
 		 context.put("fields", null);
-		 String entityPackageInfo = this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service";
+		 String entityPackageInfo = javamodulePackage+".service";
 		 context.put("package", entityPackageInfo);
 		 context.put("imports", imports);
 		 context.put("classname", exceptionJavaName);
@@ -1792,7 +1810,7 @@ public class GencodeServiceImpl {
 	}
 	private List<String> evalServiceInfImport( ) {
 		List<String> imports = new ArrayList<String>();
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity.*");
+		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("java.util.List");		
 		
@@ -1801,8 +1819,8 @@ public class GencodeServiceImpl {
 	
 	private List<String> evalWSServiceInfImport( ) {
 		List<String> imports = new ArrayList<String>();
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity.*");
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service.*");
+		imports.add(javamodulePackage+".entity.*");
+		imports.add(javamodulePackage+".service.*");
 		imports.add("com.frameworkset.util.RListInfo");
 		imports.add("java.util.List");		
 		imports.add("javax.jws.WebParam");
@@ -1814,7 +1832,7 @@ public class GencodeServiceImpl {
 	
 	private List<String> evalServiceImplImport( ) {
 		List<String> imports = new ArrayList<String>();
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity.*");
+		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("com.frameworkset.common.poolman.ConfigSQLExecutor");
 		imports.add("org.apache.log4j.Logger");		
@@ -1827,8 +1845,8 @@ public class GencodeServiceImpl {
 	
 	private List<String> evalWSServiceImplImport( ) {
 		List<String> imports = new ArrayList<String>();
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity.*");
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service.*");
+		imports.add(javamodulePackage+".entity.*");
+		imports.add(javamodulePackage+".service.*");
 		imports.add("com.frameworkset.util.RListInfo");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("java.util.List");
@@ -1839,13 +1857,13 @@ public class GencodeServiceImpl {
 	
 	private List<String> evalActionImplImport( ) {
 		List<String> imports = new ArrayList<String>();
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".entity.*");
+		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("org.apache.log4j.Logger");		
 		imports.add("java.util.List");
 		imports.add("java.util.Map");
 		imports.add("com.frameworkset.util.StringUtil");
-		imports.add(this.moduleMetaInfo.getPackagePath() + "." + this.moduleMetaInfo.getModuleName()+".service.*");
+		imports.add(javamodulePackage+".service.*");
 		imports.add("org.frameworkset.util.annotations.ResponseBody");
 		imports.add("org.frameworkset.web.servlet.ModelMap");
 		imports.add("org.frameworkset.util.annotations.PagerParam");

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.eclipse.jdt.core.formatter.CodeFormatterApplication;
 import org.frameworkset.gencode.entity.ConditionField;
 import org.frameworkset.gencode.entity.ModuleMetaInfo;
 import org.frameworkset.gencode.entity.SortField;
@@ -496,5 +497,19 @@ alter table TA_FGW_XMSBK
 		d = s.parse("2015-08-31 23:59:59");
 		System.out.println("endid:" + d.getTime());
 		System.out.println("endid:" + d);
+	}
+	
+	public static void main(String[] args) throws Exception
+	{
+		try
+		{
+			String path = "D:\\gencode\\gencode\\src";
+			CodeFormatterApplication c = new CodeFormatterApplication();
+			c.starts(path);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

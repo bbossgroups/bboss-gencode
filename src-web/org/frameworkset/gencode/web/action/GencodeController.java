@@ -1,12 +1,7 @@
 package org.frameworkset.gencode.web.action;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 import org.frameworkset.gencode.core.GencodeServiceImpl;
@@ -281,6 +274,8 @@ public class GencodeController {
 		model.addAttribute("table", tableMeta);
 		model.addAttribute("tableName", tableName);
 		model.addAttribute("dbname", dbname);
+		if(!StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
+			model.addAttribute("DEFAULT_SOURCEPATH",  org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH );
 		List<FieldInfo> fields = Util.getSimpleFields(tableMeta);
 
 		model.addAttribute("fields", fields);
@@ -300,7 +295,8 @@ public class GencodeController {
 		@SuppressWarnings("unchecked")
 		List<FieldInfo> fields = ObjectSerializable.toBean(gencode.getFieldinfos(), List.class);
 		// List<Field> fields = GencodeServiceImpl.getSimpleFields(tableMeta);
-
+		if(!StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
+			model.addAttribute("DEFAULT_SOURCEPATH",  org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH );
 		model.addAttribute("fields", fields);
 		model.addAttribute("gencodeid", gencodeid);
 
@@ -698,11 +694,25 @@ public class GencodeController {
 		gencodeService.setViewHiddenFields(viewHiddenFields);
 	}
 
+	private String getSourcedir(ControlInfo controlInfo,String gencodeid)
+	{
+		String path = "";
+		if(StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH))
+		{
+			path = controlInfo.getSourcedir();// 生成文件存放的物理目录，如果不存在，会自动创建
+		}
+		else
+		{
+			path = StringUtil.getRealPath(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH,gencodeid);
+			
+		}
+		return path;
+	}
 	public @ResponseBody Map<String, String> gencode(ControlInfo controlInfo, List<FieldInfo> fields,
 			String gencodeid) {
 		Map<String, String> ret = new HashMap<String, String>();
 		// 先保存配置信息，成功后再生成代码
-		_tempsave(controlInfo, fields, gencodeid, ret);
+		Gencode gencode = _tempsave(controlInfo, fields, gencodeid, ret);
 
 		GencodeServiceImpl gencodeService = new GencodeServiceImpl(true);
 		ModuleMetaInfo moduleMetaInfo = new ModuleMetaInfo();
@@ -717,7 +727,8 @@ public class GencodeController {
 
 		moduleMetaInfo.setAutogenprimarykey(controlInfo.getControlParams().contains("autopk"));
 		// moduleMetaInfo.setServiceName("AreaManagerService");
-		moduleMetaInfo.setSourcedir(controlInfo.getSourcedir());// 生成文件存放的物理目录，如果不存在，会自动创建
+		 moduleMetaInfo.setSourcedir(getSourcedir(  controlInfo,  gencode.getId()));// 生成文件存放的物理目录，如果不存在，会自动创建
+		 
 		moduleMetaInfo.setIgnoreEntityFirstToken(true); // 忽略表的第一个下滑线签名的token，例如表名td_app_bom中，只会保留app_bom部分，然后根据这部分来生成实体、配置文件名称
 		moduleMetaInfo.setAuthor(controlInfo.getAuthor());// 程序作者
 		moduleMetaInfo.setCompany(controlInfo.getCompany());// 公司信息
@@ -778,7 +789,7 @@ public class GencodeController {
 		return ret;
 	}
 
-	private void _tempsave(ControlInfo controlInfo, List<FieldInfo> fields, String gencodeid, Map<String, String> ret) {
+	private Gencode _tempsave(ControlInfo controlInfo, List<FieldInfo> fields, String gencodeid, Map<String, String> ret) {
 		// 控制器
 
 		try {
@@ -803,7 +814,7 @@ public class GencodeController {
 				ret.put("gencodeid", gencode.getId());
 			}
 			ret.put("result", "success");
-
+			return gencode;
 		} catch (GencodeException e) {
 			log.error("add Gencode failed:", e);
 			ret.put("result", StringUtil.formatBRException(e));
@@ -811,6 +822,7 @@ public class GencodeController {
 			log.error("add Gencode failed:", e);
 			ret.put("result", StringUtil.formatBRException(e));
 		}
+		return null;
 
 	}
 
@@ -850,8 +862,9 @@ public class GencodeController {
 			Gencode gencode = gencodes.get(i);
 
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
-			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
-				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + "/readme.txt");
+			String sourcedir = getSourcedir(controlInfo,gencode.getId());
+			if (sourcedir != null && !sourcedir.equals("")) {
+				File f = new File(sourcedir, controlInfo.getModuleName() + "/readme.txt");
 				if (f.exists()) {
 					gencode.setFileexist(true);
 				}
@@ -869,8 +882,9 @@ public class GencodeController {
 			return "norecord";
 		} else {
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
-			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
-				File f = new File(controlInfo.getSourcedir());
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
+				File f = new File(sourcedir);
 				FileUtil.deleteFile(f.getAbsolutePath());
 			}
 			gencodeService.deleteGencode(genid);
@@ -887,8 +901,9 @@ public class GencodeController {
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
 			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
 					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
-			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
-				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + "/readme.txt");
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
+				File f = new File(sourcedir, controlInfo.getModuleName() + "/readme.txt");
 				if (!f.exists()) {
 					model.addAttribute("msg", "nofile:" + f.getAbsolutePath());
 				} else {
@@ -917,13 +932,14 @@ public class GencodeController {
 			return null;
 		} else {
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
-			if (controlInfo.getSourcedir() != null && !controlInfo.getSourcedir().equals("")) {
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
 
-				File f = new File(controlInfo.getSourcedir(), controlInfo.getModuleName());
+				File f = new File(sourcedir, controlInfo.getModuleName());
 				if (!f.exists()) {
 					return null;
 				} else {
-					File ret = new File(controlInfo.getSourcedir(), controlInfo.getModuleName() + ".zip");
+					File ret = new File(sourcedir, controlInfo.getModuleName() + ".zip");
 					if(ret.exists())
 						return ret;
 					FileUtil.zip(f, ret);

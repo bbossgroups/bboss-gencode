@@ -4,7 +4,7 @@
 #if($componentType == 1)
 ListInfo datas=null;
 try{
-	datas=executor.queryListInfoBean($entityName${dot}class,"queryList$entityName", offset, pagesize, $paramName);
+	datas=executor.queryListInfoBean($entityName${dot}class,"queryList$entityName", offset, pagesize #if($needcondition),conditions#else,null#end);
 }catch(Exception e){
 	throw new  $exception$start"pagine query $entityName failed:",e$end;
 }

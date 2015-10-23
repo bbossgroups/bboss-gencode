@@ -12,8 +12,11 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.frameworkset.runtime.CommonLauncher;
 import org.xml.sax.SAXException;
 
+import com.frameworkset.util.StringUtil;
+
 public class JettyStart {
 	private static Logger log = Logger.getLogger(JettyStart.class);
+	private static File appdir ;
 	public JettyStart() {
 		// TODO Auto-generated constructor stub
 	}
@@ -30,7 +33,30 @@ public class JettyStart {
 						"gencode");
 				if (contextPath.equals(""))
 					contextPath = "gencode";
-	
+				String sqlitepath = CommonLauncher.getProperty("sqlitepath" );
+				String sourcepath = CommonLauncher.getProperty("sourcepath" );
+				if(StringUtil.isEmpty(sourcepath))
+				{
+					if(appdir != null)
+						org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH = StringUtil.getRealPath(appdir.getCanonicalPath(), "sourcecode");
+				}
+				else
+				{
+					org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH = sourcepath;
+				}
+				
+				if(StringUtil.isEmpty(sqlitepath) )
+				{
+					if(appdir != null)
+						org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = StringUtil.getRealPath(appdir.getCanonicalPath(), "gencodedb");
+				}
+				else
+				{
+					org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = sqlitepath;
+				}
+			
+				log.info("sqlitepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH);
+				log.info("default sourcepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH);
 				int p = Integer.parseInt(port);
 				Server server = new Server(p);
 				// 关联一个已经存在的上下文
@@ -66,6 +92,7 @@ public class JettyStart {
 	}
 	
 	public static void setAppdir(File appdir) {
+		JettyStart.appdir = appdir;
 	}
 
 }

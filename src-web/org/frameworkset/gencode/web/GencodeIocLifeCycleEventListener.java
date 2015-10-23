@@ -11,10 +11,12 @@ import org.frameworkset.spi.event.IocLifeCycleEventListener;
 
 import com.frameworkset.common.poolman.SQLExecutor;
 import com.frameworkset.common.poolman.util.SQLUtil;
+import com.frameworkset.util.SimpleStringUtil;
 
 public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListener {
 	private static Logger log = Logger.getLogger(GencodeIocLifeCycleEventListener.class);
 	private String sqlitepath;
+	private String sourcepath;
 	public GencodeIocLifeCycleEventListener() {
 		// TODO Auto-generated constructor stub
 	}
@@ -100,8 +102,39 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 
 	@Override
 	public void init(Map<String, String> arg0) {
-		sqlitepath = arg0.get("sqlitepath");
 
+		if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH))
+		{
+			sqlitepath = arg0.get("sqlitepath");
+			log.info("sqlitepath:"+sqlitepath);
+			 org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = sqlitepath;
+		}
+		else
+			sqlitepath = org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH;
+		
+		if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
+		{
+			sourcepath = arg0.get("sourcepath");
+			log.info("default sourcepath:"+sourcepath);
+			org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH = sourcepath;
+			
+		}
+		else
+			sourcepath = org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ;
+		
+		 
+		 
+		
+		
+
+	}
+
+	public String getSourcepath() {
+		return sourcepath;
+	}
+
+	public void setSourcepath(String sourcepath) {
+		this.sourcepath = sourcepath;
 	}
 
 }

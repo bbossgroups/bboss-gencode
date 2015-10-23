@@ -43,3 +43,5 @@ Temporary Items
 .apdisk
 /distrib/
 /build.log
+/common.log
+/velocity.log
