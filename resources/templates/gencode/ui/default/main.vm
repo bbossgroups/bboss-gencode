@@ -154,11 +154,12 @@ function queryData()
 #foreach($condition in $conditions)										
 	var ${condition.fieldName}=$("#${condition.fieldName}").val();
 #end	
-	
+	#if($needcondition)
 	if(#foreach($condition in $conditions) #if($velocityCount == 0)containSpecial(${condition.fieldName})#else || containSpecial(${condition.fieldName})#end#end){
 		$.dialog.alert('查询字符串含有非法字符集,请检查输入条件！');
 		return;
 	}
+	#end
 	$("#custombackContainer").load("queryListInfo${entityName}s.page #customContent",
 	{#foreach($condition in $conditions) #if($velocityCount == 0)${condition.fieldName}:${condition.fieldName}#else,${condition.fieldName}:${condition.fieldName}#end#end},function(){});
 
@@ -167,7 +168,11 @@ function queryData()
 
 function modifyQueryData()
 {	
-	$("#custombackContainer").load("queryListInfo${entityName}s.page?"+$("#querystring").val()+" #customContent");
+	if($("#querystring").val() != '')
+		$("#custombackContainer").load("queryListInfo${entityName}s.page?"+$("#querystring").val()+" #customContent");
+	else
+		$("#custombackContainer").load("queryListInfo${entityName}s.page #customContent");
+	
 }
 function edit${entityName}(${primaryKeyName}){
 	var url="<%=request.getContextPath()%>${relativePath}/toUpdate${entityName}.page?${primaryKeyName}="+${primaryKeyName};
