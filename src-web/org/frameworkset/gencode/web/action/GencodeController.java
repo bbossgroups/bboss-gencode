@@ -277,7 +277,7 @@ public class GencodeController {
 		if(!StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
 			model.addAttribute("DEFAULT_SOURCEPATH",  org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH );
 		List<FieldInfo> fields = Util.getSimpleFields(tableMeta);
-
+		model.addAttribute("fileexist", false);
 		model.addAttribute("fields", fields);
 		return "path:tableconfig";
 	}
@@ -292,6 +292,16 @@ public class GencodeController {
 		model.addAttribute("tableName", gencode.getTablename());
 		model.addAttribute("dbname", gencode.getDbname());
 		ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+		String sourcedir = getSourcedir(controlInfo,gencode.getId());
+		if (sourcedir != null && !sourcedir.equals("")) {
+			File f = new File(sourcedir, controlInfo.getModuleName() + "/readme.txt");
+			if (f.exists()) {
+				model.addAttribute("fileexist", true);
+				
+			}
+			else
+				model.addAttribute("fileexist", false);
+		}
 		@SuppressWarnings("unchecked")
 		List<FieldInfo> fields = ObjectSerializable.toBean(gencode.getFieldinfos(), List.class);
 		// List<Field> fields = GencodeServiceImpl.getSimpleFields(tableMeta);
@@ -309,7 +319,7 @@ public class GencodeController {
 			FieldInfo fieldInfo = fields.get(i);
 			if (fieldInfo.getQcondition() == 1) {
 				ConditionField bm = new ConditionField();
-				this.convertField(gencodeService, fieldInfo, bm, Util.other);
+				this.convertField(gencodeService, fieldInfo, bm, Util.conditionEntity);
 				// bm.setColumnname(fieldInfo.getColumnname());
 				bm.setLike(fieldInfo.getQtype() == 1);
 				// bm.setOr(true);
@@ -470,30 +480,40 @@ public class GencodeController {
 
 		f.setPk(gencodeService.getPrimaryKeyColumnName() != null
 				&& gencodeService.getPrimaryKeyColumnName().equals(fieldInfo.getColumnname()));
-		if (f.isPk()) {
-			if (gencodeService.getModuleMetaInfo().isAutogenprimarykey()) {
-				Annotation anno = new Annotation();
-				anno.setName("PrimaryKey");
-				if (SimpleStringUtil.isNotEmpty(gencodeService.getModuleMetaInfo().getPkname())) {
-					anno.addAnnotationParam("pkname", gencodeService.getModuleMetaInfo().getPkname(),
-							AnnoParam.V_STRING);
+		if(Util.conditionEntity != pagetype)
+		{
+			if (f.isPk()) {
+				if (gencodeService.getModuleMetaInfo().isAutogenprimarykey()) {
+					Annotation anno = new Annotation();
+					anno.setName("PrimaryKey");
+					if (SimpleStringUtil.isNotEmpty(gencodeService.getModuleMetaInfo().getPkname())) {
+						anno.addAnnotationParam("pkname", gencodeService.getModuleMetaInfo().getPkname(),
+								AnnoParam.V_STRING);
+					}
+					f.addAnnotation(anno);
+	
 				}
-				f.addAnnotation(anno);
-
 			}
 		}
 		if (fieldInfo.getColumntype().equals("CLOB") || fieldInfo.getColumntype().equals("TEXT")) {
-			Annotation anno = new Annotation();
-			anno.setName("Column");
-			anno.addAnnotationParam("type", "clob", AnnoParam.V_STRING);
-			f.addAnnotation(anno);
-			gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
+			if(Util.conditionEntity != pagetype)
+			{
+				Annotation anno = new Annotation();
+				anno.setName("Column");
+				anno.addAnnotationParam("type", "clob", AnnoParam.V_STRING);
+				f.addAnnotation(anno);
+				
+				gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
+			}
 		} else if (fieldInfo.getColumntype().equals("BLOB")) {
-			Annotation anno = new Annotation();
-			anno.setName("Column");
-			anno.addAnnotationParam("type", "blob", AnnoParam.V_STRING);
-			gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
-			f.addAnnotation(anno);
+			if(Util.conditionEntity != pagetype)
+			{
+				Annotation anno = new Annotation();
+				anno.setName("Column");
+				anno.addAnnotationParam("type", "blob", AnnoParam.V_STRING);
+				gencodeService.addEntityImport("com.frameworkset.orm.annotation.Column");
+				f.addAnnotation(anno);
+			}
 		}
 
 		else if (fieldInfo.getColumntype().startsWith("TIMESTAMP") || fieldInfo.getColumntype().equals("DATE"))

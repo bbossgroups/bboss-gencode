@@ -2,7 +2,9 @@
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">表单配置-数据源${dbname }-表${tableName }</h3>
-
+<div id="ajax-modal" class="modal  container fade" tabindex="-1">
+</div>
+<a id="downfile" target="_blank"/>
 <div class="portlet box green">
 	<div class="portlet-title">
 		<div class="caption">
@@ -368,7 +370,7 @@
 															<pg:equal value="Date">selected</pg:equal>>Date</option>
 														<option value="UtilDate"
 															<pg:equal value="UtilDate">selected</pg:equal>>UtilDate</option>
-														<option value="url"
+														<!-- <option value="url"
 															<pg:equal value="url">selected</pg:equal>>url</option>
 														<option value="creditcard"
 															<pg:equal value="creditcard">selected</pg:equal>>creditcard</option>
@@ -389,7 +391,7 @@
 														<option value="ppt"
 															<pg:equal value="ppt">selected</pg:equal>>ppt</option>
 														<option value="fuction"
-															<pg:equal value="fuction">selected</pg:equal>>fuction</option>
+															<pg:equal value="fuction">selected</pg:equal>>fuction</option> -->
 
 													</pg:case>
 											</select></td>
@@ -535,7 +537,22 @@
 								<div class="row">
 									<div class="col-md-offset-3 col-md-9">
 										<button type="button" class="btn green" onclick="FormValidation.tempsave()">暂存</button>
-										<button type="submit" class="btn green">提交</button>
+										<button type="submit" class="btn green">生成代码</button>
+										<pg:true actual="${fileexist }" evalbody="true">
+											<pg:yes>		
+												<button type="button" class="btn green" onclick="TableAdvanced.readme('${gencodeid }',event)">查看部署说明</button>
+											 
+											
+												<a  target="_blank" href="downcode.page?genid=${gencodeid }" class="btn default btn-xs purple">
+														<i class="fa fa-edit"></i>下载 </a>
+											</pg:yes>
+											<pg:no>
+												<button type="button" class="btn green  display-hide" id="readme" >查看部署说明</button>
+										 
+											<a  target="_blank" href="downcode.page" id="downcode" class="btn default btn-xs purple  display-hide">
+													<i class="fa fa-edit"></i>下载 </a>
+											</pg:no>
+										</pg:true>	
 									</div>
 								</div>
 							</div>
@@ -571,7 +588,7 @@
 			.ready(
 					function() {
 						FormValidation.inittableconfig();
-
+						UIExtendedModals.init();
 					});
 
 	

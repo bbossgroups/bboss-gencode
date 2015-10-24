@@ -20,6 +20,7 @@ public class Util {
 	public final static int editpage = 1;
 	public final static int viewpage = 2;
 	public final static int listpage = 3;
+	public final static int conditionEntity = 5;
 	public final static int other = 4;
 	public Util() {
 		// TODO Auto-generated constructor stub

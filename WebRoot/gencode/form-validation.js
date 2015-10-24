@@ -115,7 +115,18 @@ var FormValidation = function () {
 
 												var msg = responseText.result;
 												var title = '生成代码';
-
+												
+												if (msg == 'success') {
+													title = '代码生成成功！';
+													$("#gencodeid").val(responseText.gencodeid);
+													$("#readme").click(function (e) {
+															TableAdvanced.readme(responseText.gencodeid,e);
+														});
+													$("#readme").show();
+													$("#downcode").attr("href","downcode.page?genid="+responseText.gencodeid)
+													$("#downcode").show();
+												} else
+													title = responseText.result;
 												toastr.options = {
 													"closeButton" : true,
 													"debug" : false,

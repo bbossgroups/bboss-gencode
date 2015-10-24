@@ -39,7 +39,7 @@
 				<th>序号</th>				
 #foreach($field in $fields)
 #if($field.sortField)				
-	       		<pg:title sort="true" type="th" align="center" colName="$field.columnname" #if(!$genI18n)title="$field.fieldCNName"#else titlecode="$namespacei18n.$field.fieldName"#end/>
+	       		<pg:title sort="true" type="th" align="center" colName="$field.columnname"  #if(!$genI18n)title="$field.fieldCNName"#else titlecode="$namespacei18n.$field.fieldName"#end #if(!$field.desc)desc="true"#else desc="false" #end/>
 #else
 	       		<th>#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end</th>
 #end	       		

@@ -25,6 +25,7 @@ public class GenPagineSQL  extends AbstractGencode {
 			 
 			 context.put("conditions", gencodeService.getConditions());
 			 context.put("sorts", gencodeService.getSortFields());
+			 context.put("needsort", gencodeService.needsort());
 			 context.put("tableName", gencodeService.getModuleMetaInfo().getTableName());
 			 
 			 sql.setSql(gencodeService.writetostring(  context,conftempalte,gencodeService.getModuleMetaInfo().getEncodecharset()));

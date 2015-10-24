@@ -12,11 +12,13 @@ return datas;
 #elseif($componentType == 2)
 try {
 	#if($needcondition)
-	    if(sortKey != null && !sortKey.equals(""))
-	    {
-	    	conditions.setSortKey(sortKey);
-	    	conditions.setSortDesc(desc);
-	    }
+		#if($needsort)
+		    if(sortKey != null && !sortKey.equals(""))
+		    {
+		    	conditions.setSortKey(sortKey);
+		    	conditions.setSortDesc(desc);
+		    }
+		#end
 	    #if($conditionFields && $conditionFields.size() > 0)
 	    	#foreach($cf in $conditionFields)
 	    		#if($cf.like)
@@ -28,7 +30,18 @@ try {
 	    		#end
 	    	#end
 		#end
-	#end	    
+	#else
+		#if($needsort)
+			$conditionEntityName conditions = null;
+		    if(sortKey != null && !sortKey.equals(""))
+		    {
+		    	conditions = new $conditionEntityName$start$end;
+		    	conditions.setSortKey(sortKey);
+		    	conditions.setSortDesc(desc);
+		    }
+		#end
+	#end
+		    
 	ListInfo ${entityVarName}s = ${entityVarName}Service.queryListInfo${entityName}s(#if($needcondition)conditions,#end offset,pagesize);
 	model.addAttribute("${entityVarName}s", ${entityVarName}s);
 	return "path:queryListInfo${entityName}s";

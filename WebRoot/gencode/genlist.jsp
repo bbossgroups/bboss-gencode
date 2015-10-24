@@ -2,7 +2,7 @@
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <div id="ajax-modal" class="modal  container fade" tabindex="-1">
 </div>
-<a id="downfile" target="_blank"/>
+
 <table class="table table-striped table-hover" id="gencodelist">
 							<thead>
 							<tr>

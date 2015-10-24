@@ -2,7 +2,6 @@ package org.frameworkset.gencode.core;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -393,12 +392,13 @@ public class GencodeServiceImpl {
 				}
 			}
 			initConditions();
-			initSortFields();
+			
 			this.addShowFields = this.entityFields;
 			this.viewShowFields = this.entityFields;
 			this.editShowFields = this.entityFields;
 			this.listShowFields = this.entityFields;
 		}
+		initSortFields(listShowFields);
 		 
 	}
 	private void handleI18n()
@@ -439,21 +439,25 @@ public class GencodeServiceImpl {
 			 }
 		 }
 	}
-	private void initSortFields()
+	private void initSortFields(List<Field> listFields)
 	{
+		
 		if(this.sortFields != null )
 		 {
 			 for(Field field:sortFields)
 			 {
 				 
-				 for(Field dbfield:this.entityFields)
+				 for(Field dbfield:listFields)
 				 {
 					 if(field.getColumnname().equalsIgnoreCase(dbfield.getColumnname()))
 					 {
-						 field.setType(dbfield.getType());
-						 field.setFieldName(dbfield.getFieldName());
-						 field.setFieldCNName(dbfield.getFieldCNName());
-						 field.setMfieldName(dbfield.getMfieldName());
+						 if(!this.genfromWeb)
+						 {
+							 field.setType(dbfield.getType());
+							 field.setFieldName(dbfield.getFieldName());
+							 field.setFieldCNName(dbfield.getFieldCNName());
+							 field.setMfieldName(dbfield.getMfieldName());
+						 }
 						 dbfield.setSortField(true);
 						 dbfield.setDesc(field.isDesc());
 						 if(field.isDefaultSortField())
@@ -759,28 +763,31 @@ public class GencodeServiceImpl {
 		{
 			conditionEntity.delete();
 		}
-		if(conditions == null || conditions.size() == 0)
+		if(!needconditionsortbean())
  
 			 return;
  
 		
-			conditionEntity.createNewFile(); 
+		conditionEntity.createNewFile(); 
  
 		 List<String> imports = evalImport( true);
 		 Template entitytempalte = VelocityUtil.getTemplate("gencode/java/entityjava.vm");
 		 VelocityContext context = new VelocityContext();
 		 List<Field> _conditions = new ArrayList<Field>();
 		 _conditions.addAll(conditions);
-		 Field sort = new Field();
-		 sort.setFieldName("sortKey");
-		 sort.setMfieldName("SortKey");
-		 sort.setType("String");
-		 _conditions.add(sort);
-		 Field desc = new Field();
-		 desc.setFieldName("sortDesc");
-		 desc.setMfieldName("SortDesc");
-		 desc.setType("boolean");
-		 _conditions.add(desc);
+		 if(this.needsort())
+		 {
+			 Field sort = new Field();
+			 sort.setFieldName("sortKey");
+			 sort.setMfieldName("SortKey");
+			 sort.setType("String");
+			 _conditions.add(sort);
+			 Field desc = new Field();
+			 desc.setFieldName("sortDesc");
+			 desc.setMfieldName("SortDesc");
+			 desc.setType("boolean");
+			 _conditions.add(desc);
+		 }
 		 context.put("fields", _conditions);
 		 String entityPackageInfo = javamodulePackage+".entity";
 		 context.put("package", entityPackageInfo);
@@ -802,6 +809,19 @@ public class GencodeServiceImpl {
 		return this.getConditions() != null && this.getConditions().size() > 0;
 	}
 	
+	public boolean needconditionsortbean()
+	{
+		if((conditions == null || conditions.size() == 0) && (this.sortFields == null || this.sortFields.size() == 0))
+			return false;
+		else
+			return true;
+	}
+	
+	public boolean needsort()
+	{
+		return this.sortFields != null && this.sortFields.size() > 0;
+	}
+	
 	private void genServiceInf(String serviceinfName,  String description,File serviceInf) throws Exception
 	{
 		 
@@ -819,7 +839,7 @@ public class GencodeServiceImpl {
 		 context.put("author", this.moduleMetaInfo.getAuthor());
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 context.put("needcondition",this.needcondition());
+		 context.put("needcondition",this.needconditionsortbean());
 		 List<Method> methods = getMethods(0);
 		 context.put("methods", methods);
 	 
@@ -851,7 +871,7 @@ public class GencodeServiceImpl {
 		 context.put("author", this.moduleMetaInfo.getAuthor());
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 context.put("needcondition",this.needcondition());
+		 context.put("needcondition",this.needconditionsortbean());
 		 List<Method> methods = getMethods(Constant.component_type_wsserviceinf);
 		 context.put("methods", methods);
 	 
@@ -909,7 +929,7 @@ public class GencodeServiceImpl {
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("componentType",Constant.component_type_serivceimpl);
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 context.put("needcondition",this.needcondition());
+		 context.put("needcondition",this.needconditionsortbean());
 		 List<Method> methods = getMethods(Constant.component_type_serivceimpl);
 		 context.put("methods", methods);
 		 
@@ -945,7 +965,7 @@ public class GencodeServiceImpl {
 		 context.put("version", this.moduleMetaInfo.getVersion());
 		 context.put("componentType",Constant.component_type_wsserivceimpl);
 		 context.put("moduleCNName",this.moduleMetaInfo.getModuleCNName());
-		 context.put("needcondition",this.needcondition());
+		 context.put("needcondition",this.needconditionsortbean());
 		 List<Method> methods = getMethods(Constant.component_type_wsserivceimpl);
 		 context.put("methods", methods);
 		 
@@ -979,6 +999,7 @@ public class GencodeServiceImpl {
 		 List<Method> methods = getMethods(2);
 		 context.put("methods", methods);
 		 context.put("needcondition",this.needcondition());
+		 context.put("needsort",this.needsort());
 		 context.put("conditionFields", this.conditions);
 	 
 		 writFile(context,serviceinftempalte,action,this.moduleMetaInfo.getEncodecharset());
@@ -1158,19 +1179,21 @@ public class GencodeServiceImpl {
 			params.add(param);
 		}
 		
+		if(this.needsort())
+		{
+			param = new MethodParam();		
+			param.setType("String");
+			param.setName("sortKey");
+			param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.SORT",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue",this.defaultSortField == null?defaultSort:this.defaultSortField.getColumnname()));
+			params.add(param);
+			
+			param = new MethodParam();
+			param.setType("boolean");
+			param.setName("desc");
+			param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.DESC",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue", "true", AnnoParam.V_STRING));
+			params.add(param);
+		}	
 		
-		param = new MethodParam();		
-		param.setType("String");
-		param.setName("sortKey");
-		param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.SORT",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue",this.defaultSortField == null?defaultSort:this.defaultSortField.getColumnname()));
-		params.add(param);
-		
-		param = new MethodParam();
-		param.setType("boolean");
-		param.setName("desc");
-		param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.DESC",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue", "true", AnnoParam.V_STRING));
-		
-		params.add(param);
 		param = new MethodParam();		
 		param.setType("long");
 		param.setName("offset");
@@ -1562,7 +1585,7 @@ public class GencodeServiceImpl {
 			 paginequery.addAnnotation(anno);
 		}
 		params = new ArrayList<MethodParam>();
-		if(this.needcondition())
+		if(this.needconditionsortbean())
 		{
 			param = new MethodParam();
 			
@@ -1649,7 +1672,7 @@ public class GencodeServiceImpl {
 			 query.addAnnotation(anno);
 		}
 		params = new ArrayList<MethodParam>();
-		if(this.needcondition())
+		if(this.needconditionsortbean())
 		{
 			param = new MethodParam();
 			

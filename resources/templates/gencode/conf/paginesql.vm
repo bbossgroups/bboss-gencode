@@ -26,13 +26,8 @@ select * from $tableName where 1=1
 		#end	
 	#end
 #end 
+#if($needsort)
 $if(${m}sortKey && !${m}sortKey.$equal(""))
-	order by ${m}sortKey ${if}(${m}sortDesc)desc$else asc$end
-$else
-#if($sorts && $sorts.size() > 0)
-	order by 
-	#foreach($sort in $sorts)
-		#if($velocityCount >0),#end$sort.columnname#if($sort.desc) desc#else asc#end
-	#end
+		order by ${m}sortKey ${if}(${m}sortDesc)desc$else asc$end
+	$end
 #end
-$end

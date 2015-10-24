@@ -26,9 +26,9 @@ public class JettyStart {
 		{
 			try {
 				// 服务器的监听端口
-				String port = CommonLauncher.getProperty("port", "8080");
+				String port = CommonLauncher.getProperty("port", "8088");
 				if (port.equals(""))
-					port = "8080";
+					port = "8088";
 				String contextPath = CommonLauncher.getProperty("context",
 						"gencode");
 				if (contextPath.equals(""))
