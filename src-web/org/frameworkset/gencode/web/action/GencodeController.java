@@ -625,22 +625,35 @@ public class GencodeController {
 
 	private void handleAddFields(GencodeServiceImpl gencodeService, List<FieldInfo> fields) {
 		List<Field> addShowFields = new ArrayList<Field>();
+		List<Field> addHiddenFields = new ArrayList<Field>();
 		for (int i = 0; fields != null && i < fields.size(); i++) {
 			FieldInfo fieldInfo = fields.get(i);
 			String inlist = fieldInfo.getAddcontrolParams();
-
-			if (inlist != null && inlist.contains("显示")) {
-				Field f = new Field();
-				convertField(gencodeService, fieldInfo, f, Util.addpage);
-				if (f.isPk()) {
-					addShowFields.add(0, f);
-				} else {
-					addShowFields.add(f);
+			if (inlist != null)
+			{
+				if (inlist.contains("显示")) {
+					Field f = new Field();
+					convertField(gencodeService, fieldInfo, f, Util.addpage);
+					if (f.isPk()) {
+						addShowFields.add(0, f);
+					} else {
+						addShowFields.add(f);
+					}
+				}				
+				else if ( inlist.contains("隐藏")) {
+					Field f = new Field();
+					convertField(gencodeService, fieldInfo, f, Util.addpage);
+					if (f.isPk()) {
+						addHiddenFields.add(0, f);
+					} else {
+						addHiddenFields.add(f);
+					}
 				}
 			}
 
 		}
 		gencodeService.setAddShowFields(addShowFields);
+		gencodeService.setAddHiddenFields(addHiddenFields);
 	}
 
 	private void handleEntityFields(GencodeServiceImpl gencodeService, List<FieldInfo> fields) {

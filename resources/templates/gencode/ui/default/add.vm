@@ -17,7 +17,9 @@
 	<body>
 		<div class="form_box">
 			<form id="addForm" name="addForm" method="post">
-			
+			    #foreach($field in $hiddenfields)
+				  	<input id="$field.fieldName" name="$field.fieldName" type="hidden"  #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}"#end/>
+			  	#end
 				<table border="0" cellpadding="0" cellspacing="0" class="table4">
 					#foreach($field in $fields)
 						#if( $velocityCount % 3 == 0)

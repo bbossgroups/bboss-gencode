@@ -1,11 +1,17 @@
 /**
 * 自动生成的${moduleCNName}模块配置使用说明：
-* 1.菜单配置：直接拷贝到module.xml中
-* 2.组件部署配置：直接拷贝到web.xml中
-* 3.webservice服务和hessian服务调用方法
-* 4.国际化配置说明
+* 1.代码集成
+* 2.菜单配置：直接拷贝到module.xml中
+* 3.组件部署配置：直接拷贝到web.xml中
+* 4.webservice服务和hessian服务调用方法
+* 5.国际化配置说明
 */
-1.菜单配置（将下属内容添加到实际工程目录下resources/module.xml中即可）：
+1.代码集成
+为了能够运行自动生成的${moduleCNName}模块的代码，首先需要将代码集成到eclipse工程中：
+先下载自动生成的${moduleCNName}模块的源码包，然后解压，将src目录下的程序拷贝到eclipse工程的源码目录下，
+将WebRoot目录中的文件拷贝到eclipse工程的WebRoot目录下即可
+
+2.菜单配置（将下属内容添加到实际工程目录下resources/module.xml中即可）：
 <item name="$moduleCNName"
 	i18n:en_US="$moduleName demo" id="${moduleName}Manage"  showleftmenu="true" menuType="type1">
 	<top>header.page</top>
@@ -14,7 +20,7 @@
 	</workspace>
 </item> 
 
-2.装载mvc模块(将contextConfigLocation中的内容追加到实际工程的web.xml中即可),如果配置了国际化机制，还需加载国际化属性配置文件:
+3.装载mvc模块(将contextConfigLocation中的内容追加到实际工程的web.xml中即可),如果配置了国际化机制，还需加载国际化属性配置文件:
 <servlet>
     <servlet-name>mvc</servlet-name>
     <servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
@@ -32,7 +38,7 @@
 #end		  
 </servlet>
 
-3.webservice服务和hessian服务调用方法
+4.webservice服务和hessian服务调用方法
 
 hessian:
 HessianProxyFactory factory = new HessianProxyFactory();

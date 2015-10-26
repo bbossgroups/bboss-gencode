@@ -116,6 +116,7 @@ public class GencodeServiceImpl {
 	private List<Field> editHiddenFields;
 	
 	private List<Field> addShowFields;
+	private List<Field> addHiddenFields;
 	private List<SQL> sqls;
 	/**
 	 * ui界面上是否需要引入日期控件
@@ -2268,5 +2269,13 @@ import com.frameworkset.util.StringUtil;
 
 	public void setJsppath(String jsppath) {
 		this.jsppath = jsppath;
+	}
+
+	public List<Field> getAddHiddenFields() {
+		return addHiddenFields;
+	}
+
+	public void setAddHiddenFields(List<Field> addHiddenFields) {
+		this.addHiddenFields = addHiddenFields;
 	}
 }
