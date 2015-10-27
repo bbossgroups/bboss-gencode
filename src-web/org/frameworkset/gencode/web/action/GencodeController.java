@@ -1,7 +1,6 @@
 package org.frameworkset.gencode.web.action;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.frameworkset.cache.FileContentCache;
 import org.frameworkset.gencode.core.GencodeServiceImpl;
 import org.frameworkset.gencode.core.Util;
 import org.frameworkset.gencode.entity.AnnoParam;
@@ -39,9 +39,10 @@ import com.frameworkset.util.ListInfo;
 import com.frameworkset.util.SimpleStringUtil;
 import com.frameworkset.util.StringUtil;
 
-public class GencodeController {
+public class GencodeController implements org.frameworkset.spi.InitializingBean,org.frameworkset.spi.DisposableBean{
 	private static Logger log = Logger.getLogger(GencodeController.class);
 	private GencodeService gencodeService;
+	private FileContentCache fileCache = null;
 
 	public @ResponseBody String addDatasource(Datasource datasource) {
 		// 控制器
@@ -942,14 +943,17 @@ public class GencodeController {
 				} else {
 
 					String content = null;
-					try {
-						content = FileUtil.getFileContent(f, "UTF-8");
-						model.addAttribute("readme", StringUtil.HTMLEncode(content));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						log.error("readme failed:", e);
-						model.addAttribute("msg", StringUtil.exceptionToString(e));
-					}
+//					try {
+//						content = FileUtil.getFileContent(f, "UTF-8");
+//						model.addAttribute("readme", StringUtil.HTMLEncode(content));
+						content = fileCache.getFileContent(f.getAbsolutePath(), "UTF-8", FileContentCache.HTMLEncode);
+						
+						model.addAttribute("readme", content);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						log.error("readme failed:", e);
+//						model.addAttribute("msg", StringUtil.exceptionToString(e));
+//					}
 
 				}
 			} else {
@@ -983,6 +987,18 @@ public class GencodeController {
 				return null;
 			}
 		}
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		if(fileCache != null)
+			fileCache.destroy();
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		fileCache = new FileContentCache();
+		fileCache.start();
 	}
 	
 
