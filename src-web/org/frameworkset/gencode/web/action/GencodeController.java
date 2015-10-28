@@ -305,7 +305,9 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		}
 		@SuppressWarnings("unchecked")
 		List<FieldInfo> fields = ObjectSerializable.toBean(gencode.getFieldinfos(), List.class);
-		// List<Field> fields = GencodeServiceImpl.getSimpleFields(tableMeta);
+		TableMetaData tableMeta = DBUtil.getTableMetaData(gencode.getDbname(), gencode.getTablename());
+		List<FieldInfo> dbfields = Util.getSimpleFields(tableMeta);
+		fields = this.mergefields(fields, dbfields);//合并表字段信息
 		if(!StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
 			model.addAttribute("DEFAULT_SOURCEPATH",  org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH );
 		model.addAttribute("fields", fields);
@@ -313,6 +315,92 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 		model.addAttribute("controlparams", controlInfo);
 		return "path:tableconfig";
+	}
+	private List<FieldInfo> mergefields(List<FieldInfo> fields,List<FieldInfo> dbfields)
+	{
+		if(dbfields == null || dbfields.size() == 0)
+		{
+			if(fields == null || fields.size() == 0)
+				return null;
+			List<FieldInfo> deleted = new ArrayList<FieldInfo>();
+			for(int i = 0; i < fields.size(); i ++)
+			{
+				FieldInfo field = fields.get(i);
+				if(field.getMetatype() == FieldInfo.meta_tablecolumn)
+				{
+					deleted.add( field);
+				}
+			}
+			for(int i = 0;  i < deleted.size(); i ++)
+			{
+				fields.remove(deleted.get(i));
+			}
+			return fields;
+		}
+		if(fields == null || fields.size() == 0)
+			return dbfields;
+			
+		 
+		List<FieldInfo> deleted = new ArrayList<FieldInfo>();
+		List<FieldInfo> added = new ArrayList<FieldInfo>();
+		//获取新加的字段
+		for(int i = 0; i < fields.size(); i ++)
+		{
+			FieldInfo field = fields.get(i);
+			boolean find = false;
+			for(int j = 0; j < dbfields.size(); j ++)
+			{
+				FieldInfo dbfield = dbfields.get(j);
+				if(field.getColumnname().equals(dbfield.getColumnname()))
+				{
+					if(!field.getColumntype().equals(dbfield.getColumntype()))
+						field.setColumntype(dbfield.getColumntype());//更新类型
+					find = true;
+					break;
+				}
+				
+							
+			}
+			if(!find)
+			{
+				if(field.getMetatype() == FieldInfo.meta_tablecolumn)
+					deleted.add(field);
+			}
+		}
+		
+		for(int i = 0; i < dbfields.size(); i ++)
+		{
+			FieldInfo dbfield = dbfields.get(i);
+			boolean find = false;
+			for(int j = 0; j < fields.size(); j ++)
+			{
+				FieldInfo field = fields.get(j);
+				if(field.getColumnname().equals(dbfield.getColumnname()))
+				{
+					
+					find = true;
+					break;
+				}
+				
+							
+			}
+			if(!find)
+			{
+				added.add(dbfield);
+			}
+		}
+		for(int i = 0;  i < deleted.size(); i ++)
+		{
+			fields.remove(deleted.get(i));
+		}
+		
+		for(int i = 0;  i < added.size(); i ++)
+		{
+			fields.add(added.get(i));
+		}
+		//删除字段		
+
+		return fields;
 	}
 
 	private void handleConditionFields(GencodeServiceImpl gencodeService, List<FieldInfo> fields) {
@@ -998,7 +1086,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		fileCache = new FileContentCache();
-		fileCache.start();
+		fileCache.start("Code Deploy Readme");
 	}
 	
 

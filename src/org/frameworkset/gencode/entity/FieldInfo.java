@@ -39,6 +39,17 @@ public class FieldInfo {
 	private String editcontrolParams;
 	private String viewcontrolParams;
 	private boolean pk;
+	/**
+	 * 字段维护类型
+	 * meta_tablecolumn = 0;
+	   meta_servicecolumn = 1;
+	   meta_staticcolumn = 2;
+	 */
+	private int metatype;
+	
+	public static final int meta_tablecolumn = 0;
+	public static final int meta_servicecolumn = 1;
+	public static final int meta_staticcolumn = 2;
 
 	public String getFieldName() {
 		return fieldName;
@@ -240,5 +251,18 @@ public class FieldInfo {
 
 	public void setMinlength(int minlength) {
 		this.minlength = minlength;
+	}
+
+	public int getMetatype() {
+		return metatype;
+	}
+	/**
+	 * 字段维护类型
+	 * meta_tablecolumn = 0;
+	   meta_servicecolumn = 1;
+	   meta_staticcolumn = 2;
+	 */
+	public void setMetatype(int metatype) {
+		this.metatype = metatype;
 	}
 }
