@@ -180,7 +180,7 @@ function edit${entityName}(${primaryKeyName}){
 }
 function view${entityName}(${primaryKeyName}){
 	var url="<%=request.getContextPath()%>${relativePath}/get${entityName}.page?${primaryKeyName}="+${primaryKeyName};		
-	$.dialog({ title:'查看台账信息',width:740,height:560, content:'url:'+url,lock: true}); 	
+	$.dialog({ title:'查看${moduleCNName}信息',width:740,height:560, content:'url:'+url,lock: true}); 	
 }
 function doreset(){
 	$("#reset").click();
