@@ -16,7 +16,7 @@
 所有文件存放在服务器指定的目录中
 
 # 自动代码生成框架构建运行说明：
-## 1.搭建好ant构建环境和jdk 1.7及以上
+## 1.安装好ant构建环境和jdk 1.7或以上版本
 ## 2.运行工程根目录下的build.bat指令
 ## 3.构建成功后：
 
@@ -26,7 +26,7 @@ linux/unix/mac os环境下运行distrib/run/startup.sh
 
 即可启动自动代码生成框架应用，在浏览器端访问以下地址，即可在界面中配置数据源，配置表单，生成源代码：
 
-http://localhost:8080/gencode
+http://localhost/gencode
 
 ## License
 
