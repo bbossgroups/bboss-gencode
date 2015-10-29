@@ -307,7 +307,7 @@
 						<!--/row-->
 						<h3 class="form-section">字段设置</h3>
 						<!-- table -->
-						<div class="table-scrollable">
+						<div class="table-scrollable-fixedheight">
 							<table
 								class="table table-striped table-bordered table-advance table-hover">
 								<thead>
