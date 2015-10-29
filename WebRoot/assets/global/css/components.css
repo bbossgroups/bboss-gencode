@@ -4716,8 +4716,8 @@ Responsive & Scrollable Tables
 ***/
 .table-scrollable {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  height:600px;
+  overflow: auto;
   border: 1px solid #dddddd;
   margin: 10px 0 !important;
 }

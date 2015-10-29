@@ -646,7 +646,18 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				}
 			}
 		}
+		if (fieldInfo.getType() != null && fieldInfo.getType().equals("UtilDate")) {
+			if (f instanceof ConditionField) {				
+					gencodeService.addConditionImport("java.util.Date");
+					f.setType("Date");
+				
+			} else {
 
+				
+					gencodeService.addEntityImport("java.util.Date");
+					f.setType("Date");
+			}
+		}
 		f.setMfieldName(fieldInfo.getMfieldName());
 		f.setFieldName(fieldInfo.getFieldName());
 		f.setColumnname(fieldInfo.getColumnname());
