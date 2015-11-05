@@ -436,6 +436,8 @@
 															<pg:equal value="###,###">selected</pg:equal>>###,###</option>
 														<option value="###,###.###"
 															<pg:equal value="###,###.###">selected</pg:equal>>###,###.###</option>
+														<option value="###,###.00"
+															<pg:equal value="###,###.00">selected</pg:equal>>###,###.00</option>	
 													</pg:case>
 											</select></td>
 											<td><div class="radio-list">

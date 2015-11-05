@@ -775,6 +775,7 @@ public class GencodeServiceImpl {
 		 Template entitytempalte = VelocityUtil.getTemplate("gencode/java/entityjava.vm");
 		 VelocityContext context = new VelocityContext();
 		 List<Field> _conditions = new ArrayList<Field>();
+		 if(conditions != null && conditions.size() > 0)
 		 _conditions.addAll(conditions);
 		 if(this.needsort())
 		 {
