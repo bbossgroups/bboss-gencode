@@ -112,7 +112,10 @@
 		<copy todir="${distrib}/WebRoot/WEB-INF/classes">
 			<fileset dir="${source}/resources" includes="**/*" />
 		</copy>
-		
+		<copy todir="${distrib}/WebRoot/WEB-INF/lib">
+					<fileset dir="${source}/lib/eclipse" includes="**/*" />
+					<fileset dir="${source}/build" includes="bboss-rt.jar" />
+				</copy>
 
 	</target>
 	<target name="copy-depends-liberary" description="copy depends liberarys">

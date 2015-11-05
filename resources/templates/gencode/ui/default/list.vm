@@ -18,7 +18,7 @@
 <pg:empty actual="$start${entityVarName}s$end" evalbody="true">
     <pg:yes>
 	<div class="nodata">
-	没有数据
+	<img src="${start}pageContext.request.contextPath${end}/html/images/no_data.jpg" />
 	</div>
 	</pg:yes>
 	<pg:no>
