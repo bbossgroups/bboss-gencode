@@ -11,7 +11,7 @@
 -->
 
 #macro( fieldattr $field)
-#if($field.dateformat && !$field.dateformat.equals("")) dateformat="$field.dateformat" #end #if($field.numformat  && !$field.numformat.equals("")) numberformat="$field.numformat" #end
+#if($field.dateformat && !$field.dateformat.equals("")) dateformat="$field.dateformat" #end #if($field.numformat  && !$field.numformat.equals("")) numerformat="$field.numformat" #end
 #end
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
