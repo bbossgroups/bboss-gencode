@@ -815,17 +815,25 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			FieldInfo fieldInfo = fields.get(i);
 			String inlist = fieldInfo.getViewcontrolParams();
 
-			if (inlist != null && inlist.contains("隐藏")) {
-				Field f = new Field();
-				convertField(gencodeService, fieldInfo, f, Util.viewpage);
-				viewHiddenFields.add(f);
-			} else {
-				Field f = new Field();
-				convertField(gencodeService, fieldInfo, f, Util.viewpage);
-				if (f.isPk())
-					viewShowFields.add(0, f);
-				else
-					viewShowFields.add(f);
+			if (inlist != null )
+			{
+				if(inlist.contains("隐藏")) {
+					Field f = new Field();
+					convertField(gencodeService, fieldInfo, f, Util.viewpage);
+					viewHiddenFields.add(f);
+				} 
+				else if (inlist.contains("显示")){
+					Field f = new Field();
+					convertField(gencodeService, fieldInfo, f, Util.viewpage);
+					if (f.isPk())
+						viewShowFields.add(0, f);
+					else
+						viewShowFields.add(f);
+				}
+				else if(inlist.contains("忽略")) {
+					
+				}
+				
 			}
 		}
 		gencodeService.setViewShowFields(viewShowFields);
