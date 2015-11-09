@@ -292,6 +292,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		model.addAttribute("gencode", gencode);
 		model.addAttribute("tableName", gencode.getTablename());
 		model.addAttribute("dbname", gencode.getDbname());
+		initDatasource(gencodeService.getDatasource(gencode.getDbname()));
 		ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
 		String sourcedir = getSourcedir(controlInfo,gencode.getId());
 		if (sourcedir != null && !sourcedir.equals("")) {
@@ -858,6 +859,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			String gencodeid) {
 		Map<String, String> ret = new HashMap<String, String>();
 		// 先保存配置信息，成功后再生成代码
+		this.initDatasource(gencodeService.getDatasource(controlInfo.getDbname()));
 		Gencode gencode = _tempsave(controlInfo, fields, gencodeid, ret);
 
 		GencodeServiceImpl gencodeService = new GencodeServiceImpl(true);

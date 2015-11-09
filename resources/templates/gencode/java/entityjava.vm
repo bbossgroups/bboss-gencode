@@ -55,6 +55,38 @@ import $import;
 	  #end
     #end
 #end
+#macro( getsetmethod $field $datarange)
+	#if(!$datarange)
+	    public void set$filed.mfieldName$start$filed.type $filed.fieldName$end
+		{
+			this.$filed.fieldName = $filed.fieldName;
+		}
+		
+		public $filed.type get$filed.mfieldName$start$end
+		{
+			return $filed.fieldName;
+		}
+	#else
+		public void set${filed.mfieldName}_start$start$filed.type ${filed.fieldName}_start$end
+		{
+			this.${filed.fieldName}_start = ${filed.fieldName}_start;
+		}
+		
+		public $filed.type get${filed.mfieldName}_start$start$end
+		{
+			return ${filed.fieldName}_start;
+		}
+		public void set${filed.mfieldName}_end$start$filed.type ${filed.fieldName}_end$end
+		{
+			this.${filed.fieldName}_end = ${filed.fieldName}_end;
+		}
+		
+		public $filed.type get${filed.mfieldName}_end$start$end
+		{
+			return ${filed.fieldName}_end;
+		}
+	#end	
+#end
 #macro( writedefaultValue $field)
   #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal #if($filed.type.equals("String")) "$filed.defaultValue" #else $filed.defaultValue #end #end
 #end
@@ -80,14 +112,16 @@ public class $classname implements java.io.Serializable
 	{
 	}
 #foreach($filed in $fields)	
-	public void set$filed.mfieldName$start$filed.type $filed.fieldName$end
-	{
-		this.$filed.fieldName = $filed.fieldName;
-	}
+	#if(!$iscondition)
+	   #getsetmethod($filed false)
+	#else
+		#if(!$filed.daterange)
+		  #getsetmethod($filed false)
+		#else
+			#getsetmethod($filed true)		 
+			
+		#end	
+	#end	
 	
-	public $filed.type get$filed.mfieldName$start$end
-	{
-		return $filed.fieldName;
-	}
 #end
 }

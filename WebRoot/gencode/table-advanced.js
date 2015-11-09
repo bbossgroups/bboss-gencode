@@ -1,5 +1,11 @@
 var TableAdvanced = function () {
 
+	var initfieldtablelist = function()
+	
+	{
+		 $('#fieldlist').DataTable({paging: false,searching: false,
+			    ordering:  false});
+	}
 	var  deletegencode = function(genid,event)
 	{
 		$.ajax({
@@ -568,8 +574,11 @@ var TableAdvanced = function () {
         	var a =  $('#downfile');
         	 a.attr("href","downcode.page?genid="+genid);
         	 a.click();
+        },
+        initfieldtablelist:function()
+        {
+        	initfieldtablelist();
         }
-        
 
     };
 

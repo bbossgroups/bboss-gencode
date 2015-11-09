@@ -33,7 +33,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 				
 				 null,// "READ_UNCOMMITTED",
 				 "select 1",
-				 "jndi-bigdata_conf" ,   
+				 "jndi-gencode_conf" ,   
 	        		10,
 	        		10,
 	        		20,

@@ -307,9 +307,9 @@
 						<!--/row-->
 						<h3 class="form-section">字段设置</h3>
 						<!-- table -->
-						<div class="table-scrollable-fixedheight">
+						 
 							<table
-								class="table table-striped table-bordered table-advance table-hover">
+								class="table table-striped table-bordered table-advance table-hover" id="fieldlist">
 								<thead>
 									<tr>
 										<th scope="col"><i class="fa fa-briefcase"></i>字段名称</th>
@@ -364,12 +364,18 @@
 															<pg:equal value="long">selected</pg:equal>>long</option>
 														<option value="int"
 															<pg:equal value="int">selected</pg:equal>>int</option>
+														<option value="short"
+															<pg:equal value="short">selected</pg:equal>>short</option>	
 														<option value="Timestamp"
 															<pg:equal value="Timestamp">selected</pg:equal>>Timestamp</option>
 														<option value="Date"
 															<pg:equal value="Date">selected</pg:equal>>Date</option>
 														<option value="UtilDate"
 															<pg:equal value="UtilDate">selected</pg:equal>>UtilDate</option>
+														<option value="double"
+															<pg:equal value="double">selected</pg:equal>>double</option>	
+														<option value="float"
+															<pg:equal value="float">selected</pg:equal>>float</option>		
 														<!-- <option value="url"
 															<pg:equal value="url">selected</pg:equal>>url</option>
 														<option value="creditcard"
@@ -532,7 +538,7 @@
 						</div>
 
 						<!-- /table -->
-					</div>
+					 
 					<div class="form-actions">
 						<div class="row">
 							<div class="col-md-6">
@@ -591,6 +597,7 @@
 					function() {
 						FormValidation.inittableconfig();
 						UIExtendedModals.init();
+						TableAdvanced.initfieldtablelist();
 					});
 
 	
