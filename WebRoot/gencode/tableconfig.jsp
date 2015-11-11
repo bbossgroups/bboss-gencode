@@ -307,7 +307,7 @@
 						<!-- table -->
 						<div class="table-scrollable">
 							<table
-								class="table table-striped table-bordered table-advance  dataTable no-footer table-hover"
+								class="table table-striped table-bordered table-advance  dataTable no-footer"
 								id="fieldlist">
 								<thead>
 									<tr>
@@ -398,8 +398,7 @@
 
 										<tr id="detail_row_<pg:rowid/>" class="display-hide">
 											<td colspan="5">
-												<table
-													class="table table-striped table-bordered table-advance  table-hover">
+												<table class="table    ">
 													<tbody>
 
 														<tr>
@@ -626,7 +625,7 @@
 																</div></td>
 														</tr>
 													</tbody>
-												</table>
+												</table> 
 											</td>
 										</tr>
 									</pg:list>
