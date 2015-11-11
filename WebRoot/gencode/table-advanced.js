@@ -227,6 +227,7 @@ var TableAdvanced = function () {
         	 var sr = this;
          	var rowid = sr.id;
          	var insertrow;
+         	
          	var insertdetailrow;
          	if(rowid != null && rowid.startWith("detail_row_"))
          	{
@@ -241,9 +242,20 @@ var TableAdvanced = function () {
             if(selectedRow) 
             { 
                 if(selectedRow != this && selectDetailRow != this && insertdetailrow != selectDetailRow) 
-                { 
-                    $(insertrow).before($(selectedRow)); //插入                    
-                    $(insertrow).before($(selectDetailRow)); //插入                    
+                {
+                	if(selectDetailRow.rowIndex == insertrow.rowIndex -1)
+                		
+                	{	
+                		$(insertdetailrow).after($(selectDetailRow)); //插入
+                		$(insertdetailrow).after($(selectedRow)); //插入                 
+	                    
+                	}
+                	else
+            		{
+                		$(insertrow).before($(selectedRow)); //插入                    
+	                    $(insertrow).before($(selectDetailRow)); //插入
+	                    
+            		}
                 } 
                 tbody.css('cursor', 'default'); 
                 selectedRow = null;   
