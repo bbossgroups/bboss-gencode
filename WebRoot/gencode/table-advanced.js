@@ -3,8 +3,51 @@ var TableAdvanced = function () {
 	var initfieldtablelist = function()
 	
 	{
-		 $('#fieldlist').DataTable({paging: false,searching: false,
-			    ordering:  false});
+		String.prototype.startWith=function(str){  
+            if(str==null||str==""||this.length==0||str.length>this.length)  
+              return false;  
+            if(this.substr(0,str.length)==str)  
+              return true;  
+            else  
+              return false;  
+            return true;  
+        }  
+        String.prototype.endWith=function(str){  
+            if(str==null||str==""||this.length==0||str.length>this.length)  
+              return false;  
+            if(this.substring(this.length-str.length)==str)  
+              return true;  
+            else  
+              return false;  
+            return true;  
+        } 
+		var table = $('#fieldlist');
+		// var oTable = table.DataTable({paging: false,searching: false,
+			//    ordering:  false});
+		 
+		 /* Add event listener for opening and closing details
+	         * Note that the indicator for showing which row is open is not controlled by DataTables,
+	         * rather it is done here
+	         */
+	        table.on('click', ' tbody td .row-details', function () {
+	        	var id = $(this).attr("id");
+	        	var detail = $("#detail_"+id)
+	            
+	            if (detail.css("display")!='none') {
+	                /* This row is already open - close it */
+	                $(this).addClass("row-details-close").removeClass("row-details-open");
+	                detail.hide();
+	            } else {
+	                /* Open this row */
+	                $(this).addClass("row-details-open").removeClass("row-details-close");
+	                detail.show();
+	            }
+	        	
+	        	
+	        });
+	        tableSort();
+	        
+	        
 	}
 	var  deletegencode = function(genid,event)
 	{
@@ -142,6 +185,100 @@ var TableAdvanced = function () {
 
         
     };
+    var  tableSort = function (event) 
+    { 
+        var tbody = $('#fieldlist > tbody'); 
+        var rows = tbody.children(); 
+        var selectedRow; 
+        var selectDetailRow;
+         
+        //压下鼠标时选取行 
+        rows.mousedown(function(event){
+        	 
+            var t = event.srcElement ? event.srcElement : event.target;
+            var n  = t.tagName;
+            var id = t.id;
+            if(id && id.startWith("row_"))
+            	return true;
+            if(n == 'INPUT' || n == 'SELECT' ||n == 'CHECKBOX' || n == 'RADIO' || n == 'TEXTEREA')
+            	return true;
+            
+            var sr = this;
+        	var rowid = sr.id;
+        	if(rowid != null && rowid.startWith("detail_row_"))
+        	{
+        		selectDetailRow = this;
+        		selectedRow = $(selectDetailRow).prev()[0];
+        	}
+        	else
+    		{
+        		selectedRow = this;
+        		selectDetailRow = $(selectedRow).next()[0];
+    		}
+            
+            tbody.css('cursor', 'move'); 
+            return false;    //防止拖动时选取文本内容，必须和 mousemove 一起使用 
+        }); 
+        rows.mousemove(function(){ 
+            return false;    //防止拖动时选取文本内容，必须和 mousedown 一起使用 
+        }); 
+        //释放鼠标键时进行插入 
+        rows.mouseup(function(){         
+        	 var sr = this;
+         	var rowid = sr.id;
+         	var insertrow;
+         	var insertdetailrow;
+         	if(rowid != null && rowid.startWith("detail_row_"))
+         	{
+         		insertdetailrow = this;
+         		insertrow = $(this).prev()[0];
+         	}
+         	else
+     		{
+         		insertrow = this;
+         		insertdetailrow = $(this).next()[0];
+     		}
+            if(selectedRow) 
+            { 
+                if(selectedRow != this && selectDetailRow != this && insertdetailrow != selectDetailRow) 
+                { 
+                    $(insertrow).before($(selectedRow)); //插入                    
+                    $(insertrow).before($(selectDetailRow)); //插入                    
+                } 
+                tbody.css('cursor', 'default'); 
+                selectedRow = null;   
+                selectDetailRow = null;
+            }                                 
+        }); 
+        //标示当前鼠标所在位置 
+        rows.hover( 
+            function(){                     
+                if(selectedRow && selectedRow != this) 
+                { 
+                    //区分大小写的，写成 'mouseover' 就不行                         
+                }                     
+            }, 
+            function(){ 
+                if(selectedRow && selectedRow != this) 
+                { 
+                    
+                } 
+            } 
+        ); 
+
+        //当用户压着鼠标键移出 tbody 时，清除 cursor 的拖动形状，以前当前选取的 selectedRow            
+        tbody.mouseover(function(event){ 
+            event.stopPropagation(); //禁止 tbody 的事件传播到外层的 div 中 
+        });     
+        $('#fieldlist').mouseover(function(event){ 
+            if($(event.relatedTarget).parents('#content')) //event.relatedTarget: 获取该事件发生前鼠标所在位置处的元素 
+            { 
+                tbody.css('cursor', 'default'); 
+                selectedRow = null; 
+                selectDetailRow = null;
+            } 
+        }); 
+    } ;
     var handleTable = function () {
 
         function restoreRow(oTable, nRow) {
@@ -569,6 +706,8 @@ var TableAdvanced = function () {
                  }, 1000);
                });
         },
+        
+     
         downcode:function(genid,event)
         {
         	var a =  $('#downfile');
@@ -579,6 +718,9 @@ var TableAdvanced = function () {
         {
         	initfieldtablelist();
         }
+        
+      //表格排序 
+       
 
     };
 

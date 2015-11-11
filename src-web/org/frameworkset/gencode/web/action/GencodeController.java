@@ -705,17 +705,19 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				if (inlist.contains("显示")) {
 
 					convertField(gencodeService, fieldInfo, f, Util.listpage);
-					if (f.isPk()) {
-						listShowFields.add(0, f);
-					} else {
+//					if (f.isPk()) {
+//						listShowFields.add(0, f);
+//					} else 
+					{
 						listShowFields.add(f);
 					}
 				} else if (inlist.contains("隐藏")) {
 
 					convertField(gencodeService, fieldInfo, f, Util.listpage);
-					if (f.isPk()) {
-						listHiddenFields.add(0, f);
-					} else {
+//					if (f.isPk()) {
+//						listHiddenFields.add(0, f);
+//					} else 
+					{
 						listHiddenFields.add(f);
 					}
 				} else if (inlist.contains("忽略") || inlist.trim().equals("")) {
@@ -740,18 +742,21 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				if (inlist.contains("显示")) {
 					Field f = new Field();
 					convertField(gencodeService, fieldInfo, f, Util.addpage);
-					if (f.isPk()) {
-						addShowFields.add(0, f);
-					} else {
+//					if (f.isPk()) {
+//						addShowFields.add(0, f);
+//					} else 
+					{
 						addShowFields.add(f);
 					}
 				}				
 				else if ( inlist.contains("隐藏")) {
 					Field f = new Field();
 					convertField(gencodeService, fieldInfo, f, Util.addpage);
-					if (f.isPk()) {
-						addHiddenFields.add(0, f);
-					} else {
+//					if (f.isPk()) {
+//						addHiddenFields.add(0, f);
+//					} 
+//					else 
+					{
 						addHiddenFields.add(f);
 					}
 				}
@@ -788,15 +793,15 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			{
 				if (inlist.contains("显示")) {
 					convertField(gencodeService, fieldInfo, f, Util.editpage);
-					if (f.isPk())
-						editShowFields.add(0, f);
-					else
+//					if (f.isPk())
+//						editShowFields.add(0, f);
+//					else
 						editShowFields.add(f);
 				} else if (inlist.contains("隐藏")) {
 					convertField(gencodeService, fieldInfo, f, Util.editpage);
-					if (f.isPk())
-						editHiddenFields.add(0, f);
-					else
+//					if (f.isPk())
+//						editHiddenFields.add(0, f);
+//					else
 						editHiddenFields.add(f);
 				} else {
 					continue;
@@ -826,9 +831,9 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				else if (inlist.contains("显示")){
 					Field f = new Field();
 					convertField(gencodeService, fieldInfo, f, Util.viewpage);
-					if (f.isPk())
-						viewShowFields.add(0, f);
-					else
+//					if (f.isPk())
+//						viewShowFields.add(0, f);
+//					else
 						viewShowFields.add(f);
 				}
 				else if(inlist.contains("忽略")) {
