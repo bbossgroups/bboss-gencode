@@ -47,6 +47,10 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	public @ResponseBody String addDatasource(Datasource datasource) {
 		// 控制器
 		try {
+			if("gencode".equals(datasource.getDbname()))
+			{
+				throw new java.lang.IllegalArgumentException("gencode为系统预留数据源名称，从修改为其他数据源名称!");
+			}
 			Datasource olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
 			if (olddatasource == null) {
 				gencodeService.addDatasource(datasource);
@@ -71,6 +75,10 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	public @ResponseBody String deleteDatasource(String dbname) {
 		try {
+			if("gencode".equals(dbname))
+			{
+				throw new java.lang.IllegalArgumentException("gencode为系统预留数据源名称，不能删除!");
+			}
 			gencodeService.deleteDatasource(dbname);
 			DBUtil.stopPool(dbname);
 			return "success";
