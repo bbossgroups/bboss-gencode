@@ -228,7 +228,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	public @ResponseBody List<String> refreshtables(String dbname) {
 		initDatasource(gencodeService.getDatasource(dbname));
-		DBUtil.refreshDatabaseMetaData();
+		DBUtil.refreshDatabaseMetaData(dbname);
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname);
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
