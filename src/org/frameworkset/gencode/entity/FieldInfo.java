@@ -39,6 +39,8 @@ public class FieldInfo {
 	private String editcontrolParams;
 	private String viewcontrolParams;
 	private boolean pk;
+	
+	private String fieldComment;
 	/**
 	 * 字段维护类型
 	 * meta_tablecolumn = 0;
@@ -264,5 +266,13 @@ public class FieldInfo {
 	 */
 	public void setMetatype(int metatype) {
 		this.metatype = metatype;
+	}
+
+	public String getFieldComment() {
+		return fieldComment;
+	}
+
+	public void setFieldComment(String fieldComment) {
+		this.fieldComment = fieldComment;
 	}
 }

@@ -469,6 +469,12 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		f.setExtendType(fieldInfo.getType());
 		f.setFieldCNName(fieldInfo.getFieldCNName());
 		f.setColumntype(fieldInfo.getColumntype());
+		if(!StringUtil.isEmpty(fieldInfo.getFieldComment()))
+			f.setFieldComment(fieldInfo.getFieldComment());
+		else if(!StringUtil.isEmpty(fieldInfo.getFieldCNName()))
+		{
+			f.setFieldComment(fieldInfo.getFieldCNName());
+		}
 		if (gencodeService.isGenI18n()) {
 			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
 		}
@@ -580,6 +586,12 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		f.setExtendType(fieldInfo.getType());
 		f.setFieldCNName(fieldInfo.getFieldCNName());
 		f.setColumntype(fieldInfo.getColumntype());
+		if(!StringUtil.isEmpty(fieldInfo.getFieldComment()))
+			f.setFieldComment(fieldInfo.getFieldComment());
+		else if(!StringUtil.isEmpty(fieldInfo.getFieldCNName()))
+		{
+			f.setFieldComment(fieldInfo.getFieldCNName());
+		}
 		if (gencodeService.isGenI18n()) {
 			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
 		}

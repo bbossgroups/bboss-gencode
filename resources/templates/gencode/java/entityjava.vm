@@ -90,19 +90,42 @@ import $import;
 #macro( writedefaultValue $field)
   #if($filed.defaultValue && !$filed.defaultValue.equals(""))$equal #if($filed.type.equals("String")) "$filed.defaultValue" #else $filed.defaultValue #end #end
 #end
+#macro( writefieldComment $field $daterange $isstart)
+  #if($filed.fieldComment && !$filed.fieldComment.equals(""))
+	  #if(!$daterange)
+	  /**  
+	  * $filed.fieldComment
+	  */
+	  #else
+	 	 #if($isstart)
+		  /**  
+		  * 查询开始时间：$filed.fieldComment
+		  */
+		  #else
+		  /**  
+		  * 查询结束时间：$filed.fieldComment
+		  */	
+		  #end 	
+	  #end  
+  #end
+#end
 public class $classname implements java.io.Serializable
 {
 #foreach($filed in $fields)	
 	#if(!$iscondition)
+		#writefieldComment($filed false false)
 	    #writeanno($filed)
 		private $filed.type $filed.fieldName  #writedefaultValue($filed);	
 	#else
 		#if(!$filed.daterange)
+		   #writefieldComment($filed false false)
 		   #writeanno($filed)
 			private $filed.type $filed.fieldName ;
 		#else
+			#writefieldComment($filed true true)
 			#writeanno($filed)
 			private $filed.type ${filed.fieldName}_start ;
+			#writefieldComment($filed true false)
 			#writeanno($filed)
 			private $filed.type ${filed.fieldName}_end ;
 		#end	

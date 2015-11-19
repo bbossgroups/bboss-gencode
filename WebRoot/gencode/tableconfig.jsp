@@ -300,7 +300,8 @@
 
 								<!--/span-->
 							</div>
-
+							 
+							 
 						</pg:beaninfo>
 						<!--/row-->
 						<h3 class="form-section">字段设置</h3>
@@ -623,6 +624,23 @@
 																			value="<pg:cell colName="replace"/>">
 																	</div>
 																</div></td>
+														</tr>
+														<tr>
+
+
+															<td colspan="3" >
+															<div class="col-md-12">
+															<div class="form-group">
+																<label class="control-label col-md-1">字段注释 
+																</label>
+																<div class="col-md-11">
+																<textarea class="col-md-6 form-control" name="fieldComment" rows="6"><pg:cell colName="fieldComment" htmlEncode="true"/></textarea>
+																</div>
+															</div>
+															</div>	
+															</td>
+															
+															
 														</tr>
 													</tbody>
 												</table> 

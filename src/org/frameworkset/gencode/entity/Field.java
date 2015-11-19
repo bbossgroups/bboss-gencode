@@ -46,7 +46,7 @@ public class Field {
 	private String numformat;
 	private boolean editable;
 	
-	
+	private String fieldComment;
 	public String getFieldName() {
 		return fieldName;
 	}
@@ -216,6 +216,12 @@ public class Field {
 	}
 	public void setDatetype(boolean datetype) {
 		this.datetype = datetype;
+	}
+	public String getFieldComment() {
+		return fieldComment;
+	}
+	public void setFieldComment(String fieldComment) {
+		this.fieldComment = fieldComment;
 	}
 
 }

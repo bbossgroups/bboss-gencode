@@ -57,11 +57,7 @@ public class Util {
 				FieldInfo f = new FieldInfo();
 				f.setType(convertType(c.getSchemaType().getJavaType()));
 				
-				if(c.getRemarks() != null)
-				{
-					f.setFieldCNName(c.getRemarks());
-					f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(c.getRemarks()));
-				}
+				
 		         try
 		         {
 		        	 List<String> inputs = new ArrayList<String>(2);
@@ -83,6 +79,16 @@ public class Util {
 		        		 fs.add(0,f);
 		        	 else
 		        		 fs.add(f);
+		        	 if(c.getRemarks() != null)
+					{
+						f.setFieldCNName(c.getRemarks());
+						f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(c.getRemarks()));
+						f.setFieldComment(c.getRemarks());
+					}
+//					else
+//					{
+//						f.setFieldComment(fieldName);
+//					}
 		        	
 		         }
 		         catch (EngineException e)

@@ -200,7 +200,7 @@ var TableAdvanced = function () {
             var id = t.id;
             if(id && id.startWith("row_"))
             	return true;
-            if(n == 'INPUT' || n == 'SELECT' ||n == 'CHECKBOX' || n == 'RADIO' || n == 'TEXTEREA')
+            if(n == 'INPUT' || n == 'SELECT' ||n == 'CHECKBOX' || n == 'RADIO' || n == 'TEXTAREA')
             	return true;
             
             var sr = this;
@@ -219,7 +219,14 @@ var TableAdvanced = function () {
             tbody.css('cursor', 'move'); 
             return false;    //防止拖动时选取文本内容，必须和 mousemove 一起使用 
         }); 
-        rows.mousemove(function(){ 
+        rows.mousemove(function(event){ 
+        	 var t = event.srcElement ? event.srcElement : event.target;
+             var n  = t.tagName;
+             var id = t.id;
+             if(id && id.startWith("row_"))
+             	return true;
+             if(n == 'INPUT' || n == 'SELECT' ||n == 'CHECKBOX' || n == 'RADIO' || n == 'TEXTAREA')
+             	return true;
             return false;    //防止拖动时选取文本内容，必须和 mousedown 一起使用 
         }); 
         //释放鼠标键时进行插入 

@@ -18,14 +18,14 @@
 		f:${entityVarName}Service="attr:${moduleName}.${entityVarName}Service"
 		class="${controlClass}" >
 	</property>
-	
+	#if($genRPC)
 	<property name="${moduleName}.WS${entityVarName}Service"
 		ws:servicePort="${entityVarName}Service" 
 		hessian:servicePort="${entityVarName}Service"
 		f:${entityVarName}Service="attr:${moduleName}.${entityVarName}Service"
 		class="${wsserviceClass}" >
 	</property>
-	
+	#end
 	<property name="${moduleName}.${entityVarName}Service"
 		f:executor="attr:${moduleName}.configsqlexecutor"
 		class="${serviceClass}"
