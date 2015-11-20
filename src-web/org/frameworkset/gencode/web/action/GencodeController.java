@@ -215,6 +215,9 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	public @ResponseBody List<String> loadtables(String dbname) {
+		if(StringUtil.isEmpty(dbname))
+			return null;
+		
 		initDatasource(gencodeService.getDatasource(dbname));
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname);
 		List<String> tables = new ArrayList<String>();
@@ -227,6 +230,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	public @ResponseBody List<String> refreshtables(String dbname) {
+		if(StringUtil.isEmpty(dbname))
+			return null;
 		initDatasource(gencodeService.getDatasource(dbname));
 		DBUtil.refreshDatabaseMetaData(dbname);
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname);
@@ -276,7 +281,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	public String tableconfig(String dbname, String tableName, ModelMap model) {
-		if (tableName == null)
+		if (tableName == null || tableName.equals("") || dbname == null || dbname.equals(""))
 			return "path:tableconfig";
 		initDatasource(gencodeService.getDatasource(dbname));
 		TableMetaData tableMeta = DBUtil.getTableMetaData(dbname, tableName);
