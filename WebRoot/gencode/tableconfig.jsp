@@ -149,7 +149,7 @@
 										<label class="control-label col-md-3">系统名称</label>
 										<div class="col-md-9">
 											<input id="system" name="system" type="text"
-												class="form-control" placeholder="系统名称"
+												class="form-control" placeholder="系统名称,只能使用英文名称，用于mvc配置文件存放相对路径和国际化属性文件中属性名称命名空间"
 												value="<pg:cell colName="system"/>"><span
 												class="help-block"><font color="blue">可选项 </font></span>
 										</div>

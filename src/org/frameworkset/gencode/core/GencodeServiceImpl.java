@@ -247,7 +247,7 @@ public class GencodeServiceImpl {
 	{
 			
 		SQLBuilder = new SQLBuilder(this);
-		File f = SimpleStringUtil.isEmpty(this.moduleMetaInfo.getSystem() )?new File(moduleMetaInfo.getSourcedir(),this.moduleMetaInfo.getModuleName()):new File(moduleMetaInfo.getSourcedir(),this.moduleMetaInfo.getSystem()+"/"+this.moduleMetaInfo.getModuleName());
+		File f = new File(moduleMetaInfo.getSourcedir(),this.moduleMetaInfo.getModuleName());
 		if(!f.exists())
 		{
 			f.mkdirs();

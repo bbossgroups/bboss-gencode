@@ -973,20 +973,32 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		try {
 
 			Gencode gencode = new Gencode();
-			gencode.setAuthor(controlInfo.getAuthor());
-			gencode.setCompany(controlInfo.getCompany());
-			gencode.setCreatetime(System.currentTimeMillis());
-			gencode.setDbname(controlInfo.getDbname());
-			gencode.setTablename(controlInfo.getTableName());
-			gencode.setUpdatetime(gencode.getCreatetime());
-			gencode.setControlparams(ObjectSerializable.toXML(controlInfo));
-			gencode.setFieldinfos(ObjectSerializable.toXML(fields));
-			gencode.setMoudleCNName(controlInfo.getModuleCNName());
-			gencode.setMoudleName(controlInfo.getModuleName());
 			if (gencodeid == null || gencodeid.equals("")) {
+				 
+				gencode.setAuthor(controlInfo.getAuthor());
+				gencode.setCompany(controlInfo.getCompany());
+				gencode.setCreatetime(System.currentTimeMillis());
+				gencode.setDbname(controlInfo.getDbname());
+				gencode.setTablename(controlInfo.getTableName());
+				gencode.setUpdatetime(gencode.getCreatetime());
+				gencode.setControlparams(ObjectSerializable.toXML(controlInfo));
+				gencode.setFieldinfos(ObjectSerializable.toXML(fields));
+				gencode.setMoudleCNName(controlInfo.getModuleCNName());
+				gencode.setMoudleName(controlInfo.getModuleName());
 				gencodeService.addGencode(gencode);
 				ret.put("gencodeid", gencode.getId());
 			} else {
+				
+				gencode.setAuthor(controlInfo.getAuthor());
+				gencode.setCompany(controlInfo.getCompany());
+//				gencode.setCreatetime(System.currentTimeMillis());
+				gencode.setDbname(controlInfo.getDbname());
+				gencode.setTablename(controlInfo.getTableName());
+				gencode.setUpdatetime(System.currentTimeMillis());
+				gencode.setControlparams(ObjectSerializable.toXML(controlInfo));
+				gencode.setFieldinfos(ObjectSerializable.toXML(fields));
+				gencode.setMoudleCNName(controlInfo.getModuleCNName());
+				gencode.setMoudleName(controlInfo.getModuleName());
 				gencode.setId(gencodeid);
 				gencodeService.updateGencode(gencode);
 				ret.put("gencodeid", gencode.getId());
