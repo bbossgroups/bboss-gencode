@@ -45,7 +45,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <link rel="stylesheet" type="text/css" href="../assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="../assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
 <link rel="stylesheet" type="text/css" href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
-
+<link rel="stylesheet" type="text/css" href="../assets/global/plugins/bootstrap-gtreetable/bootstrap-gtreetable.min.css"/>
+<link href="../assets/global/plugins/carousel-owl-carousel/assets/js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
 
 <link href="../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
 <link href="../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
@@ -70,7 +71,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-header-fixed page-quick-sidebar-over-content ">
+<body class="page-header-fixed page-quick-sidebar-over-content page-full-width">
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
 	<!-- BEGIN HEADER INNER -->
@@ -80,8 +81,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<a href="../templates/admin/index.html" target="_admin">
 			<img src="../assets/admin/layout/img/logo-invert.png" alt="logo" class="logo-default"/>
 			</a>
-			<div class="menu-toggler sidebar-toggler">
-			</div>
+			
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -473,70 +473,33 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- /.modal -->
 	<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 	<!-- BEGIN SIDEBAR1 -->
-	<div class="page-sidebar-wrapper">
-		<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-		<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-		<div class="page-sidebar navbar-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU1 -->
-			<ul class="page-sidebar-menu" data-slide-speed="200" data-auto-scroll="true" data-auto-scroll="true" data-slide-speed="200">
-				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-				<li class="sidebar-search-wrapper">
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-					<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
-					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-					<form class="sidebar-search sidebar-search-bordered" action="extra_search.html" method="POST">
-						<a href="javascript:;" class="remove">
-						<i class="icon-close"></i>
-						</a>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search...">
-							<span class="input-group-btn">
-							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-							</span>
-						</div>
-					</form>
-					<!-- END RESPONSIVE QUICK SEARCH FORM -->
-				</li>
-				<li class="start">
-					<a class="ajaxify start" href="selecttable.page">
-					<i class="fa fa-home"></i>
-					<span class="title">
-					代码管理 </span>
-					<span class="selected">
-					</span>
-					</a>
-				</li>
-				<!--<li>
-					<a href="javascript:;">
-					<i class="fa fa-cogs"></i>
-					<span class="title">
-					代码生成框架 </span>
-					<span class="selected">
-					</span>
-					<span class="arrow open">
-					</span>
-					</a>
-					<ul class="sub-menu">
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_2.html">
-							数据源管理 </a>
-						</li>
-						<li>
-							<a class="ajaxify" href="../templates/admin/layout_ajax_content_3.html">
-							表单管理 </a>
-						</li>
-						
-					</ul>
-				</li>-->
-				 
-			</ul>
-			<!-- END SIDEBAR MENU1 -->
-		</div>
-	</div>
+	 
 	<!-- END SIDEBAR1 -->
 	<!-- BEGIN CONTENT -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+							<h4 class="modal-title">Modal title</h4>
+						</div>
+						<div class="modal-body">
+							 Widget settings form goes here
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN STYLE CUSTOMIZER -->
 			<div class="theme-panel hidden-xs hidden-sm">
 				<div class="toggler">
@@ -548,7 +511,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span>
 						THEME COLOR </span>
 						<ul>
-							<li class="color-default  tooltips" data-style="default" data-container="body" data-original-title="Default">
+							<li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default">
 							</li>
 							<li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
 							</li>
@@ -558,7 +521,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</li>
 							<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
 							</li>
-							<li class="color-light2 current tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
+							<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2">
 							</li>
 						</ul>
 					</div>
@@ -629,12 +592,124 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 			</div>
 			<!-- END STYLE CUSTOMIZER -->
-			<div class="page-content-body">
-				<!-- HERE WILL BE LOADED AN AJAX CONTENT -->
+			<!-- BEGIN PAGE HEADER-->
+			<h3 class="page-title">
+			Tree Datatables <small>tree table samples</small>
+			</h3>
+			<div class="page-bar">
+				<ul class="page-breadcrumb">
+					<li>
+						<i class="fa fa-home"></i>
+						<a href="index.html">Home</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="#">Data Tables</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="#">Tree Datatables</a>
+					</li>
+				</ul>
+				<div class="page-toolbar">
+					<div class="btn-group pull-right">
+						<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+						Actions <i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu pull-right" role="menu">
+							<li>
+								<a href="#">Action</a>
+							</li>
+							<li>
+								<a href="#">Another action</a>
+							</li>
+							<li>
+								<a href="#">Something else here</a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="#">Separated link</a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="note note-success">
+						<p>
+							 GTreeTable is extension of Tweeter Bootstrap 3 framework, which allows to use tree structure inside HTML table. Full documentation is available <a href="https://github.com/gilek/bootstrap-gtreetable" target="_blank">here</a>
+						</p>
+					</div>
+					<!-- BEGIN PORTLET-->
+					<div class="portlet light bordered">
+						<div class="portlet-title">
+							<div class="caption font-purple-plum">
+								<i class="icon-speech font-purple-plum"></i>
+								<span class="caption-subject bold uppercase"> Demo 2</span>
+								<span class="caption-helper">right click inside the box</span>
+							</div>
+							<div class="actions">
+								<div class="btn-group">
+									<a class="btn btn-circle btn-default btn-sm" href="#" data-toggle="dropdown">
+									<i class="fa fa-user"></i> User <i class="fa fa-angle-down"></i>
+									</a>
+									<ul class="dropdown-menu" role="menu">
+										<li>
+											<a href="#">
+											<i class="icon-user"></i> New User </a>
+										</li>
+										<li>
+											<a href="#">
+											<i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+											<i class="icon-basket"></i> New order </a>
+										</li>
+										<li class="divider">
+										</li>
+										<li>
+											<a href="#">
+											<i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+											<i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<a href="#" class="btn btn-circle red-sunglo btn-sm">
+								<i class="fa fa-plus"></i> Add </a>
+								<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<table class="table table-hover table-light gtreetable" id="gtreetable">
+							<thead>
+							<tr>
+								<th>
+									 Nested Tree Table
+								</th>
+							</tr>
+							</thead>
+							</table>
+						</div>
+					</div>
+					<!-- END PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
 		</div>
-		<!-- BEGIN CONTENT -->
 	</div>
+	 
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -1339,6 +1414,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script src="../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/global/plugins/bootstrap-gtreetable/bootstrap-gtreetable.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -1347,10 +1423,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="components-gencode-dropdowns.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/jquery.form.js" type="text/javascript"></script>
-<script src="table-advanced.js"></script>
-<script src="form-validation.js"></script>
-<script src="ui-extended-modals.js"></script>
-
+ <script type="text/javascript" src="../assets/global/plugins/carousel-owl-carousel/assets/js/google-code-prettify/prettify.min.js"></script>
+<script src="table-tree.js"></script>
 
 <script>
 jQuery(document).ready(function() {    
@@ -1359,8 +1433,9 @@ jQuery(document).ready(function() {
 Layout.init(); // init current layout
 QuickSidebar.init(); // init quick sidebar
 Demo.init(); // init demo features
-
-   $('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
+prettyPrint();
+TableTree.init('${genid}'); // init demo page
+  // $('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
 });
 
 

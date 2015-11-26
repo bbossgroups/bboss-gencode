@@ -679,20 +679,17 @@
 												<button type="button" class="btn green"
 													onclick="TableAdvanced.readme('${gencodeid }',event)">查看部署说明</button>
 
-
-												<a target="_blank" href="downcode.page?genid=${gencodeid }"
-													class="btn default btn-xs purple"> <i
-													class="fa fa-edit"></i>下载
-												</a>
+											<button type="button" class="btn green" id="downcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>		
+												<button type="button" class="btn green" id="downcode" onclick="window.open('downcode.page?genid=${gencodeid }','_blank')">  下载</button>
+												 
 											</pg:yes>
 											<pg:no>
 												<button type="button" class="btn green  display-hide"
 													id="readme">查看部署说明</button>
-
-												<a target="_blank" href="downcode.page" id="downcode"
-													class="btn default btn-xs purple  display-hide"> <i
-													class="fa fa-edit"></i>下载
-												</a>
+												<button type="button" class="btn green display-hide" id="downcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>
+											 
+												<button type="button" class="btn green display-hide" id="downcode" onclick="window.open('downcode.page?genid=${gencodeid }','_blank')">  下载</button>
+												 
 											</pg:no>
 										</pg:true>
 									</div>

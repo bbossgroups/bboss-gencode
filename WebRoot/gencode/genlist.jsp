@@ -49,6 +49,8 @@
 												
 									<a  target="_blank" href="downcode.page?genid=<pg:cell colName="id" />" class="btn default btn-xs purple">
 											<i class="fa fa-edit"></i>下载 </a>
+									<a  target="viewsource" href="viewCode.page?genid=<pg:cell colName="id" />" class="btn default btn-xs purple">
+											<i class="fa fa-edit"></i>查看源码 </a>		
 								</pg:true>		
 								 <a href="javascript:void(0)" onclick="TableAdvanced.deletegencode('<pg:cell colName="id" />',event)" class="btn default btn-xs black">
 										<i class="fa fa-trash-o"></i> 删除 </a>

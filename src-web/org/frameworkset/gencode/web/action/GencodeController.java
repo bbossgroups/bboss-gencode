@@ -1,6 +1,7 @@
 package org.frameworkset.gencode.web.action;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -1082,6 +1083,116 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		return "success";
 	}
 
+	/**
+	 * 查看源码
+	 * @param genid
+	 * @param model
+	 * @return
+	 */
+	public String viewCode(String genid, ModelMap model)
+	{
+		model.addAttribute("genid",genid);
+		Gencode gencode = gencodeService.getGencode(genid);
+		if (gencode == null) {
+			return null;
+		} else {
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
+					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
+			model.addAttribute("gencode",gencode);
+		}
+		return "path:viewCode";
+	}
+	
+	/**
+	 * <?php
+$records = array();
+$records['nodes'] = array();
+
+$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '0';
+$level = 1;
+if ($id != '0') {
+	$id = explode(':', $id);
+	$level = $id[1] + 1;
+}
+
+for($i = 1; $i < 6; $i++) {
+	$id_ = time() + rand(1000, 20000) . ':' . ($level);
+	$records['nodes'][] = array('id' => $id_, 'parent' => $id, 'name' => 'Node - ' . $level . ' - ' . $i, 'level' => $level, 'type' => 'folder');
+}
+
+echo json_encode($records);
+?>
+
+
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws IOException 
+	 */
+	public @ResponseBody Map<String,List<HashMap<String,Object>>> viewCodeFiles(String genid,String id, ModelMap model) throws IOException
+	{
+		if(StringUtil.isEmpty(id) || StringUtil.isEmpty(genid ) )
+			return null;
+		
+		Gencode gencode = gencodeService.getGencode(genid);
+		if (gencode == null) {
+			return null;
+		} else {
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
+					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
+			
+				File f = new File(sourcedir, controlInfo.getModuleName());
+				if (!f.exists()) {
+					model.addAttribute("msg", "nofile:" + f.getAbsolutePath());
+				} else {
+					int level = 0;
+					String parentPath = null;
+					if(id.equals("0"))
+					{
+						level = 0;
+					}
+					else
+					{
+						String[] tokens= id.split(":");
+						parentPath = tokens[0];
+						level = Integer.parseInt(tokens[1]) + 1;
+						f = new File(f,parentPath);
+					}
+					 
+					HashMap<String,List<HashMap<String,Object>>> nodes = new HashMap<String,List<HashMap<String,Object>>>();
+					
+					List<HashMap<String,Object>> datas = new ArrayList<HashMap<String,Object>>();
+					nodes.put("nodes", datas);
+					String prepath = StringUtil.getRealPath(sourcedir, controlInfo.getModuleName());
+					File[] fs = f.listFiles();
+					if(fs != null && fs.length > 0)
+					{
+						for(File subf:fs)
+						{
+							String path = subf.getCanonicalPath().substring(prepath.length());
+							HashMap<String,Object> node = new HashMap<String,Object>();
+							node.put("id", path+":"+level);
+							node.put("name", subf.getName());
+							node.put("level", level);
+							node.put("type", subf.isDirectory()?"folder":"file");							
+							node.put("parent", id);
+							datas.add(node);
+						}
+						return nodes;
+					}
+					
+
+				}
+			} 
+		}
+		
+		 
+		return null;
+	}
 	public String readme(String genid, ModelMap model) {
 		Gencode gencode = gencodeService.getGencode(genid);
 		if (gencode == null) {

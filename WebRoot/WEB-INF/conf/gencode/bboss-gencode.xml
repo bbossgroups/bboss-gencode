@@ -12,6 +12,7 @@
 
 	<property name="/gencode/*.page"
 		path:index="/gencode/main.jsp"
+		path:viewCode="/gencode/viewCode.jsp"
 		path:tableconfig="/gencode/tableconfig.jsp"
 		path:selecttable="/gencode/selecttable.jsp"
 		path:genlist="/gencode/genlist.jsp"

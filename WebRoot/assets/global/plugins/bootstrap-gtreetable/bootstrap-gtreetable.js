@@ -1192,6 +1192,25 @@
                     onMoveInDescendant: 'The target node should not be descendant.',
                     onMoveAsRoot: 'The target node should not be root.'
                 }                
+            },
+            'zh-CN': {
+                save: '保存',
+                cancel: '取消',
+                action: '操作',
+                actions: {
+                    createBefore: '在前面创建',
+                    createAfter: '在后面创建',
+                    createFirstChild: '创建第一个节点',
+                    createLastChild: '创建最后一个节点',
+                    update: '更新',
+                    'delete': '删除'
+                },
+                messages: {
+                    onDelete: '确认删除吗?',
+                    onNewRootNotAllowed: '不允许将当期节点设置为Root节点.',
+                    onMoveInDescendant: 'The target node should not be descendant.',
+                    onMoveAsRoot: '目标节点不能作为根节点.'
+                }                
             }
         },
         defaultActions: [
