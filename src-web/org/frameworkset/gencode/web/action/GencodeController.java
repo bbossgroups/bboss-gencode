@@ -1132,12 +1132,15 @@ echo json_encode($records);
 	 */
 	public @ResponseBody Map<String,List<HashMap<String,Object>>> viewCodeFiles(String genid,String id, ModelMap model) throws IOException
 	{
+		HashMap<String,List<HashMap<String,Object>>> nodes = new HashMap<String,List<HashMap<String,Object>>>();
+		
+		
 		if(StringUtil.isEmpty(id) || StringUtil.isEmpty(genid ) )
-			return null;
+			return nodes;
 		
 		Gencode gencode = gencodeService.getGencode(genid);
 		if (gencode == null) {
-			return null;
+			 
 		} else {
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
 			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
@@ -1163,8 +1166,6 @@ echo json_encode($records);
 						f = new File(f,parentPath);
 					}
 					 
-					HashMap<String,List<HashMap<String,Object>>> nodes = new HashMap<String,List<HashMap<String,Object>>>();
-					
 					List<HashMap<String,Object>> datas = new ArrayList<HashMap<String,Object>>();
 					nodes.put("nodes", datas);
 					String prepath = StringUtil.getRealPath(sourcedir, controlInfo.getModuleName());
@@ -1175,14 +1176,14 @@ echo json_encode($records);
 						{
 							String path = subf.getCanonicalPath().substring(prepath.length());
 							HashMap<String,Object> node = new HashMap<String,Object>();
-							node.put("id", path+":"+level);
+							node.put("id", path.replace('\\', '/')+":"+level);
 							node.put("name", subf.getName());
 							node.put("level", level);
 							node.put("type", subf.isDirectory()?"folder":"file");							
 							node.put("parent", id);
 							datas.add(node);
 						}
-						return nodes;
+						 
 					}
 					
 
@@ -1191,7 +1192,48 @@ echo json_encode($records);
 		}
 		
 		 
-		return null;
+		return nodes;
+	}
+	
+	public String viewCodeFile(String genid,String path, ModelMap model) {
+		Gencode gencode = gencodeService.getGencode(genid);
+		path = path.split(":")[0];
+		model.addAttribute("path", path);
+		if (gencode == null) {
+			model.addAttribute("msg", "norecord");
+			model.addAttribute("modulename", "");
+		} else {
+			
+			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
+			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
+					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
+				File f = new File(sourcedir, controlInfo.getModuleName() );
+				f = new File(f,path);
+				if (!f.exists()) {
+					model.addAttribute("msg", "nofile:" + f.getAbsolutePath());
+				} else {
+
+					String content = null;
+//					try {
+//						content = FileUtil.getFileContent(f, "UTF-8");
+//						model.addAttribute("readme", StringUtil.HTMLEncode(content));
+						content = fileCache.getFileContent(f.getAbsolutePath(), "UTF-8", FileContentCache.HTMLNoBREncode);
+						
+						model.addAttribute("code", content);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						log.error("readme failed:", e);
+//						model.addAttribute("msg", StringUtil.exceptionToString(e));
+//					}
+
+				}
+			} else {
+				model.addAttribute("msg", "nofile");
+			}
+		}
+		return "path:viewCodeFile";
 	}
 	public String readme(String genid, ModelMap model) {
 		Gencode gencode = gencodeService.getGencode(genid);
@@ -1229,6 +1271,8 @@ echo json_encode($records);
 		}
 		return "path:readme";
 	}
+	
+	
 
 	public @ResponseBody File downcode(String genid) {
 		Gencode gencode = gencodeService.getGencode(genid);

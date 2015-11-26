@@ -16,7 +16,7 @@
             this.options.languages['en-US'] :
             $.extend({}, this.options.languages['en-US'], this.options.languages[this.options.language]);
         this._isNodeDragging = false;
-        this._lastId = 0;
+        this._lastId = '0';
         
         this.actions = [];
         if (this.options.defaultActions !== null) {
@@ -125,9 +125,9 @@
         },
 
         getSourceNodes: function (nodeId, force) {
-            var that = this,
-                oNode = this.getNodeById(nodeId),
-                cached = (nodeId > 0 && this.options.cache > 0);
+            var that = this;
+             var   oNode = this.getNodeById(nodeId);
+            var    cached = (nodeId != '0' && this.options.cache > 0);
                 
             if (cached && force !== true) {
                 var data = this.cacheManager.get(oNode);
@@ -139,10 +139,12 @@
                 }
             }
             
-            var sourceOptions = this.options.source(nodeId);
+            var sourceOptions = this.options.source(nodeId,oNode);
+            if(sourceOptions == null)
+            	return;
             var defaultSourceOptions = {
                 beforeSend: function () {
-                    if (nodeId > 0) {
+                    if (nodeId != '0') {
                         oNode.isLoading(true);
                     }
                 },
@@ -166,7 +168,7 @@
                     alert(XMLHttpRequest.status + ': ' + XMLHttpRequest.responseText);
                 },
                 complete: function () {
-                    if (nodeId > 0) {
+                    if (nodeId != '0') {
                         oNode.isLoading(false);
                     }
                 }
@@ -178,7 +180,9 @@
         init: function () {
             var that = this;
 
-            this.getSourceNodes(0).done(function (result) {
+            this.getSourceNodes('0').done(function (result) {
+            	if(result == null)
+            		return;
                 var data = result[that.options.nodesWrapper];
                 for(var x in data) {
                     var oNewNode = new GTreeTableNode(data[x], that);
@@ -249,7 +253,7 @@
             parentId = this.parent;
             
             while (true) {
-                if (parentId === 0) {
+                if (parentId === '0') {
                     break;
                 }
                 
@@ -639,6 +643,8 @@
             },options);
 
             $.when(this.manager.getSourceNodes(oNode.id, settings.isAltPressed)).done(function (result) {
+            	if(result == null)
+            		return;
                 var data = result[oNode.manager.options.nodesWrapper];
                 for(var x in data) {
                     var newNode = new GTreeTableNode(data[x], oNode.manager);
@@ -757,7 +763,7 @@
             }
             this.$node.remove();            
             
-            if (this.parent > 0) {
+            if (this.parent != '0') {
                 var oParent = this.manager.getNodeById(this.parent);
                 if (oParent.getDescendants({ depth: 1, includeNotSaved: true }).length === 0) {
                     oParent.collapse();
@@ -772,7 +778,7 @@
         _canMove: function(oDestination, position) {
             var oNode = this, 
                 data = { result: true };
-            if (oDestination.parent === 0 && this.manager.options.manyroots === false && position !== 'lastChild') {
+            if (oDestination.parent === '0' && this.manager.options.manyroots === false && position !== 'lastChild') {
                 data.result = false;
                 data.message = this.manager.language.messages.onMoveAsRoot;
             } else {              
@@ -1007,7 +1013,7 @@
         },
         
         synchronize: function (method, oNode, params) {
-            if (oNode.parent > 0) {
+            if (oNode.parent != '0') {
                 switch (method) {
                     case 'add':
                         this._synchronizeAdd(oNode);

@@ -72,6 +72,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-header-fixed page-quick-sidebar-over-content page-full-width">
+<div id="ajax-modal" class="modal  container fade" tabindex="-1">
+</div>
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
 	<!-- BEGIN HEADER INNER -->
@@ -1425,7 +1427,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/jquery.form.js" type="text/javascript"></script>
  <script type="text/javascript" src="../assets/global/plugins/carousel-owl-carousel/assets/js/google-code-prettify/prettify.min.js"></script>
 <script src="table-tree.js"></script>
-
+<script src="ui-extended-modals.js"></script>
 <script>
 jQuery(document).ready(function() {    
 	Metronic.setAssetsPath('../assets/');
@@ -1433,8 +1435,8 @@ jQuery(document).ready(function() {
 Layout.init(); // init current layout
 QuickSidebar.init(); // init quick sidebar
 Demo.init(); // init demo features
-prettyPrint();
 TableTree.init('${genid}'); // init demo page
+UIExtendedModals.init();
   // $('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
 });
 

@@ -3,18 +3,19 @@ var TableTree = function() {
     var gtreetable = function(genid) {
 
     	 var tree = jQuery('#gtreetable');
-         tree.gtreetable({
+         var _tabletree = tree.gtreetable({
             'draggable': false,
-            'source': function(id) {
+            'source': function(id,oNode) {
             	if(id == '0')
             	{
             		
             	}
             	else
         		{
-            		var oNode = tree.gtreetable.getNodeById(id);
+            		if(oNode.type == 'file')
+            			return ;
         		}
-            	alert(oNode);
+            	
                 return {
                     type: 'POST',
                     url: 'viewCodeFiles.page',
@@ -29,52 +30,37 @@ var TableTree = function() {
             },
             
             'types': { 'default': 'glyphicon glyphicon-folder-open', folder: 'glyphicon glyphicon-folder-open'},
-            "onSave":function (oNode) {
-                return {
-                    type: 'POST',
-                    url: !oNode.isSaved() ? '/index.php?r=site%2FnodeCreate' : URI('/index.php?r=site%2FnodeUpdate').addSearch({'id':oNode.getId()}).toString(),
-                    data: {
-                        parent: oNode.getParent(),
-                        name: oNode.getName(),
-                        position: oNode.getInsertPosition(),
-                        related: oNode.getRelatedNodeId()
-                    },
-                    dataType: 'json',
-                    error: function(XMLHttpRequest) {
-                        alert(XMLHttpRequest.status+': '+XMLHttpRequest.responseText);
-                    }
-                };        
-            },"onDelete":function(oNode) {
-                return {
-                    type: 'POST',
-                    url: URI('/index.php?r=site%2FnodeDelete').addSearch({'id':oNode.getId()}).toString(),
-                    dataType: 'json',
-                    error: function(XMLHttpRequest) {
-                        alert(XMLHttpRequest.status+': '+XMLHttpRequest.responseText);
-                    }
-                };        
-            }
-            ,"onSelect":function(oNode)
-            {
-            	alert(oNode);
-            	return false;
-            }
             
-            ,"onMove":function(oSource, oDestination, position) {
-                return {
-                    type: 'POST',
-                    url: URI('/index.php?r=site%2FnodeMove').addSearch({'id':oSource.getId()}).toString(),
-                    data: {
-                        related: oDestination.getId(),
-                        position: position
-                    },
-                    dataType: 'json',
-                    error: function(XMLHttpRequest) {
-                        alert(XMLHttpRequest.status+': '+XMLHttpRequest.responseText);
-                    }
-                };        
-            },"language":"zh-CN","manyroots":true, "inputWidth":"300px","showExpandIconOnEmpty":false 
+            "onSelect":function(oNode)
+            {
+            	
+            	if(oNode.type == 'folder')
+            	{
+            		oNode.$ceIcon.click();
+            	}
+            	else
+        		{
+            		TableTree.viewCode(genid,oNode.id);
+        		}
+            	
+            },
+            
+            "onUnselect":function(oNode)
+            {
+            	
+            	if(oNode.type == 'folder')
+            	{
+            		oNode.$ceIcon.click();
+            	}
+            	else
+        		{
+            		TableTree.viewCode(genid,oNode.id);
+        		}
+            	
+            }
+           ,"language":"zh-CN","manyroots":true, "inputWidth":"300px","showExpandIconOnEmpty":false ,cached:2
         });
+         return _tabletree;
     }
 
     return {
@@ -82,7 +68,30 @@ var TableTree = function() {
         //main function to initiate the module
         init: function(genid) {
 
-        	gtreetable(genid);
+        	return gtreetable(genid);
+        },
+        viewCode:function(genid,path,event)
+        {
+        	 $('body').modalmanager('loading');
+        	 var $modal = $('#ajax-modal');
+
+             setTimeout(function(){
+                 $modal.load('viewCodeFile.page?genid='+genid+'&path='+path, '', function(){
+                 $modal.modal();
+               });
+             }, 1000);
+             
+             $modal.on('click', '.update', function(){
+                 $modal.modal('loading');
+                 setTimeout(function(){
+                   $modal
+                     .modal('loading')
+                     .find('.modal-body')
+                       .prepend('<div class="alert alert-info fade in">' +
+                         'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                       '</div>');
+                 }, 1000);
+               });
         }
 
     };
