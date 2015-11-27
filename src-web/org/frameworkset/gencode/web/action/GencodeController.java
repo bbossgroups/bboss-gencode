@@ -1196,8 +1196,16 @@ echo json_encode($records);
 	}
 	
 	public String viewCodeFile(String genid,String path, ModelMap model) {
+		if(StringUtil.isEmpty(genid) || StringUtil.isEmpty(path) || (path.indexOf("../") > 0))
+		{
+			model.addAttribute("msg", "参数非法");
+			model.addAttribute("modulename", "");
+			return "path:viewCodeFile";
+		}
 		Gencode gencode = gencodeService.getGencode(genid);
 		path = path.split(":")[0];
+		
+			
 		model.addAttribute("path", path);
 		if (gencode == null) {
 			model.addAttribute("msg", "norecord");
