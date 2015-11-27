@@ -1,10 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" session="false"%>
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title">
-	首页
-</h3>
-
+ 
 <div class="portlet">
 	<div class="portlet-title">
 		<div class="caption">

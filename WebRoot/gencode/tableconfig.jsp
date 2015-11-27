@@ -1,14 +1,14 @@
 <%@ page language="java" pageEncoding="utf-8" session="false"%>
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title">表单配置-数据源${dbname }-表${tableName }</h3>
+
 <div id="ajax-modal" class="modal  container fade" tabindex="-1">
 </div>
 <a id="downfile" target="_blank" />
-<div class="portlet box green">
+<div class="portlet box yellow">
 	<div class="portlet-title">
 		<div class="caption">
-			<i class="fa fa-gift"></i>请详细填写
+			<i class="fa fa-gift"></i> 数据源${dbname }-表${tableName } 配置
 		</div>
 		<div class="tools">
 			<a href="javascript:;" class="collapse"> </a> <a

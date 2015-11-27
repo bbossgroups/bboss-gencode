@@ -1204,12 +1204,7 @@
                 cancel: '取消',
                 action: '操作',
                 actions: {
-                    createBefore: '在前面创建',
-                    createAfter: '在后面创建',
-                    createFirstChild: '创建第一个节点',
-                    createLastChild: '创建最后一个节点',
-                    update: '更新',
-                    'delete': '删除'
+                   
                 },
                 messages: {
                     onDelete: '确认删除吗?',

@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool.jar" sourcepath="WebRoot/WEB-INF/lib/frameworkset-pool-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-util.jar" sourcepath="/bboss-util"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset.jar" sourcepath="/bboss-tablib"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/htmlparser-1.5-20050925.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jakarta-oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/java-uuid-generator-3.1.2.jar"/>

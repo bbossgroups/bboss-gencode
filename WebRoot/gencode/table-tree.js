@@ -3,7 +3,7 @@ var TableTree = function() {
     var gtreetable = function(genid) {
 
     	 var tree = jQuery('#gtreetable');
-         var _tabletree = tree.gtreetable({
+        tree.gtreetable({
             'draggable': false,
             'source': function(id,oNode) {
             	if(id == '0')
@@ -58,9 +58,11 @@ var TableTree = function() {
         		}
             	
             }
-           ,"language":"zh-CN","manyroots":true, "inputWidth":"300px","showExpandIconOnEmpty":false ,cached:2
+           ,
+           defaultActions:{},
+           "language":"zh-CN","manyroots":true, "inputWidth":"300px","showExpandIconOnEmpty":false ,cached:2
         });
-         return _tabletree;
+        
     }
 
     return {
@@ -68,7 +70,7 @@ var TableTree = function() {
         //main function to initiate the module
         init: function(genid) {
 
-        	return gtreetable(genid);
+        	 gtreetable(genid);
         },
         viewCode:function(genid,path,event)
         {

@@ -1214,7 +1214,8 @@ echo json_encode($records);
 				if (!f.exists()) {
 					model.addAttribute("msg", "nofile:" + f.getAbsolutePath());
 				} else {
-
+					String filetype= f.getName().substring(f.getName().lastIndexOf('.')+1);
+					model.addAttribute("filetype", filetype);
 					String content = null;
 //					try {
 //						content = FileUtil.getFileContent(f, "UTF-8");
