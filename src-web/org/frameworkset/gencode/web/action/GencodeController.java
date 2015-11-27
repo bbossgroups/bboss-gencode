@@ -1135,7 +1135,7 @@ echo json_encode($records);
 		HashMap<String,List<HashMap<String,Object>>> nodes = new HashMap<String,List<HashMap<String,Object>>>();
 		
 		
-		if(StringUtil.isEmpty(id) || StringUtil.isEmpty(genid ) )
+		if(StringUtil.isEmpty(id) || StringUtil.isEmpty(genid ) || id.indexOf("../") > 0)
 			return nodes;
 		
 		Gencode gencode = gencodeService.getGencode(genid);
