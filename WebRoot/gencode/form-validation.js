@@ -125,6 +125,10 @@ var FormValidation = function () {
 													$("#readme").show();
 													$("#downcode").attr("href","downcode.page?genid="+responseText.gencodeid)
 													$("#downcode").show();
+													$("#viewcode").click(function (e) {
+														window.open('viewCode.page?genid='+responseText.gencodeid,'viewsource');
+													});
+													$("#viewcode").show();
 												} else
 													title = responseText.result;
 												toastr.options = {

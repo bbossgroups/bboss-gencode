@@ -679,14 +679,14 @@
 												<button type="button" class="btn green"
 													onclick="TableAdvanced.readme('${gencodeid }',event)">查看部署说明</button>
 
-											<button type="button" class="btn green" id="downcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>		
+											<button type="button" class="btn green" id="viewcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>		
 												<button type="button" class="btn green" id="downcode" onclick="window.open('downcode.page?genid=${gencodeid }','_blank')">  下载</button>
 												 
 											</pg:yes>
 											<pg:no>
 												<button type="button" class="btn green  display-hide"
 													id="readme">查看部署说明</button>
-												<button type="button" class="btn green display-hide" id="downcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>
+												<button type="button" class="btn green display-hide" id="viewcode" onclick="window.open('viewCode.page?genid=${gencodeid }','viewsource')">查看源码 </button>
 											 
 												<button type="button" class="btn green display-hide" id="downcode" onclick="window.open('downcode.page?genid=${gencodeid }','_blank')">  下载</button>
 												 
