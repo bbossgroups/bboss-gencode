@@ -37,7 +37,7 @@
 	</init-param>  
 #end		  
 </servlet>
-
+#if($genRPC)
 4.webservice服务和hessian服务调用方法
 
 hessian:
@@ -53,4 +53,4 @@ wsServiceClientFactory.setAddress(url);
 wsServiceClientFactory.setServiceClass(${wsclassinf}.class);
 ${wsclassinf} $servicePort = (${wsclassinf})wsServiceClientFactory.create();
 //call some method with $servicePort here.
-
+#end
