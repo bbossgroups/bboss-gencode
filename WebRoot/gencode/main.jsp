@@ -550,7 +550,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				
 			</div>
 			<!-- END STYLE CUSTOMIZER -->
-			<div class="page-content-body">
+			<div class="page-content-body" id="containerid">
 				<!-- HERE WILL BE LOADED AN AJAX CONTENT -->
 			</div>
 		</div>
@@ -1280,8 +1280,9 @@ jQuery(document).ready(function() {
 Layout.init(); // init current layout
 QuickSidebar.init(); // init quick sidebar
 Demo.init(); // init demo features
-
-   $('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
+FormValidation.toselecttable();
+   //$('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
+   //$('#containerid').load('selecttable.page');
 });
 
 

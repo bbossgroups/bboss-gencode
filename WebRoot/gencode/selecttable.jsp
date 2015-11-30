@@ -66,8 +66,8 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<button type="submit" class="btn blue"> 进入表单配置</button>
-						<a href="tableconfig.page"  class="btn blue ajaxify display-hide" id="tableconfig" formid="tableform"> 进入表单配置步骤</a>
+						<button type="submit" class="btn blue" > 进入表单配置</button>
+						
 						<a href="javascript:void(0);"  class="btn default" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>
 					</div>
 				</div>

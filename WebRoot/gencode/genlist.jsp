@@ -40,7 +40,7 @@
 				<td><pg:cell colName="createtime"
 						dateformat="yyyy-MM-dd HH:mm:ss" /></td>
 				<td><pg:cell colName="updatetime"
-						dateformat="yyyy-MM-dd HH:mm:ss" /></td>
+						dateformat="yyyy-MM-dd HH:mm:ss"/></td>
 				<td><a href="javascript:void(0)"
 					onclick="TableAdvanced.regencode('<pg:cell colName="id" />','tablereconfig.page',event)"
 					class="btn default btn-xs purple"> <i class="fa fa-edit"></i>

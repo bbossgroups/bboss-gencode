@@ -382,8 +382,9 @@ var FormValidation = function () {
 	{
 		//$('#'+ahref).val("href","tableconfig.page?dbname="+$('#dbname').val()+"&tableName="+$('#tableName').val());
 		event.preventDefault();
-		$('#'+ahref).click()
-		
+		//$('#'+ahref).click()
+		$('#containerid').load('tableconfig.page?dbname='+$('#dbname').val()+'&tableName='+$('#tableName').val());
+		return false;
 	}
 
 	var  refreshdb = function(targetE,event)
@@ -440,6 +441,11 @@ var FormValidation = function () {
     	{
     		refreshdb(targetE,event);
     	}
+    	,toselecttable:function()
+    	{
+    		$('#containerid').load('selecttable.page');
+    	}
+    	
 
     };
 
