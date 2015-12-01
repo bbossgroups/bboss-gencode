@@ -511,23 +511,15 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!-- END PORTLET-->
 					</div>
 				</div>
-				<div class="note note-success">
-							<h4 class="block">自动代码生成框架功能说明</h4>
-							<p>根据模板，自动生成给定表的增、删、改、分页查询、列表查询、国际化功能对应的程序和配置文件：
-							<ul>
-								<li>1.mvc控制器</li>
-								<li>2.业务组件</li>
-								<li>3.实体类</li>
-								<li>4.jsp文件 可以定制不同风格的界面模板，目前提供了平台的基础ui风格</li>
-								<li>5.cxf webservice服务类文件</li>
-								<li>6.hessian服务类文件</li>
-								<li>7.sql配置文件</li>
-								<li>8.ioc/mvc组件装配部署和服务发布配置文件.</li>
-								<li>9.国际化属性文件和国际化配置</li>
-								<li>10.readme.txt 代码和配置文件集成配置说明</li>
-							</ul>
-							</p>
-							<p>所有文件存放在服务器指定的目录中</p>
+				<div class="page-bar">
+					<ul class="page-breadcrumb">
+						<li><i class="fa fa-home"></i>${modulename} 代码部署说明: </li>
+					</ul>
+
+				</div>
+				<div >
+ 
+							<pre class="prettyprint ">${readme }</p>
 
 						</div>
 				</div>
@@ -1240,6 +1232,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			Demo.init(); // init demo features
 			TableTree.init('${genid}'); // init demo page
 			UIExtendedModals.init();
+			prettyPrint(); 
 			// $('.page-sidebar .ajaxify.start').click() // load the content for the dashboard page.
 		});
 	</script>

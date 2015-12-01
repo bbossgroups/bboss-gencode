@@ -1097,9 +1097,34 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			return null;
 		} else {
 			ControlInfo controlInfo = ObjectSerializable.toBean(gencode.getControlparams(), ControlInfo.class);
-			model.addAttribute("modulename", StringUtil.isEmpty(controlInfo.getModuleCNName())
-					? controlInfo.getModuleName() : controlInfo.getModuleCNName());
+			String m = StringUtil.isEmpty(controlInfo.getModuleCNName())
+					? controlInfo.getModuleName() : controlInfo.getModuleCNName();
+			model.addAttribute("modulename", m);
 			model.addAttribute("gencode",gencode);
+			String sourcedir = getSourcedir(controlInfo,genid);
+			if (sourcedir != null && !sourcedir.equals("")) {
+				File f = new File(sourcedir, controlInfo.getModuleName() + "/readme.txt");
+				if (!f.exists()) {
+					model.addAttribute("readme", "没有生成"+m+"代码部署说明文件：" + f.getAbsolutePath());
+				} else {
+
+					String content = null;
+//					try {
+//						content = FileUtil.getFileContent(f, "UTF-8");
+//						model.addAttribute("readme", StringUtil.HTMLEncode(content));
+						content = fileCache.getFileContent(f.getAbsolutePath(), "UTF-8", FileContentCache.HTMLNoBREncode);
+						
+						model.addAttribute("readme", content);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						log.error("readme failed:", e);
+//						model.addAttribute("msg", StringUtil.exceptionToString(e));
+//					}
+
+				}
+			} else {
+				model.addAttribute("readme", "没有生成"+m+"代码部署说明");
+			}
 		}
 		return "path:viewCode";
 	}
