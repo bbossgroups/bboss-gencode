@@ -10,8 +10,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<pg:null actual="${msg }" evalbody="true">
-			<pg:yes>${readme }</pg:yes>
-			<pg:no>${msg }</pg:no>
+				<pg:yes>${readme }</pg:yes>
+				<pg:no>${msg }</pg:no>
 			</pg:null>
 		</div>
 	</div>
