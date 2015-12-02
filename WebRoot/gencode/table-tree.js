@@ -57,6 +57,29 @@ var TableTree = function() {
             		TableTree.viewCode(genid,oNode.id);
         		}
             	
+            },
+            'sort': function (a, b) 
+            {
+            	if(a.type == 'folder' && b.type == 'folder')
+            	{
+            		var aName = a.name.toLowerCase();
+                    var bName = b.name.toLowerCase(); 
+                    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+            	}
+            	else if(a.type == 'file' && b.type == 'file')
+            	{
+            		var aName = a.name.toLowerCase();
+                    var bName = b.name.toLowerCase(); 
+                    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+            	}
+            	else if(a.type == 'folder' && b.type == 'file')
+            	{
+            		return -1;
+            	}  
+            	else if(a.type == 'file' && b.type == 'folder')
+            	{
+            		return 1;
+            	}                            
             }
            ,
            defaultActions:{},
