@@ -235,7 +235,8 @@
 															<pg:yes>selected</pg:yes>
 															<pg:no><pg:true colName="pk">selected</pg:true></pg:no>
 														</pg:equal>>
-														<pg:cell colName="columnname" /></option>
+														<pg:cell colName="columnname" />
+														</option>
 												</pg:list>
 											</select>
 										</div>
