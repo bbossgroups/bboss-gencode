@@ -195,7 +195,7 @@
 										Edit </a>
 									</td>
 									<td>
-										<a class="delete" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left" 
+										<a class="delete" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left"   data-singleton="true"
 					data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
 										dsaction="delete">
 										Delete </a>

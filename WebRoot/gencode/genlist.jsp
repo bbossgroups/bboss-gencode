@@ -60,7 +60,7 @@
 							class="btn default btn-xs purple"> <i class="fa fa-edit"></i>查看源码
 						</a>
 					</pg:true> 
-					<a href="javascript:void(0)" data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="top" 
+					<a href="javascript:void(0)"  data-singleton="true" data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="top" 
 					data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
 					  dataid="<pg:cell colName="id" />" action="delete"
 					class="btn btn-xs btn-danger" > <i class="fa fa-trash-o"></i>
