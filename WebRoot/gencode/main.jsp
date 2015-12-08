@@ -1260,6 +1260,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script src="../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -1271,6 +1272,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="table-advanced.js"></script>
 <script src="form-validation.js"></script>
 <script src="ui-extended-modals.js"></script>
+<script src="ui-confirmations.js"></script>
 
 
 <script>

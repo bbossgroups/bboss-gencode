@@ -492,7 +492,7 @@ var TableAdvanced = function () {
             nEditing = nRow;
             nNew = true;
         });
-
+/**
         table.on('click', '.delete', function (e) {
             e.preventDefault();
 
@@ -551,8 +551,66 @@ var TableAdvanced = function () {
       				
       		  });
             
-        });
+        });**/
+        $('[dsaction=delete]').on('confirmed.bs.confirmation', function (e) {
 
+            e.preventDefault();
+
+          
+
+            var nRow = $(this).parents('tr')[0];
+            var jqInputs = $('td', nRow);
+             var dbname = jqInputs[0].innerText;
+            oTable.fnDeleteRow(nRow);
+            $.ajax({
+      		   type: "POST",
+      			url : "deleteDatasource.page",
+      			data :{"dbname":dbname },
+      			dataType : 'json',
+      			async:false,
+      			beforeSend: function(XMLHttpRequest){
+      				Metronic.startPageLoading();			 	
+      				},
+      			
+      				error : function(xhr, ajaxOptions, thrownError) {
+         				Metronic.stopPageLoading();
+         			},
+
+         			success : function(responseText, statusText, xhr, $form) {
+         				Metronic.stopPageLoading();
+
+         				var msg = responseText;
+         				 
+         				var title = '删除数据源';
+         				if (msg == 'success') {
+         					title = '删除数据源成功！';
+         					 
+         				} else
+         					title = responseText;
+
+         				toastr.options = {
+         					"closeButton" : true,
+         					"debug" : false,
+         					"positionClass" : "toast-top-center",
+         					"onclick" : null,
+         					"showDuration" : "0",
+         					"hideDuration" : "0",
+         					"timeOut" : "10000",
+         					"extendedTimeOut" : "0",
+         					"showEasing" : "swing",
+         					"hideEasing" : "linear",
+         					"showMethod" : "fadeIn",
+         					"hideMethod" : "fadeOut"
+         				};
+
+         				toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+         				ComponentsDropdowns.loadds(event,"dbname");
+         			}
+      				
+      		  });
+            
+        
+        });
         table.on('click', '.cancel', function (e) {
             e.preventDefault();
             if (nNew) {
