@@ -482,7 +482,10 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			f.setFieldComment(fieldInfo.getFieldCNName());
 		}
 		if (gencodeService.isGenI18n()) {
-			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+			if(!StringUtil.isEmpty(fieldInfo.getFieldCNName()))
+				f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+			else
+				f.setFieldAsciiCNName(fieldInfo.getFieldName());
 		}
 
 		f.setPk(true);
@@ -599,7 +602,11 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			f.setFieldComment(fieldInfo.getFieldCNName());
 		}
 		if (gencodeService.isGenI18n()) {
-			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+//			f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+			if(!StringUtil.isEmpty(fieldInfo.getFieldCNName()))
+				f.setFieldAsciiCNName(SimpleStringUtil.native2ascii(fieldInfo.getFieldCNName()));
+			else
+				f.setFieldAsciiCNName(fieldInfo.getFieldName());
 		}
 
 		f.setPk(gencodeService.getPrimaryKeyColumnName() != null
