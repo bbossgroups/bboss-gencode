@@ -2,6 +2,28 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
    
   <servlet>
+  <listener>
+		<description><![CDATA[应用销毁监听器：
+		在应用销毁之前调用系统shutdown 回调函数，前提是所有的shutdown回调函数
+		是通过以下方法注册：
+		BaseApplicationContext.addShutdownHook(new Runnable(){
+
+				@Override
+				public void run() {
+					
+					try {
+						stop();
+					
+
+					} catch (Throwable e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}});]]>
+		
+	</description>
+		<listener-class>org.frameworkset.web.listener.ApplicationLifeListener</listener-class>
+	</listener>
 		<servlet-name>mvcdispather</servlet-name>
 		<servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
 		<init-param>
