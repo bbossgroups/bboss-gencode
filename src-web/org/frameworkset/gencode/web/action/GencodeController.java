@@ -48,9 +48,11 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	public @ResponseBody String addDatasource(Datasource datasource) {
 		// 控制器
 		try {
+			if(StringUtil.isEmpty(datasource.getDbname()))
+				return "数据源名称为空，请设置要添加的数据源名称!";
 			if("gencode".equals(datasource.getDbname()))
 			{
-				throw new java.lang.IllegalArgumentException("gencode为系统预留数据源名称，从修改为其他数据源名称!");
+				return ("gencode为系统预留数据源名称，从修改为其他数据源名称!");
 			}
 			Datasource olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
 			if (olddatasource == null) {
@@ -76,9 +78,11 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	public @ResponseBody String deleteDatasource(String dbname) {
 		try {
+			if(StringUtil.isEmpty(dbname))
+				return "数据源名称为空，请选择要删除的数据源!";
 			if("gencode".equals(dbname))
 			{
-				throw new java.lang.IllegalArgumentException("gencode为系统预留数据源名称，不能删除!");
+				return ("gencode为系统预留数据源名称，不能删除!");
 			}
 			gencodeService.deleteDatasource(dbname);
 			DBUtil.stopPool(dbname);
@@ -86,7 +90,12 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		} catch (DatasourceException e) {
 			log.error("delete Datasource failed:", e);
 			return StringUtil.formatBRException(e);
-		} catch (Throwable e) {
+		} 
+		 catch (RuntimeException e) {
+				log.error("delete Datasource failed:", e);
+				return StringUtil.formatBRException(e);
+			}
+		catch (Throwable e) {
 			log.error("delete Datasource failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -152,6 +161,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	public String getGencode(String id, ModelMap model) throws GencodeException {
 		try {
+			if(id == null || id.equals(""))
+				return "path:getGencode";
 			Gencode gencode = gencodeService.getGencode(id);
 			model.addAttribute("gencode", gencode);
 			return "path:getGencode";
@@ -298,7 +309,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	public String tablereconfig(String gencodeid, ModelMap model) {
-		if (gencodeid == null)
+		if (gencodeid == null || gencodeid.equals(""))
 			return "path:tableconfig";
 		Gencode gencode = gencodeService.getGencode(gencodeid);
 		if (gencode == null)
@@ -1098,6 +1109,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	 */
 	public String viewCode(String genid, ModelMap model)
 	{
+		if(genid == null || genid.equals(""))
+			return null;
 		model.addAttribute("genid",genid);
 		Gencode gencode = gencodeService.getGencode(genid);
 		if (gencode == null) {
