@@ -56,7 +56,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 				       + "moudleCNName string,"
 				       
 				       + "  PRIMARY KEY (ID))";
-			log.info("BBOSS_GENCODE table 不存在，创建BBOSS_GENCODE表："+tsql+"。",e);
+			log.info("BBOSS_GENCODE table 不存在，创建BBOSS_GENCODE表："+tsql+"。");
 			try {
 				SQLExecutor.updateWithDBName("gencode",tsql);
 				log.info("创建BBOSS_GENCODE表成功："+tsql+"。");
@@ -76,7 +76,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 				       + "dbdesc string,"
 				       + "CREATETIME number(10),"
 				       + "UPDATETIME number(10),  PRIMARY KEY (ID))";
-			log.info("BBOSS_DATASOURCE table 不存在，创建BBOSS_DATASOURCE表："+tsql+"。",e);
+			log.info("BBOSS_DATASOURCE table 不存在，创建BBOSS_DATASOURCE表："+tsql+"。");
 			try {
 				SQLExecutor.updateWithDBName("gencode",tsql);
 				log.info("创建BBOSS_DATASOURCE表成功："+tsql+"。");
