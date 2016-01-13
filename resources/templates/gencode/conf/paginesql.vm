@@ -26,7 +26,7 @@ select * from $tableName where 1=1
 		#end	
 	#end
 #end 
-#if($needsort)
+#if(!$usepaginOrderBy && $needsort)
 $if(${m}sortKey && !${m}sortKey.$equal(""))
 		order by ${m}sortKey ${if}(${m}sortDesc)desc$else asc$end
 	$end

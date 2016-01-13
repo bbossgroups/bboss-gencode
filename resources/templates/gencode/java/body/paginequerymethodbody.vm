@@ -4,7 +4,11 @@
 #if($componentType == 1)
 ListInfo datas=null;
 try{
+#if(!$usepaginOrderBy)
 	datas=executor.queryListInfoBean($entityName${dot}class,"queryList$entityName", offset, pagesize #if($needcondition),conditions#else,null#end);
+#else
+	datas=executor.queryListInfoBean($entityName${dot}class,"queryPagine$entityName", offset, pagesize #if($needcondition),new ConfigPagineOrderby("${entityName}Orderby",conditions)#else,new ConfigPagineOrderby("query${entityName}Orderby",null)#end);
+#end	
 }catch(Exception e){
 	throw new  $exception$start"pagine query $entityName failed:",e$end;
 }
