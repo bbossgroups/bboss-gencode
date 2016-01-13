@@ -27,7 +27,29 @@ public class GenPagineSQL  extends AbstractGencode {
 			 context.put("sorts", gencodeService.getSortFields());
 			 context.put("needsort", gencodeService.needsort());
 			 context.put("tableName", gencodeService.getModuleMetaInfo().getTableName());
-			 
+			 if(gencodeService.isPagineWithDBRownumberOver())
+			 {
+				 if( sql.getOptype() == Constant.listquery)
+				 {
+					 context.put("pagineWithDBRownumberOver", false);
+					 context.put("pagineOrderBy", false);
+				 }
+				 else if( sql.getOptype() == Constant.pagineOrderBy)
+				 {
+					 context.put("pagineWithDBRownumberOver", true);
+					 context.put("pagineOrderBy", true);
+					 
+				 }
+				 else if( sql.getOptype() == Constant.paginequery)
+				 {
+					 context.put("pagineWithDBRownumberOver", true);
+					 context.put("pagineOrderBy", false);
+				 }
+			 }
+			 else
+			 {
+				 context.put("pagineWithDBRownumberOver", false);
+			 }
 			 sql.setSql(gencodeService.writetostring(  context,conftempalte,gencodeService.getModuleMetaInfo().getEncodecharset()));
 			 
 		} catch (Exception e) {

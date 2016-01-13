@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 int cnt=0;
 try{
-	cnt=executor.queryTFieldBean(int.class,"queryCntByCondition", condition);
+	cnt=executor.queryTFieldBean#if($dbname)WithDBName${start}int${dot}class, "$dbname",#else${start}int${dot}class, #end"queryCntByCondition", condition);
 }catch(Exception e){
 	throw new  $exception$start"count $entityName failed:",e$end;
 }

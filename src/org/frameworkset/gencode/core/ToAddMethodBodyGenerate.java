@@ -18,7 +18,8 @@ public class ToAddMethodBodyGenerate implements MethodBodyGenerate {
 		 VelocityContext context = new VelocityContext();
 		 
 		 context.put("entityName", entityName);
-		 
+
+		 context.put("dbname", gencodeService.getDaoDBName());
 		 String body = GencodeServiceImpl.writetostring(context,addmethodbodytempalte,encodecharset);
 		 method.setBody(body);
 

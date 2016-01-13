@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 #if($componentType == 1)
 try {
-	executor.updateBean("update${entityName}", $paramName);
+	executor.updateBean(#if($dbname)"$dbname",#end"update${entityName}", $paramName);
 } catch (Throwable e) {	
 	throw new $exception$start"update ${entityName} failed::",e$end;
 }

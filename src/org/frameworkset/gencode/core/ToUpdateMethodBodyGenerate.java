@@ -23,6 +23,7 @@ public class ToUpdateMethodBodyGenerate implements MethodBodyGenerate {
 		 context.put("exception", exception);
 		 context.put("componentType", componentType);
 		 context.put("entityVarName", entityVarName);
+		 context.put("dbname", gencodeService.getDaoDBName());
 		 String body = GencodeServiceImpl.writetostring(context,addmethodbodytempalte,encodecharset);
 		 method.setBody(body);
 

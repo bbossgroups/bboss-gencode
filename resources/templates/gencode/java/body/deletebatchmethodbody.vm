@@ -6,11 +6,11 @@ TransactionManager tm = new TransactionManager();
 try {
 	tm.begin();
 #if($primaryKeyField.type.equals("long"))
-	executor.deleteByLongKeys("deleteByKey", $paramName);
+	executor.deleteByLongKeys#if($dbname)WithDBName${start}"$dbname",#else${start}#end"deleteByKey", $paramName);
 #elseif($primaryKeyField.type.equals("short"))	
-	executor.deleteByShortKeys("deleteByKey", $paramName);
+	executor.deleteByShortKeys#if($dbname)WithDBName${start}"$dbname",#else${start}#end"deleteByKey", $paramName);
 #else	
-	executor.deleteByKeys("deleteByKey", $paramName);
+	executor.deleteByKeys#if($dbname)WithDBName${start}"$dbname",#else${start}#end"deleteByKey", $paramName);
 #end	
 	tm.commit();
 } catch (Throwable e) {

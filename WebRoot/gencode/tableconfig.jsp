@@ -261,6 +261,46 @@
 
 								<!--/span-->
 							</div>
+							
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">分页机制</label>
+										<div class="col-md-9">
+											<div class="radio-list">
+												<pg:case colName="pagineWithDBRownumberOver">
+													<label class="radio-inline"><input
+														type="radio" name="pagineWithDBRownumberOver"
+														id="pagineWithDBRownumberOver" value="0"
+														<pg:false>checked</pg:false>> 默认分页机制</label>
+													<label class="radio-inline"><input
+														type="radio" name="pagineWithDBRownumberOver"
+														id="pagineWithDBRownumberOver" value="1"
+														<pg:true>checked</pg:true>> Rownumber Over(Order By)</label>
+												</pg:case>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">指定DB操作数据源</label>
+										<div class="col-md-9">
+											<input id="daoDBName" name="daoDBName" type="text"
+												class="form-control" placeholder="${dbname }"
+												value="<pg:cell colName="daoDBName"/>"> <span
+												class="help-block"><font color="blue">必须在poolman.xml文件中配置对应名称的数据源
+											</font></span>
+										</div>
+									</div>
+								</div>
+
+								<!--/span-->
+
+								<!--/span-->
+							</div>
 							<h3 class="form-section">版权信息</h3>
 							<!--/row-->
 							<div class="row">

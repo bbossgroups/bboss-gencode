@@ -22,6 +22,7 @@ public class DeleteBatchMethodBodyGenerate implements MethodBodyGenerate {
 		 context.put("componentType", componentType);
 		 context.put("entityVarName", entityVarName);
 		 context.put("serviceParamName", gencodeService.getServiceParamName());
+		 context.put("dbname", gencodeService.getDaoDBName());
 		 String body = GencodeServiceImpl.writetostring(context,addmethodbodytempalte,encodecharset);
 		 method.setBody(body);
 

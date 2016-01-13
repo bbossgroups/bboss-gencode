@@ -941,6 +941,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		gencodeService.setExportExcel(gencodeService.getExcelVersion() != -1);
 		gencodeService.setTheme(controlInfo.getTheme());// 设置默认主题风格
 		gencodeService.setModuleMetaInfo(moduleMetaInfo);
+		gencodeService.setControlInfo(controlInfo);
 
 		// 处理主键信息
 		handlePK(gencodeService, fields, controlInfo);
@@ -973,8 +974,17 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		handleEditorFields(gencodeService, fields);
 		handleViewFields(gencodeService, fields);
 		handleEntityFields(gencodeService, fields);
-		gencodeService.genCode();// 执行代码生成逻辑
-		ret.put("result", "success");
+		try {
+			gencodeService.genCode();// 执行代码生成逻辑
+			ret.put("result", "success");
+		} catch (IllegalArgumentException e) {
+			ret.put("result", e.getMessage());
+			
+		}
+		 catch (Exception e) {
+				ret.put("result", StringUtil.formatBRException(e));
+				
+			}
 		return ret;
 
 	}

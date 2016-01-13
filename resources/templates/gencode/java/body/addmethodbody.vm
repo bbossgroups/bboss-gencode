@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 #if($componentType == 1)//业务组件
 try {
-	executor.insertBean("add${entityName}", ${paramName});
+	executor.insertBean(#if($dbname)"$dbname",#end"add${entityName}", ${paramName});
 } catch (Throwable e) {
 	throw new $exception${start}"add ${entityName} failed:",e${end};
 }

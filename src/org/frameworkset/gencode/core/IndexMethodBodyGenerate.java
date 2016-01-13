@@ -18,7 +18,8 @@ public class IndexMethodBodyGenerate implements MethodBodyGenerate {
 		 VelocityContext context = new VelocityContext();
 		 
 		 
-		 
+
+		 context.put("dbname", gencodeService.getDaoDBName());
 		 String body = GencodeServiceImpl.writetostring(context,addmethodbodytempalte,encodecharset);
 		 method.setBody(body);
 

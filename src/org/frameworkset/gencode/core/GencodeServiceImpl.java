@@ -23,6 +23,7 @@ import org.frameworkset.gencode.core.ui.GenViewJsp;
 import org.frameworkset.gencode.entity.AnnoParam;
 import org.frameworkset.gencode.entity.Annotation;
 import org.frameworkset.gencode.entity.ConditionField;
+import org.frameworkset.gencode.entity.ControlInfo;
 import org.frameworkset.gencode.entity.ControlParam;
 import org.frameworkset.gencode.entity.Field;
 import org.frameworkset.gencode.entity.Method;
@@ -52,6 +53,7 @@ public class GencodeServiceImpl {
 	private static final Logger log = Logger.getLogger(GencodeServiceImpl.class);
 	public static String DEFAULT_SOURCEPATH;
 	public static String SQLITEPATH;
+	private ControlInfo controlInfo ;
 	/**
 	 * 代码存放目录
 	 */
@@ -97,7 +99,7 @@ public class GencodeServiceImpl {
 	private String serviceInfType;
 	private String serviceParamName;
 	private String controlClass;
-	
+	private boolean pagineWithDBRownumberOver = false;
 	/**
 	 * 需要作为查询条件的字段
 	 */
@@ -245,7 +247,15 @@ public class GencodeServiceImpl {
 	
 	private void init()
 	{
-			
+		if(this.controlInfo != null)
+		{
+			pagineWithDBRownumberOver = controlInfo.getPagineWithDBRownumberOver() > 0 ;
+			if(pagineWithDBRownumberOver)
+			{
+				if(this.sortFields == null || sortFields.size() == 0)
+					throw new java.lang.IllegalArgumentException("Pagine With DB Rownumber Over 分析函数：必须指定一个排序字段!");
+			}
+		}
 		SQLBuilder = new SQLBuilder(this);
 		File f = new File(moduleMetaInfo.getSourcedir(),this.moduleMetaInfo.getModuleName());
 		if(!f.exists())
@@ -1644,11 +1654,33 @@ public class GencodeServiceImpl {
 		if(classtype == Constant.component_type_serivceimpl)
 		{
 			setMethodBody(paginequery,Constant.paginequery,entityName,"conditions",this.moduleMetaInfo.getEncodecharset(),exceptionName,Constant.component_type_serivceimpl);
-			SQL sql = new SQL();
-			sql.setOptype(Constant.paginequery);
-			sql.setName("queryList"+this.entityName);
-			evalsql(sql);
-			this.sqls.add(sql);
+			if(!this.isPagineWithDBRownumberOver())
+			{
+				SQL sql = new SQL();
+				sql.setOptype(Constant.paginequery);
+				sql.setName("queryList"+this.entityName);
+				evalsql(sql);
+				this.sqls.add(sql);
+			}
+			else
+			{
+				SQL sql = new SQL();
+				sql.setOptype(Constant.listquery);
+				sql.setName("queryList"+this.entityName);
+				evalsql(sql);
+				this.sqls.add(sql);
+				 sql = new SQL();
+				sql.setOptype(Constant.paginequery);
+				sql.setName("queryPagine"+this.entityName);
+				evalsql(sql);
+				this.sqls.add(sql);
+				sql = new SQL();
+				sql.setOptype(Constant.pagineOrderBy);
+				sql.setName(this.entityName+"Orderby");
+				evalsql(sql);
+				this.sqls.add(sql);
+				
+			}
 		}
 		else if(classtype == Constant.component_type_wsserivceimpl)
 		{
@@ -1862,6 +1894,8 @@ public class GencodeServiceImpl {
 		imports.add("com.frameworkset.common.poolman.ConfigSQLExecutor");
 		imports.add("org.apache.log4j.Logger");		
 		imports.add("java.util.List");
+		if(this.isPagineWithDBRownumberOver())
+			imports.add("com.frameworkset.common.poolman.ConfigPagineOrderby");
 		
 		imports.add("com.frameworkset.orm.transaction.TransactionManager");
 		
@@ -2278,5 +2312,26 @@ import com.frameworkset.util.StringUtil;
 
 	public void setAddHiddenFields(List<Field> addHiddenFields) {
 		this.addHiddenFields = addHiddenFields;
+	}
+
+	public ControlInfo getControlInfo() {
+		return controlInfo;
+	}
+
+	public void setControlInfo(ControlInfo controlInfo) {
+		this.controlInfo = controlInfo;
+	}
+
+	public boolean isPagineWithDBRownumberOver() {
+		return pagineWithDBRownumberOver;
+	}
+
+	public void setPagineWithDBRownumberOver(boolean pagineWithDBRownumberOver) {
+		this.pagineWithDBRownumberOver = pagineWithDBRownumberOver;
+	}
+	
+	public String getDaoDBName()
+	{
+		return this.controlInfo != null && !controlInfo.getDaoDBName().equals("")?this.controlInfo.getDaoDBName():null;
 	}
 }

@@ -46,6 +46,13 @@ public class ControlInfo {
 	private String author;
 	private String version;
 	private String primaryKeyName;
+	private String daoDBName;
+	/**
+	 * pagineWithDBRownumberOver 1表示使用Rownumber Over分页机制，0表示默认分页机制
+	 * 
+	 * 如果pagineWithDBRownumberOver为1 ，则必须指定一个排序字段，否则视为普通分页机制处理
+	 */
+	private int pagineWithDBRownumberOver;
 	/**
 	 * 0:2003 1:2007 2:2010 2:2013
 	 */
@@ -203,6 +210,26 @@ public class ControlInfo {
 
 	public void setJsppath(String jsppath) {
 		this.jsppath = jsppath;
+	}
+
+	 
+
+	
+
+	public String getDaoDBName() {
+		return daoDBName;
+	}
+
+	public void setDaoDBName(String daoDBName) {
+		this.daoDBName = daoDBName;
+	}
+
+	public int getPagineWithDBRownumberOver() {
+		return pagineWithDBRownumberOver;
+	}
+
+	public void setPagineWithDBRownumberOver(int pagineWithDBRownumberOver) {
+		this.pagineWithDBRownumberOver = pagineWithDBRownumberOver;
 	}
 
 	

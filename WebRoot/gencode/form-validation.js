@@ -123,7 +123,11 @@ var FormValidation = function () {
 															TableAdvanced.readme(responseText.gencodeid,e);
 														});
 													$("#readme").show();
-													$("#downcode").attr("href","downcode.page?genid="+responseText.gencodeid)
+													//$("#downcode").attr("href","downcode.page?genid="+responseText.gencodeid)
+													$("#downcode").click(function (e) {
+														window.open("downcode.page?genid="+responseText.gencodeid,'_blank')
+															
+														});
 													$("#downcode").show();
 													$("#viewcode").click(function (e) {
 														window.open('viewCode.page?genid='+responseText.gencodeid,'viewsource');

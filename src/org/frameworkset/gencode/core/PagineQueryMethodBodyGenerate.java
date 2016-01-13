@@ -26,7 +26,9 @@ public class PagineQueryMethodBodyGenerate implements MethodBodyGenerate {
 		 context.put("needcondition",componentType == 2?  gencodeService.needcondition():gencodeService.needconditionsortbean());
 		 context.put("needsort", gencodeService.needsort());
 		 context.put("serviceParamName", gencodeService.getServiceParamName());
-		 
+
+		 context.put("pagineWithDBRownumberOver", gencodeService.isPagineWithDBRownumberOver());
+		 context.put("dbname", gencodeService.getDaoDBName());
 		 String body = GencodeServiceImpl.writetostring(context,addmethodbodytempalte,encodecharset);
 		 method.setBody(body);
 

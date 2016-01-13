@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 #if($componentType == 1)
 try{
-	List<$entityName> beans=executor.queryListBean($entityName${dot}class,"queryList$entityName" #if($needcondition),conditions#else,null#end);
+	List<$entityName> beans=executor.queryListBean#if($dbname)WithDBName${start}$entityName${dot}class, "$dbname",#else${start}$entityName${dot}class, #end"queryList$entityName" #if($needcondition),conditions#else,null#end);
 	return beans;
 }catch(Exception e){
 	throw new $exception$start"query $entityName failed:",e$end;

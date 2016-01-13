@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 #if($componentType == 1)
 try {
-	executor.delete("deleteByKey", $paramName);
+	executor.delete#if($dbname)WithDBName${start}"$dbname",#else${start}#end"deleteByKey", $paramName);
 } catch (Throwable e) {
 	throw new $exception$start"delete ${entityName} failed::$paramName="+$paramName,e$end;
 }

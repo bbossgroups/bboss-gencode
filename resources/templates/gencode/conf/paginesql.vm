@@ -3,6 +3,7 @@
 #set( $m = '$' )
 #set( $equal = 'equals' )
 #set( $else = '#else' )
+#if(!$pagineOrderBy)
 select * from $tableName where 1=1
 #if($conditions && $conditions.size() > 0) 
 	#foreach($condition in $conditions)
@@ -26,7 +27,8 @@ select * from $tableName where 1=1
 		#end	
 	#end
 #end 
-#if(!$usepaginOrderBy && $needsort)
+#end
+#if((!$pagineWithDBRownumberOver  || $pagineOrderBy) && $needsort)
 $if(${m}sortKey && !${m}sortKey.$equal(""))
 		order by ${m}sortKey ${if}(${m}sortDesc)desc$else asc$end
 	$end
