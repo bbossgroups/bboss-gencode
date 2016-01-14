@@ -39,7 +39,22 @@ public class FieldInfo {
 	private String editcontrolParams;
 	private String viewcontrolParams;
 	private boolean pk;
+	/**
+	 * 1：代表默认排序字段
+	 * 0：代表非默认排序字段
+	 */
+	private int defaultsfield; 
 	
+
+	
+	public int getDefaultsfield() {
+		return defaultsfield;
+	}
+
+	public void setDefaultsfield(int defaultsfield) {
+		this.defaultsfield = defaultsfield;
+	}
+
 	private String fieldComment;
 	/**
 	 * 字段维护类型

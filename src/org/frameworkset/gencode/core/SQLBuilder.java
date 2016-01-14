@@ -73,7 +73,7 @@ public class SQLBuilder  extends AbstractGencode{
 			
 			sql.setSql(builder.toString());
 		}
-		else if(sql.getOptype().equals( Constant.paginequery))
+		else if(sql.getOptype().equals( Constant.paginequery) || sql.getOptype().equals( Constant.listquery) || sql.getOptype().equals( Constant.pagineOrderBy))
 		{
 //			StringBuilder builder = new StringBuilder();
 //			builder.append("select * from ").append(tableName).append(" where 1=1");

@@ -5,7 +5,7 @@
 <div id="ajax-modal" class="modal  container fade" tabindex="-1">
 </div>
 <a id="downfile" target="_blank" />
-<div class="portlet box yellow">
+<div class="portlet">
 	<div class="portlet-title">
 		<div class="caption">
 			<i class="fa fa-gift"></i> 数据源${dbname }-表${tableName } 配置
@@ -497,26 +497,6 @@
 																	</div>
 																</div></td>
 															<td><div class="form-group">
-																	<label class="control-label col-md-3">日期范围查询</label>
-																	<div class="col-md-9">
-																		<div class="radio-list">
-																			<pg:case colName="daterange">
-																				<label class="radio-inline"><input
-																					type="radio" name="<pg:rowid/>_daterange"
-																					id="<pg:rowid/>_daterange" value="1"
-																					<pg:equal value="1">checked</pg:equal>>是</label>
-																				<label class="radio-inline"><input
-																					type="radio" name="<pg:rowid/>_daterange"
-																					id="<pg:rowid/>_daterange" value="0"
-																					<pg:equal value="0">checked</pg:equal>>否</label>
-																			</pg:case>
-																		</div>
-																	</div>
-																</div></td>
-
-														</tr>
-														<tr>
-															<td><div class="form-group">
 																	<label class="control-label col-md-3">查询条件</label>
 																	<div class="col-md-9">
 																		<div class="radio-list">
@@ -528,6 +508,26 @@
 																				<label class="radio-inline"><input
 																					type="radio" name="<pg:rowid/>_qcondition"
 																					id="<pg:rowid/>_qcondition" value="0"
+																					<pg:equal value="0">checked</pg:equal>>否</label>
+																			</pg:case>
+																		</div>
+																	</div>
+																</div></td>
+
+														</tr>
+														<tr>
+															<td><div class="form-group">
+																	<label class="control-label col-md-3">日期范围查询</label>
+																	<div class="col-md-9">
+																		<div class="radio-list">
+																			<pg:case colName="daterange">
+																				<label class="radio-inline"><input
+																					type="radio" name="<pg:rowid/>_daterange"
+																					id="<pg:rowid/>_daterange" value="1"
+																					<pg:equal value="1">checked</pg:equal>>是</label>
+																				<label class="radio-inline"><input
+																					type="radio" name="<pg:rowid/>_daterange"
+																					id="<pg:rowid/>_daterange" value="0"
 																					<pg:equal value="0">checked</pg:equal>>否</label>
 																			</pg:case>
 																		</div>
@@ -570,6 +570,33 @@
 																</div>
 															</td>
 
+														</tr>
+														<tr>
+
+
+															<td colspan="3" >
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label class="control-label col-md-1">默认排序字段 
+																	</label>																	
+																	<div class="radio-list">
+																				<pg:case colName="defaultsfield">
+																					<label class="radio-inline"><input
+																						type="radio" name="defaultsfield"
+																						id="defaultsfield" value="1"
+																						<pg:equal value="1">checked</pg:equal>>是</label>
+																					<label class="radio-inline"><input
+																						type="radio" name="defaultsfield"
+																						id="defaultsfield" value="0"
+																						<pg:equal value="0">checked</pg:equal>>否</label>
+																				</pg:case>
+																			</div>
+																	
+																</div>
+															</div>	
+															</td>
+															
+															
 														</tr>
 														<tr>
 															<td><div class="form-group">

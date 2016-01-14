@@ -253,7 +253,7 @@ public class GencodeServiceImpl {
 			if(pagineWithDBRownumberOver)
 			{
 				if(this.sortFields == null || sortFields.size() == 0)
-					throw new java.lang.IllegalArgumentException("Pagine With DB Rownumber Over 分析函数：必须指定一个排序字段!");
+					throw new java.lang.IllegalArgumentException("采用Rownumber Over分析函数分页时，必须指定一个排序字段!");
 			}
 		}
 		SQLBuilder = new SQLBuilder(this);

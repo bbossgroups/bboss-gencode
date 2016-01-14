@@ -115,9 +115,10 @@ var FormValidation = function () {
 
 												var msg = responseText.result;
 												var title = '生成代码';
-												
+												var tiptype = "success";
 												if (msg == 'success') {
-													title = '代码生成成功！';
+													title = '提示';
+													msg ="代码生成完毕!请点击查看按钮查看源码，或者点击部署说明按钮查看部署说明，获取点击下载按钮下载代码."
 													$("#gencodeid").val(responseText.gencodeid);
 													$("#readme").click(function (e) {
 															TableAdvanced.readme(responseText.gencodeid,e);
@@ -134,7 +135,11 @@ var FormValidation = function () {
 													});
 													$("#viewcode").show();
 												} else
-													title = responseText.result;
+													{
+														tiptype = 'error';
+														title = '异常';
+													}
+													
 												toastr.options = {
 													"closeButton" : true,
 													"debug" : false,
@@ -150,7 +155,7 @@ var FormValidation = function () {
 													"hideMethod" : "fadeOut"
 												};
 
-												toastr['success']
+												toastr[tiptype]
 														(
 																msg,
 																title); // Wire up an event handler to a button in the toast, if it exists
@@ -351,14 +356,19 @@ var FormValidation = function () {
 
 			success : function(responseText, statusText, xhr, $form) {
 				Metronic.stopPageLoading();
-
+				var resultType = 'success'
 				var msg = responseText.result;
-				var title = '生成代码';
+				var title = '提示';
 				if (msg == 'success') {
-					title = '临时保存配置文件成功！';
+					msg = '代码生成配置暂存成功！';
 					$("#gencodeid").val(responseText.gencodeid);
 				} else
-					title = responseText.result;
+				{
+					resultType = 'error';
+					title = '暂存失败';
+					msg = responseText.result;
+				}
+					
 
 				toastr.options = {
 					"closeButton" : true,
@@ -375,7 +385,7 @@ var FormValidation = function () {
 					"hideMethod" : "fadeOut"
 				};
 
-				toastr['success'](msg, title); // Wire up an event handler to a button in the toast, if it exists
+				toastr[resultType](msg, title); // Wire up an event handler to a button in the toast, if it exists
 
 			}
 
