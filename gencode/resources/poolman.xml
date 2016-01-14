@@ -1,0 +1,18 @@
+<poolman>
+
+
+<datasource>
+
+		<dbname>mssql</dbname>
+		<loadmetadata>false</loadmetadata>
+		<enablejta>true</enablejta>
+		<jndiName>druid_datasource_jndiname</jndiName>
+		<datasourceFile>dbcp-sqlserver.xml</datasourceFile>
+		<autoprimarykey>false</autoprimarykey>
+		<showsql>true</showsql>
+		<keygenerate>composite</keygenerate>
+		
+</datasource>
+	
+</poolman>  
+  

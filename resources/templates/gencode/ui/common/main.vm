@@ -16,12 +16,11 @@
 <head>
 <title>${moduleCNName}管理</title>
 <%@ include file="/include/css.jsp"%>
-<script type="text/javascript" src="${str_money}{pageContext.request.contextPath}/html2/js/common.js"></script>
 
 </head>
 	<body>
 		<div class="mcontent">
-			<sany:menupath />
+			
 			#if($conditions && $conditions.size() > 0)
 			<div id="searchblock">
 				<div class="search_top">
@@ -99,7 +98,7 @@
 				</div>
 				
 				<strong>${moduleCNName} 列表</strong>
-				<img id="wait" src="../common/images/wait.gif" />				
+				<img id="wait" src="<%=request.getContextPath()%>/include/images/wait.gif" />				
 			</div>
 			<div id="custombackContainer" style="overflow:auto">
 			

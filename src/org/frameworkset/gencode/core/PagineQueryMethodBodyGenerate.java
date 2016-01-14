@@ -23,7 +23,7 @@ public class PagineQueryMethodBodyGenerate implements MethodBodyGenerate {
 		 context.put("componentType", componentType);
 		 context.put("entityVarName", entityVarName);
 		 context.put("conditionFields", gencodeService.getConditions());
-		 context.put("needcondition",componentType == 2?  gencodeService.needcondition():gencodeService.needconditionsortbean());
+		 context.put("needcondition",componentType == Constant.component_type_actionimpl?  gencodeService.needcondition():gencodeService.needconditionsortbean());
 		 context.put("needsort", gencodeService.needsort());
 		 context.put("serviceParamName", gencodeService.getServiceParamName());
 

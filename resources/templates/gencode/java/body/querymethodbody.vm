@@ -3,7 +3,7 @@
 #set( $dot = '.' )
 #if($componentType == 1)
 try{
-	List<$entityName> beans=executor.queryListBean#if($dbname)WithDBName${start}$entityName${dot}class, "$dbname",#else${start}$entityName${dot}class, #end"queryList$entityName" #if($needcondition),conditions#else,null#end);
+	List<$entityName> beans=executor.queryListBean#if($dbname)WithDBName${start}$entityName${dot}class, "$dbname",#else${start}$entityName${dot}class, #end"queryList$entityName" #if($needcondition||  $needsort),conditions#else,null#end);
 	return beans;
 }catch(Exception e){
 	throw new $exception$start"query $entityName failed:",e$end;
@@ -23,7 +23,7 @@ try {
 	    	#end
 		#end  
 	#end  
-	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition)conditions#end );
+	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition ||  $needsort)conditions#end );
 	model.addAttribute("${entityVarName}s", ${entityVarName}s);
 	return "path:queryList${entityName}s";
 } catch ($exception e) {
@@ -33,7 +33,20 @@ try {
 }	
 #elseif($componentType == 5)//webservice服务
 try {
-	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition)conditions#end );
+#if($needcondition)
+	    #if($conditionFields && $conditionFields.size() > 0)
+	    	#foreach($cf in $conditionFields)
+	    		#if($cf.like)
+	    		     $cf.type ${cf.fieldName} = conditions.get$cf.mfieldName$start$end;
+	    		     if(${cf.fieldName} != null && !${cf.fieldName}.equals(""))
+	    		     {
+	    		     	conditions.set$cf.mfieldName$start"%"+${cf.fieldName}+"%"$end;
+	    		     }
+	    		#end
+	    	#end
+		#end  
+	#end  
+	List<${entityName}> ${entityVarName}s = ${entityVarName}Service.queryList${entityName}s(#if($needcondition ||  $needsort)conditions#end );
 	return ${entityVarName}s;
 }
  catch ($exception e) {

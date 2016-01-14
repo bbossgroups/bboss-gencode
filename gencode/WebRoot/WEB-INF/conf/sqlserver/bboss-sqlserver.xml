@@ -1,0 +1,38 @@
+<properties>
+
+	<!-- 
+		描述:初始化MS分页测试管理控制器AppBomController，并将所有关联的MS分页测试管理service注入到此控制器中。并以别名的形式定义好跳转页面。
+	    author:yin
+		CopyRight:bboss
+		版本:v1.0 
+	    Date: 2016-01-15 01:39:06
+	-->
+
+	<property name="/sqlserver/*.page"
+		path:index="/sqlserver/main.jsp"
+		path:queryListInfoAppBoms="/sqlserver/appBomListInfo.jsp"
+		path:queryListAppBoms="/sqlserver/appBomList.jsp"
+		path:updateAppBom="/sqlserver/appBomEdit.jsp"
+		path:addAppBom="/sqlserver/appBomAdd.jsp"
+		path:getAppBom="/sqlserver/appBomView.jsp"
+		f:appBomService="attr:sqlserver.appBomService"
+		class="org.sqlserver.action.AppBomController" >
+	</property>
+		<property name="sqlserver.WSappBomService"
+		ws:servicePort="appBomService" 
+		hessian:servicePort="appBomService"
+		f:appBomService="attr:sqlserver.appBomService"
+		class="org.sqlserver.ws.WSAppBomServiceImpl" >
+	</property>
+		<property name="sqlserver.appBomService"
+		f:executor="attr:sqlserver.configsqlexecutor"
+		class="org.sqlserver.service.AppBomServiceImpl"
+		/>
+	<property name="sqlserver.configsqlexecutor"		
+		class="com.frameworkset.common.poolman.ConfigSQLExecutor" >
+		<construction>
+			<property value="org/sqlserver/service/appBom.xml"/>
+		</construction>
+	</property>
+	
+</properties>

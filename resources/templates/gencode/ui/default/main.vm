@@ -16,7 +16,6 @@
 <head>
 <title>${moduleCNName}管理</title>
 <%@ include file="/common/jsp/css-lhgdialog.jsp"%>
-<script type="text/javascript" src="${str_money}{pageContext.request.contextPath}/html2/js/common.js"></script>
 
 </head>
 	<body>

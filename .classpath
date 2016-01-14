@@ -29,7 +29,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ojdbc14.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-5.0.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-nodep-3.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-all-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/jsp/com.sun.el-2.2.0.v201108011116.jar"/>
 	<classpathentry kind="lib" path="lib/jsp/javax.el-2.2.0.v201108011116.jar"/>
 	<classpathentry kind="lib" path="lib/jsp/javax.servlet.jsp-2.2.0.v201112011158.jar"/>
@@ -56,5 +55,6 @@
 	<classpathentry kind="lib" path="lib/eclipse/org.eclipse.osgi_3.10.100.v20150529-1857.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jtds-1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.1.25-bin.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-all-1.9.10.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -1232,7 +1232,7 @@ public class GencodeServiceImpl {
 		query.setMethodname("queryList"+entityName+"s");
 		query.setReturntype("String");		
 		params = new ArrayList<MethodParam>();
-		if(this.needcondition())
+		if(this.needconditionsortbean())
 		{
 			param = new MethodParam();
 			
