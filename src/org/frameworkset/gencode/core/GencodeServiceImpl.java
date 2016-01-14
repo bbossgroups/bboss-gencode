@@ -1202,7 +1202,7 @@ public class GencodeServiceImpl {
 			param = new MethodParam();
 			param.setType("boolean");
 			param.setName("desc");
-			param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.DESC",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue", "true", AnnoParam.V_STRING));
+			param.addAnnotation(new Annotation("PagerParam").addAnnotationParam("name","PagerParam.DESC",AnnoParam.V_CONTAST).addAnnotationParam("defaultvalue", this.defaultSortField == null?"true":this.defaultSortField.isDesc()+"", AnnoParam.V_STRING));
 			params.add(param);
 		}	
 		

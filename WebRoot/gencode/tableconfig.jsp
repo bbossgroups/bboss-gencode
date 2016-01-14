@@ -582,12 +582,12 @@
 																	<div class="radio-list">
 																				<pg:case colName="defaultsfield">
 																					<label class="radio-inline"><input
-																						type="radio" name="defaultsfield"
-																						id="defaultsfield" value="1"
+																						type="radio" name="<pg:rowid/>_defaultsfield"
+																						id="<pg:rowid/>_defaultsfield" value="1"
 																						<pg:equal value="1">checked</pg:equal>>是</label>
 																					<label class="radio-inline"><input
-																						type="radio" name="defaultsfield"
-																						id="defaultsfield" value="0"
+																						type="radio" name="<pg:rowid/>_defaultsfield"
+																						id="<pg:rowid/>_defaultsfield" value="0"
 																						<pg:equal value="0">checked</pg:equal>>否</label>
 																				</pg:case>
 																			</div>

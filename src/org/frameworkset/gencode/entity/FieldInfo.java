@@ -43,6 +43,7 @@ public class FieldInfo {
 	 * 1：代表默认排序字段
 	 * 0：代表非默认排序字段
 	 */
+	@RequestParam(name = "${rowid}_defaultsfield")
 	private int defaultsfield; 
 	
 

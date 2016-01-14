@@ -452,6 +452,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	private void handleSortFields(GencodeServiceImpl gencodeService, List<FieldInfo> fields) {
+		SortField defaultSortField = null;
+		SortField defaultSortfieldInfo = null;
 		for (int i = 0; fields != null && i < fields.size(); i++) {
 			FieldInfo fieldInfo = fields.get(i);
 			if (fieldInfo.getSfield() == 1) {
@@ -459,14 +461,30 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				// id.setColumnname(fieldInfo.getColumnname());
 				id.setDesc(fieldInfo.getStype() == 1);
 				this.convertField(gencodeService, fieldInfo, id, Util.other);
-				if (i == 0) {
-					id.setDefaultSortField(true);
-					gencodeService.setDefaultSortField(id);
+				if(defaultSortfieldInfo == null)
+					defaultSortfieldInfo = id;
+				if(fieldInfo.getDefaultsfield() == 1)
+				{
+					defaultSortField = id;
 				}
+//				if (i == 0) {
+//					id.setDefaultSortField(true);
+//					gencodeService.setDefaultSortField(id);
+//				}
 
 				gencodeService.addSortField(id);
 			}
 		}
+		
+		if (defaultSortField != null) {
+			gencodeService.setDefaultSortField(defaultSortField);
+		}
+		else if(defaultSortfieldInfo != null) 
+		{
+			defaultSortfieldInfo.setDefaultSortField(true);
+			gencodeService.setDefaultSortField(defaultSortfieldInfo);
+		}
+
 	}
 
 	private String extendType(String type) {
