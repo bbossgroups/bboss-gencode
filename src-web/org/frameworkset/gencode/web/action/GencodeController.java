@@ -305,6 +305,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		List<FieldInfo> fields = Util.getSimpleFields(tableMeta);
 		model.addAttribute("fileexist", false);
 		model.addAttribute("fields", fields);
+		model.addAttribute("fieldlens", fields != null?fields.size():0);
 		return "path:tableconfig";
 	}
 
@@ -337,6 +338,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		if(!StringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
 			model.addAttribute("DEFAULT_SOURCEPATH",  org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH );
 		model.addAttribute("fields", fields);
+		model.addAttribute("fieldlens", fields != null?fields.size():0);
 		model.addAttribute("gencodeid", gencodeid);
 
 		model.addAttribute("controlparams", controlInfo);
