@@ -1,0 +1,71 @@
+/**
+* 自动生成的${moduleCNName}模块配置使用说明：
+* 1.环境准备
+* 2.代码集成
+* 3.组件配置文件加载
+* 4.部署应用
+* 5.系统访问和服务调用 
+*/
+1.环境准备-如果已经搭建好工程环境直接进入第2步
+运行基于common风格模板的${moduleCNName}，首先需要从github下载代码生成工具的源码工程，下载地址为：
+
+https://github.com/bbossgroups/bboss-gencode/releases
+
+下载后解压，然后将解压目录下的包含的专门用来运行common风格代码的eclipse工程gencode导入eclipse，如果环境没有问题，那么工程一般会自动编译
+成功，接下来做第2步 代码集成。
+
+2.代码集成
+为了能够运行自动生成的${moduleCNName}的代码，首先需要将代码集成到gencode eclipse工程中：
+先下载自动生成的${moduleCNName}模块的源码包，然后解压，将src目录下的程序拷贝到gencode eclipse工程的源码目录下，
+将WebRoot目录中的文件拷贝到gencode eclipse工程的WebRoot目录下即可
+
+3.装载mvc模块
+修改web.xml中mvc拦截器的配置，
+将下面的contextConfigLocation的param-value中的内容追加到实际工程的web.xml中参数contextConfigLocation的param-value中
+<servlet>
+    <servlet-name>mvc</servlet-name>
+    <servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+         /WEB-INF/conf/#if($system && !$system.equals(""))${system}#else$moduleName#end/bboss-*.xml
+        </param-value>
+    </init-param> 
+#if($genI18n)
+
+将下面messagesources的param-value中的内容追加到实际工程的web.xml中国际化属性配置参数messagesources的param-value中:        
+    <init-param>
+			<param-name>messagesources</param-name>
+			<param-value>/WEB-INF/conf/#if($system && !$system.equals(""))${system}#else$moduleName#end/messages_$moduleName</param-value>
+	</init-param>  
+#end		  
+</servlet>
+
+4.部署${moduleCNName}-如果项目已经部署过了，那么直接启动tomcat即可
+集成代码完毕并完成配置后，就可以将${moduleCNName}部署到tomcat中，部署方法，首先修改刚才搭建的gencode eclipse工程下的gentest.xml文件中的docBase对应的路径为本地实际路径，例如：
+
+D:\workspace\bbossgroups\bboss-gencode\gencode\WebRoot
+
+然后将gentest.xml文件拷贝到tomcatdir\conf\Catalina\localhost目录下，然后启动tomcat即可（tomcatdir对应本地tomcat路径）。
+
+5.系统访问和服务调用
+在浏览器端访问，打开浏览器，输入以下地址即可
+http://localhost:8080/gentest$relativePath/index.page
+#if($genRPC)
+webservice服务和hessian服务调用方法
+
+hessian:http://localhost:8080/gentest/hessian?service=$servicePort";
+HessianProxyFactory factory = new HessianProxyFactory();
+String url = "http://localhost:8080/gentest/hessian?service=$servicePort";
+${wsclassinf} $servicePort = (${wsclassinf}) factory.create(${wsclassinf}.class, url);
+//call some method with $servicePort here.
+
+cxf webserivce:
+String url = "http://localhost:8080/gentest/cxfservices/$servicePort";
+JaxWsProxyFactoryBean wsServiceClientFactory = new  JaxWsProxyFactoryBean();
+wsServiceClientFactory.setAddress(url);
+wsServiceClientFactory.setServiceClass(${wsclassinf}.class);
+${wsclassinf} $servicePort = (${wsclassinf})wsServiceClientFactory.create();
+//call some method with $servicePort here.
+
+#end

@@ -278,7 +278,9 @@
 														id="pagineWithDBRownumberOver" value="1"
 														<pg:true>checked</pg:true>> Rownumber Over(Order By)</label>
 												</pg:case>
-											</div>
+											</div><span
+												class="help-block"><font color="green">【默认分页机制】适用数据库oracle，mysql，maradb，sqlite，postgres 【Rownumber Over(Order By)】适用数据库oracle，mysql，maradb，sqlite，postgres，derby，mssql server2005/2008，db2
+											</font></span>
 										</div>
 
 

@@ -21,7 +21,7 @@ public class GenReadme  extends AbstractGencode{
 		}
 		try {
 			conf.createNewFile();
-			 Template conftempalte = VelocityUtil.getTemplate("gencode/conf/readme.vm");
+			 Template conftempalte = VelocityUtil.getTemplate("gencode/ui/"+gencodeService.getControlInfo().getTheme()+"/readme.vm");
 			 VelocityContext context = new VelocityContext();			 
 			 context.put("moduleCNName", gencodeService.getModuleMetaInfo().getModuleCNName());
 			 context.put("moduleName", gencodeService.getModuleMetaInfo().getModuleName());
