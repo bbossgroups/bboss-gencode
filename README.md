@@ -17,6 +17,7 @@
 
 ## 项目中包含的两个eclipse工程说明
 bboss-gencode - 自动代码生成器eclipse工程
+
 bboss-gencode/gencode - 为common ui风格模板提供运行环境的eclipse工程
 
 # 自动代码生成框架构建运行说明：
