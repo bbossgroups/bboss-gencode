@@ -1119,7 +1119,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- END CONTAINER -->
 	<!-- BEGIN FOOTER -->
 	<div class="page-footer">
-		<div class="page-footer-inner">2014 &copy; Gencode by <a href="http://www.bbossgroups.com" target="_blank" ><font color="white">BBoss</font> </a>.<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254131450'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254131450%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script><a href="http://www.miitbeian.gov.cn" target="_blank" class="btn default">湘ICP备16000994号</a></div>
+		<div class="page-footer-inner">2014 &copy; Gencode by <a href="http://www.bbossgroups.com" target="_blank" ><font color="red">BBoss</font> </a>.<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254131450'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254131450%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script><a href="http://www.miitbeian.gov.cn" target="_blank" class="btn default">湘ICP备16000994号</a></div>
 		<div class="scroll-to-top">
 			<i class="icon-arrow-up"></i>
 		</div>
