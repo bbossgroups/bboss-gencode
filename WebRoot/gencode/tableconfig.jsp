@@ -136,7 +136,21 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<div class="form-group"></div>
+									<div class="form-group"><label class="control-label col-md-3">表名前缀截取</label>
+										<div class="col-md-9">
+											<div class="radio-list">
+																			<pg:case colName="ignoreEntityFirstToken">
+																				<label class="radio-inline"><input
+																					type="radio" name="ignoreEntityFirstToken"
+																					id="ignoreEntityFirstToken" value="1"
+																					<pg:equal value="1">checked</pg:equal>>是</label>
+																				<label class="radio-inline"><input
+																					type="radio" name="ignoreEntityFirstToken"  
+																					id="ignoreEntityFirstToken" value="0"
+																					<pg:equal value="0">checked</pg:equal>>否</label>
+																			</pg:case>
+																		</div>
+										</div></div>
 								</div>
 								<!--/span-->
 
@@ -171,7 +185,8 @@
 													<!-- 													<option value="mobile" -->
 													<!-- 														<pg:equal value="default">mobile</pg:equal>>mobile</option> -->
 												</pg:case>
-											</select>
+											</select><span
+												class="help-block"><font color="blue">default:对应bboss平台通用界面风格  ，集成到bboss平台中运行<br> common：对应bboss通用风格模板，生成的代码与平台无关，只需要bboss框架，集成到<a href="https://github.com/bbossgroups/bboss-gencode/tree/master/gencode" target="_blank"><font color="red">gencode</font></a>子目录对应的eclipse工程中即可运行</font></span>
 										</div>
 
 									</div>

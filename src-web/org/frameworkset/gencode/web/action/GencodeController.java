@@ -951,6 +951,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		moduleMetaInfo.setCompany(controlInfo.getCompany());// 公司信息
 		moduleMetaInfo.setVersion(controlInfo.getVersion());// 版本信息
 		moduleMetaInfo.setJsppath(controlInfo.getJsppath());
+		moduleMetaInfo.setIgnoreEntityFirstToken(controlInfo.getIgnoreEntityFirstToken() == 1);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = format.format(new Date());
 		moduleMetaInfo.setDate(date);// 指定日期

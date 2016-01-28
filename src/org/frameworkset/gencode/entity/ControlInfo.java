@@ -1,5 +1,7 @@
 package org.frameworkset.gencode.entity;
 
+import org.frameworkset.util.annotations.RequestParam;
+
 public class ControlInfo {
 	/**
 	 * 存放生成的工程文件的根目录，规范化的存放代码工程的目录结构为： src-modulename WebRoot/modulename
@@ -53,6 +55,20 @@ public class ControlInfo {
 	 * 如果pagineWithDBRownumberOver为1 ，则必须指定一个排序字段，否则视为普通分页机制处理
 	 */
 	private int pagineWithDBRownumberOver;
+	/**
+	 * 实体名称是否截取表名前缀，1 截取 0 不截取
+	 * td_user: 1=User 0 TdUser
+	 */
+	@RequestParam(defaultvalue="1")
+	private int ignoreEntityFirstToken = 1;
+	public int getIgnoreEntityFirstToken() {
+		return ignoreEntityFirstToken;
+	}
+
+	public void setIgnoreEntityFirstToken(int ignoreEntityFirstToken) {
+		this.ignoreEntityFirstToken = ignoreEntityFirstToken;
+	}
+
 	/**
 	 * 0:2003 1:2007 2:2010 2:2013
 	 */
