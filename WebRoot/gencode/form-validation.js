@@ -214,6 +214,13 @@ var FormValidation = function() {
 												} else {
 													tiptype = 'error';
 													title = '异常';
+													if(responseText.gencodeid)
+													{
+														$("#gencodeid")
+														.val(
+																responseText.gencodeid);
+													}
+													
 												}
 
 												toastr.options = {
