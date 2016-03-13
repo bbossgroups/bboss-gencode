@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ditchnet-tabs-taglib.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ecs-1.4.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool.jar" sourcepath="WebRoot/WEB-INF/lib/frameworkset-pool-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-util.jar" sourcepath="/bboss-util"/>
