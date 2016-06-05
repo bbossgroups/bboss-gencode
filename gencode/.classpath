@@ -3,26 +3,12 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-5.0.3.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-core.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-mvc.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-web-inf.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-web-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-web.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-soa.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-velocity.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-nodep-3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-io-2.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-pool.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset-util.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/frameworkset.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/htmlparser-1.5-20050925.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-all-1.9.10.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jakarta-oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jarjar.jar"/>
@@ -38,5 +24,17 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sqlite-jdbc-3.8.10.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="compile-lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-core-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-htmlparser-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-mvc-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-persistent-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-5.0.0-sources.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-web-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-security-web-inf-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-soa-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-taglib-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-util-5.0.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bboss-velocity-5.0.0.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
