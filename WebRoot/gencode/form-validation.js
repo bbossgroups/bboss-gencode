@@ -189,15 +189,15 @@ var FormValidation = function() {
 																						e);
 																	});
 													$("#readme").show();
-													// $("#downcode").attr("href","downcode.page?genid="+responseText.gencodeid)
+													 
 													$("#downcode")
 															.click(
 																	function(e) {
+																		var downcodeurl = "downcode.page?genid="+ responseText.gencodeid;
 																		window
 																				.open(
-																						"downcode.page?genid="
-																								+ responseText.gencodeid,
-																						'_blank')
+																						downcodeurl,
+																						'_download')
 
 																	});
 													$("#downcode").show();
