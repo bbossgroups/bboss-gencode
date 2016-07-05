@@ -1,0 +1,5 @@
+rootProject.name = 'gencode'
+include 'commonstyle'
+include 'gencode-core'
+include 'gencode-web'
+include 'gencode-web-app'
