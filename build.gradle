@@ -21,7 +21,7 @@ configure(allprojects) { project ->
 	apply plugin: "idea"
 	apply plugin: "signing"
 	apply plugin: "maven"
-	apply plugin: "war"
+	
 	eclipse {
 		jdt {
 			//if you want to alter the java versions (by default they are configured with gradle java plugin settings):
