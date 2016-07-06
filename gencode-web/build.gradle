@@ -6,7 +6,7 @@ sourceSets {
           
         }
         resources {
-           
+            srcDir 'resources'
             
         }
          compileClasspath = configurations.compile
@@ -48,7 +48,7 @@ dependencies {
             fileTree(dir: '../lib/jetty', include: '*.jar'),
             [group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
          )
-  
+  	
     compile (            
             [group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
              [group: 'servletapi', name: 'servletapi', version: '2.4', transitive: false],
