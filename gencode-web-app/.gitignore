@@ -1,0 +1,7 @@
+/bin/
+/build/
+/.settings/
+/.classpath
+/.project
+/common.log
+/velocity.log

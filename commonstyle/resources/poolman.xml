@@ -1,0 +1,41 @@
+<poolman>
+
+<!--参考下面的配置定义需要的数据源-->
+	<!-- <datasource>
+
+		<dbname>mssql</dbname>
+		<loadmetadata>false</loadmetadata>
+		<enablejta>true</enablejta>
+		<jndiName>mssql_datasource_jndiname</jndiName>
+		<datasourceFile>dbcp-sqlserver.xml</datasourceFile>
+		<showsql>true</showsql>
+
+	</datasource> -->
+
+	<!-- <datasource>
+
+		<dbname>mysql</dbname>
+		<loadmetadata>false</loadmetadata>
+		<enablejta>true</enablejta>
+		<jndiName>mysql_datasource_jndiname</jndiName>
+		<datasourceFile>dbcp-mysql.xml</datasourceFile>
+
+		<showsql>true</showsql>
+
+	</datasource>-->
+
+	 <datasource>
+
+		<dbname>oracle</dbname>
+		<loadmetadata>false</loadmetadata>
+		<enablejta>true</enablejta>
+		<jndiName>oracle_datasource_jndiname</jndiName>
+		<datasourceFile>dbcp-oracle.xml</datasourceFile>
+
+		<showsql>true</showsql>
+
+
+	</datasource>
+
+</poolman>  
+  
