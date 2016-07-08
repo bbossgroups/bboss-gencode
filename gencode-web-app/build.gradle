@@ -142,3 +142,5 @@ task releaseRuntimeWar(type: Zip,dependsOn:'warcopyResourceFiles') {
    from 'build/dist/WebRoot'
    
 }
+
+project.tasks.war.dependsOn(['releaseRuntimeZip','releaseRuntimeWar'])
