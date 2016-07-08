@@ -20,14 +20,24 @@ bboss-gencode - 自动代码生成器eclipse工程
 
 bboss-gencode/gencode - 为common ui风格模板提供运行环境的eclipse工程
 
-# 自动代码生成框架构建运行说明：
-## 1.安装好ant构建环境和jdk 1.7或以上版本
-## 2.运行工程根目录下的build.bat指令
-## 3.构建成功后：
+# 自动代码生成框架构建运行说明
+源码下载完毕，解压到目录d:/bboss-gencode(指定自己的目录即可)，采用gradle进行构建：
+## 1.安装gradle 并将gradle设置到环境变量 参考文档：https://docs.gradle.org/current/userguide/userguide_single.html#installation
+## 2.在命令行执行 
+cd d:/bboss-gencode 
 
-windows环境下运行distrib/run/startup.bat，
+gradle  war 
+## 3.构建成功后： 
+windows环境下运行d:/bboss-gencode/gencode-web-app/build/dist/gencode/startup.bat 
+linux/unix/mac os环境下运行startup.sh 
 
-linux/unix/mac os环境下运行distrib/run/startup.sh
+同时在d:/bboss-gencode/gencode-web-app/build/distributions会发布出一个带jetty容器独立运行的zip包和可以部署到tomcat的war包： 
+
+gencode-4.10.8.zip 
+
+gencode-4.10.8.war 
+
+更是使用配置和使用手册参考文档：http://yin-bp.iteye.com/blog/2256948
 
 即可启动自动代码生成框架应用，在浏览器端访问以下地址，即可在界面中配置数据源，
 配置表单，生成源代码、查看自动生成的代码部署说明文档、浏览并下载源代码：
