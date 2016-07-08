@@ -16,9 +16,14 @@
 生成的所有文件存放在服务器上，代码生成器会提供打包下载功能
 
 ## 项目中包含的两个eclipse工程说明
-bboss-gencode - 自动代码生成器eclipse工程
+gencode-core - 代码生成器核心工程
 
-bboss-gencode/gencode - 为common ui风格模板提供运行环境的eclipse工程
+gencode-web - 代码生成器web工程
+
+gencode-web-app - 代码生成器管理配置工程,发布war包和工具zip包
+
+commonstyle - 为common ui风格模板提供运行环境,只需要将生成的common风格的程序集成commonstyle工程中，就可以看实际运行效果
+
 
 # 自动代码生成框架构建运行说明
 源码下载完毕，解压到目录d:/bboss-gencode(指定自己的目录即可)，采用gradle进行构建：
