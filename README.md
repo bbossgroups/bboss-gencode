@@ -25,13 +25,16 @@ bboss-gencode/gencode - 为common ui风格模板提供运行环境的eclipse工�
 ## 1.安装gradle 并将gradle设置到环境变量 参考文档：https://docs.gradle.org/current/userguide/userguide_single.html#installation
 ## 2.在命令行执行 
 cd d:/bboss-gencode 
+
 gradle  war 
 ## 3.构建成功后： 
 windows环境下运行d:/bboss-gencode/gencode-web-app/build/dist/gencode/startup.bat 
 linux/unix/mac os环境下运行startup.sh 
 
 同时在d:/bboss-gencode/gencode-web-app/build/distributions会发布出一个带jetty容器独立运行的zip包和可以部署到tomcat的war包： 
+
 gencode-4.10.8.zip 
+
 gencode-4.10.8.war 
 
 更是使用配置和使用手册参考文档：http://yin-bp.iteye.com/blog/2256948
