@@ -91,6 +91,7 @@ task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
 }
 
 project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.install)
+project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.install)
 task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 	 
 	 from 'resources'   
