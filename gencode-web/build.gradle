@@ -9,7 +9,7 @@ sourceSets {
             srcDir 'resources'
             
         }
-         compileClasspath = configurations.compile
+        
     }
 
     
@@ -49,7 +49,7 @@ dependencies {
             [group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
          )
   	
-    compile (
+    compileOnly (
     	[group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],            
             [group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
              [group: 'javax.servlet', name: 'javax.servlet-api', version: "3.0.1", transitive: false],
