@@ -1,4 +1,4 @@
-apply plugin: "war"
+
 sourceSets {
     main {
         java {
@@ -63,7 +63,7 @@ dependencies {
 		[group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
     )
     	
-     providedRuntime (            
+     compileOnly (            
           
             [group: 'javax.servlet', name: 'javax.servlet-api', version: "3.0.1", transitive: false],
             [group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
@@ -85,7 +85,7 @@ task warcopyWebRootFiles(type: Copy){
 }
 
 task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
-	 from configurations.compile + configurations.runtime - configurations.providedRuntime
+	 from configurations.compile + configurations.runtime  
 	 into 'build/dist/WebRoot/WEB-INF/lib'
 	 
 }
@@ -102,7 +102,7 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 
 task copyLibFiles(type: Copy ){ 
 	from fileTree(dir: '../lib', include: '**/*.jar')
-	from configurations.compile + configurations.providedRuntime 
+	from configurations.compile + configurations.compileOnly 
 	into 'build/dist/gencode/lib'
 }
 project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.install)
@@ -122,7 +122,7 @@ task copyToolFiles(type: Copy ){
 		expand(bboss_version: "${PROJ_BBOSS_VERSION}",main_class:'org.frameworkset.gencode.web.service.JettyStart')
 		
 	} 
-    from configurations.runtime - configurations.compile - configurations.providedRuntime
+    from configurations.runtime - configurations.compile  
     //filteringCharset = 'UTF-8'            
 	into 'build/dist/gencode'
 	 
@@ -143,5 +143,3 @@ task releaseRuntimeWar(type: Zip,dependsOn:'warcopyResourceFiles') {
    from 'build/dist/WebRoot'
    
 }
-
-project.tasks.war.dependsOn(['releaseRuntimeZip','releaseRuntimeWar'])
