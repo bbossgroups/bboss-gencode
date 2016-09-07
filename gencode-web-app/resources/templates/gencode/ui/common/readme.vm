@@ -9,15 +9,15 @@
 1.环境准备-如果已经搭建好工程环境直接进入第2步
 运行基于common风格模板的${moduleCNName}，首先需要从github下载代码生成工具的源码工程，下载地址为：
 
-https://github.com/bbossgroups/bboss-gencode/releases
+https://github.com/bbossgroups/bboss-gencode/
 
-下载后解压，然后将解压目录下的包含的专门用来运行common风格代码的eclipse工程gencode导入eclipse，如果环境没有问题，那么工程一般会自动编译
-成功，接下来做第2步 代码集成。
+源码工程基于gradle构建，下载后解压，然后参考文档：http://yin-bp.iteye.com/blog/2313145
+将bboss-gencode下的gradle工程导入eclipse，其中包含专门用来运行common风格代码的子工程commonstyle，导入成功后接下来做第2步 代码集成。
 
 2.代码集成
-为了能够运行自动生成的${moduleCNName}的代码，首先需要将代码集成到gencode eclipse工程中：
-先下载自动生成的${moduleCNName}模块的源码包，然后解压，将src目录下的程序拷贝到gencode eclipse工程的源码目录下，
-将WebRoot目录中的文件拷贝到gencode eclipse工程的WebRoot目录下即可
+为了能够运行自动生成的${moduleCNName}的代码，首先需要将代码集成到commonstyle 工程中：
+先下载自动生成的${moduleCNName}模块的源码包并解压，将解压目录中的src下的程序拷贝到commonstyle 工程的源码src目录下，
+将解压目录中的WebRoot中的文件拷贝到commonstyle 工程的WebRoot目录下即可
 
 3.装载mvc模块
 修改web.xml中mvc拦截器的配置，
@@ -40,28 +40,36 @@ https://github.com/bbossgroups/bboss-gencode/releases
 	</init-param>  
 #end		  
 </servlet>
+4.检查commonstyle/resources/poolman.xml中指定的数据源文件中的数据库地址和账号是否与代码对应的数据源地址和账号一致
+poolman.xml文件中默认指定dbcp-oracle.xml，如果是mysql则改为dbcp-mysql.xml,同时修改dbcp-mysql.xml中的数据库信息
 
-4.部署${moduleCNName}-如果项目已经部署过了，那么直接启动tomcat即可
-集成代码完毕并完成配置后，就可以将${moduleCNName}部署到tomcat中，部署方法，首先修改刚才搭建的gencode eclipse工程下的gentest.xml文件中的docBase对应的路径为本地实际路径，例如：
+5.部署${moduleCNName}-如果项目已经部署过了，那么直接启动tomcat即可
+集成代码完毕并完成配置后，就可以通过gradle gretty插件来部署运行${moduleCNName}，部署运行方法：
+cd bboss-gencode
+gradle :commonstyle:tomcatStart
+启动成功会提示访问地址信息，如果提示tomcatStart任务不存在，则需要启用gretty插件，启用方法，修改bboss-gencode/gradle.properties文件属性enable_gretty为true：
+enable_gretty=true
 
-D:\workspace\bbossgroups\bboss-gencode\gencode\WebRoot
+如果要部署调试工程，则先运行：
+gradle :commonstyle:tomcatStartDebug
+如果提示5005端口启动，则在commonstyle工程上右键->Debug As->Debug Configurations->双击Remote Java Application
+->在出现的commonstyle工程调试配置界面将端口8000改为5005->点击下面的Debug按钮即可启动应用进行调试
 
-然后将gentest.xml文件拷贝到tomcatdir\conf\Catalina\localhost目录下，然后启动tomcat即可（tomcatdir对应本地tomcat路径）。
 
-5.系统访问和服务调用
+6.系统访问和服务调用
 在浏览器端访问，打开浏览器，输入以下地址即可
-http://localhost:8080/gentest$relativePath/index.page
+http://localhost:8080/commonstyle$relativePath/index.page
 #if($genRPC)
 webservice服务和hessian服务调用方法
 
-hessian:http://localhost:8080/gentest/hessian?service=$servicePort";
+hessian:http://localhost:8080/commonstyle/hessian?service=$servicePort";
 HessianProxyFactory factory = new HessianProxyFactory();
-String url = "http://localhost:8080/gentest/hessian?service=$servicePort";
+String url = "http://localhost:8080/commonstyle/hessian?service=$servicePort";
 ${wsclassinf} $servicePort = (${wsclassinf}) factory.create(${wsclassinf}.class, url);
 //call some method with $servicePort here.
 
 cxf webserivce:
-String url = "http://localhost:8080/gentest/cxfservices/$servicePort";
+String url = "http://localhost:8080/commonstyle/cxfservices/$servicePort";
 JaxWsProxyFactoryBean wsServiceClientFactory = new  JaxWsProxyFactoryBean();
 wsServiceClientFactory.setAddress(url);
 wsServiceClientFactory.setServiceClass(${wsclassinf}.class);

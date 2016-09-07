@@ -1,6 +1,18 @@
 <poolman>
 
 <!--参考下面的配置定义需要的数据源-->
+	 <datasource>
+
+		<dbname>test</dbname>
+		<loadmetadata>false</loadmetadata>
+		<enablejta>true</enablejta>
+		<jndiName>test_datasource_jndiname</jndiName>
+		<datasourceFile>dbcp-oracle.xml</datasourceFile>
+
+		<showsql>true</showsql>
+
+
+	</datasource>
 	<!-- <datasource>
 
 		<dbname>mssql</dbname>
@@ -24,18 +36,7 @@
 
 	</datasource>-->
 
-	 <datasource>
-
-		<dbname>oracle</dbname>
-		<loadmetadata>false</loadmetadata>
-		<enablejta>true</enablejta>
-		<jndiName>oracle_datasource_jndiname</jndiName>
-		<datasourceFile>dbcp-oracle.xml</datasourceFile>
-
-		<showsql>true</showsql>
-
-
-	</datasource>
+	
 
 </poolman>  
   
