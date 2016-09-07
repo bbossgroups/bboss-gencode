@@ -61,7 +61,7 @@ dependencies {
             [group: 'commons-collections', name: 'commons-collections', version: '3.2.1', transitive: false],
              [group: 'com.fasterxml.uuid', name: 'java-uuid-generator', version: '3.1.2', transitive: false],
              [group: 'net.sourceforge.jtds', name: 'jtds', version: '1.3.1', transitive: false],
-             [group: 'mysql', name: 'mysql-connector-java', version: '3.1.14', transitive: false],
+             [group: 'mysql', name: 'mysql-connector-java', version: '5.1.39', transitive: false],
              [group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2', transitive: false],
              [group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.1', transitive: false],
             [group: 'commons-io', name: 'commons-io', version: '1.3.2', transitive: false],
