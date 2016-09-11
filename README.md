@@ -31,8 +31,14 @@ commonstyle - 为common ui风格模板提供运行环境,只需要将生成的co
 ## 2.在命令行执行 
 cd d:/bboss-gencode 
 
-gradle  war 
-## 3.构建成功后： 
+以war包方式发布版本（可以部署到tomcat等容器中运行工具），则执行指令： 
+
+gradle :gencode-web-app:releaseRuntimeWar 
+
+以zip包方式发布版本（内置jetty容器，解压zip包，linux/mac/unix等环节运行startup.sh,windows环境运行里面的startup.bat即可），则执行指令： 
+
+gradle :gencode-web-app:releaseRuntimeZip 
+## 3.构建成功后(gradle :gencode-web-app:releaseRuntimeZip)： 
 windows环境下运行d:/bboss-gencode/gencode-web-app/build/dist/gencode/startup.bat 
 linux/unix/mac os环境下运行startup.sh 
 

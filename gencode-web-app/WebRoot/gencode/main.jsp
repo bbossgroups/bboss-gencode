@@ -80,14 +80,29 @@ License: You must have a valid license purchased only from themeforest(the above
 			<a href="../templates/admin/index.html" target="_admin">
 			<img src="../assets/admin/layout/img/logo-invert.png" alt="logo" class="logo-default"/>
 			</a>
+			
 			<div class="menu-toggler sidebar-toggler">
 			</div>
+			
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
 		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
 		</a>
 		<!-- END RESPONSIVE MENU TOGGLER -->
+		<div class="btn-group pull-right">
+						<a href="http://www.bbossgroups.com/tool/download.htm?fileName=gencode.zip" class="btn btn-sm green" target="_blank">
+															下载最新版本 <i class="fa fa-link"></i>
+															</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="https://github.com/bbossgroups/bboss-gencode" class="btn btn-sm blue"  target="_blank">
+															源码Github托管地址 <i class="fa fa-link"></i>
+															</a>
+						<a href="http://yin-bp.iteye.com/blog/2256948" class="btn btn-sm yellow"  target="_blank">
+															工具帮助文档 <i class="fa fa-link"></i>
+															</a>									
+																														
+					
+					</div>
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
@@ -547,7 +562,9 @@ License: You must have a valid license purchased only from themeforest(the above
 					</li>
 					
 				</ul>
-				
+				<div class="page-toolbar">
+					 
+				</div>
 			</div>
 			<!-- END STYLE CUSTOMIZER -->
 			<div class="page-content-body" id="containerid">
