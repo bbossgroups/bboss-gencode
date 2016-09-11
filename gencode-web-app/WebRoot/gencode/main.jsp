@@ -92,11 +92,15 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<div class="btn-group pull-right">
 						<a href="http://www.bbossgroups.com/tool/download.htm?fileName=gencode.zip" class="btn btn-sm green" target="_blank">
-															工具下载 <i class="fa fa-link"></i>
+															下载最新版本 <i class="fa fa-link"></i>
 															</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="https://github.com/bbossgroups/bboss-gencode" class="btn btn-sm blue"  target="_blank">
-															工具源码Github地址 <i class="fa fa-link"></i>
-															</a>															
+															源码Github托管地址 <i class="fa fa-link"></i>
+															</a>
+						<a href="http://yin-bp.iteye.com/blog/2256948" class="btn btn-sm yellow"  target="_blank">
+															工具帮助文档 <i class="fa fa-link"></i>
+															</a>									
+																														
 					
 					</div>
 		<!-- BEGIN TOP NAVIGATION MENU -->
