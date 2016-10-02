@@ -691,8 +691,10 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				Annotation anno = new Annotation();
 				anno.setName("RequestParam");
 				anno.addAnnotationParam("dateformat", fieldInfo.getDateformat(), AnnoParam.V_STRING);
-
-				gencodeService.addEntityImport("org.frameworkset.util.annotations.RequestParam");
+				if(Util.conditionEntity != pagetype)
+					gencodeService.addEntityImport("org.frameworkset.util.annotations.RequestParam");
+				else
+					gencodeService.addConditionImport("org.frameworkset.util.annotations.RequestParam");
 
 				f.addAnnotation(anno);
 			}
