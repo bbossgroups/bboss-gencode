@@ -234,7 +234,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<li>
 									<a href="inbox.html?a=view">
 									<span class="photo">
-									<img src="../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+									<img src="../assets/admin/layout/img/avatar2.jpg" class="img-circle" alt="">
 									</span>
 									<span class="subject">
 									<span class="from">
@@ -248,7 +248,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<li>
 									<a href="inbox.html?a=view">
 									<span class="photo">
-									<img src="../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+									<img src="../assets/admin/layout/img/avatar3.jpg" class="img-circle" alt="">
 									</span>
 									<span class="subject">
 									<span class="from">
@@ -262,7 +262,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<li>
 									<a href="inbox.html?a=view">
 									<span class="photo">
-									<img src="../assets/admin/layout3/img/avatar1.jpg" class="img-circle" alt="">
+									<img src="../assets/admin/layout/img/avatar1.jpg" class="img-circle" alt="">
 									</span>
 									<span class="subject">
 									<span class="from">
@@ -276,7 +276,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<li>
 									<a href="inbox.html?a=view">
 									<span class="photo">
-									<img src="../assets/admin/layout3/img/avatar2.jpg" class="img-circle" alt="">
+									<img src="../assets/admin/layout/img/avatar2.jpg" class="img-circle" alt="">
 									</span>
 									<span class="subject">
 									<span class="from">
@@ -290,7 +290,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<li>
 									<a href="inbox.html?a=view">
 									<span class="photo">
-									<img src="../assets/admin/layout3/img/avatar3.jpg" class="img-circle" alt="">
+									<img src="../assets/admin/layout/img/avatar3.jpg" class="img-circle" alt="">
 									</span>
 									<span class="subject">
 									<span class="from">

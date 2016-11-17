@@ -76,6 +76,7 @@ public class JettyStart {
 				// server.setHandler(context);
 				// 启动
 				server.start();
+				System.out.println("http://localhost:"+port+"/"+contextPath);
 				server.join();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
