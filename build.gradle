@@ -1,15 +1,4 @@
-buildscript {
-	    repositories {	
-		   mavenCentral()	
-	        //mavenLocal()        
-	    }
-	
-	    dependencies {
-	        //classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.4'
-	        classpath 'org.akhikhl.gretty:gretty:+'
-	        
-	    }
-	}
+
  
 configure(allprojects) { project ->
 	group = PROJ_GROUP
@@ -71,6 +60,9 @@ configure(allprojects) { project ->
 	repositories {
 		
 		mavenLocal()
+		maven {
+	        url "http://139.224.19.207:8881/repository/maven-public/"
+	    }
 		mavenCentral()
 		
 	}
