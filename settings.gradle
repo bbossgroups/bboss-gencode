@@ -1,4 +1,3 @@
-rootProject.name = 'bboss-gencode'
 include 'commonstyle'
 include 'gencode-core'
 include 'gencode-web'
