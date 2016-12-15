@@ -19,10 +19,10 @@ sourceSets {
 }
 
 dependencies {
+	compile project(':gencode-core')
+	compile project(':gencode-web')
     compile (
     
-    [group: 'com.bbossgroups.gencode', name: 'gencode-core', version: "${version}", transitive: false],
-            [group: 'com.bbossgroups.gencode', name: 'gencode-web', version: "${version}", transitive: false],
                [group: 'log4j', name: 'log4j', version: '1.2.16', transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-util', version: "${bboss_version}", transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-data', version: "${bboss_version}", transitive: false],
