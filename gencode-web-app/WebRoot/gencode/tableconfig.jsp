@@ -61,7 +61,20 @@
 								<!--/span-->
 							</div>
 							<!--/row-->
-
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">实体名称
+										</label>
+										<div class="col-md-9">
+											<input id="entityName" name="entityName" type="text"
+												value="<pg:cell colName="entityName"/>" class="form-control"
+												placeholder="实体名称，将成为各组件的类名称的组成部分，默认为表名称">
+										</div>
+									</div>
+								</div>
+								
+							</div>
 
 							<div class="row">
 								<div class="col-md-6">

@@ -935,6 +935,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 		GencodeServiceImpl gencodeService = new GencodeServiceImpl(true);
 		ModuleMetaInfo moduleMetaInfo = new ModuleMetaInfo();
+		moduleMetaInfo.setEntityName(controlInfo.getEntityName());
 		moduleMetaInfo.setTableName(controlInfo.getTableName());// 指定表名，根据表结构来生成所有的文件
 		moduleMetaInfo.setPkname(controlInfo.getPkname());// 设置oracle
 															// sequence名称，用来生成表的主键,对应TABLEINFO表中TABLE_NAME字段的值
