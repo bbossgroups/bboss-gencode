@@ -32,9 +32,9 @@ dependencies {
             [group: 'com.bbossgroups', name: 'bboss-persistent', version: "${bboss_version}", transitive: false],
               [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: false],
            [group: 'com.bbossgroups', name: 'bboss-velocity', version: "${bboss_version}", transitive: false],
-                [group: 'com.bbossgroups.security', name: 'bboss-security', version: "${bboss_version}", transitive: false],
-                [group: 'com.bbossgroups.security', name: 'bboss-security-web', version: "${bboss_version}", transitive: false],
-                [group: 'com.bbossgroups.security', name: 'bboss-security-web-inf', version: "${bboss_version}", transitive: false],
+                [group: 'com.bbossgroups.security', name: 'bboss-security', version: "${BBOSS_SECURITY_VERSION}", transitive: false],
+                [group: 'com.bbossgroups.security', name: 'bboss-security-web', version: "${BBOSS_SECURITY_VERSION}", transitive: false],
+                [group: 'com.bbossgroups.security', name: 'bboss-security-web-inf', version: "${BBOSS_SECURITY_VERSION}", transitive: false],
           [group: 'com.bbossgroups', name: 'bboss-soa', version: "${bboss_version}", transitive: false],
               [group: 'com.bbossgroups', name: 'bboss-taglib', version: "${bboss_version}", transitive: false],
              
