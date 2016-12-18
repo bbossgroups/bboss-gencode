@@ -30,7 +30,7 @@ dependencies {
             [group: 'com.bbossgroups', name: 'bboss-persistent', version: "${bboss_version}", transitive: false],
               [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: false],
            [group: 'com.bbossgroups', name: 'bboss-velocity', version: "${bboss_version}", transitive: false],
-                [group: 'com.bbossgroups.security', name: 'bboss-security', version: "${bboss_version}", transitive: false],
+                [group: 'com.bbossgroups.security', name: 'bboss-security', version: "${BBOSS_SECURITY_VERSION}", transitive: false],
           [group: 'com.bbossgroups', name: 'bboss-soa', version: "${bboss_version}", transitive: false],
             
               [group: 'oro', name: 'oro', version: '2.0.8', transitive: false],
@@ -105,7 +105,9 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 
 task copyLibFiles(type: Copy ){ 
 	from fileTree(dir: '../lib', include: '**/*.jar')
-	from configurations.compile + configurations.compileOnly 
+	from (configurations.compile + configurations.compileOnly ){
+		exclude 'bboss-rt-**.jar' 
+	}
 	into 'build/dist/gencode/lib'
 }
 project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.install)
@@ -125,7 +127,11 @@ task copyToolFiles(type: Copy ){
 		expand(bboss_version: "${PROJ_BBOSS_VERSION}",main_class:'org.frameworkset.gencode.web.service.JettyStart')
 		
 	} 
-    from configurations.runtime - configurations.compile  
+    from (configurations.runtime  ){
+    	 
+		include 'bboss-rt-**.jar' 
+	 
+    }
     //filteringCharset = 'UTF-8'            
 	into 'build/dist/gencode'
 	 
