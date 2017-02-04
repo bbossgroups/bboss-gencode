@@ -40,6 +40,10 @@ public class FieldInfo {
 	private String viewcontrolParams;
 	private boolean pk;
 	/**
+	 * 指定列宽
+	 */
+	private String width;
+	/**
 	 * 1：代表默认排序字段
 	 * 0：代表非默认排序字段
 	 */
@@ -290,5 +294,13 @@ public class FieldInfo {
 
 	public void setFieldComment(String fieldComment) {
 		this.fieldComment = fieldComment;
+	}
+
+	public String getWidth() {
+		return width;
+	}
+
+	public void setWidth(String width) {
+		this.width = width;
 	}
 }

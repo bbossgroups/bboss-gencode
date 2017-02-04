@@ -45,6 +45,7 @@ public class Field {
 	private String dateformat;
 	private String numformat;
 	private boolean editable;
+	private String width;
 	
 	private String fieldComment;
 	public String getFieldName() {
@@ -222,6 +223,12 @@ public class Field {
 	}
 	public void setFieldComment(String fieldComment) {
 		this.fieldComment = fieldComment;
+	}
+	public String getWidth() {
+		return width;
+	}
+	public void setWidth(String width) {
+		this.width = width;
 	}
 
 }

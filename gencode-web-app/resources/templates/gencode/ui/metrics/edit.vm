@@ -1,0 +1,116 @@
+<%@ page language="java" pageEncoding="utf-8"%>
+<%@ include file="/common/jsp/importtaglib.jsp"%>
+
+<!-- 
+	描述:编辑${moduleCNName}界面。
+	作者:$author
+	版权:$company
+	版本:$version 
+	日期:$gendate
+-->
+#macro( fieldattr $field)
+#if($field.dateformat && !$field.dateformat.equals("")) dateformat="$field.dateformat" #end #if($field.numformat  && !$field.numformat.equals("")) numerformat="$field.numformat" #end
+#end
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>修改${moduleCNName}</title>
+		<%@ include file="/common/jsp/css.jsp"%>
+	</head>
+	<%	String path = request.getContextPath();%>
+	<body>
+		<div class="form_box">
+			
+			<pg:beaninfo requestKey="${entityVarName}">
+				<form id="editForm" name="editForm">
+					#foreach($field in $hiddenfields)
+					  	<input id="$field.fieldName" name="$field.fieldName" type="hidden" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" />
+				  	#end
+					<table  border="0" cellpadding="0" cellspacing="0"
+						class="table4">
+					#foreach($field in $fields)
+						#if( $velocityCount % 3 == 0)
+							#if($velocityCount > 0)</tr>#end
+						<tr>
+						#end
+						<th width=85px >
+							#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end：
+						</th>
+						<td width=140px>
+						#if(!$field.readonly)
+							#if($field.datetype)								
+								<input type="text"  id="${field.fieldName}" name="${field.fieldName}" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" onClick="WdatePicker(#if($field.dateformat && !$field.dateformat.equals("")){dateFmt:'$field.dateformat'}#end)"
+								#if($field.required)class="Wdate input_default easyui-validatebox" required="true"/><font color="red">*</font>#else class="Wdate"/>#end								
+							#else
+								<input id="$field.fieldName" name="$field.fieldName" type="text" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"
+								#if($field.required)class="w120 input_default easyui-validatebox" required="true"/><font color="red">*</font>#else/>#end
+							#end
+						#else
+							#if($field.datetype)								
+								<input type="hidden"  id="${field.fieldName}" name="${field.fieldName}" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" />
+								<pg:cell colName="$field.fieldName" #fieldattr($field)/>								
+							#else
+								<input id="$field.fieldName" name="$field.fieldName" type="hidden" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"/>
+								<pg:cell colName="$field.fieldName" #fieldattr($field)/>
+							#end	
+						#end	
+							
+						</td>
+						#if($velocityCount == ($fields.size() - 1))						
+					</tr>	
+						#end
+					#end						
+					</table>
+				
+					<div class="btnarea" >
+							<a href="javascript:void(0)" class="bt_1" id="editButton"
+									onclick="dosubmit()"><span>保存</span> </a>
+							<a href="javascript:void(0)" class="bt_2" id="closeButton"
+									onclick="closeDlg()"><span>退出</span> </a>
+					</div>
+			
+				</form>
+			</pg:beaninfo>
+		</div>
+	</body>
+	<script language="javascript">
+	var api = frameElement.api, W = api.opener;
+ 
+   function dosubmit()
+   {
+   		
+		$.ajax({
+		   type: "POST",
+			url : "update${entityName}.page",
+			data :formToJson("#editForm"),
+			dataType : 'json',
+			async:false,
+			beforeSend: function(XMLHttpRequest){
+					var validated = $("#editForm").form('validate');
+			      	if (validated){
+			      		blockUI();	
+			      		XMLHttpRequest.setRequestHeader("RequestType", "ajax");
+			      	}
+			      	else
+			      	{
+			      		return false;
+			      	}
+				 	
+				},
+			success : function(responseText){
+				//去掉遮罩	
+				unblockUI();
+				if(responseText=="success"){
+					W.$.dialog.alert("修改记录成功",function(){	
+							W.modifyQueryData();
+							api.close();
+							
+					},api);	
+					
+				}else{
+					alert("修改出错");
+				}
+			}
+		  });
+   }
+</script>
