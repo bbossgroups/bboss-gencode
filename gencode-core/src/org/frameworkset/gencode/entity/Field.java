@@ -47,6 +47,10 @@ public class Field {
 	private boolean editable;
 	private String width;
 	
+	private String dict;
+	private String textValue;
+	private String textNAN;
+	
 	private String fieldComment;
 	public String getFieldName() {
 		return fieldName;
@@ -229,6 +233,24 @@ public class Field {
 	}
 	public void setWidth(String width) {
 		this.width = width;
+	}
+	public String getDict() {
+		return dict;
+	}
+	public void setDict(String dict) {
+		this.dict = dict;
+	}
+	public String getTextValue() {
+		return textValue;
+	}
+	public void setTextValue(String textValue) {
+		this.textValue = textValue;
+	}
+	public String getTextNAN() {
+		return textNAN;
+	}
+	public void setTextNAN(String textNAN) {
+		this.textNAN = textNAN;
 	}
 
 }

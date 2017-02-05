@@ -484,7 +484,35 @@
 											<td colspan="5">
 												<table class="table    ">
 													<tbody>
-
+													
+														<tr>
+															<td>
+																<div class="form-group">
+																	<label class="control-label col-md-3">字典编码</label>
+																	<div class="col-md-9">
+																		<input type="text" placeholder="dict"
+																			name="dict" class="form-control  input-small"
+																			value="<pg:cell colName="dict"/>">
+																	</div>
+																</div>
+															</td>
+															<td  ><div class="form-group">
+																	<label class="control-label col-md-3">字典提示</label>
+																	<div class="col-md-9">
+																		<input type="text" placeholder="textValue"
+																			name="textValue" class="form-control  input-small"
+																			value="<pg:cell colName="textValue"/>">
+																	</div>
+																</div></td>
+															<td  ><div class="form-group">
+																	<label class="control-label col-md-3">字典提示值</label>
+																	<div class="col-md-9">
+																		<input type="text" placeholder="textNAN"
+																			name="textNAN" class="form-control  input-small"
+																			value="<pg:cell colName="textNAN"/>">
+																	</div>
+																</div></td>
+														</tr>
 														<tr>
 															<td>
 																<div class="form-group">
@@ -700,7 +728,7 @@
 																			value="<pg:cell colName="viewcontrolParams" defaultValue="显示"/>"
 																	</div>
 																</div></td>
-															<td colspan="2"><div class="form-group">
+															<td ><div class="form-group">
 																	<label class="control-label col-md-3">默认值</label>
 																	<div class="col-md-9">
 																		<input type="text"
@@ -709,11 +737,18 @@
 																			value="<pg:cell colName="defaultValue"/>">
 																	</div>
 																</div></td>
+															<td  ><div class="form-group">
+																	<label class="control-label col-md-3">列宽</label>
+																	<div class="col-md-9">
+																		<input type="text"
+																			placeholder="<pg:cell colName="width"/>"
+																			name="width" class="form-control  input-small"
+																			value="<pg:cell colName="width"/>">
+																	</div>
+																</div></td>
 														</tr>
-														<tr>
-
-
-															
+														
+														<tr>															
 															<td>
 																<div class="form-group">
 																	<label class="control-label col-md-3">显示长度</label>
@@ -724,7 +759,8 @@
 																	</div>
 																</div>
 															</td>
-															<td colspan="2"><div class="form-group">
+															
+															<td ><div class="form-group">
 																	<label class="control-label col-md-3">替换串</label>
 																	<div class="col-md-9">
 																		<input type="text" placeholder="replace"
@@ -732,7 +768,9 @@
 																			value="<pg:cell colName="replace"/>">
 																	</div>
 																</div></td>
+															<td>&nbsp;</td>
 														</tr>
+														
 														<tr>
 
 

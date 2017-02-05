@@ -21,6 +21,7 @@
 #set( $str_prex = '${' )
 #set( $str_after = '}' )
 #set( $have_datepicker = false )
+<div class="row">
 <div class=" col-md-12">
 	#if($conditions && $conditions.size() > 0)
 	<div class="row">
@@ -192,11 +193,31 @@
 		</div>
 	</div>
 </div>
- 
+</div>
 
 <script type="text/javascript">
-<!--
-
+var Sys${entityName}Manager = function(){
+	var query${entityName}s = function(doquery){
+		#foreach($condition in $conditions)										
+			var ${condition.fieldName}=$("#${condition.fieldName}").val();
+		#end	
+		#if($needcondition)
+		if(#foreach($condition in $conditions) #if($velocityCount == 0) PDP.containSpecial(${condition.fieldName})#else || PDP.containSpecial(${condition.fieldName})#end#end){
+			PDP.warn('查询字符串含有非法字符集,请检查输入条件！');
+			return;
+		}
+		#end
+		$(".portlet-${entityName}list").load("<%=request.getContextPath()%>${relativePath}/queryListInfo${entityName}s.page",
+									doquery?$('.form-query${entityName}').serialize():{},
+									function(){
+									});	
+	}
+	return {
+		query${entityName}s:function(doquery){
+			query${entityName}s(doquery);
+		}
+	}
+}();
 $(document).ready(function() {
 	#if($have_datepicker == true)
 		 $('.date-picker').datepicker({
@@ -206,49 +227,27 @@ $(document).ready(function() {
 	            format:'yyyy-mm-dd'
 	        });
 	#end
-	var query${entityName}s = function(doquery){
-		#foreach($condition in $conditions)										
-			var ${condition.fieldName}=$("#${condition.fieldName}").val();
-		#end	
-		#if($needcondition)
-		if(#foreach($condition in $conditions) #if($velocityCount == 0)containSpecial(${condition.fieldName})#else || containSpecial(${condition.fieldName})#end#end){
-			PlatformCommonUtils.warn('查询字符串含有非法字符集,请检查输入条件！');
-			return;
-		}
-		#end
-		$(".portlet-${entityName}list").load("<%=request.getContextPath()%>${relativePath}/queryListInfo${entityName}s.page",
-									doquery?$('.form-query${entityName}').serialize():{},
-									function(){
-										
-										
-									});	
-	}
-
-	query${entityName}s(false);
-	
+	Sys${entityName}Manager.query${entityName}s(false);	
 	$(".form-query${entityName} .btn-query").bind('click',function(){
-			query${entityName}s(true);
+			Sys${entityName}Manager.query${entityName}s(true);
 	});
 	$(".btn-add${entityName}").bind('click',function(){
 		 ModelDialog.dialog({
 				title:"新增${moduleCNName}",
 				showfooter:false,
 				url:"<%=request.getContextPath()%>${relativePath}/toAdd${entityName}.page",				
-				width:"600px",
-				height:"500px"
+				width:"1024px",
+				height:"768px"
 
          });
 	});
 	$(".btn-batchdel${entityName}").bind("click",function(){
 	  
-        var chk_value =""; 
+        var chk_value =[]; 
         $('.portlet-${entityName}list input[name="${primaryKeyName}"]:checked').each(function(){ 
-        	if(chk_value == "")
-        		chk_value = $(this).val(); 
-        	else
-        		chk_value += ","+$(this).val(); 
+        	chk_value.push($(this).val());
         }); 
-        if(chk_value == "")
+        if(chk_value.length == 0)
         {
            	 PDP.warn("请选择要删除的${moduleCNName}!");
            	 return;
@@ -257,103 +256,24 @@ $(document).ready(function() {
            	 	if(isConfirm)
            	 	{        	 		
            	 		
-	           	 	$.ajax({
-	          		   type: "POST",
-	          			url : "<%=request.getContextPath()%>${relativePath}/deleteBatch${entityName}.page",
-	          			data :{"${primaryKeyName}s":chk_value},
-	          			dataType : 'json',
-	          			async:false,
-	          			beforeSend: function(XMLHttpRequest){ 					
-	          				 	
-	          				},
-	          			success : function(responseText){
-	          				
-	          				if(responseText=="success"){
-	          					
-	          					PDP.success("${moduleCNName}删除成功!");
-	          					query${entityName}s(false);
-	          				}else{
-	          					PDP.warn("${moduleCNName}删除失败:"+responseText);
-	          				}
-	          			}
-	          		  });
-           	 	}
-		        	
-			});
-	
+	           	 	$.post("<%=request.getContextPath()%>${relativePath}/deleteBatch${entityName}.page",
+	          				$.param( {
+									"${primaryKeyName}s" : chk_value
+								 },true),
+	          				function(responseText){
+		          				if(responseText=="success"){
+		          					
+		          					PDP.success("${moduleCNName}删除成功!");
+		          					Sys${entityName}Manager.query${entityName}s(false);
+		          				}else{
+		          					PDP.warn("${moduleCNName}删除失败:"+responseText);
+		          				}
+	          				});
+           	 	}		        	
+			});	
 	});
 
             
 });
 
- 
-
- 
-function modifyQueryData()
-{	
-	if($("#querystring").val() != '')
-		$("#custombackContainer").load("queryListInfo${entityName}s.page?"+$("#querystring").val()+" #customContent");
-	else
-		$("#custombackContainer").load("queryListInfo${entityName}s.page #customContent");
-	
-}
-
-
-function del${entityName}(${primaryKeyName}){		
-	$.dialog.confirm('确定要删除选中的${moduleCNName}记录吗?', function(){ 
-		 $.ajax({
-	 	 type: "POST",
-		url : "<%=request.getContextPath()%>${relativePath}/delete${entityName}.page",
-		data :{"${primaryKeyName}":${primaryKeyName}},
-		dataType : 'json',
-		async:false,
-		beforeSend: function(XMLHttpRequest){
-			 	XMLHttpRequest.setRequestHeader("RequestType", "ajax");
-			},
-		success : function(data){
-	 		modifyQueryData();
-	 		//alert("成功删除记录");
-		}	
-	  });
-	}, function(){ 
-		 
-	});
-		
-	  
-}
-function delBatch(){
-	var ${primaryKeyName}s=[];
-	var i = 0;
-	 $("#tb tr:gt(0)").each(function() {	 
-            if ($(this).find("#CK").get(0).checked == true) {
-                 ${primaryKeyName}s.push($(this).find("#${primaryKeyName}").val());                
-                i++;
-            }
-              	 
-       });
-       if(i==0){
-        $.dialog.alert('请选择需要删除的记录！');
-        return false;
-       }
-     $.dialog.confirm('确定要删除选中的'+i+'条${moduleCNName}记录吗?', function(){
-     	$.ajax({
-		 	 	type: "POST",
-				url : "<%=request.getContextPath()%>${relativePath}/deleteBatch${entityName}.page",
-				data :{"${primaryKeyName}s":${primaryKeyName}s},
-				dataType : 'json',
-				async:false,
-				beforeSend: function(XMLHttpRequest){
-					 	XMLHttpRequest.setRequestHeader("RequestType", "ajax");
-					},
-				success : function(data){
-			 		modifyQueryData();
-			 		//alert("成功删除记录");
-				}	
-			 });
-      },function(){
-      		
-      });         
-}
-
-//-->
 </script>

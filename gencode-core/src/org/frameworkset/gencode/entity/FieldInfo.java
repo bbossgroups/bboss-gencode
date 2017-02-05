@@ -9,6 +9,10 @@ public class FieldInfo {
 	private String fieldAsciiCNName;
 	private String type;
 	
+	private String dict;
+	private String textValue;
+	private String textNAN;
+	
 	private String columntype;
 	private String columnname;
 
@@ -302,5 +306,29 @@ public class FieldInfo {
 
 	public void setWidth(String width) {
 		this.width = width;
+	}
+
+	public String getDict() {
+		return dict;
+	}
+
+	public void setDict(String dict) {
+		this.dict = dict;
+	}
+
+	public String getTextValue() {
+		return textValue;
+	}
+
+	public void setTextValue(String textValue) {
+		this.textValue = textValue;
+	}
+
+	public String getTextNAN() {
+		return textNAN;
+	}
+
+	public void setTextNAN(String textNAN) {
+		this.textNAN = textNAN;
 	}
 }
