@@ -1,0 +1,171 @@
+<%@ page session="false" language="java"
+	contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="/WEB-INF/tld/pager-taglib.tld" prefix="pg" %>
+<%@ taglib uri="/WEB-INF/tld/dictionary.tld" prefix="dict" %>	
+<!-- 
+	描述:添加${moduleCNName}界面。
+	作者:$author
+	版权:$company
+	版本:$version 
+	日期:$gendate
+-->
+#set( $have_datepicker = false )
+<div class="row">
+	<div class="col-md-12">		 
+		<div class="alert alert-danger display-hide  alert-add${entityName}exist">
+			<button class="close close-add${entityName}exist" data-close="alert"></button>
+			<span class="msg"> 提示信息区 </span>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">		 
+		<div class="alert alert-success display-hide  alert-add${entityName}notexist">
+			<button class="close close-add${entityName}notexist" data-close="alert"></button>
+			<span class="msg"> 提示信息区 </span>
+		</div>
+	</div>
+</div>
+
+
+<!-- BEGIN FORM-->
+	<form action="#" class="form-horizontal form_sys_add${entityName}" id="form_sys_add${entityName}">
+		<div class="form-body">
+			#foreach($field in $hiddenfields)
+			  	<input id="$field.fieldName" name="$field.fieldName" type="hidden"  #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}"#end/>
+		  	#end
+			#foreach($field in $fields)
+				#if( $velocityCount % 3 == 0)
+					#if($velocityCount > 0)</div>#end
+				<div class="row">
+				#end
+					<div class="col-md-4" >
+						<div class="form-group form-md-line-input">
+							<label class="col-md-3 control-label" for="form_control_1">#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end
+								#if($field.required)<span class="required">*</span>#end
+							</label>
+							<div class="col-md-9">
+								#if($field.datetype)
+									#set( $have_datepicker = true )
+									<div class="input-group">
+										<input type="text" class="form-control date-picker" name="$field.fieldName"
+											placeholder="" #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}" #end> <span class="input-group-addon">
+											<i class="fa fa-calendar"></i>
+										</span>
+										<div class="form-control-focus"></div>
+										 
+									</div>								
+								#else
+									#if($field.dict.equals(""))
+									<input type="text" class="form-control" placeholder="" name="$field.fieldName"  autocomplete="off" #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}" #end>
+									#else
+										#if($field.dictType.equals("select"))
+										<dict:select  type="$field.dict" name="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-xs\"" />
+										#elseif($field.dictType.equals("checkbox"))
+										<dict:checkbox  type="$field.dict" name="$field.fieldName" extend="class=\"form-control input-xs\"" />
+										#else
+										<dict:radio  type="$field.dict" name="$field.fieldName" extend="class=\"form-control input-xs\"" />
+										#end
+									#end
+									<div class="form-control-focus"></div>									 
+								#end
+								
+							</div>
+						</div>
+					</div>
+				#if($velocityCount == ($fields.size() - 1))						
+				</div>	
+				#end
+			#end
+		</div>			
+		<div class="form-actions">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-9">
+					<button type="button"   class="btn green btn-${entityName}addsave">创建</button>
+					<button type="reset" class="btn default">重置</button>
+					<button type="button" class="btn default" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!-- END FORM-->
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		#if($have_datepicker == true)
+			PDP.initPickers();
+		#end
+		var usercontextpath = "<%=request.getContextPath()%>";
+		var add${entityName} = function(){
+			$('form',ModelDialog.getCurrentModal())
+			.ajaxSubmit(
+					{
+						type : 'POST',
+						url : usercontextpath+'${relativePath}/add${entityName}.page',
+						forceSync : false,
+						dataType : 'json',
+						beforeSubmit : function() {
+							 App.startPageLoading({message: '保存中...'});				           
+						},
+						error : function(xhr, ajaxOptions,
+								thrownError) {
+							PDP.warn(thrownError) ;
+						},
+	
+						success : function(responseText,
+								statusText, xhr, $form) {
+							 
+							 window.setTimeout(function() {
+					                App.stopPageLoading();
+					            }, 2000);
+							var msg = responseText;
+							var title = '增加${moduleCNName}';
+							var tiptype = "success";
+							if (msg == 'success') {
+								msg = "增加${moduleCNName}完毕"
+								PDP.success(msg,function(){
+									ModelDialog.getCurrentModal().modal('hide');
+									Sys${entityName}Manager.query${entityName}s(false);
+								}) ;
+							} else {							 
+								PlatformCommonUtils.warn(msg) ;
+							}
+							
+							
+	
+						}
+	
+					});
+		}
+		PDP.validateform({
+			form:"#form_sys_add${entityName}",
+			messages : {
+			#foreach($field in $fields)
+				#if($field.required)
+					$field.fieldName : {						
+						required : "请输入#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end"
+					},	
+				#end	
+			#end		
+			},
+			rules : {	
+				#foreach($field in $fields)
+					#if($field.required)
+						$field.fieldName : {						
+							required : true
+						},	
+					#end	
+				#end			 
+				
+			},
+			submitHandler:add${entityName}
+		});
+		
+		$(".btn-${entityName}addsave",ModelDialog.getCurrentModal()).bind("click",function(){
+			
+			$("form",ModelDialog.getCurrentModal()).submit();
+			
+			
+		});
+		
+	});
+</script>

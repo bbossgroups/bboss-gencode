@@ -1,0 +1,68 @@
+/**
+* 自动生成的${moduleCNName}模块配置使用说明：
+* 1.bboss平台环境搭建
+* 2.代码集成
+* 3.菜单配置：直接拷贝到module.xml中
+* 4.组件配置文件加载
+* 5.部署应用
+* 6.系统访问和服务调用 
+* 
+*/
+1.bboss平台环境搭建-如果平台环境已经搭建好，直接进入第2步
+参考文档搭建bboss平台开发环境和部署平台应用：http://yin-bp.iteye.com/blog/2230399
+
+2.代码集成
+为了能够运行自动生成的${moduleCNName}模块的代码，首先需要将代码集成到eclipse工程中：
+先下载自动生成的${moduleCNName}模块的源码包，然后解压，将src目录下的程序拷贝到eclipse工程的源码目录下，
+将WebRoot目录中的文件拷贝到eclipse工程的WebRoot目录下即可
+
+3.菜单配置（将下属内容添加到实际工程目录下resources/module.xml中即可）：
+<item name="$moduleCNName"
+	i18n:en_US="$moduleName demo" id="${moduleName}Manage"  showleftmenu="true" menuType="type1">
+	<top>header.page</top>
+	<workspace>
+		<content>$relativePath/index.page</content>
+	</workspace>
+</item> 
+
+4.装载mvc模块
+修改web.xml中mvc拦截器的配置，
+将下面的contextConfigLocation的param-value中的内容追加到实际工程的web.xml中参数contextConfigLocation的param-value中
+<servlet>
+    <servlet-name>mvc</servlet-name>
+    <servlet-class>org.frameworkset.web.servlet.DispatchServlet</servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+         /WEB-INF/conf/#if($system && !$system.equals(""))${system}#else$moduleName#end/bboss-*.xml
+        </param-value>
+    </init-param> 
+#if($genI18n)
+
+将下面messagesources的param-value中的内容追加到实际工程的web.xml中国际化属性配置参数messagesources的param-value中:        
+    <init-param>
+			<param-name>messagesources</param-name>
+			<param-value>/WEB-INF/conf/#if($system && !$system.equals(""))${system}#else$moduleName#end/messages_$moduleName</param-value>
+	</init-param>  
+#end		  
+</servlet>
+
+5.系统访问和服务调用
+在浏览器端打开平台，进入平台首页，找到${moduleCNName}对应的菜单，打开即可访问。
+#if($genRPC)
+webservice服务和hessian服务调用方法
+
+hessian:
+HessianProxyFactory factory = new HessianProxyFactory();
+String url = "http://localhost:8080/"+contextpath+"/hessian?service=$servicePort";
+${wsclassinf} $servicePort = (${wsclassinf}) factory.create(${wsclassinf}.class, url);
+//call some method with $servicePort here.
+
+cxf webserivce:
+String url = "http://localhost:8080/"+contextpath+"/cxfservices/$servicePort";
+JaxWsProxyFactoryBean wsServiceClientFactory = new  JaxWsProxyFactoryBean();
+wsServiceClientFactory.setAddress(url);
+wsServiceClientFactory.setServiceClass(${wsclassinf}.class);
+${wsclassinf} $servicePort = (${wsclassinf})wsServiceClientFactory.create();
+//call some method with $servicePort here.
+#end

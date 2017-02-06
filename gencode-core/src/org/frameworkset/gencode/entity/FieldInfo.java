@@ -9,6 +9,10 @@ public class FieldInfo {
 	private String fieldAsciiCNName;
 	private String type;
 	
+	private String dict;
+	private String textValue;
+	private String textNAN;
+	private String dictType;
 	private String columntype;
 	private String columnname;
 
@@ -39,6 +43,10 @@ public class FieldInfo {
 	private String editcontrolParams;
 	private String viewcontrolParams;
 	private boolean pk;
+	/**
+	 * 指定列宽
+	 */
+	private String width;
 	/**
 	 * 1：代表默认排序字段
 	 * 0：代表非默认排序字段
@@ -290,5 +298,45 @@ public class FieldInfo {
 
 	public void setFieldComment(String fieldComment) {
 		this.fieldComment = fieldComment;
+	}
+
+	public String getWidth() {
+		return width;
+	}
+
+	public void setWidth(String width) {
+		this.width = width;
+	}
+
+	public String getDict() {
+		return dict;
+	}
+
+	public void setDict(String dict) {
+		this.dict = dict;
+	}
+
+	public String getTextValue() {
+		return textValue;
+	}
+
+	public void setTextValue(String textValue) {
+		this.textValue = textValue;
+	}
+
+	public String getTextNAN() {
+		return textNAN;
+	}
+
+	public void setTextNAN(String textNAN) {
+		this.textNAN = textNAN;
+	}
+
+	public String getDictType() {
+		return dictType;
+	}
+
+	public void setDictType(String dictType) {
+		this.dictType = dictType;
 	}
 }

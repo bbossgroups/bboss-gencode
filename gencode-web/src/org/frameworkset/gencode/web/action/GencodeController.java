@@ -375,10 +375,13 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		for(int i = 0; i < fields.size(); i ++)
 		{
 			FieldInfo field = fields.get(i);
+			if(field.getColumnname() == null )
+				continue;
 			boolean find = false;
 			for(int j = 0; j < dbfields.size(); j ++)
 			{
 				FieldInfo dbfield = dbfields.get(j);
+
 				if(field.getColumnname().equals(dbfield.getColumnname()))
 				{
 					if(!field.getColumntype().equals(dbfield.getColumntype()))
@@ -604,6 +607,12 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		f.setReplace(fieldInfo.getReplace());
 		f.setMaxlength(fieldInfo.getMaxlength());
 		f.setMinlength(fieldInfo.getMinlength());
+		
+		f.setWidth(fieldInfo.getWidth());
+		f.setDict(fieldInfo.getDict());
+		f.setTextNAN(fieldInfo.getTextNAN());
+		f.setTextValue(fieldInfo.getTextValue());
+		
 		if (Util.addpage == pagetype) {
 			f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
 			f.setRequired(fieldInfo.getAddcontrolParams().contains("必填"));
@@ -743,6 +752,13 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		f.setReplace(fieldInfo.getReplace());
 		f.setMaxlength(fieldInfo.getMaxlength());
 		f.setMinlength(fieldInfo.getMinlength());
+		
+		f.setWidth(fieldInfo.getWidth());
+		f.setDict(fieldInfo.getDict());
+		f.setTextNAN(fieldInfo.getTextNAN());
+		f.setTextValue(fieldInfo.getTextValue());
+		f.setDictType(fieldInfo.getDictType());
+		
 		if (Util.addpage == pagetype) {
 			f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));
 			f.setRequired(fieldInfo.getAddcontrolParams().contains("必填"));

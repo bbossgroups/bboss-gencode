@@ -45,6 +45,12 @@ public class Field {
 	private String dateformat;
 	private String numformat;
 	private boolean editable;
+	private String width;
+	
+	private String dict;
+	private String textValue;
+	private String textNAN;
+	private String dictType;
 	
 	private String fieldComment;
 	public String getFieldName() {
@@ -222,6 +228,36 @@ public class Field {
 	}
 	public void setFieldComment(String fieldComment) {
 		this.fieldComment = fieldComment;
+	}
+	public String getWidth() {
+		return width;
+	}
+	public void setWidth(String width) {
+		this.width = width;
+	}
+	public String getDict() {
+		return dict;
+	}
+	public void setDict(String dict) {
+		this.dict = dict;
+	}
+	public String getTextValue() {
+		return textValue;
+	}
+	public void setTextValue(String textValue) {
+		this.textValue = textValue;
+	}
+	public String getTextNAN() {
+		return textNAN;
+	}
+	public void setTextNAN(String textNAN) {
+		this.textNAN = textNAN;
+	}
+	public String getDictType() {
+		return dictType;
+	}
+	public void setDictType(String dictType) {
+		this.dictType = dictType;
 	}
 
 }
