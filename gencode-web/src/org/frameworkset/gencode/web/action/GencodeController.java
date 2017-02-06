@@ -757,6 +757,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		f.setDict(fieldInfo.getDict());
 		f.setTextNAN(fieldInfo.getTextNAN());
 		f.setTextValue(fieldInfo.getTextValue());
+		f.setDictType(fieldInfo.getDictType());
 		
 		if (Util.addpage == pagetype) {
 			f.setEditable(fieldInfo.getEditcontrolParams().contains("编辑"));

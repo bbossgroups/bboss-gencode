@@ -60,3 +60,11 @@ http://localhost/gencode
 The BBoss Framework is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+
+## todo list
+
+ui输入类型支持textarea、选择部门、选择用户、当前部门、当前机构、当前时间等类型
+
+
+
+

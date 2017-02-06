@@ -12,7 +12,7 @@ public class FieldInfo {
 	private String dict;
 	private String textValue;
 	private String textNAN;
-	
+	private String dictType;
 	private String columntype;
 	private String columnname;
 
@@ -330,5 +330,13 @@ public class FieldInfo {
 
 	public void setTextNAN(String textNAN) {
 		this.textNAN = textNAN;
+	}
+
+	public String getDictType() {
+		return dictType;
+	}
+
+	public void setDictType(String dictType) {
+		this.dictType = dictType;
 	}
 }

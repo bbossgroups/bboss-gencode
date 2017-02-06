@@ -2,6 +2,7 @@
 	contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="/WEB-INF/tld/pager-taglib.tld" prefix="pg"%>
 <%@ taglib uri="/WEB-INF/tld/admin-taglib.tld" prefix="admin"%>
+<%@ taglib uri="/WEB-INF/tld/dictionary.tld" prefix="dict" %>	
 <!-- 
 	描述:${moduleCNName}管理主界面。
 	作者:$author
@@ -70,8 +71,18 @@
 												#end
 											#else													
 												<div class="input-icon right">
+													#if($condition.dict.equals(""))
 													<input type="text" class="form-control  input-xs"
 														placeholder="#if(!$genI18n)${condition.fieldCNName}#else<pg:message code="$namespacei18n.$condition.fieldName"/>#end" name="${condition.fieldName}">
+													#else
+														#if($condition.dictType.equals("select"))
+														<dict:select  type="$condition.dict" name="$condition.fieldName" textValue="$condition.textValue" textNAN="$condition.textNAN" extend="class=\"form-control input-xs\"" />
+														#elseif($condition.dictType.equals("checkbox"))
+														<dict:checkbox  type="$condition.dict" name="$condition.fieldName" extend="class=\"form-control input-xs\"" />
+														#else
+														<dict:radio  type="$condition.dict" name="$condition.fieldName" extend="class=\"form-control input-xs\"" />
+														#end
+													#end
 													<div class="form-control-focus"></div>
 													<span class="help-block">请输入#if(!$genI18n)${condition.fieldCNName}#else<pg:message code="$namespacei18n.$condition.fieldName"/>#end</span>
 												</div>
@@ -83,7 +94,7 @@
 								
 								
 								#if($velocityCount == ($conditions.size() - 1))
-								   #if($velocityCount % 3 == 0 ) 
+								   #if($velocityCount % 3 == 2 ) 
 								   ## 结束当前行，另起一行显示查询按钮
 									   </div>
 									   <div class="row">
@@ -111,10 +122,8 @@
 											</div>
 										</div> 
 								   #end
-								   #if($velocityCount % 3 == 1 ) 
-								   		
-											<div class="col-md-4">&nbsp;</div>
-											<div class="col-md-4">
+								   #if($velocityCount % 3 == 1 )  
+								   		<div class="col-md-4">
 												<div class="form-group form-md-line-input">
 		
 													<div class="col-md-12">
@@ -136,7 +145,8 @@
 											</div>
 										</div> 
 								   #end
-								   #if($velocityCount % 3 == 2 ) 									   		
+								   #if($velocityCount % 3 == 0 ) 	
+								   			<div class="col-md-4">&nbsp;</div>								   										   		
 											<div class="col-md-4">
 												<div class="form-group form-md-line-input">
 		
@@ -178,7 +188,7 @@
 							${moduleCNName}列表 </span>
 
 					</div>
-					<div class="actions roleactions">
+					<div class="actions">
 						 
 						<a class="btn btn-xs blue btn-add${entityName}"  > 新增 <i class="fa fa-edit"></i></a>
 						 <a class="btn btn-xs red btn-batchdel${entityName}" >
@@ -197,6 +207,7 @@
 
 <script type="text/javascript">
 var Sys${entityName}Manager = function(){
+	var usercontextpath = "<%=request.getContextPath()%>";
 	var query${entityName}s = function(doquery){
 		#foreach($condition in $conditions)										
 			var ${condition.fieldName}=$("#${condition.fieldName}").val();
@@ -207,7 +218,7 @@ var Sys${entityName}Manager = function(){
 			return;
 		}
 		#end
-		$(".portlet-${entityName}list").load("<%=request.getContextPath()%>${relativePath}/queryListInfo${entityName}s.page",
+		$(".portlet-${entityName}list").load(usercontextpath+"${relativePath}/queryListInfo${entityName}s.page",
 									doquery?$('.form-query${entityName}').serialize():{},
 									function(){
 									});	
@@ -215,6 +226,9 @@ var Sys${entityName}Manager = function(){
 	return {
 		query${entityName}s:function(doquery){
 			query${entityName}s(doquery);
+		},
+		usercontextpath:function(){
+			return usercontextpath;
 		}
 	}
 }();
@@ -227,17 +241,18 @@ $(document).ready(function() {
 	            format:'yyyy-mm-dd'
 	        });
 	#end
+	var usercontextpath = Sys${entityName}Manager.usercontextpath();
 	Sys${entityName}Manager.query${entityName}s(false);	
-	$(".form-query${entityName} .btn-query").bind('click',function(){
+	$(".form-query${entityName} .btn-query${entityName}").bind('click',function(){
 			Sys${entityName}Manager.query${entityName}s(true);
 	});
 	$(".btn-add${entityName}").bind('click',function(){
 		 ModelDialog.dialog({
 				title:"新增${moduleCNName}",
 				showfooter:false,
-				url:"<%=request.getContextPath()%>${relativePath}/toAdd${entityName}.page",				
+				url:usercontextpath+"${relativePath}/toAdd${entityName}.page",				
 				width:"1024px",
-				height:"768px"
+				height:"568px"
 
          });
 	});
@@ -256,7 +271,7 @@ $(document).ready(function() {
            	 	if(isConfirm)
            	 	{        	 		
            	 		
-	           	 	$.post("<%=request.getContextPath()%>${relativePath}/deleteBatch${entityName}.page",
+	           	 	$.post(usercontextpath+"${relativePath}/deleteBatch${entityName}.page",
 	          				$.param( {
 									"${primaryKeyName}s" : chk_value
 								 },true),

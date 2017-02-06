@@ -489,10 +489,25 @@
 															<td>
 																<div class="form-group">
 																	<label class="control-label col-md-3">字典编码</label>
-																	<div class="col-md-9">
+																	<div class="col-md-4">
 																		<input type="text" placeholder="dict"
 																			name="dict" class="form-control  input-small"
 																			value="<pg:cell colName="dict"/>">
+																	</div>
+																	<div class="col-md-5">
+																		<select class="form-control  input-small select2me"
+																			name="dictType" id="dictType">
+																			<pg:case colName="dictType">
+																				
+																				<option value="select"
+																					<pg:equal value="select">selected</pg:equal>>select</option>
+																				<option value="checkbox"
+																					<pg:equal value="checkbox">selected</pg:equal>>checkbox</option>
+																				<option value="radio"
+																					<pg:equal value="radio">selected</pg:equal>>radio</option>
+																				
+																			</pg:case>
+																		</select>
 																	</div>
 																</div>
 															</td>

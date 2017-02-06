@@ -60,7 +60,17 @@
 										 
 									</div>								
 								#else
+									#if($field.dict.equals(""))
 									<input type="text" class="form-control" placeholder="" name="$field.fieldName"  autocomplete="off" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>">
+									#else
+										#if($field.dictType.equals("select"))
+										<dict:select  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-xs\"" />
+										#elseif($field.dictType.equals("checkbox"))
+										<dict:checkbox  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" extend="class=\"form-control input-xs\"" />
+										#else
+										<dict:radio  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" extend="class=\"form-control input-xs\"" />
+										#end
+									#end
 									<div class="form-control-focus"></div>
 									 
 								#end
@@ -69,8 +79,16 @@
 									<input type="hidden"  name="${field.fieldName}" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" />
 									<p class="form-control-static"><pg:cell colName="$field.fieldName" #fieldattr($field)/> </p>								
 								#else
+								
+									
 									<input  name="$field.fieldName" type="hidden" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"/>
-									<p class="form-control-static"><pg:cell colName="$field.fieldName" #fieldattr($field)/> </p>
+									<p class="form-control-static">
+									#if($field.dict.equals(""))
+									<pg:cell colName="$field.fieldName" #fieldattr($field)/> 
+									#else
+									<dict:itemname type="$field.dict" colName="$field.fieldName" /> 
+									#end
+									</p>
 								#end
 							#end	 
 							</div>
