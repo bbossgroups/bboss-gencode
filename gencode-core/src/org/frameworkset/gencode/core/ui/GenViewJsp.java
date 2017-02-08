@@ -47,6 +47,7 @@ public class GenViewJsp   extends AbstractGencode {
 			 context.put("genI18n", gencodeService.isGenI18n());
 			 context.put("namespacei18n", gencodeService.getNamespacei18n());
 			 context.put("relativePath", gencodeService.getRelativePath());
+			 context.put("controlInfo", gencodeService.getControlInfo());
 			 gencodeService.writFile(context,conftempalte,conf,gencodeService.getModuleMetaInfo().getEncodecharset());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

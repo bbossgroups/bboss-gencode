@@ -35,12 +35,12 @@
 			  	<input id="$field.fieldName" name="$field.fieldName" type="hidden"  #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}"#end/>
 		  	#end
 			#foreach($field in $fields)
-				#if( $velocityCount % 3 == 0)
+				#if( $velocityCount % $controlInfo.themeCols == 0)
 					#if($velocityCount > 0)</div>#end
 				<div class="row">
 				#end
-					<div class="col-md-4" >
-						<div class="form-group form-md-line-input">
+					<div class="col-md-$controlInfo.themeColWidth" >
+						<div class="form-group #if($controlInfo.inputStyle.equals("lineinput"))form-md-line-input#end">
 							<label class="col-md-3 control-label" for="form_control_1">#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end
 								#if($field.required)<span class="required">*</span>#end
 							</label>

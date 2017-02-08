@@ -47,6 +47,7 @@ public class GenAddJsp   extends AbstractGencode {
 			 context.put("primaryKeyName", gencodeService.getPrimaryKeyName());
 			 context.put("genI18n", gencodeService.isGenI18n());
 			 context.put("namespacei18n", gencodeService.getNamespacei18n());
+			 context.put("controlInfo", gencodeService.getControlInfo());
 			
 			
 			 gencodeService.writFile(context,conftempalte,conf,gencodeService.getModuleMetaInfo().getEncodecharset());
