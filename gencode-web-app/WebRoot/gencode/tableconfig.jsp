@@ -186,8 +186,8 @@
 									<div class="form-group">
 
 										<label class="control-label col-md-3">界面风格</label>
-										<div class="col-md-9">
-											<select class="form-control" id="theme" name="theme">
+										<div class="col-md-3">
+											<select class="form-control input-xs" id="theme" name="theme">
 												<pg:case colName="theme">
 													<option value="default"
 														<pg:equal value="default">selected</pg:equal>>default</option>
@@ -195,19 +195,54 @@
 														<pg:equal value="common">selected</pg:equal>>common</option>
 													<option value="metrics"
 														<pg:equal value="metrics">selected</pg:equal>>metrics</option>	
-													<!-- 													<option value="bootstrap" -->
-													<!-- 														<pg:equal value="bootstrap">selected</pg:equal>>bootstrap</option> -->
-													<!-- 													<option value="mobile" -->
-													<!-- 														<pg:equal value="default">mobile</pg:equal>>mobile</option> -->
+													
 												</pg:case>
-											</select><span
-												class="help-block"><font color="blue">default:对应bboss平台通用界面风格  ，集成到bboss平台中运行<br> common：对应bboss通用风格模板，生成的代码与平台无关，只需要bboss框架，集成到<a href="https://github.com/bbossgroups/bboss-gencode/tree/master/gencode" target="_blank"><font color="red">gencode</font></a>子目录对应的eclipse工程中即可运行</font></span>
+											</select> 
 										</div>
-
+										<div class="col-md-3">
+											<select class="form-control input-xs" id="themeCols" name="themeCols">
+												<pg:case colName="themeCols">
+													<option value="3"
+														<pg:equal value="3">selected</pg:equal>>三列</option>
+													<option value="2"
+														<pg:equal value="2">selected</pg:equal>>两列</option>
+													<option value="1"
+														<pg:equal value="1">selected</pg:equal>>单列</option>	
+													
+												</pg:case>
+											</select>
+										</div>
 									</div>
 								</div>
 
 								<!--/span-->
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">输入框类型</label>
+										<div class="col-md-9">
+											<select class="form-control input-xs" id="inputStyle" name="inputStyle">
+												<pg:case colName="inputStyle">
+													<option value="lineinput"
+														<pg:equal value="lineinput">selected</pg:equal>>lineinput</option>
+													<option value="cellinput"
+														<pg:equal value="cellinput">selected</pg:equal>>cellinput</option>													
+													
+												</pg:case>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">代码风格描述</label>
+										<div class="col-md-9">
+											<span
+												class="help-block"><font color="blue">metrics：对应bboss新版平台界面模板<br>default:对应bboss平台通用界面风格  ，集成到bboss平台中运行<br> common：对应bboss通用风格模板，生成的代码与平台无关，只需要bboss框架，集成到<a href="https://github.com/bbossgroups/bboss-gencode/tree/master/gencode" target="_blank"><font color="red">gencode</font></a>子目录对应的eclipse工程中即可运行</font></span>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">

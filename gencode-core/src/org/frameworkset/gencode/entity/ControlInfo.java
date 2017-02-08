@@ -55,6 +55,9 @@ public class ControlInfo {
 	 * 如果pagineWithDBRownumberOver为1 ，则必须指定一个排序字段，否则视为普通分页机制处理
 	 */
 	private int pagineWithDBRownumberOver;
+	private String inputStyle = "lineinput";
+	private int themeCols = 3;
+	private int themeColWidth = 4;
 	/**
 	 * 实体名称是否截取表名前缀，1 截取 0 不截取
 	 * td_user: 1=User 0 TdUser
@@ -246,6 +249,30 @@ public class ControlInfo {
 
 	public void setPagineWithDBRownumberOver(int pagineWithDBRownumberOver) {
 		this.pagineWithDBRownumberOver = pagineWithDBRownumberOver;
+	}
+
+	public String getInputStyle() {
+		return inputStyle;
+	}
+
+	public void setInputStyle(String inputStyle) {
+		this.inputStyle = inputStyle;
+	}
+
+	public int getThemeCols() {
+		return themeCols;
+	}
+
+	public void setThemeCols(int themeCols) {
+		this.themeCols = themeCols;
+	}
+
+	public int getThemeColWidth() {
+		return themeColWidth;
+	}
+
+	public void setThemeColWidth(int themeColWidth) {
+		this.themeColWidth = themeColWidth;
 	}
 
 	

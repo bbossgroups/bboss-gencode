@@ -21,11 +21,11 @@
 		  	<input id="$field.fieldName" name="$field.fieldName" type="hidden" value="<pg:cell colName="$field.fieldName"   #fieldattr($field)/>" />
 	  	#end
 	  	#foreach($field in $fields)
-			#if( $velocityCount % 3 == 0)
+			#if( $velocityCount % $controlInfo.themeCols == 0)
 				#if($velocityCount > 0)</div>#end
 			<div class="row">
 			#end
-			<div class="col-md-4" >
+			<div class="col-md-$controlInfo.themeColWidth" >
 				<div class="form-group ">
 					<label class="col-md-3 control-label"">#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end:				 
 					</label>

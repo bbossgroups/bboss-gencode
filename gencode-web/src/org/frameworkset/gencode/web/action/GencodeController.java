@@ -1035,12 +1035,20 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		_tempsave(controlInfo, fields, gencodeid, ret);
 		return ret;
 	}
-
+	
 	private Gencode _tempsave(ControlInfo controlInfo, List<FieldInfo> fields, String gencodeid, Map<String, String> ret) {
 		// 控制器
 
 		try {
-
+			if(controlInfo.getThemeCols() == 3){
+				controlInfo.setThemeColWidth(4);
+			}
+			else if(controlInfo.getThemeCols() == 2){
+				controlInfo.setThemeColWidth(6);
+			}
+			else if(controlInfo.getThemeCols() == 1){
+				controlInfo.setThemeColWidth(12);
+			}	
 			Gencode gencode = new Gencode();
 			if (gencodeid == null || gencodeid.equals("")) {
 				 

@@ -45,6 +45,7 @@ public class GenMainJsp  extends AbstractGencode{
 			 context.put("namespacei18n", gencodeService.getNamespacei18n());
 			 context.put("needDateComponent", gencodeService.isNeedDateComponent());
 			 context.put("needcondition", gencodeService.needcondition());
+			 context.put("controlInfo", gencodeService.getControlInfo());
 			 gencodeService.writFile(context,conftempalte,conf,gencodeService.getModuleMetaInfo().getEncodecharset());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
