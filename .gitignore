@@ -5,3 +5,5 @@
 /.project
 /settings.gradle.bak
 /gradle.properties.bak
+/out/
+/.idea/

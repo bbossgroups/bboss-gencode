@@ -24,7 +24,7 @@ import $import;
  * <p>Description: #if($description && !$description.equals(""))
  	$description
  	#else
- 	${moduleCNName}管理
+ 	${moduleCNName}
  	#if($iscondition)
  	查询条件类
  	#else

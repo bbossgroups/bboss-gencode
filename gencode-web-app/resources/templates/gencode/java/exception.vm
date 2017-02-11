@@ -25,7 +25,7 @@ import $import;
  * <p>Description: #if($description && !$description.equals(""))
  	$description
  	#else 
- 	${moduleCNName}管理异常类
+ 	${moduleCNName}异常类
  	#end
  	</p>
  * <p>$company</p>

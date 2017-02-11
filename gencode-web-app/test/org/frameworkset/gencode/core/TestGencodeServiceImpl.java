@@ -1,14 +1,14 @@
 package org.frameworkset.gencode.core;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.eclipse.jdt.core.formatter.CodeFormatterApplication;
 import org.frameworkset.gencode.entity.ConditionField;
 import org.frameworkset.gencode.entity.ModuleMetaInfo;
 import org.frameworkset.gencode.entity.SortField;
 import org.junit.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestGencodeServiceImpl {
 	@Test
