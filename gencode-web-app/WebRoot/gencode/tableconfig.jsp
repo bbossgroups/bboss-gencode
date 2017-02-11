@@ -610,14 +610,14 @@
 																	<label class="control-label col-md-3">类型校验</label>
 																	<div class="col-md-9">
 																		<div class="radio-list">
-																			<pg:case colName="required">
+																			<pg:case colName="typecheck">
 																				<label class="radio-inline"><input
-																					type="radio" name="<pg:rowid/>_required"
-																					id="<pg:rowid/>_required" value="1"
+																					type="radio" name="<pg:rowid/>_typecheck"
+																					id="<pg:rowid/>_typecheck" value="1"
 																					<pg:equal value="1">checked</pg:equal>>是 </label>
 																				<label class="radio-inline"><input
-																					type="radio" name="<pg:rowid/>_required"
-																					id="<pg:rowid/>_required" value="0"
+																					type="radio" name="<pg:rowid/>_typecheck"
+																					id="<pg:rowid/>_typecheck" value="0"
 																					<pg:equal value="0">checked</pg:equal>>否 </label>
 																			</pg:case>
 																		</div>
