@@ -139,7 +139,7 @@
 		PDP.validateform({
 			form:"#form_sys_add${entityName}",
 			messages : {
-			#foreach($field in $fields)
+			#foreach($field in $fields)				
 				#if($field.required)
 					$field.fieldName : {						
 						required : "请输入#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end"

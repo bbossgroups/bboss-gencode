@@ -601,7 +601,7 @@ public class GencodeServiceImpl {
 			 VelocityContext context = new VelocityContext();
 			
 			 context.put("sqls", this.sqls);
-			 context.put("description",this.moduleMetaInfo.getModuleCNName()+"管理sql配置文件");
+			 context.put("description",this.moduleMetaInfo.getModuleCNName()+"sql配置文件");
 			 context.put("company", this.moduleMetaInfo.getCompany());
 			 context.put("gendate", this.moduleMetaInfo.getDate());
 			 context.put("author", this.moduleMetaInfo.getAuthor());
@@ -692,17 +692,17 @@ public class GencodeServiceImpl {
 			controller.createNewFile();
 			exception.createNewFile();
 
-			 genEntity(  entityName,   this.moduleMetaInfo.getModuleCNName()+"管理服务实体类",entity);
+			 genEntity(  entityName,   this.moduleMetaInfo.getModuleCNName()+"服务实体类",entity);
 
 			 
 				 
-				 genConditionEntity(  conditionEntityName,   this.moduleMetaInfo.getModuleCNName()+"管理查询条件实体类",conditionEntityJavaName);
+				 genConditionEntity(  conditionEntityName,   this.moduleMetaInfo.getModuleCNName()+"查询条件实体类",conditionEntityJavaName);
 			 
 			  
-			 genServiceInf(  this.serviceInfType, this.moduleMetaInfo.getModuleCNName()+"管理服务接口", serviceInf);
-			 genException(entityName + "Exception", this.moduleMetaInfo.getModuleCNName()+"管理异常处理类",exception);
-			 genServiceImpl(entityName + "ServiceImpl",serviceInfType ,this.moduleMetaInfo.getModuleCNName()+"管理业务处理类",serviceImpl);
-			 genActionCode(entityName+"Controller",null,serviceInfType,  this.moduleMetaInfo.getModuleCNName()+"管理控制器处理类",controller);
+			 genServiceInf(  this.serviceInfType, this.moduleMetaInfo.getModuleCNName()+"服务接口", serviceInf);
+			 genException(entityName + "Exception", this.moduleMetaInfo.getModuleCNName()+"异常处理类",exception);
+			 genServiceImpl(entityName + "ServiceImpl",serviceInfType ,this.moduleMetaInfo.getModuleCNName()+"业务处理类",serviceImpl);
+			 genActionCode(entityName+"Controller",null,serviceInfType,  this.moduleMetaInfo.getModuleCNName()+"控制器处理类",controller);
 			 if(this.controlParam.isGenRPCservice())
 			 {
 				 genRPC();
