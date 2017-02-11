@@ -4,7 +4,7 @@
 <%@ taglib uri="/WEB-INF/tld/admin-taglib.tld" prefix="admin" %>
 <%@ taglib uri="/WEB-INF/tld/dictionary.tld" prefix="dict" %>
 <!-- 
-	描述:${moduleCNName}管理列表界面。
+	描述:${moduleCNName}列表界面。
 	作者:$author
 	版权:$company
 	版本:$version 

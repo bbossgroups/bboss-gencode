@@ -63,7 +63,7 @@ dependencies {
 		[group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
     )
     	
-     compileOnly (            
+     compileOnly (
           
             [group: 'javax.servlet', name: 'javax.servlet-api', version: "3.0.1", transitive: false],
             //[group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
