@@ -56,7 +56,9 @@
 											placeholder="" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>"> <span class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</span>
+										#if($controlInfo.inputStyle.equals("lineinput"))
 										<div class="form-control-focus"></div>
+										#end
 										 
 									</div>								
 								#else
@@ -64,14 +66,16 @@
 									<input type="text" class="form-control" placeholder="" name="$field.fieldName"  autocomplete="off" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>">
 									#else
 										#if($field.dictType.equals("select"))
-										<dict:select  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-xs\"" />
+										<dict:select  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-sm\"" />
 										#elseif($field.dictType.equals("checkbox"))
 										<dict:checkbox  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" extend="class=\"form-control input-xs\"" />
 										#else
 										<dict:radio  type="$field.dict" name="$field.fieldName" colName="$field.fieldName" extend="class=\"form-control input-xs\"" />
 										#end
 									#end
+									#if($controlInfo.inputStyle.equals("lineinput"))
 									<div class="form-control-focus"></div>
+									#end
 									 
 								#end
 							#else
@@ -89,6 +93,9 @@
 									<dict:itemname type="$field.dict" colName="$field.fieldName" /> 
 									#end
 									</p>
+								#end
+								#if($controlInfo.inputStyle.equals("lineinput"))
+									<div class="form-control-focus"></div>
 								#end
 							#end	 
 							</div>

@@ -52,22 +52,28 @@
 											placeholder="" #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}" #end> <span class="input-group-addon">
 											<i class="fa fa-calendar"></i>
 										</span>
+										#if($controlInfo.inputStyle.equals("lineinput"))
 										<div class="form-control-focus"></div>
-										 
-									</div>								
+										#end
+										
+									</div>
+															
 								#else
 									#if($field.dict.equals(""))
 									<input type="text" class="form-control" placeholder="" name="$field.fieldName"  autocomplete="off" #if($field.defaultValue && !$field.defaultValue.equals(""))value="${field.defaultValue}" #end>
 									#else
 										#if($field.dictType.equals("select"))
-										<dict:select  type="$field.dict" name="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-xs\"" />
+										<dict:select  type="$field.dict" name="$field.fieldName" #if(!$field.textValue.equals(""))textValue="$field.textValue" textNAN="$field.textNAN"#end extend="class=\"form-control input-sm\"" />
 										#elseif($field.dictType.equals("checkbox"))
 										<dict:checkbox  type="$field.dict" name="$field.fieldName" extend="class=\"form-control input-xs\"" />
 										#else
 										<dict:radio  type="$field.dict" name="$field.fieldName" extend="class=\"form-control input-xs\"" />
 										#end
 									#end
-									<div class="form-control-focus"></div>									 
+									#if($controlInfo.inputStyle.equals("lineinput"))
+										<div class="form-control-focus"></div>
+									#end
+																											 
 								#end
 								
 							</div>
@@ -79,6 +85,10 @@
 			#end
 		</div>			
 		<div class="form-actions">
+			#if($controlInfo.inputStyle.equals("lineinput"))<div class="row">
+				<div class="col-md-offset-3 col-md-9">&nbsp;
+				</div>
+			</div>#end	
 			<div class="row">
 				<div class="col-md-offset-3 col-md-9">
 					<button type="button"   class="btn green btn-${entityName}addsave">创建</button>
