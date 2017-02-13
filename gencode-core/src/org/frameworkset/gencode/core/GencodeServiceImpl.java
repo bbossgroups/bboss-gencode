@@ -60,9 +60,11 @@ public class GencodeServiceImpl {
 	private File rootdir;
 	private File resourcedir;
 	private File javaSourceDir;
+	private File javaSourceAPIDir;
 	private File javaEntiySourceDir;
 	private File javaWSSourceDir;
 	private File javaServiceSourceDir;
+	private File javaServiceAPISourceDir;
 	private File javaActionSourceDir;
 	private File jspSourceDir;
 	private String relativePath;//jsp访问相对地址
@@ -288,13 +290,22 @@ public class GencodeServiceImpl {
 //						:moduleMetaInfo.getPackagePath() +moduleMetaInfo.getModuleName();
 		javamodulePackage = moduleMetaInfo.getPackagePath();
 		javaSourceDir = new File(this.rootdir,"src/"+modulePackage);
+
 		
 		if(!javaSourceDir.exists())
 		{
 			javaSourceDir.mkdirs();
 		}
+
+		javaSourceAPIDir = new File(this.rootdir,"src-api/"+modulePackage);
+
+
+		if(!javaSourceAPIDir.exists())
+		{
+			javaSourceAPIDir.mkdirs();
+		}
 		
-		javaEntiySourceDir = new File(this.javaSourceDir,  "entity");
+		javaEntiySourceDir = new File(this.javaSourceAPIDir,  "entity");
 		if(!javaEntiySourceDir.exists())
 		{
 			javaEntiySourceDir.mkdirs();
@@ -308,6 +319,12 @@ public class GencodeServiceImpl {
 		if(!javaServiceSourceDir.exists())
 		{
 			javaServiceSourceDir.mkdirs();
+		}
+
+		javaServiceAPISourceDir = new File(this.javaSourceAPIDir,"service");
+		if(!javaServiceAPISourceDir.exists())
+		{
+			javaServiceAPISourceDir.mkdirs();
 		}
 		javaActionSourceDir = new File(this.javaSourceDir,"action");
 		if(!javaActionSourceDir.exists())
@@ -663,12 +680,12 @@ public class GencodeServiceImpl {
 			entity.delete();
 		}
 		
-		File exception = new File(this.javaServiceSourceDir,exceptionJavaName);
+		File exception = new File(this.javaServiceAPISourceDir,exceptionJavaName);
 		if(exception.exists())
 		{
 			exception.delete();
 		}
-		File serviceInf = new File(this.javaServiceSourceDir,serviceInfJavaName);
+		File serviceInf = new File(this.javaServiceAPISourceDir,serviceInfJavaName);
 		if(serviceInf.exists())
 		{
 			serviceInf.delete();
