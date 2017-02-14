@@ -412,7 +412,7 @@
 							 
 						</pg:beaninfo>
 						<!--/row-->
-						<h3 class="form-section">字段设置</h3>
+						<h3 class="form-section">字段设置-拖动记录行，可以调整字段在增删改页面和分页查询列表中的位置顺序</h3>
 						<!-- table -->
 						<div class="table-scrollable">
 							<table
