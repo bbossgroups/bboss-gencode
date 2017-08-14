@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jdt.core.formatter.CodeFormatterApplication;
 import org.frameworkset.gencode.core.ui.GenAddJsp;
 import org.frameworkset.gencode.core.ui.GenI8N;
@@ -30,6 +29,8 @@ import org.frameworkset.gencode.entity.Method;
 import org.frameworkset.gencode.entity.MethodParam;
 import org.frameworkset.gencode.entity.ModuleMetaInfo;
 import org.frameworkset.gencode.entity.SortField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.ColumnMetaData;
@@ -50,7 +51,7 @@ import bboss.org.apache.velocity.VelocityContext;
  *
  */
 public class GencodeServiceImpl {
-	private static final Logger log = Logger.getLogger(GencodeServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(GencodeServiceImpl.class);
 	public static String DEFAULT_SOURCEPATH;
 	public static String SQLITEPATH;
 	private ControlInfo controlInfo ;
@@ -1976,7 +1977,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
 		
            inputs = new ArrayList(2);
@@ -1990,7 +1991,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
          inputs = new ArrayList(2);
          inputs.add("td_tableinfo_name");
@@ -2003,7 +2004,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
          inputs = new ArrayList(2);
          inputs.add("td_tableinfo_name");
@@ -2016,7 +2017,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
 	}
 

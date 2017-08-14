@@ -4,18 +4,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.frameworkset.runtime.CommonLauncher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import com.frameworkset.util.StringUtil;
 
 public class JettyStart {
-	private static Logger log = Logger.getLogger(JettyStart.class);
+	private static Logger log = LoggerFactory.getLogger(JettyStart.class);
 	private static File appdir ;
 	public JettyStart() {
 		// TODO Auto-generated constructor stub

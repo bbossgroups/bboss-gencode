@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.frameworkset.cache.FileContentCache;
 import org.frameworkset.gencode.core.GencodeServiceImpl;
 import org.frameworkset.gencode.core.Util;
@@ -32,6 +31,8 @@ import org.frameworkset.soa.ObjectSerializable;
 import org.frameworkset.util.annotations.PagerParam;
 import org.frameworkset.util.annotations.ResponseBody;
 import org.frameworkset.web.servlet.ModelMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.TableMetaData;
@@ -41,7 +42,7 @@ import com.frameworkset.util.SimpleStringUtil;
 import com.frameworkset.util.StringUtil;
 
 public class GencodeController implements org.frameworkset.spi.InitializingBean,org.frameworkset.spi.DisposableBean{
-	private static Logger log = Logger.getLogger(GencodeController.class);
+	private static Logger log = LoggerFactory.getLogger(GencodeController.class);
 	private GencodeService gencodeService;
 	private FileContentCache fileCache = null;
 

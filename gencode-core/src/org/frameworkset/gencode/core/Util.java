@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.frameworkset.gencode.entity.FieldInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.frameworkset.common.poolman.sql.ColumnMetaData;
 import com.frameworkset.common.poolman.sql.TableMetaData;
@@ -15,7 +16,7 @@ import com.frameworkset.orm.engine.model.NameGenerator;
 import com.frameworkset.util.SimpleStringUtil;
 
 public class Util {
-	private static Logger log = Logger.getLogger(Util.class);
+	private static Logger log = LoggerFactory.getLogger(Util.class);
 	public final static int addpage = 0;
 	public final static int editpage = 1;
 	public final static int viewpage = 2;

@@ -45,7 +45,7 @@ import $import;
    #if($filed.annos && $filed.annos.size() > 0)
      #foreach($anno in $filed.annos)
      	$attoken$anno.name
-		  #if($anno.params.size() > 0)
+		  #if($anno.params && $anno.params.size() > 0)
 			  $start
 			  	#foreach($annoparam in $anno.params) 
 			  		#if($velocityCount>0),#end$annoparam.name$equal#if($annoparam.vtype == 1)"#end$annoparam.value#if($annoparam.vtype == 1)"#end
