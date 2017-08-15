@@ -916,7 +916,7 @@ public class GencodeServiceImpl {
 		log4j.setFieldName("log");
 		log4j.setType("Logger");
 		String entityPackageInfo = javamodulePackage+".service";
-		log4j.setDefaultValue("Logger.getLogger("+entityPackageInfo + "."+serviceName+".class)");
+		log4j.setDefaultValue("LoggerFactory.getLogger("+entityPackageInfo + "."+serviceName+".class)");
 		fields.add(log4j);
 		
 		Field dao = new Field(); 
@@ -1910,7 +1910,8 @@ public class GencodeServiceImpl {
 		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("com.frameworkset.common.poolman.ConfigSQLExecutor");
-		imports.add("org.apache.log4j.Logger");		
+		imports.add("org.slf4j.Logger");
+		imports.add("org.slf4j.LoggerFactory");
 		imports.add("java.util.List");
 		if(this.isPagineWithDBRownumberOver())
 			imports.add("com.frameworkset.common.poolman.ConfigPagineOrderby");
@@ -1936,7 +1937,8 @@ public class GencodeServiceImpl {
 		List<String> imports = new ArrayList<String>();
 		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
-		imports.add("org.apache.log4j.Logger");		
+		imports.add("org.slf4j.Logger");
+		imports.add("org.slf4j.LoggerFactory");
 		imports.add("java.util.List");
 		imports.add("java.util.Map");
 		imports.add("com.frameworkset.util.StringUtil");
