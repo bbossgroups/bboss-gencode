@@ -5,16 +5,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.frameworkset.spi.BaseApplicationContext;
 import org.frameworkset.spi.event.IocLifeCycleEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.frameworkset.common.poolman.SQLExecutor;
 import com.frameworkset.common.poolman.util.SQLUtil;
 import com.frameworkset.util.SimpleStringUtil;
 
 public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListener {
-	private static Logger log = Logger.getLogger(GencodeIocLifeCycleEventListener.class);
+	private static Logger log = LoggerFactory.getLogger(GencodeIocLifeCycleEventListener.class);
 	private String sqlitepath;
 	private String sourcepath;
 	public GencodeIocLifeCycleEventListener() {

@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jdt.core.formatter.CodeFormatterApplication;
 import org.frameworkset.gencode.core.ui.GenAddJsp;
 import org.frameworkset.gencode.core.ui.GenI8N;
@@ -30,6 +29,8 @@ import org.frameworkset.gencode.entity.Method;
 import org.frameworkset.gencode.entity.MethodParam;
 import org.frameworkset.gencode.entity.ModuleMetaInfo;
 import org.frameworkset.gencode.entity.SortField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.ColumnMetaData;
@@ -50,7 +51,7 @@ import bboss.org.apache.velocity.VelocityContext;
  *
  */
 public class GencodeServiceImpl {
-	private static final Logger log = Logger.getLogger(GencodeServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(GencodeServiceImpl.class);
 	public static String DEFAULT_SOURCEPATH;
 	public static String SQLITEPATH;
 	private ControlInfo controlInfo ;
@@ -915,7 +916,7 @@ public class GencodeServiceImpl {
 		log4j.setFieldName("log");
 		log4j.setType("Logger");
 		String entityPackageInfo = javamodulePackage+".service";
-		log4j.setDefaultValue("Logger.getLogger("+entityPackageInfo + "."+serviceName+".class)");
+		log4j.setDefaultValue("LoggerFactory.getLogger("+entityPackageInfo + "."+serviceName+".class)");
 		fields.add(log4j);
 		
 		Field dao = new Field(); 
@@ -1909,7 +1910,8 @@ public class GencodeServiceImpl {
 		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
 		imports.add("com.frameworkset.common.poolman.ConfigSQLExecutor");
-		imports.add("org.apache.log4j.Logger");		
+		imports.add("org.slf4j.Logger");
+		imports.add("org.slf4j.LoggerFactory");
 		imports.add("java.util.List");
 		if(this.isPagineWithDBRownumberOver())
 			imports.add("com.frameworkset.common.poolman.ConfigPagineOrderby");
@@ -1935,7 +1937,8 @@ public class GencodeServiceImpl {
 		List<String> imports = new ArrayList<String>();
 		imports.add(javamodulePackage+".entity.*");
 		imports.add("com.frameworkset.util.ListInfo");
-		imports.add("org.apache.log4j.Logger");		
+		imports.add("org.slf4j.Logger");
+		imports.add("org.slf4j.LoggerFactory");
 		imports.add("java.util.List");
 		imports.add("java.util.Map");
 		imports.add("com.frameworkset.util.StringUtil");
@@ -1976,7 +1979,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
 		
            inputs = new ArrayList(2);
@@ -1990,7 +1993,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
          inputs = new ArrayList(2);
          inputs.add("td_tableinfo_name");
@@ -2003,7 +2006,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
          inputs = new ArrayList(2);
          inputs.add("td_tableinfo_name");
@@ -2016,7 +2019,7 @@ import com.frameworkset.util.StringUtil;
          }
          catch (EngineException e)
          {
-             log.error(e, e);
+             log.error("", e);
          }
 	}
 
