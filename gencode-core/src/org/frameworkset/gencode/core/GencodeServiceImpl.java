@@ -1042,7 +1042,7 @@ public class GencodeServiceImpl {
 		log4j.setFieldName("log");
 		log4j.setType("Logger");
 	
-		log4j.setDefaultValue("Logger.getLogger("+actionName+".class)");
+		log4j.setDefaultValue("LoggerFactory.getLogger("+actionName+".class)");
 		fields.add(log4j);
 		
 		Field service = new Field(); 
