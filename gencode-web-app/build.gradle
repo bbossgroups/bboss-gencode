@@ -19,7 +19,7 @@ apply plugin: 'docker'
 docker {
 	baseImage 'frolvlad/alpine-oraclejdk8:slim'
 	maintainer 'yin-bp yin-bp@163.com'
-	registry 'http://192.168.137.132:8000'
+	registry 'https://192.168.137.132:8000'
 	apiUsername 'foo'
 	apiPassword 'foo123'
 	apiEmail 'yin-bp@163.com'
@@ -170,7 +170,19 @@ task buildDocker(type: Docker,dependsOn: releaseRuntimeZip) {
 	applicationName = jar.baseName
 	tagVersion = jar.version
 	dockerfile = file('Dockerfile')
+	doFirst {
+		println 'aaaa'
+		println stageDir
+		copy {
+			from "build/dist"
+			into stageDir
+		}
+	}
+	doLast {
+		delete stageDir
+	}
 
 }
+
 
 
