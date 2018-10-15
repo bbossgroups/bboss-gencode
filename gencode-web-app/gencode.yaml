@@ -1,0 +1,77 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
+  labels:
+    main-app: gencode
+  name: gencode
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      main-app: gencode
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        main-app: gencode
+    spec:
+      containers:
+        - image: 192.168.137.132:8000/com.bbossgroups.gencode/gencode-web-app
+          imagePullPolicy: Always
+          name: gencode
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/localtime
+            name: localtime
+          - mountPath: /opt/gencodedb
+            name: gencodedb
+          - mountPath: /opt/sourcecode
+            name: sourcecode
+      imagePullSecrets:
+      - name: myregistrykey
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /etc/localtime
+          type: ""
+        name: localtime
+      - hostPath:
+          path: /opt/gencodedb
+          type: ""
+        name: gencodedb
+      - hostPath:
+          path: /opt/sourcecode
+          type: ""
+        name: sourcecode 
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    main-app: gencode
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: gencode
+  namespace: default
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    main-app: gencode
+  type: ClusterIP

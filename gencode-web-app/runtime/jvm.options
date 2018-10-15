@@ -20,7 +20,7 @@
 # Xmx represents the maximum size of total heap space
 
 -Xms256m
--Xmx512m
+-Xmx256m
 
 ################################################################
 ## Expert settings
@@ -48,7 +48,7 @@
 -server
 
 # explicitly set the stack size
--Xss1m
+-Xss256k
 
 # set to headless, just in case
 -Djava.awt.headless=true
@@ -84,7 +84,7 @@
 
 ## GC logging
 
-#-XX:+PrintGCDetails
+-XX:+PrintGCDetails
 #-XX:+PrintGCTimeStamps
 #-XX:+PrintGCDateStamps
 #-XX:+PrintClassHistogram
