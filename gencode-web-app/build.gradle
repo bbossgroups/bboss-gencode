@@ -9,11 +9,13 @@ buildscript {
 		mavenCentral()
 
 	}
+	/**
 	dependencies {
 		//添加gradle-docker 依赖，版本1.2
 		classpath 'se.transmode.gradle:gradle-docker:1.2'
-	}
+	}*/
 }
+/**
 apply plugin: 'docker'
 //configuration
 docker {
@@ -23,7 +25,7 @@ docker {
 	apiUsername 'foo'
 	apiPassword 'foo123'
 	apiEmail 'yin-bp@163.com'
-}
+}*/
 
 
 sourceSets {
@@ -166,6 +168,7 @@ task releaseRuntimeWar(type: Zip,dependsOn:'warcopyResourceFiles') {
    
 }
 
+/**
 task buildDocker(type: Docker,dependsOn: releaseRuntimeZip) {
 	applicationName = jar.baseName
 	tagVersion = jar.version
@@ -182,7 +185,7 @@ task buildDocker(type: Docker,dependsOn: releaseRuntimeZip) {
 		delete stageDir
 	}
 
-}
+}*/
 
 
 
