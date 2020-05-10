@@ -45,7 +45,7 @@ dependencies {
                [group: 'cglib', name: 'cglib-nodep', version: '3.1', transitive: false],
                   [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jacksonversion}",transitive: false],
              [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonversion}",transitive: false],
-             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonversion}",transitive: false],
+             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksondatabaindversion}",transitive: false],
              [group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: "${jacksonversion}",transitive: false],
             //  [group: 'commons-logging', name: 'commons-logging', version: '1.1', transitive: false],
             [group: 'commons-collections', name: 'commons-collections', version: '3.2.1', transitive: false],
