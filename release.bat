@@ -1,0 +1,1 @@
+gradle :gencode-web-app:releaseRuntimeZip
