@@ -1,26 +1,15 @@
 package org.frameworkset.gencode.web.action;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.frameworkset.common.poolman.DBUtil;
+import com.frameworkset.common.poolman.sql.TableMetaData;
+import com.frameworkset.util.FileUtil;
+import com.frameworkset.util.ListInfo;
+import com.frameworkset.util.SimpleStringUtil;
+import com.frameworkset.util.StringUtil;
 import org.frameworkset.cache.FileContentCache;
 import org.frameworkset.gencode.core.GencodeServiceImpl;
 import org.frameworkset.gencode.core.Util;
-import org.frameworkset.gencode.entity.AnnoParam;
-import org.frameworkset.gencode.entity.Annotation;
-import org.frameworkset.gencode.entity.ConditionField;
-import org.frameworkset.gencode.entity.ControlInfo;
-import org.frameworkset.gencode.entity.Field;
-import org.frameworkset.gencode.entity.FieldInfo;
-import org.frameworkset.gencode.entity.ModuleMetaInfo;
-import org.frameworkset.gencode.entity.SortField;
+import org.frameworkset.gencode.entity.*;
 import org.frameworkset.gencode.web.entity.Datasource;
 import org.frameworkset.gencode.web.entity.Gencode;
 import org.frameworkset.gencode.web.entity.GencodeCondition;
@@ -34,12 +23,10 @@ import org.frameworkset.web.servlet.ModelMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.frameworkset.common.poolman.DBUtil;
-import com.frameworkset.common.poolman.sql.TableMetaData;
-import com.frameworkset.util.FileUtil;
-import com.frameworkset.util.ListInfo;
-import com.frameworkset.util.SimpleStringUtil;
-import com.frameworkset.util.StringUtil;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class GencodeController implements org.frameworkset.spi.InitializingBean,org.frameworkset.spi.DisposableBean{
 	private static Logger log = LoggerFactory.getLogger(GencodeController.class);
@@ -232,7 +219,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			return null;
 		
 		initDatasource(gencodeService.getDatasource(dbname));
-		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname);
+		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
 			for (TableMetaData meta : tableMetas) {
@@ -246,8 +233,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		if(StringUtil.isEmpty(dbname))
 			return null;
 		initDatasource(gencodeService.getDatasource(dbname));
-		DBUtil.refreshDatabaseMetaData(dbname);
-		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname);
+		DBUtil.refreshDatabaseMetaData(dbname,100);
+		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
 			for (TableMetaData meta : tableMetas) {
@@ -268,7 +255,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		Set<TableMetaData> tableMetas = null;
 		if (ds != null && ds.size() > 0) {
 			initDatasource(ds.get(0));
-			tableMetas = DBUtil.getTableMetaDatas(ds.get(0).getDbname());
+			tableMetas = DBUtil.getTableMetaDatas(ds.get(0).getDbname(),100);
 		}
 
 		List<String> tables = new ArrayList<String>();

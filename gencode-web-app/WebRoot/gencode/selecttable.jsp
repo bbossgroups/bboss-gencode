@@ -30,7 +30,7 @@
 				<!-- BEGIN PAGE CONTENT-->
 				
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label col-md-3">数据源<span
 											class="required"> * </span></label>
@@ -44,20 +44,30 @@
 							</div>
 						</div>
 					</div>
-					<!--/span-->
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label col-md-3">选择表 <span
-											class="required"> * </span></label>
+							<label class="control-label col-md-3">选择表 </label>
+
+
+							<div class="col-md-9">
+								<select name="tableName" id="tableName"   class="select2me form-control">
+									<pg:list requestKey="tables">
+										<option value="<pg:cell/>"><pg:cell/></option>
+									</pg:list>
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label col-md-3">填表名 </label>
 										
 										
 							<div class="col-md-9">
-								<select name="tableName" id="tableName"   class="select2me form-control">
-								<pg:list requestKey="tables">
-									<option value="<pg:cell/>"><pg:cell/></option>
-								</pg:list>	
-									
-								</select> 
+								 <input name="tableNameCustom" id="tableNameCustom" type="text"
+										class="form-control" placeholder="直接填写表名称">
 							</div>
 						</div>
 					</div>

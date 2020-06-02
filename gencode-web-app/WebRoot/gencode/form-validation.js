@@ -303,12 +303,14 @@ var FormValidation = function() {
 				dbname : {
 					minlength : 1,
 					required : true
-				},
+				}
+				/**
+				,
 
 				tableName : {
 					minlength : 1,
 					required : true
-				}
+				}*/
 			},
 
 			invalidHandler : function(event, validator) { // display error
@@ -503,9 +505,14 @@ var FormValidation = function() {
 		// $('#'+ahref).val("href","tableconfig.page?dbname="+$('#dbname').val()+"&tableName="+$('#tableName').val());
 		event.preventDefault();
 		// $('#'+ahref).click()
+		let tableName = $('#tableName').val();
+		let tableNameCustom = $('#tableNameCustom').val();
+		if(tableNameCustom.trim() != '' )
+			tableName = tableNameCustom.trim();
+
 		$('#containerid').load(
 				'tableconfig.page?dbname=' + $('#dbname').val() + '&tableName='
-						+ $('#tableName').val());
+						+ tableName);
 		return false;
 	}
 
