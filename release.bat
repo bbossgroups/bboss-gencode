@@ -1,1 +1,1 @@
-gradle :gencode-web-app:releaseRuntimeZip
+gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeZip
