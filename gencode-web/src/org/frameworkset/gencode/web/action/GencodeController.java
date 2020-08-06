@@ -285,6 +285,9 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			return "path:tableconfig";
 		initDatasource(gencodeService.getDatasource(dbname));
 		TableMetaData tableMeta = DBUtil.getTableMetaData(dbname, tableName);
+		if(tableMeta == null) {
+			throw new IllegalArgumentException("tableName["+tableName+"] in dbname["+dbname+"] 不存在!");
+		}
 		model.addAttribute("table", tableMeta);
 		model.addAttribute("tableName", tableName);
 		model.addAttribute("dbname", dbname);
