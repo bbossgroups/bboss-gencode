@@ -1,20 +1,4 @@
-buildscript {
-	repositories {
 
-		mavenLocal()
-		maven {
-			url "http://maven.aliyun.com/nexus/content/groups/public"
-		}
-
-		mavenCentral()
-
-	}
-	/**
-	dependencies {
-		//添加gradle-docker 依赖，版本1.2
-		classpath 'se.transmode.gradle:gradle-docker:1.2'
-	}*/
-}
 /**
 apply plugin: 'docker'
 //configuration
@@ -48,9 +32,9 @@ sourceSets {
 }
 
 dependencies {
-	compile project(':gencode-core')
-	compile project(':gencode-web')
-    compile (
+	api project(':gencode-core')
+	api project(':gencode-web')
+    api (
 			[group: 'javax.xml.bind', name: 'jaxb-api', version: "2.3.0", transitive: false],
 //
 //			[group: 'com.sun.xml.bind', name: 'jaxb-impl', version: "2.3.0", transitive: false],
@@ -68,11 +52,11 @@ dependencies {
                [group: 'jstl', name: 'jstl', version: '1.2', transitive: false],
             
     )
-     compile ( 
+     api (
          fileTree(dir: '../lib/eclipse', include: '*.jar'),
          fileTree(dir: '../lib/jdbc', include: '**/*.jar'),
     	)
-	runtime(
+	runtimeOnly(
 		[group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
     )
     	
@@ -101,13 +85,19 @@ task warcopyWebRootFiles(type: Copy){
 }
 
 task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
-	 from configurations.compile + configurations.runtime  
+	 from configurations.api{
+		 canBeResolved=true
+
+	 } +  configurations.runtimeOnly{
+		 canBeResolved=true
+
+	 }
 	 into 'build/dist/WebRoot/WEB-INF/lib'
 	 
 }
 
-project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.install)
-project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.install)
+project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
+project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
 task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 	 
 	 from 'resources'   
@@ -118,12 +108,17 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 
 task copyLibFiles(type: Copy ){ 
 	from fileTree(dir: '../lib', include: '**/*.jar')
-	from (configurations.compile + configurations.compileOnly ){
-		exclude 'bboss-rt-**.jar' 
+	from configurations.api{
+		canBeResolved=true
+		exclude 'bboss-rt-**.jar'
+
+	} + configurations.compileOnly {
+		canBeResolved=true
+		exclude 'bboss-rt-**.jar'
 	}
 	into 'build/dist/gencode/lib'
 }
-project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.install)
+project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
 task copyResourceFiles(type: Copy ){ 
 	from fileTree(dir: 'resources')
 	into 'build/dist/gencode/resources'
@@ -141,7 +136,7 @@ task copyToolFiles(type: Copy ){
 				project:"${project.name}",main_class:'org.frameworkset.gencode.web.service.JettyStart')
 		
 	} 
-    from (configurations.runtime  ){
+    from (configurations.runtimeOnly  ){
     	 
 		include 'bboss-rt-**.jar' 
 	 
@@ -152,18 +147,18 @@ task copyToolFiles(type: Copy ){
 	 
 }
  
-task releaseRuntimeZip(type: Zip,dependsOn:['copyToolFiles','copyWebrootFiles','copyResourceFiles','copyLibFiles']) {
+task releaseRuntimeZip(type: Zip,dependsOn:['clean','copyToolFiles','copyWebrootFiles','copyResourceFiles','copyLibFiles']) {
     //appendix = 'wrapper'
-   baseName='gencode'
+	archiveBaseName='gencode'
    from 'build/dist/gencode'
    
 }
 
-task releaseRuntimeWar(type: Zip,dependsOn:'warcopyResourceFiles') {
+task releaseRuntimeWar(type: Zip,dependsOn:['clean','warcopyResourceFiles']) {
     //appendix = 'wrapper'
   // classifier = 'released'
-   extension = 'war'
-   baseName='gencode'
+	archiveExtension = 'war'
+	archiveBaseName='gencode'
    from 'build/dist/WebRoot'
    
 }

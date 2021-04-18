@@ -15,9 +15,9 @@ sourceSets {
     
 }
 dependencies {
-	compile project(':gencode-core')
+	api project(':gencode-core')
     
-     compile (
+     api (
              
             [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: false],
            
