@@ -46,7 +46,7 @@ configure(allprojects) { project ->
 					'Specification-Version': version,
 					'Implementation-Vendor': 'bbossgroups',
 					'Implementation-ProductID': project.name,
-					'Compile-Timestamp': new Date().format('yyyy-MM-dd HH:mm:ss'),
+					'Compile-Timestamp': new java.util.Date().format('yyyy-MM-dd HH:mm:ss'),
 					'Compile-User': DEVELOPER_NAME
 			)
 		}
