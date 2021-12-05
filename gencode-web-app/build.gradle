@@ -57,7 +57,7 @@ dependencies {
          fileTree(dir: '../lib/jdbc', include: '**/*.jar'),
     	)
 	runtimeOnly(
-		[group: 'com.bbossgroups', name: 'bboss-rt', version: "${PROJ_BBOSS_VERSION}", transitive: false],
+			[group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "${bboss_version}", transitive: true],
     )
     	
      compileOnly (
