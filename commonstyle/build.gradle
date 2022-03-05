@@ -26,7 +26,7 @@ dependencies {
     
     		
                
-           	[group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25', transitive: true],
+           	[group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.36', transitive: true],
             [group: 'com.bbossgroups', name: 'bboss-util', version: "${bboss_version}", transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-data', version: "${bboss_version}", transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-core', version: "${bboss_version}", transitive: false],
