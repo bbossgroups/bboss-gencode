@@ -15,7 +15,7 @@ dependencies {
     api (
             
            	[group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.36', transitive: true],
-            [group: 'com.bbossgroups', name: 'bboss-data', version: "${bboss_version}", transitive: false],
+            [group: 'com.bbossgroups', name: 'bboss-data', version: "${PROJ_BBOSS_DATA_VERSION}", transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-persistent', version: "${bboss_version}", transitive: true],
            [group: 'com.bbossgroups', name: 'bboss-velocity', version: "${bboss_version}", transitive: false],
                 [group: 'com.bbossgroups.security', name: 'bboss-security', version: "${BBOSS_SECURITY_VERSION}", transitive: false],
