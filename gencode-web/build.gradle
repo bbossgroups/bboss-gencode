@@ -23,7 +23,7 @@ dependencies {
            
               [group: 'net.sourceforge.jtds', name: 'jtds', version: '1.3.1', transitive: false],
              [group: 'mysql', name: 'mysql-connector-java', version: "${mysqlconnectorversion}", transitive: false],
-             [group: 'org.xerial', name: 'sqlite-jdbc', version: '3.36.0.3', transitive: false],
+             [group: 'org.xerial', name: 'sqlite-jdbc', version: '3.42.0.0', transitive: false],
            // fileTree(dir: '../lib/jetty', include: '*.jar'),
              [group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "${bboss_version}", transitive: true],
          )
