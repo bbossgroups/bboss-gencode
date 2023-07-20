@@ -1,19 +1,19 @@
 package org.frameworkset.gencode.web.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
+import com.frameworkset.util.StringUtil;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.frameworkset.runtime.CommonLauncher;
+import org.frameworkset.spi.assemble.PropertiesContainer;
+import org.frameworkset.spi.assemble.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import com.frameworkset.util.StringUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class JettyStart {
 	private static Logger log = LoggerFactory.getLogger(JettyStart.class);
@@ -27,15 +27,16 @@ public class JettyStart {
 		{
 			try {
 				// 服务器的监听端口
-				String port = CommonLauncher.getProperty("port", "8088");
+                PropertiesContainer propertiesContainer = PropertiesUtil.getPropertiesContainer();
+				String port = propertiesContainer.getProperty("port", "8088");
 				if (port.equals(""))
 					port = "8088";
-				String contextPath = CommonLauncher.getProperty("context",
+				String contextPath = propertiesContainer.getProperty("context",
 						"gencode");
 				if (contextPath.equals(""))
 					contextPath = "gencode";
-				String sqlitepath = CommonLauncher.getProperty("sqlitepath" );
-				String sourcepath = CommonLauncher.getProperty("sourcepath" );
+				String sqlitepath = propertiesContainer.getProperty("sqlitepath" );
+				String sourcepath = propertiesContainer.getProperty("sourcepath" );
 				if(StringUtil.isEmpty(sourcepath))
 				{
 					if(appdir != null)
@@ -80,13 +81,13 @@ public class JettyStart {
 				System.out.println("http://localhost:"+port+"/"+contextPath);
 				server.join();
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				log.error("JettyStart failed:",e);
 			} catch (SAXException e) {
-				e.printStackTrace();
+                log.error("JettyStart failed:",e);
 			} catch (IOException e) {
-				e.printStackTrace();
+                log.error("JettyStart failed:",e);
 			} catch (Exception e) {
-				e.printStackTrace();
+                log.error("JettyStart failed:",e);
 			}
 		}
 		

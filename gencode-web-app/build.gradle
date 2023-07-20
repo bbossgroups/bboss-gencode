@@ -56,9 +56,9 @@ dependencies {
          fileTree(dir: '../lib/eclipse', include: '*.jar'),
          fileTree(dir: '../lib/jdbc', include: '**/*.jar'),
     	)
-	runtimeOnly(
+	api (
 			[group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "${bboss_version}", transitive: true],
-    )
+	)
     	
      compileOnly (
           
@@ -96,8 +96,8 @@ task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
 	 
 }
 
-project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
-project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
+//project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
+//project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
 task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 	 
 	 from 'resources'   
@@ -106,19 +106,60 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 }
 
 
-task copyLibFiles(type: Copy ){ 
-	from fileTree(dir: '../lib', include: '**/*.jar')
+task copyJarFiles(type: Sync, dependsOn: 'jar') {
 	from configurations.api{
 		canBeResolved=true
-		exclude 'bboss-rt-**.jar'
 
-	} + configurations.compileOnly {
+	}+ configurations.compileOnly {
 		canBeResolved=true
 		exclude 'bboss-rt-**.jar'
 	}
+	from jar.outputs
+	exclude { details -> details.file.name.startsWith('bboss-rt') }
 	into 'build/dist/gencode/lib'
+
 }
-project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
+
+task copyRTJarFiles(type: Copy, dependsOn: 'copyJarFiles') {
+
+	from configurations.api{
+		canBeResolved=true
+
+	}
+	include { details -> details.file.name.startsWith('bboss-rt') }
+	into 'build/dist/gencode'
+	rename("bboss-rt-${bboss_version}.jar", "${project.name}-${bboss_version}.jar")
+}
+task copyToolFiles(type: Copy, dependsOn: 'copyRTJarFiles') {
+
+	from("runfiles")
+			{
+				expand(
+						bboss_version: "${bboss_version}",
+						project: "${project.name}"
+
+				)
+
+			}
+	filteringCharset = 'UTF-8'
+	into 'build/dist/gencode'
+
+
+
+}
+//task copyLibFiles(type: Copy ){
+////	from fileTree(dir: '../lib', include: '**/*.jar')
+//	from configurations.api{
+//		canBeResolved=true
+//		exclude 'bboss-rt-**.jar'
+//
+//	} + configurations.compileOnly {
+//		canBeResolved=true
+//		exclude 'bboss-rt-**.jar'
+//	}
+//	into 'build/dist/gencode/lib'
+//}
+//project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
 task copyResourceFiles(type: Copy ){ 
 	from fileTree(dir: 'resources')
 	into 'build/dist/gencode/resources'
@@ -128,26 +169,26 @@ task copyWebrootFiles(type: Copy ){
 	from fileTree(dir: 'WebRoot')
 	into 'build/dist/gencode/WebRoot'
 }
-task copyToolFiles(type: Copy ){
-
-	from ('runtime')
-	{
-		expand(bboss_version: "${PROJ_BBOSS_VERSION}",
-				project:"${project.name}",main_class:'org.frameworkset.gencode.web.service.JettyStart')
-		
-	} 
-    from (configurations.runtimeOnly  ){
-    	 
-		include 'bboss-rt-**.jar' 
-	 
-    }
-    //filteringCharset = 'UTF-8'            
-	into 'build/dist/gencode'
-	rename ("bboss-rt-${bboss_version}.jar", "${project.name}-boot-${bboss_version}.jar")
-	 
-}
+//task copyToolFiles(type: Copy ){
+//
+//	from ('runtime')
+//	{
+//		expand(bboss_version: "${PROJ_BBOSS_VERSION}",
+//				project:"${project.name}",main_class:'org.frameworkset.gencode.web.service.JettyStart')
+//
+//	}
+//    from (configurations.runtimeOnly  ){
+//
+//		include 'bboss-rt-**.jar'
+//
+//    }
+//    //filteringCharset = 'UTF-8'
+//	into 'build/dist/gencode'
+//	rename ("bboss-rt-${bboss_version}.jar", "${project.name}-boot-${bboss_version}.jar")
+//
+//}
  
-task releaseRuntimeZip(type: Zip,dependsOn:['clean','copyToolFiles','copyWebrootFiles','copyResourceFiles','copyLibFiles']) {
+task releaseRuntimeZip(type: Zip,dependsOn:['clean','copyToolFiles','copyWebrootFiles','copyResourceFiles']) {
     //appendix = 'wrapper'
 	archiveBaseName='gencode'
    from 'build/dist/gencode'

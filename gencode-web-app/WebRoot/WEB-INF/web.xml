@@ -78,7 +78,7 @@
 			linux:sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
 			windows:sqlitepath=d:/gencodedb|sourcepath=d:/sourcecode
 			 -->
-			<param-value>sqlitepath=D:/sqlite/gencodedb|sourcepath=e:/opt/sourcecode</param-value>
+			<param-value>sqlitepath=E:/workspace/bbossgroups/bboss-gencode/gencode-web-app/build/dist/gencode/gencodedb|sourcepath=e:/sourcecode</param-value>
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
