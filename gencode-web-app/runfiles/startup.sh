@@ -13,7 +13,7 @@ RT_JAVA_OPTS="`parse_jvm_options "\$JVM_OPTIONS_FILE"` \$RT_JAVA_OPTS"
 echo \$RT_JAVA_OPTS
 nohup java \$RT_JAVA_OPTS -jar ${project}-${bboss_version}.jar --conf=resources/application.properties >/dev/null 2>&1 &
 if [  "\$1" == "auto" ];then
-  tail /app/data/logs/${project}.log
+  tail ${project}.log
 else
-  tail -fn200 /app/data/logs/${project}.log
+  tail -fn200 ${project}.log
 fi
