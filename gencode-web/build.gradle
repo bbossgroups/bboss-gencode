@@ -18,6 +18,9 @@ dependencies {
 	api project(':gencode-core')
 
     api 'mysql:mysql-connector-java:8.0.33'
+    api(
+            [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],
+    )
      api (
              
             [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: true],

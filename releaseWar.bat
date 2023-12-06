@@ -1,0 +1,1 @@
+gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeWar
