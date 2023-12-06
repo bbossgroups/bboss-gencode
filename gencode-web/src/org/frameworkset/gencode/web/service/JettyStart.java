@@ -1,5 +1,6 @@
 package org.frameworkset.gencode.web.service;
 
+import com.frameworkset.util.SimpleStringUtil;
 import com.frameworkset.util.StringUtil;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -28,9 +29,13 @@ public class JettyStart {
 			try {
 				// 服务器的监听端口
                 PropertiesContainer propertiesContainer = PropertiesUtil.getPropertiesContainer();
+                
 				String port = propertiesContainer.getProperty("port", "8088");
 				if (port.equals(""))
 					port = "8088";
+
+                String webappbase = propertiesContainer.getProperty("webappbase",
+                        "./");
 				String contextPath = propertiesContainer.getProperty("context",
 						"gencode");
 				if (contextPath.equals(""))
@@ -64,11 +69,12 @@ public class JettyStart {
 				// 关联一个已经存在的上下文
 				WebAppContext context = new WebAppContext();
 				// 设置描述符位置
-				context.setDescriptor("./WebRoot/WEB-INF/web.xml");
+				context.setDescriptor(SimpleStringUtil.getPath(webappbase,"WebRoot/WEB-INF/web.xml"));
 				// 设置Web内容上下文路径
-				context.setResourceBase("./WebRoot");
+				context.setResourceBase(SimpleStringUtil.getPath(webappbase,"/WebRoot"));
+                context.setTempDirectory(new File(SimpleStringUtil.getPath(webappbase,"/temp")));
 				// 设置上下文路径
-				context.setContextPath("/" + contextPath);
+				context.setContextPath(SimpleStringUtil.getPath("/", contextPath));
 				context.setParentLoaderPriority(true);
 				ContextHandlerCollection contexts = new ContextHandlerCollection();
 				contexts.setHandlers(new Handler[] { context });

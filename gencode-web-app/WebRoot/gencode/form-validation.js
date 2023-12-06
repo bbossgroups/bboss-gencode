@@ -515,7 +515,9 @@ var FormValidation = function() {
 						+ tableName);
 		return false;
 	}
-
+    function reload(){
+        location.href = location.href;
+    }
 	var refreshdb = function(targetE, event) {
 		// $('#'+ahref).val("href","tableconfig.page?dbname="+$('#dbname').val()+"&tableName="+$('#tableName').val());
 		// event.preventDefault();
@@ -532,22 +534,25 @@ var FormValidation = function() {
 			success : function(tables) {
 				Metronic.stopPageLoading();
 				var hcontent = "";
-				for ( var table in tables) {
-					hcontent = hcontent + "<option value='" + tables[table]
-							+ "'>" + tables[table] + "</option>";
-				}
-				$("#" + targetE).html(hcontent);
-				toastr['success']("refresh tablemeta successed", "提示"); // Wire
-																		// up an
-																		// event
-																		// handler
-																		// to a
-																		// button
-																		// in
-																		// the
-																		// toast,
-																		// if it
-																		// exists
+                alert("数据源"+dbname+"表结构刷新完成。")
+                reload();
+                return;
+				// for ( var table in tables) {
+				// 	hcontent = hcontent + "<option value='" + tables[table]
+				// 			+ "'>" + tables[table] + "</option>";
+				// }
+				// $("#" + targetE).html(hcontent);
+				// toastr['success']("refresh tablemeta successed", "提示"); // Wire
+				// 														// up an
+				// 														// event
+				// 														// handler
+				// 														// to a
+				// 														// button
+				// 														// in
+				// 														// the
+				// 														// toast,
+				// 														// if it
+				// 														// exists
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert(thrownError);

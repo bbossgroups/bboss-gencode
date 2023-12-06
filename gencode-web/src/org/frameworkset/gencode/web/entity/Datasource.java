@@ -49,6 +49,13 @@ public class Datasource implements java.io.Serializable {
 	private long createDate;
 	private long updateDate;
 
+
+    /**
+     * 0 未启动
+     * 1 启动
+     */
+    private int status;
+
 	public Datasource() {
 	}
 
@@ -131,4 +138,12 @@ public class Datasource implements java.io.Serializable {
 	public void setUpdateDate(long updateDate) {
 		this.updateDate = updateDate;
 	}
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

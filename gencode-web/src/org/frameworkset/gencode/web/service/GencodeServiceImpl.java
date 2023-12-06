@@ -18,6 +18,7 @@ package org.frameworkset.gencode.web.service;
 
 import java.util.List;
 
+import com.frameworkset.common.poolman.DBUtil;
 import org.frameworkset.gencode.web.entity.Datasource;
 import org.frameworkset.gencode.web.entity.Gencode;
 import org.frameworkset.gencode.web.entity.GencodeCondition;
@@ -118,11 +119,25 @@ public class GencodeServiceImpl implements GencodeService {
 
 	}
 
-	public List<Datasource> queryListDatasources(
-
-	) throws DatasourceException {
+	public List<Datasource> queryListDatasources() throws DatasourceException {
 		try {
 			List<Datasource> beans = executor.queryListBean(Datasource.class, "queryListDatasource", null);
+            if(beans != null && beans.size() > 0) {
+                List<String> dses = DBUtil.getAllPoolNames();
+                if(dses != null && dses.size() > 0) {
+                    for (Datasource datasource : beans) {
+                        String name = datasource.getDbname();
+                        for (String p : dses) {
+                            if(name.equals(p)){
+                                datasource.setStatus(1);//数据源已加载
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
 			return beans;
 		} catch (Exception e) {
 			throw new DatasourceException("query Datasource failed:", e);

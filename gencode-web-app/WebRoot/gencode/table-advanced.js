@@ -310,6 +310,8 @@ var TableAdvanced = function () {
 
             oTable.fnDraw();
             initdeleteConfirm(oTable);
+            initStopConfirm(oTable);
+            initStartConfirm(oTable);
         }
 
         function editRow(oTable, nRow) {
@@ -322,8 +324,9 @@ var TableAdvanced = function () {
             jqTds[4].innerHTML = '<input type="text" id="dsdbpassword" name="dsdbpassword" class="form-control input-small" value="' + aData[4] + '">';
             jqTds[5].innerHTML = '<input type="text" id="dsvalidationQuery" name="dsvalidationQuery" class="form-control input-small" value="' + aData[5] + '">';
             jqTds[6].innerHTML = '<input type="text" id="dsdbdesc"  name="dsdbdesc"  class="form-control input-small" value="' + aData[6] + '">';
-            jqTds[7].innerHTML = '<a class="edit" href="">Save</a>';
-            jqTds[8].innerHTML = '<a class="cancel" href="">Cancel</a>';
+            jqTds[7].innerHTML = aData[7];
+            jqTds[8].innerHTML = '<a class="edit" href="">保存</a>' 
+                + '<a class="cancel" href="">取消</a>';
             FormValidation.initdsform();
         }
 
@@ -340,7 +343,8 @@ var TableAdvanced = function () {
             	  
             	  var error1 = $('.alert-danger', dsform);
             	  error1.hide();
-              }  
+              }
+            
             var jqInputs = $('input', nRow);
             var dbname = jqInputs[0].value;
             var dburl = jqInputs[1].value;
@@ -349,6 +353,8 @@ var TableAdvanced = function () {
             var dbpassword = jqInputs[4].value;
             var validationQuery = jqInputs[5].value;
             var dbdesc = jqInputs[6].value;
+            var aData = oTable.fnGetData(nRow);
+            var status = aData[7];
           
             $.ajax({
      		   type: "POST",
@@ -405,14 +411,32 @@ var TableAdvanced = function () {
             oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
             oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
             oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-            oTable.fnUpdate('<a class="edit" href="javascript:;">Edit</a>', nRow, 7, false);
-            oTable.fnUpdate('<a class="delete" href="javascript:;" '+
-            		'data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left"   data-singleton="true" '+
-					'data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" '+
-					'data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger" '+
-						'dsaction="delete">Delete</a>', nRow, 8, false);
+           
+            oTable.fnUpdate(status, nRow, 7, false);
+            let opHtml = `<a class="edit" href="javascript:;">
+										编辑 </a>
+									
+									 
+										<a class="delete" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left"   data-singleton="true"
+					data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+										dsaction="delete">
+										删除 </a>
+								 
+                                        <a class="start" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要启动数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="start">
+                                            启动 </a>
+
+                                        <a class="stop" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要停止数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="stop">
+                                            停止 </a>`;
+            
+            oTable.fnUpdate(opHtml, nRow, 8, false);
             oTable.fnDraw();
             initdeleteConfirm(oTable);
+            initStopConfirm(oTable);
+            initStartConfirm(oTable);
         }
 
         function cancelEditRow(oTable, nRow) {
@@ -424,13 +448,40 @@ var TableAdvanced = function () {
             oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
             oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
             oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
+            // oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
+            var aData = oTable.fnGetData(nRow);
+            var status = aData[7];
+            oTable.fnUpdate(status, nRow, 7, false); 
+            let opHtml = `<a class="edit" href="javascript:;">
+										编辑 </a>
+									
+									 
+										<a class="delete" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left"   data-singleton="true"
+					data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+										dsaction="delete">
+										删除 </a>
+								 
+                                        <a class="start" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要启动数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="start">
+                                            启动 </a>
+
+                                        <a class="stop" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要停止数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="stop">
+                                            停止 </a>`;
+
+            oTable.fnUpdate(opHtml, nRow, 8, false);
             oTable.fnDraw();
+
+            initdeleteConfirm(oTable);
+            initStopConfirm(oTable);
+            initStartConfirm(oTable);
         }
         
         function initdeleteConfirm(oTable)
         {
-        	$('[data-toggle=confirmation]').confirmation();
+        	$('[dsaction=delete]').confirmation();
         	$('[dsaction=delete]').on('confirmed.bs.confirmation', function (e) {
 
                 e.preventDefault();
@@ -462,8 +513,10 @@ var TableAdvanced = function () {
              				 
              				var title = '删除数据源';
              				if (msg == 'success') {
-             					title = '删除数据源成功！';
-             					 
+             					title = '删除数据源'+dbname+'成功！';
+                                alert(title)
+                                reload();
+                                return;
              				} else
              					title = responseText;
 
@@ -489,6 +542,140 @@ var TableAdvanced = function () {
           		  });
                 
             
+            });
+        }
+        function reload(){
+            location.href = location.href;
+        }
+        function initStartConfirm(oTable)
+        {
+            $('[dsaction=start]').confirmation();
+            $('[dsaction=start]').on('confirmed.bs.confirmation', function (e) {
+
+                e.preventDefault();
+
+
+
+                var nRow = $(this).parents('tr')[0];
+                var jqInputs = $('td', nRow);
+                var dbname = jqInputs[0].innerText;
+                $.ajax({
+                    type: "POST",
+                    url : "startDatasource.page",
+                    data :{"dbname":dbname },
+                    dataType : 'json',
+                    async:false,
+                    beforeSend: function(XMLHttpRequest){
+                        Metronic.startPageLoading();
+                    },
+
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        Metronic.stopPageLoading();
+                    },
+
+                    success : function(responseText, statusText, xhr, $form) {
+                        Metronic.stopPageLoading();
+
+                        var msg = responseText;
+
+                        var title = '启动数据源';
+                        if (msg == 'success') {
+                            title = '启动数据源'+dbname+'成功！';
+                            alert(title)
+                            reload();
+                            return;
+                        } else {
+                            title = responseText;
+                        }
+
+                        toastr.options = {
+                            "closeButton" : true,
+                            "debug" : false,
+                            "positionClass" : "toast-top-center",
+                            "onclick" : null,
+                            "showDuration" : "0",
+                            "hideDuration" : "0",
+                            "timeOut" : "10000",
+                            "extendedTimeOut" : "0",
+                            "showEasing" : "swing",
+                            "hideEasing" : "linear",
+                            "showMethod" : "fadeIn",
+                            "hideMethod" : "fadeOut"
+                        };
+
+                        toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+                        ComponentsDropdowns.loadds(event,"dbname");
+                    }
+
+                });
+
+
+            });
+        }
+
+        function initStopConfirm(oTable)
+        {
+            $('[dsaction=stop]').confirmation();
+            $('[dsaction=stop]').on('confirmed.bs.confirmation', function (e) {
+
+                e.preventDefault();
+
+
+
+                var nRow = $(this).parents('tr')[0];
+                var jqInputs = $('td', nRow);
+                var dbname = jqInputs[0].innerText;
+                $.ajax({
+                    type: "POST",
+                    url : "stopDatasource.page",
+                    data :{"dbname":dbname },
+                    dataType : 'json',
+                    async:false,
+                    beforeSend: function(XMLHttpRequest){
+                        Metronic.startPageLoading();
+                    },
+
+                    error : function(xhr, ajaxOptions, thrownError) {
+                        Metronic.stopPageLoading(); 
+                    },
+
+                    success : function(responseText, statusText, xhr, $form) {
+                        Metronic.stopPageLoading();
+
+                        var msg = responseText;
+
+                        var title = '停止数据源';
+                        if (msg == 'success') {
+                            title = '停止数据源'+dbname+'成功！';
+                            alert(title)
+                            reload();
+                            return;
+                        } else {
+                            title = responseText;
+                        }
+
+                        toastr.options = {
+                            "closeButton" : true,
+                            "debug" : false,
+                            "positionClass" : "toast-top-center",
+                            "onclick" : null,
+                            "showDuration" : "0",
+                            "hideDuration" : "0",
+                            "timeOut" : "10000",
+                            "extendedTimeOut" : "0",
+                            "showEasing" : "swing",
+                            "hideEasing" : "linear",
+                            "showMethod" : "fadeIn",
+                            "hideMethod" : "fadeOut"
+                        };
+
+                        toastr['success'](title, ""); // Wire up an event handler to a button in the toast, if it exists
+                        ComponentsDropdowns.loadds(event,"dbname");
+                    }
+
+                });
+
+
             });
         }
 
@@ -563,6 +750,8 @@ var TableAdvanced = function () {
             nNew = true;
         });
         initdeleteConfirm(oTable);
+        initStopConfirm(oTable);
+        initStartConfirm(oTable);
 /**
         table.on('click', '.delete', function (e) {
             e.preventDefault();
@@ -648,7 +837,7 @@ var TableAdvanced = function () {
                 restoreRow(oTable, nEditing);
                 editRow(oTable, nRow);
                 nEditing = nRow;
-            } else if (nEditing == nRow && this.innerHTML == "Save") {
+            } else if (nEditing == nRow && this.innerHTML.includes("保存") ) { 
                 /* Editing this row and want to save it */
             	 
                 saveRow(oTable, nEditing);

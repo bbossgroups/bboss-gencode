@@ -89,7 +89,7 @@
 <div class="portlet  ">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-edit"></i>数据源管理
+								<i class="fa fa-edit"></i>数据源管理--需手动启动数据源后才能正常使用数据源
 							</div>
 							<div class="tools">
 								<a href="javascript:;" class="collapse">
@@ -167,12 +167,13 @@
 									<th>
 										 描述
 									</th>
-									<th >
-										 编辑
+                                    <th>
+                                        状态
+                                    </th>
+                                    <th >
+										 操作
 									</th>
-									<th >
-										 删除
-									</th>
+									 
 								</tr>
 								</thead>
 								<tbody>
@@ -200,16 +201,37 @@
 									<td class="center">
 										 <pg:cell colName="dbdesc"/>
 									</td>
+                                    <td class="center">
+                                        <pg:equal colName="status" value="1" evalbody="true" >
+                                            <pg:yes>
+                                                启动
+                                            </pg:yes>
+                                            <pg:no>
+                                                未启动
+                                            </pg:no>
+                                        </pg:equal>
+                                        
+                                    </td>
 									<td>
 										<a class="edit" href="javascript:;">
-										Edit </a>
-									</td>
-									<td>
+										编辑 </a>
+									
+									 
 										<a class="delete" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要删除吗 ?"  data-placement="left"   data-singleton="true"
 					data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
 										dsaction="delete">
-										Delete </a>
-									</td>
+										删除 </a>
+								 
+                                        <a class="start" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要启动数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="start">
+                                            启动 </a>
+
+                                        <a class="stop" href="javascript:;"  data-toggle="confirmation" data-original-title="确定要停止数据源吗 ?"  data-placement="left"   data-singleton="true"
+                                           data-btn-ok-label="确定" data-btn-ok-icon="icon-like" data-btn-ok-class="btn-xs btn-success" data-btn-cancel-label="取消" data-btn-cancel-icon="icon-close" data-btn-cancel-class="btn-xs btn-danger"
+                                           dsaction="stop">
+                                            停止 </a>
+                                    </td>
 								</tr>
 										 
 									</pg:list>	

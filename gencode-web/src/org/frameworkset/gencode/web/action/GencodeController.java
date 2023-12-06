@@ -40,7 +40,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				return "数据源名称为空，请设置要添加的数据源名称!";
 			if("gencode".equals(datasource.getDbname()))
 			{
-				return ("gencode为系统预留数据源名称，从修改为其他数据源名称!");
+				return ("gencode为系统内置数据源，请修改为其他数据源名称!");
 			}
 			Datasource olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
 			if (olddatasource == null) {
@@ -64,17 +64,81 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	}
 
-	public @ResponseBody String deleteDatasource(String dbname) {
+
+    public @ResponseBody String deleteDatasource(String dbname) {
+        try {
+            if(StringUtil.isEmpty(dbname))
+                return "数据源名称为空，请选择要删除的数据源!";
+            if("gencode".equals(dbname))
+            {
+                return ("gencode为系统内置数据源，不能删除!");
+            }
+            gencodeService.deleteDatasource(dbname);
+            DBUtil.stopPool(dbname,true);
+            return "success";
+        } catch (DatasourceException e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+        catch (RuntimeException e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+        catch (Throwable e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+
+    }
+
+
+    public @ResponseBody String stopDatasource(String dbname) {
+        try {
+            if(StringUtil.isEmpty(dbname))
+                return "数据源名称为空，请选择要停止的数据源!";
+            if("gencode".equals(dbname))
+            {
+                return ("gencode为系统内置数据源，不能停止!");
+            }
+            DBUtil.stopPool(dbname,true);
+            return "success";
+        } catch (DatasourceException e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+        catch (RuntimeException e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+        catch (Throwable e) {
+            log.error("delete Datasource failed:", e);
+            return StringUtil.formatBRException(e);
+        }
+
+    }
+
+
+
+    public @ResponseBody String startDatasource(String dbname) {
 		try {
 			if(StringUtil.isEmpty(dbname))
-				return "数据源名称为空，请选择要删除的数据源!";
+				return "数据源名称为空，请选择要启动的数据源!";
 			if("gencode".equals(dbname))
 			{
-				return ("gencode为系统预留数据源名称，不能删除!");
+				return ("gencode为系统内置数据源，无需启动!");
 			}
-			gencodeService.deleteDatasource(dbname);
-			DBUtil.stopPool(dbname);
-			return "success";
+            Datasource datasource = gencodeService.getDatasource(dbname);
+            if(datasource == null){
+                return "数据源"+dbname+"不存在，请重新选择要启动的数据源!";
+            }
+			boolean startResult = this.initDatasource(datasource);
+            if(startResult ) {
+                DBUtil.getTableMetaDatas(dbname, 100);
+                return "success";
+            }
+            else{
+                return "数据源"+dbname+"已经启动，忽略启动处理!";
+            }
 		} catch (DatasourceException e) {
 			log.error("delete Datasource failed:", e);
 			return StringUtil.formatBRException(e);
@@ -217,8 +281,9 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	public @ResponseBody List<String> loadtables(String dbname) {
 		if(StringUtil.isEmpty(dbname))
 			return null;
-		
-		initDatasource(gencodeService.getDatasource(dbname));
+		if(!DBUtil.exist(dbname)) {
+            initDatasource(gencodeService.getDatasource(dbname));
+        }
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
@@ -232,7 +297,12 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	public @ResponseBody List<String> refreshtables(String dbname) {
 		if(StringUtil.isEmpty(dbname))
 			return null;
-		initDatasource(gencodeService.getDatasource(dbname));
+        if(!DBUtil.exist(dbname)){
+            log.warn("数据源{}未启动,将启动该数据源.",dbname);
+            initDatasource(gencodeService.getDatasource(dbname));
+        }
+            
+//		
 		DBUtil.refreshDatabaseMetaData(dbname,100);
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
 		List<String> tables = new ArrayList<String>();
@@ -244,18 +314,26 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		return tables;
 	}
 
-	private void initDatasource(Datasource ds) {
-		DBUtil.startNoPool(ds.getDbname(), ds.getDbdriver(), ds.getDburl(), ds.getDbuser(), ds.getDbpassword(),
+	private boolean initDatasource(Datasource ds) {
+		return DBUtil.startPool(ds.getDbname(), ds.getDbdriver(), ds.getDburl(), ds.getDbuser(), ds.getDbpassword(),
 				ds.getValidationQuery());
 	}
 
 	public String selecttable(ModelMap model, GencodeCondition conditions) {
 		List<Datasource> ds = gencodeService.queryListDatasources();
+        
+        
 		model.addAttribute("dbs", ds);
 		Set<TableMetaData> tableMetas = null;
 		if (ds != null && ds.size() > 0) {
-			initDatasource(ds.get(0));
-			tableMetas = DBUtil.getTableMetaDatas(ds.get(0).getDbname(),100);
+            String dbname = ds.get(0).getDbname();
+            if(DBUtil.exist(dbname)) {
+//			initDatasource(ds.get(0));
+                tableMetas = DBUtil.getTableMetaDatas(ds.get(0).getDbname(), 100);
+            }
+            else{
+                log.warn("数据源{}未启动！",dbname);
+            }
 		}
 
 		List<String> tables = new ArrayList<String>();
