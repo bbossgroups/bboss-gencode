@@ -155,8 +155,40 @@
 					return ;
 				}
 				
-				
-				var str ="<table cellspacing='1' cellpadding='0' border='0' bordercolor='#EEEEEE' width=100% class='thin'>";
+				var dataConditionsTable = document.getElementById("dataConditions")
+                if(condition == 1){
+                    var str = "";
+                    //处理表的字段
+                    str += "<tr><td colspan='2' height='30' valign='middle' align='center' width='255'>表字段:&nbsp;&nbsp;&nbsp;";
+
+                    str += "<select name=advancedField" + num + " id=select" + num +"  onChange='getFields(this,"+ num +",document.getElementById(\"strOrDate"+ num +"\"))'>";
+                    str += "<option value=''>--请选择表字段--" ;
+
+                    <%
+                            for(int i=0; i<columnNameAndTypeList.size(); i++)
+                            {
+                                String columnNameAndType = (String) columnNameAndTypeList.get(i);
+                    %>
+                    str += "<option value='<%=columnNameAndType%>'><%=columnNameAndType.substring(0,columnNameAndType.indexOf("|")) %>";
+                    <%
+                            }
+                    %>
+                    str +="</select></td>";
+                    str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                    str +="<div id='strOrDate"+ num +"'>请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue"+ num +"'/></div></td>";
+                    str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
+                    str += "<select name=logical"+ num+ "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
+                    str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
+                    str += "<input name='reduce' type='button' class='input' value='删除' onClick='changeFlag(0,0)'>";
+                    str += "</td></tr>";
+                    dataConditionsTable.insertAdjacentHTML("beforeend",str);
+                    
+                }
+                else if(condition == 0){//删除当前行
+                    event.target.parentElement.parentElement.remove();
+                }
+                /**
+				 var str ="<table cellspacing='1' cellpadding='0' border='0' bordercolor='#EEEEEE' width=100% class='thin'>";
 					for(var i=1; i<=num; i++)
 					{
 					
@@ -280,6 +312,8 @@
 							
 								str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
 									str += "<select name=logical"+ i+ "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
+                                str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
+                                str += "<input name='reduce' type='button' class='input' value='减少' onClick='changeFlag(0,0)'>";
 								str += "</td></tr>";
 							
 							}
@@ -297,7 +331,7 @@
 				rememberInputLogic();
 				div1.innerHTML = str;
 				selectField(condition);
-				selectLogic();
+				selectLogic();*/
 				
 			}
 			
@@ -542,7 +576,7 @@
 					<br/>
 					<div id="div1">
 						<table cellspacing="1" cellpadding="0" border="0"
-						bordercolor="#EEEEEE" width=98% class="thin">
+						bordercolor="#EEEEEE" width=98% class="thin" id="dataConditions">
 							<tr>
 								<td colspan="2" height='30' valign='middle' align="center" width="255">
 									表字段：&nbsp;&nbsp;&nbsp;
@@ -567,7 +601,7 @@
 								</td>
 								<td width="16%" height='30' colspan="1" align="center" valign='middle'>
 									<input name="add" type="button" class="input" value="增加" onClick="changeFlag(1,1)">&nbsp;&nbsp;
-									<input name="reduce" type="button" class="input" value="减少" onClick="changeFlag(0,0)">
+									<input name="reduce" type="button" class="input" value="删除" onClick="changeFlag(0,0)">
 							  </td>
 							</tr>
 						</table>
