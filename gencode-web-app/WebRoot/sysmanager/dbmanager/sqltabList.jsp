@@ -39,7 +39,11 @@
  	sql = sql.trim();
  	
 	out.print(sql);
-		
+    
+    String sql_l = sql.toLowerCase();
+    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ");
+    
+    
 	boolean flag = false;	
 
 	String errorMessage ="";
@@ -47,39 +51,38 @@
 	//存取列名
 	List columnList = null ;
 	DBUtil db = new DBUtil();
+    
 	try
 	{
 		//执行sql语句
-		
-		db.executeSelect(dsource,sql,0,1);
-		ResultSetMetaData resultMeta = db.getMeta();
-		
-		if(resultMeta != null) 
-		{
-	        columnList = new ArrayList();
-			int size =resultMeta.getColumnCount();
-			for(int i=1; i<=size; i++)
-			{
-				String columnName = resultMeta.getColumnName(i);
-				columnList.add(columnName);
-			}
-		}
-		flag = true;
+		if(isSelect){
+            db.executeSelect(dsource,sql,0,1);
+            ResultSetMetaData resultMeta = db.getMeta();
+            
+            if(resultMeta != null) 
+            {
+                columnList = new ArrayList();
+                int size =resultMeta.getColumnCount();
+                for(int i=1; i<=size; i++)
+                {
+                    String columnName = resultMeta.getColumnName(i);
+                    columnList.add(columnName);
+                }
+            }
+            flag = true;
+        }
+        else {
+            db.executeUpdate(dsource,sql);
+			flag = true;
+        }
 	} catch(Exception e)
 	{
-		try
-		{
-			db.executeUpdate(dsource,sql);
-			flag = true;
-		}
-		catch(Exception ex)
-		{
+       
+		 
 			flag = false;
 			errorMessage = e.getMessage();
-			errorMessage = SimpleStringUtil.exceptionToString(e) +"<br>"+SimpleStringUtil.exceptionToString(ex);
-			e.printStackTrace();
-			ex.printStackTrace();
-		}
+			errorMessage = SimpleStringUtil.exceptionToString(e) ;
+            e.printStackTrace();
 		
 		
 		
@@ -155,13 +158,13 @@
 			</pg:pager>	
   		<%
   			}
-  			else if(flag && columnList == null)
+  			else if(flag )
   			{
   				out.print("<br/><br/>SQL执行成功!!!");
   			}
   			else
   			{
-  				out.print("<br/><br/>请检测SQL语句是否有问题,操作失败---> " + errorMessage);
+  				out.print("<br/><br/>请检测SQL语句是否有问题,操作失败---> <textarea rows=\"20\" cols=\"400\">" + errorMessage+"</textarea>");
   			}
   		 %>
 	</body>

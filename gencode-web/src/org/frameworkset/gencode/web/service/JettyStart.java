@@ -40,6 +40,8 @@ public class JettyStart {
 						"gencode");
 				if (contextPath.equals(""))
 					contextPath = "gencode";
+                log.info("contextPath:"+contextPath);
+                log.info("port:"+port);
 				String sqlitepath = propertiesContainer.getProperty("sqlitepath" );
 				String sourcepath = propertiesContainer.getProperty("sourcepath" );
 				if(StringUtil.isEmpty(sourcepath))
@@ -62,17 +64,24 @@ public class JettyStart {
 					org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = sqlitepath;
 				}
 			
-				log.info("sqlitepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH);
-				log.info("default sourcepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH);
+				log.info("webappbase:"+webappbase);
+                log.info("sqlitepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH);
+				log.info("sourcepath:"+org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH);
 				int p = Integer.parseInt(port);
 				Server server = new Server(p);
 				// 关联一个已经存在的上下文
 				WebAppContext context = new WebAppContext();
 				// 设置描述符位置
+                String webXml = SimpleStringUtil.getPath(webappbase,"WebRoot/WEB-INF/web.xml");
+                log.info("webXml:"+webXml);
 				context.setDescriptor(SimpleStringUtil.getPath(webappbase,"WebRoot/WEB-INF/web.xml"));
 				// 设置Web内容上下文路径
-				context.setResourceBase(SimpleStringUtil.getPath(webappbase,"/WebRoot"));
-                context.setTempDirectory(new File(SimpleStringUtil.getPath(webappbase,"/temp")));
+                String webRoot = SimpleStringUtil.getPath(webappbase,"/WebRoot");
+                log.info("webRoot:"+webRoot);
+				context.setResourceBase(webRoot);
+                String tempDirectory = SimpleStringUtil.getPath(webappbase,"/temp");
+                log.info("tempDirectory:"+tempDirectory);
+                context.setTempDirectory(new File(tempDirectory));
 				// 设置上下文路径
 				context.setContextPath(SimpleStringUtil.getPath("/", contextPath));
 				context.setParentLoaderPriority(true);

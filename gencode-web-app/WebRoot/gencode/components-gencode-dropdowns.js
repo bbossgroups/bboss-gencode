@@ -116,7 +116,7 @@ var ComponentsDropdowns = function () {
                         allowClear: true
                     });
                    
-	                ComponentsDropdowns.loadtablesofdbname(dbname)
+	                // ComponentsDropdowns.loadtablesofdbname(dbname)
 	                
 	            },
 	            error: function (xhr, ajaxOptions, thrownError) {
