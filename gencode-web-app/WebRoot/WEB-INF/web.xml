@@ -73,12 +73,16 @@
 		</init-param>
 		<init-param>
 			<param-name>iocLifeCycleEventListenerParams</param-name>
-			<!-- 指定sqlite数据库文件路径参数sqlitepath和源代码存放目录路径参数sourcepath
+			<!-- 
+			指定sqlite数据库文件路径参数sqlitepath和源代码存放目录路径参数sourcepath,
+			优先从application.properties文件中读取sourcepath和sqlitepath，如果application.properties没有配置，才会读取web.xml中的配置
 			sourcepath：如果没有设置sourcepath参数，那么需要在代码配置界面上或者代码生成组件上指定源码存放路径
 			linux:sqlitepath=/opt/gencodedb|sourcepath=/opt/sourcecode
 			windows:sqlitepath=d:/gencodedb|sourcepath=d:/sourcecode
-			 -->
+			
 			<param-value>sqlitepath=C:/gencode/gencodedb|sourcepath=C:/gencode/sourcecode</param-value>
+			 -->
+			<param-value>sqlitepath=/app/data/gencode/gencodedb|sourcepath=/app/data/gencode/sourcecode</param-value>
 		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>

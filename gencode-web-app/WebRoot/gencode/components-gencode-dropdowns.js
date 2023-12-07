@@ -15,16 +15,25 @@ var ComponentsDropdowns = function () {
                 url: "loadtables.page",
                 data:{dbname:dbname},
                 dataType: "json",
-                success: function (tables) {
+                success: function (response) {
+                     
+                     
                 	 Metronic.stopPageLoading();
+                    var result = response.result;
                 	 var hcontent = "";
-                	 var t = '';
-                	 for(var table in tables)
-                	{
-                		 hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
-                		 if(t == '')
-                			 t = tables[table];
-                	}
+                     if(result == 'success'){
+                         var tables = response.tables;
+                         var t = '';
+                         for(var table in tables)
+                        {
+                             hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
+                             if(t == '')
+                                 t = tables[table];
+                        }
+                     }
+                     else{
+                         alert(result);
+                     }
                 	var e = $("#"+targetE); 
                     e.html(hcontent);
                     e.select2({
@@ -51,13 +60,20 @@ var ComponentsDropdowns = function () {
                 url: "loadtables.page",
                 data:{dbname:dbname},
                 dataType: "json",
-                success: function (tables) {
-                	 
-                	 var hcontent = "";
-                	 for(var table in tables)
-                	{
-                		 hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
-                	}
+                success: function (response) {
+                    var result = response.result;
+                    var hcontent = "";
+                    if(result == 'success'){
+                        var tables = response.tables;
+                        for(var table in tables)
+                        {
+                            hcontent = hcontent+"<option value='"+tables[table]+"'>"+tables[table]+"</option>";
+                        }
+                    }
+                    else{
+                        alert(result);
+                    }
+                	
                     $("#tableName").html(hcontent);
                     $("#tableName").select2({
                         placeholder: "Select",

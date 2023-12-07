@@ -278,30 +278,60 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 
 	}
 
-	public @ResponseBody List<String> loadtables(String dbname) {
-		if(StringUtil.isEmpty(dbname))
-			return null;
-		if(!DBUtil.exist(dbname)) {
-            initDatasource(gencodeService.getDatasource(dbname));
+	public @ResponseBody Map<String,Object> loadtables(String dbname) {
+        Map<String,Object> ret = new LinkedHashMap<>();
+		if(StringUtil.isEmpty(dbname)) {
+            ret.put("result","未指定数据源，获取表信息失败！");
+            return ret;
         }
-		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
+		if(!DBUtil.exist(dbname)) {
+            ret.put("result","数据源"+dbname+"未启动，请数据源管理处启动后再选择表！");            
+            return ret;
+//            initDatasource(gencodeService.getDatasource(dbname));
+        }
+        ret.put("result","success");
+        Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
 		List<String> tables = new ArrayList<String>();
 		if (tableMetas != null) {
 			for (TableMetaData meta : tableMetas) {
 				tables.add(meta.getTableName());
 			}
 		}
-		return tables;
+        ret.put("tables",tables);
+		return ret;
 	}
 
-	public @ResponseBody List<String> refreshtables(String dbname) {
-		if(StringUtil.isEmpty(dbname))
-			return null;
+    public @ResponseBody Map<String,Object> exitDs(String dbname){
+       
+        Map<String,Object> result = new LinkedHashMap<>();
+        if(StringUtil.isEmpty(dbname)) {
+            result.put("result","未指定数据源，请选择数据源后再进行判断.");
+            return result;
+        }
+        boolean exist = DBUtil.exist(dbname);
+        if(exist) {
+            result.put("result", "success");
+            result.put("exist", exist);
+        }
+        else{
+            result.put("result","数据源"+dbname+"不存在或者未启动，请配置或者启动数据源"+dbname+".");
+        }
+        return result;
+    }
+    
+	public @ResponseBody Map<String,Object> refreshtables(String dbname) {
+        Map<String,Object> result = new LinkedHashMap<>();
+		if(StringUtil.isEmpty(dbname)) {
+            result.put("result","未指定数据源，请选择数据源后再刷新表结构.");
+            return result;
+        }
         if(!DBUtil.exist(dbname)){
             log.warn("数据源{}未启动,将启动该数据源.",dbname);
-            initDatasource(gencodeService.getDatasource(dbname));
+            result.put("result","数据源"+dbname+"未启动,请启动数据源后再刷新表结构.");
+            return result;
+//            initDatasource(gencodeService.getDatasource(dbname));
         }
-            
+        result.put("result","success");
 //		
 		DBUtil.refreshDatabaseMetaData(dbname,100);
 		Set<TableMetaData> tableMetas = DBUtil.getTableMetaDatas(dbname,100);
@@ -311,7 +341,8 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				tables.add(meta.getTableName());
 			}
 		}
-		return tables;
+        result.put("tables",tables);
+		return result;
 	}
 
 	private boolean initDatasource(Datasource ds) {

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import org.frameworkset.spi.BaseApplicationContext;
+import org.frameworkset.spi.assemble.PropertiesContainer;
+import org.frameworkset.spi.assemble.PropertiesUtil;
 import org.frameworkset.spi.event.IocLifeCycleEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,41 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 		// TODO Auto-generated method stub
 
 	}
+    
+    private void initPath(){
+        PropertiesContainer propertiesContainer = PropertiesUtil.getPropertiesContainer();
+        String sqlitepathConfig = propertiesContainer.getProperty("sqlitepath" );
+        String sourcepathConfig = propertiesContainer.getProperty("sourcepath" );
+        if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH))
+        {
+            if(SimpleStringUtil.isEmpty(sqlitepathConfig)) {
+                sqlitepath = webxmlSqlitepath;
+            }
+            else{
+                sqlitepath = sqlitepathConfig;
+            }
+            log.info("sqlitepath:"+sqlitepath);
+            org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = sqlitepath;
+        }
+        else
+            sqlitepath = org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH;
+
+        if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
+        {
+           if(SimpleStringUtil.isEmpty(sourcepathConfig)) {
+               sourcepath = webxmlSourcepath;
+           }
+           else{
+               sourcepath = sourcepathConfig;
+           }
+            log.info("default sourcepath:"+sourcepath);
+            org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH = sourcepath;
+
+        }
+        else
+            sourcepath = org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ;        
+        
+    }
 	public static void initConfgDB(String dbpath)
 	{
 		SQLUtil.startPool("gencode","org.sqlite.JDBC","jdbc:sqlite://"+dbpath,"root","root",
@@ -90,44 +127,24 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 	}
 	@Override
 	public void beforestart() {
-		File dbpath = new File(sqlitepath);
+		
 		try {
-			
+            initPath();
+            File dbpath = new File(sqlitepath);
 			initConfgDB(dbpath.getCanonicalPath());
 			log.info("初始化数据库完毕："+dbpath.getCanonicalPath());
 		} catch (IOException e) {
-			log.error("初始化数据库失败：！",e);
+			log.error("初始化数据库失败："+sqlitepath,e);
 		}
 
 	}
 
+    private String webxmlSqlitepath;
+    private String webxmlSourcepath;
 	@Override
-	public void init(Map<String, String> arg0) {
-
-		if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH))
-		{
-			sqlitepath = arg0.get("sqlitepath");
-			log.info("sqlitepath:"+sqlitepath);
-			 org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH = sqlitepath;
-		}
-		else
-			sqlitepath = org.frameworkset.gencode.core.GencodeServiceImpl.SQLITEPATH;
-		
-		if(SimpleStringUtil.isEmpty(org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ))
-		{
-			sourcepath = arg0.get("sourcepath");
-			log.info("default sourcepath:"+sourcepath);
-			org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH = sourcepath;
-			
-		}
-		else
-			sourcepath = org.frameworkset.gencode.core.GencodeServiceImpl.DEFAULT_SOURCEPATH ;
-		
-		 
-		 
-		
-		
-
+	public void init(Map<String, String> config) {
+        webxmlSqlitepath = config.get("sqlitepath");
+        webxmlSourcepath = config.get("sourcepath");
 	}
 
 	public String getSourcepath() {

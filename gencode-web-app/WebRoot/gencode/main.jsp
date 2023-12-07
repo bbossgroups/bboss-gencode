@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="../templates/admin/index.html" target="_admin">
+			<a href="index.page" target="_admin">
 			<img src="../assets/admin/layout/img/logo-invert.png" alt="logo" class="logo-default"/>
 			</a>
 			

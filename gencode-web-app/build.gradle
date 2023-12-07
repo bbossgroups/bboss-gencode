@@ -1,4 +1,4 @@
-
+def profile = System.getProperty("profile") ?:  "dev"
 /**
 apply plugin: 'docker'
 //configuration
@@ -120,6 +120,26 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
 	 
 	 from 'resources'   
 	into 'build/dist/WebRoot/WEB-INF/classes'
+    if (profile.equals("product")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/product'))
+
+                into 'build/dist/WebRoot/WEB-INF/classes'
+            }
+        }
+    }
+    else  if (profile.equals("test")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/test'))
+
+                into 'build/dist/WebRoot/WEB-INF/classes'
+            }
+        }
+    }
 	 
 }
 
@@ -181,11 +201,32 @@ task copyToolFiles(type: Copy, dependsOn: 'copyRTJarFiles') {
 task copyResourceFiles(type: Copy ){ 
 	from fileTree(dir: 'resources')
 	into 'build/dist/gencode/resources'
+    if (profile.equals("product")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/product'))
+
+                into 'build/dist/gencode/resources'
+            }
+        }
+    }
+    else  if (profile.equals("test")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/test'))
+
+                into 'build/dist/gencode/resources'
+            }
+        }
+    }
 }
 
 task copyWebrootFiles(type: Copy ){ 
 	from fileTree(dir: 'WebRoot')
 	into 'build/dist/gencode/WebRoot'
+    
 }
 //task copyToolFiles(type: Copy ){
 //

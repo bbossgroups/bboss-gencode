@@ -505,14 +505,47 @@ var FormValidation = function() {
 		// $('#'+ahref).val("href","tableconfig.page?dbname="+$('#dbname').val()+"&tableName="+$('#tableName').val());
 		event.preventDefault();
 		// $('#'+ahref).click()
+        let dbname = $('#dbname').val();
 		let tableName = $('#tableName').val();
 		let tableNameCustom = $('#tableNameCustom').val();
 		if(tableNameCustom.trim() != '' )
 			tableName = tableNameCustom.trim();
-
-		$('#containerid').load(
-				'tableconfig.page?dbname=' + $('#dbname').val() + '&tableName='
-						+ tableName);
+      
+        if(tableName == null || tableName == '' || dbname == null || dbname == '' ){
+         
+            alert("请选择配置的表和数据源名称")
+            
+            return ;
+        }
+        $.ajax({
+            type : "POST",
+            cache : false,
+            url : "exitDs.page",
+            data : {
+                dbname : dbname
+            },
+            dataType : "json",
+            success : function(response) {
+                Metronic.stopPageLoading();
+                var result = response.result;
+                if(result == 'success') {
+                    $('#containerid').load(
+                        'tableconfig.page?dbname=' + dbname + '&tableName='
+                        + tableName);
+                }
+                else{
+                    alert(result);
+                }
+                return;
+               
+            },
+            error : function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError);
+                Metronic.stopPageLoading();
+            },
+            async : false
+        });
+		
 		return false;
 	}
     function reload(){
@@ -531,12 +564,19 @@ var FormValidation = function() {
 				dbname : dbname
 			},
 			dataType : "json",
-			success : function(tables) {
+			success : function(response) {
 				Metronic.stopPageLoading();
-				var hcontent = "";
-                alert("数据源"+dbname+"表结构刷新完成。")
-                reload();
+				
+                var result = response.result;
+                if(result == 'success') {
+                    alert("数据源" + dbname + "表结构刷新完成。")
+                    reload();
+                }
+                else{
+                    alert(result);
+                }
                 return;
+                // var hcontent = "";
 				// for ( var table in tables) {
 				// 	hcontent = hcontent + "<option value='" + tables[table]
 				// 			+ "'>" + tables[table] + "</option>";

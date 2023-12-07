@@ -182,7 +182,7 @@
 							{
 								if(i < num)
 								{
-									var selectObject  = document.getElementById("advancedField" +i);
+									var selectObject  = document.getElementsByName("advancedField" +i)[0];
 									var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
 									var arr = dateAndType.split("|");
 									
@@ -211,7 +211,7 @@
 										{
 											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
 												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementById('advancedvalue'+i).value +"'/>";
+													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
 											str += "</div></td>";
 										}
 										else
@@ -231,7 +231,7 @@
 							}
 							else if(condition == 0)
 							{
-									var selectObject  = document.getElementById("advancedField" +i);
+									var selectObject  = document.getElementsByName("advancedField" +i)[0];
 									var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
 									var arr = dateAndType.split("|");
 									
@@ -256,11 +256,11 @@
 									}
 									else
 									{
-										if(document.getElementById("advancedvalue" + i) != null)
+										if(document.getElementsByName("advancedvalue" + i)[0] != null)
 										{
 											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
 												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementById('advancedvalue'+i).value +"'/>";
+													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
 											str += "</div></td>";
 										}
 										else
