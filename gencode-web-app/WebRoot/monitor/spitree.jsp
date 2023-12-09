@@ -18,16 +18,16 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<pg:config enablecontextmenu="false"/>
+		
 		<link rel="stylesheet" type="text/css" href="<%=rootpath%>/include/treeview.css">
 <%@ include file="/include/css.jsp"%>
 		
 		
 	</head>
 
-<body class="contentbodymargin" scroll="no">
+<body  >
 
-<table height="100%"  width="100%" background="<%=request.getContextPath() %>/include/left_center_bg.jpg"><tr ><td  width="100%" height="100%" valign=top>
+ 
 <div id="contentborder" style="width=100%;height:89%;overflow:auto">
     <table>
         <tr><td align="left"> 
@@ -53,7 +53,7 @@
          </td></tr>
     </table>
 </div>
-	</td></tr></table>
+ 
 	
 
 </body>

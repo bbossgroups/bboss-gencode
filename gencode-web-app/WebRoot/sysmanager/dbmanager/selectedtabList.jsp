@@ -235,10 +235,12 @@
   		{	
   			document.form1.action = "delRecord.jsp";
   			document.form1.target = "_del";
-  			var popupWin = window.open('delRecord.jsp','_del','scrollbars=no,width=300,height=200');    
+            var featrue = "dialogWidth=100px;dialogHeight=100px;scroll=yes;status=no;titlebar=no;toolbar=no;maximize=yes;minimize=0;help=0;dialogLeft="+(screen.availWidth-600)/2+";dialogTop="+(screen.availHeight-500)/2;
+
+            var popupWin = window.open('delRecord.jsp','_del',featrue);    
   			document.form1.submit();
   			
-  			document.location.href="selectedtabList.jsp?dsource=<%=dsource%>&table_name=<%=tablename%>&pageSize=<%=pageSize%>";
+  			<%--document.location.href="selectedtabList.jsp?dsource=<%=dsource%>&table_name=<%=tablename%>&pageSize=<%=pageSize%>";--%>
   		}
   		else 
   		{
@@ -250,6 +252,9 @@
   			return;
   		}
   	}
+    function refreshSelectTableList(){
+        document.location.href="selectedtabList.jsp?dsource=<%=dsource%>&table_name=<%=tablename%>&pageSize=<%=pageSize%>";
+    } 
   	
   	function checkUpd()
   	{

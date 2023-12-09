@@ -26,7 +26,7 @@
 				{
 					String sql = "delete from " + tablename + " where " + condition.replaceAll(","," and "); 
 					db.addBatch(sql);
-					System.out.println(sql);
+					
 				}
 			}
 			//批量删除
@@ -56,6 +56,7 @@
 			if(flag == true)
 			{
 		%>
+           
 			<font color='red'>删除成功!!!</font>
 			<br/>
 			<br/>
@@ -76,9 +77,16 @@
 			}
 		%>
 			<br/>
-			<input type="button" class="input" value="关闭" onclick="window.close()"/>
+			<input type="button" class="input" value="关闭" onclick="closeWindow()"/>
 		</div>
 	</body>
+    <script lang="JavaScript">
+        function closeWindow(){
+            window.opener.refreshSelectTableList();
+            window.close();
+        }
+       
+    </script>
 </html>
 
  
