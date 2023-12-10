@@ -31,7 +31,7 @@
 <html>
 <head>
 		<title>属性容器</title>
-		
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<%@ include file="/include/css.jsp"%>
 	 
 	 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_3_0_1.xsd">
 	<display-name>BBOSS-MVC</display-name>
 	<listener><listener-class>org.frameworkset.web.listener.ApplicationLifeListener</listener-class>
 	</listener>
@@ -12,7 +12,12 @@
 	      <param-name>RequestEncoding</param-name>
 	      <param-value>UTF-8</param-value>
 	    </init-param>
-	  
+        
+        <init-param>
+            <param-name>postCharsetConvert</param-name>
+            <param-value>false</param-value>
+
+        </init-param>
 	    <init-param>
 	      <param-name>refererDefender</param-name>
 	      <param-value>false</param-value>

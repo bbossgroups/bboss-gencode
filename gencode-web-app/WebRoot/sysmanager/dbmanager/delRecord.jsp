@@ -46,6 +46,7 @@
  %>
  <html>
 	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>状态信息</title>
 		<%@ include file="/include/css.jsp"%>
 	</head>
