@@ -1,1 +1,1 @@
-gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeZip -Dprofile=product
+gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeZip -Dprofile=product -DarchType=zip

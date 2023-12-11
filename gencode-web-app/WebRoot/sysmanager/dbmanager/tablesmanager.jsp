@@ -448,6 +448,7 @@
 				if(validate("pageSize") == true)
 				{
 					document.getElementById("numCount").value = num;
+                    alert(num);
 					 query.action = "selectedtabList.jsp";
 					 query.target = "queryList";
 					query.submit();

@@ -1,4 +1,6 @@
 def profile = System.getProperty("profile") ?:  "dev"
+def archType = System.getProperty("archType") ?:  "zip"
+
 /**
 apply plugin: 'docker'
 //configuration
@@ -113,7 +115,19 @@ dependencies {
 task warcopyWebRootFiles(type: Copy){
 	 from 'WebRoot'
 	 into 'build/dist/WebRoot'
-	 
+   
+    if (profile.equals("product") && archType.equals("war")) {
+        
+        doLast {
+            copy {
+               
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/product/WEB-INF'))
+
+                into 'build/dist/WebRoot/WEB-INF'
+            }
+        }
+    }
 }
 
 task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
@@ -138,7 +152,7 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
         doLast {
             copy {
                 // Copy the output of copyTask
-                from(fileTree(dir: 'config/product'))
+                from(fileTree(dir: 'config/product/resources'))
 
                 into 'build/dist/WebRoot/WEB-INF/classes'
             }
@@ -148,7 +162,7 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
         doLast {
             copy {
                 // Copy the output of copyTask
-                from(fileTree(dir: 'config/test'))
+                from(fileTree(dir: 'config/test/resources'))
 
                 into 'build/dist/WebRoot/WEB-INF/classes'
             }
@@ -219,7 +233,7 @@ task copyResourceFiles(type: Copy ){
         doLast {
             copy {
                 // Copy the output of copyTask
-                from(fileTree(dir: 'config/product'))
+                from(fileTree(dir: 'config/product/resources'))
 
                 into 'build/dist/gencode/resources'
             }
@@ -229,7 +243,7 @@ task copyResourceFiles(type: Copy ){
         doLast {
             copy {
                 // Copy the output of copyTask
-                from(fileTree(dir: 'config/test'))
+                from(fileTree(dir: 'config/test/resources'))
 
                 into 'build/dist/gencode/resources'
             }

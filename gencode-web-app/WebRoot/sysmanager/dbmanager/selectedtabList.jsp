@@ -44,6 +44,23 @@
 		}
 		return cond.trim();
 	}
+    
+    
+	//获取condition field names;
+	public List<Integer> getConditionIndexes(javax.servlet.http.HttpServletRequest httpServletRequest)
+	{
+		List<Integer> fields = new ArrayList<>();
+        Enumeration paramNames = httpServletRequest.getParameterNames();
+        while (paramNames.hasMoreElements()) {
+            String paramName = (String) paramNames.nextElement();
+            if(paramName.startsWith("advancedField")){
+                String idx = paramName.substring("advancedField".length());
+                fields.add(Integer.parseInt(idx));
+            }
+           
+        }
+		return fields;
+	}
  %>
 
  <%
@@ -61,27 +78,29 @@
  		String condition = "";
  		if(dsource != null && tablename != null && !"".equals(dsource) && !"".equals(tablename))
  		{
-	 		if(str_numCount != null && !"".equals(str_numCount))
+             List<Integer> conditionIndexes = getConditionIndexes(request);
+	 		if(conditionIndexes != null && conditionIndexes.size() > 0 )
 	 		{
-	 			numCount = Integer.parseInt(str_numCount);
+	 			 
 	 			
-	 			for(int i=1; i<=numCount ; i++)
+	 			for(int i=0; i<conditionIndexes.size() ; i++)
 	 			{
-	 				String fieldNameAndType = request.getParameter("advancedField" + i);
+                     int idx = conditionIndexes.get(i);
+	 				String fieldNameAndType = request.getParameter("advancedField" + idx);
 	 				if(fieldNameAndType != null && !fieldNameAndType.equals(""))
 	 				{
 	 					int location = fieldNameAndType.indexOf("|");
 		 				String fieldName = fieldNameAndType.substring(0,location);
 		 				String fieldType = fieldNameAndType.substring(location+1); 
 		 				
-		 				String logical = request.getParameter("logical" +i);	 				
+		 				String logical = request.getParameter("logical" +idx);	 				
 		 				logical = logical ==null ? "" : logical;
 	
 		 				//处理日期类型
 		 				if(fieldType.equals("DATE"))
 		 				{
-		 					String startDate = request.getParameter("startDate"+i);
-		 					String endDate = request.getParameter("endDate" + i);
+		 					String startDate = request.getParameter("startDate"+idx);
+		 					String endDate = request.getParameter("endDate" + idx);
 		 					
 		 					if(startDate != null && !startDate.equals(""))
 		 					{
@@ -95,7 +114,7 @@
 		 				}
 		 				else
 		 				{
-		 					String value = request.getParameter("advancedvalue" + i);
+		 					String value = request.getParameter("advancedvalue" + idx);
 							if(value !=null && !value.equals(""))
 							{
 								condition += logical + " " + fieldName + " like '%" + value + "%' ";

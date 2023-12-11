@@ -1,1 +1,1 @@
-gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeWar -Dprofile=product
+gradle :gencode-web-app:clean :gencode-web-app:releaseRuntimeWar -Dprofile=product -DarchType=war
