@@ -59,6 +59,21 @@
             }
            
         }
+        if(fields.size() > 0){
+            Collections.sort(fields, new Comparator<Integer>() {
+            @Override
+                public int compare(Integer o1, Integer o2) {
+                    if( o1 > o2){
+                        return 1;
+                    }
+                    else if(o1 == o2){
+                        return 0;
+                    }
+                    else{
+                        return -1;
+                    }
+                }});
+        }
 		return fields;
 	}
  %>
@@ -75,7 +90,7 @@
  	
  	if(sql == null || sql.equals(null) || sql.equals(""))
  	{
- 		String condition = "";
+ 		StringBuilder condition = new StringBuilder();
  		if(dsource != null && tablename != null && !"".equals(dsource) && !"".equals(tablename))
  		{
              List<Integer> conditionIndexes = getConditionIndexes(request);
@@ -95,7 +110,6 @@
 		 				
 		 				String logical = request.getParameter("logical" +idx);	 				
 		 				logical = logical ==null ? "" : logical;
-	
 		 				//处理日期类型
 		 				if(fieldType.equals("DATE"))
 		 				{
@@ -104,12 +118,18 @@
 		 					
 		 					if(startDate != null && !startDate.equals(""))
 		 					{
-		 						
-		 						condition += logical + " " + fieldName + ">=to_date('" + startDate +" 00:00:00','yyyy-mm-dd hh24:mi:ss') ";
-		 						if(endDate != null && !endDate.equals(""))
-		 						{
-		 							condition += "and " + fieldName + "<=to_date('" + endDate +" 23:59:59','yyyy-mm-dd hh24:mi:ss') ";
-		 						}	 				
+		 						if(condition.length() == 0){
+                                     condition.append(fieldName + ">=to_date('" + startDate +" 00:00:00','yyyy-mm-dd hh24:mi:ss') ");
+                                     if(endDate != null && !endDate.equals(""))
+                                    {
+                                        condition.append( " and " + fieldName + "<=to_date('" + endDate +" 23:59:59','yyyy-mm-dd hh24:mi:ss') ");
+                                    }
+		 						}
+                                 else{
+                                      condition.append(" ").append(logical).append(" ").append(fieldName + ">=to_date('" + startDate +" 00:00:00','yyyy-mm-dd hh24:mi:ss') ");
+                                     
+                                 }
+		 							 				
 		 					}
 		 				}
 		 				else
@@ -117,25 +137,21 @@
 		 					String value = request.getParameter("advancedvalue" + idx);
 							if(value !=null && !value.equals(""))
 							{
-								condition += logical + " " + fieldName + " like '%" + value + "%' ";
+                                if(condition.length() == 0){
+								    condition .append( fieldName + " like '%" + value + "%' ");
+                                }
+                                else{
+                                    condition .append(" "+logical + " " + fieldName + " like '%" + value + "%' ");
+                                }
 							}
 		 				}	
 	 				}
 	 			}
 	 		}
-	 		
 	 		if(!condition.equals("")) 
 	 		{
-	 			condition = condition.trim();
-	 			if(condition.startsWith("and"))
-	 			{
-	 				condition = condition.substring(4);
-	 			}
-	 			else if(condition.startsWith("or"))
-	 			{
-	 				condition = condition.substring(3);
-	 			}
-	 			sql = "select * from " + tablename + " where " + condition;
+	 			
+	 			sql = "select * from " + tablename + " where " + condition.toString();
 	 		}
 	 		else
 	 		{
