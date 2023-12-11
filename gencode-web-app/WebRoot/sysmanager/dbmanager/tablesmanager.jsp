@@ -671,11 +671,11 @@
 				 
 			</tab:tabPane>
 			
-			<tab:tabPane id="tableinfo-menu" tabTitle="主键生成机制管理" lazeload="true">
-				<tab:iframe id="tableinfo" name="tableinfo" src="tableinfo/tableinfoList_tab.jsp" frameborder="0" width="98%" height="550px"/>
-			</tab:tabPane>
+<%--			<tab:tabPane id="tableinfo-menu" tabTitle="主键生成机制管理" lazeload="true">--%>
+<%--				<tab:iframe id="tableinfo" name="tableinfo" src="tableinfo/tableinfoList_tab.jsp" frameborder="0" width="98%" height="550px"/>--%>
+<%--			</tab:tabPane>--%>
 			
-			<tab:tabPane id="poolmen-menu" tabTitle="连接池浏览" lazeload="true">
+			<tab:tabPane id="poolmen-menu" tabTitle="连接池监控" lazeload="true">
 				<tab:iframe id="poolmen" name="poolmen" src="tableinfo/poolmanList.jsp" frameborder="0" width="100%" height="600px"/>
 			</tab:tabPane>	
 		</tab:tabContainer>

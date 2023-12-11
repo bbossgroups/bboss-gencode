@@ -148,7 +148,7 @@
 	 				}
 	 			}
 	 		}
-	 		if(!condition.equals("")) 
+	 		if(condition.length() > 0) 
 	 		{
 	 			
 	 			sql = "select * from " + tablename + " where " + condition.toString();
