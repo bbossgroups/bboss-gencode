@@ -97,7 +97,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<a href="https://gitee.com/bboss/bboss-gencode" class="btn btn-sm blue"  target="_blank">
 															源码托管地址 <i class="fa fa-link"></i>
 															</a>
-						<a href="http://yin-bp.iteye.com/blog/2256948" class="btn btn-sm yellow"  target="_blank">
+						<a href="https://doc.bbossgroups.com/#/tools" class="btn btn-sm yellow"  target="_blank">
 															工具帮助文档 <i class="fa fa-link"></i>
 															</a>									
 																														
