@@ -43,7 +43,7 @@
  
 <html>
 	<head>
-		<title>属性容器</title>
+		<title>数据库管理</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<%@ include file="/include/css.jsp"%>
 		 
@@ -502,10 +502,12 @@
 		  		}
 		  		else if(pageSizeValue <= 0)
 		  		{
-		  			alert("每页记录条数必须是大于0!!!");
-		  			pageSizeNode.value = 10;
-		  			pageSizeNode.focus();
-		  			return false;
+                    if(objectName != "pageSize2") {
+                        alert("每页记录条数必须是大于0!!!");
+                        pageSizeNode.value = 10;
+                        pageSizeNode.focus();
+                        return false;
+                    }
 		  		}
 		  		else if(/^\d+$/.test(pageSizeValue) == false)
 		  		{
@@ -649,7 +651,9 @@
 								</select>
 							</td>
 							<td colspan="1" valign='middle' align="center" width="15%" nowrap>
-								每页显示记录数:&nbsp;<input name="pageSize2" id="pageSize2" type="text" value="6" size="8"/>
+								每页显示记录数(<=0时不做分页查询):&nbsp;<input name="pageSize2" id="pageSize2" type="text" value="6" size="8"/>
+                                管理DDLQuery:&nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"/>
+                                管理DDL:&nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true"/>
 							</td>
 							<td colspan="1" height='30' valign='middle' align="center" width="*" nowrap>
 								<input name="search" type="button" class="input" value="执行" onClick="checkSQLData()"/>

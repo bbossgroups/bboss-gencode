@@ -25,7 +25,7 @@
  	String dsource = request.getParameter("dsource2");
  	String sql = request.getParameter("sqlContent");
  	
-
+    String isDDLQuery_ = request.getParameter("isDDLQuery");
  	
  	if(null == dsource || null == sql 
  					|| "".equals(sql)  || "".equals(dsource) || 
@@ -39,11 +39,21 @@
  	//去掉sql空格
  	sql = sql.trim();
  	
-	out.print(sql);
+	out.println(sql);
+    
     
     String sql_l = sql.toLowerCase();
-    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ");
-    
+    boolean isDDLQuery = isDDLQuery_ != null && isDDLQuery_.equals("true") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
+    String isDDL_ = request.getParameter("isDDL");
+    boolean isDDL = isDDL_ != null && isDDL_.equals("true") || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ");
+    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
+    if(!isSelect && isDDLQuery){
+        isSelect = true;
+    }
+        
+    out.println("<br>管理查询SQL: "+isDDLQuery);
+    out.println("<br>管理DDL SQL: "+isDDL);
+   
     
 	boolean flag = false;	
 
@@ -56,8 +66,17 @@
 	try
 	{
 		//执行sql语句
-		if(isSelect){
-            db.executeSelect(dsource,sql,0,1);
+		if(isDDL){
+            db.executeUpdate(dsource,sql);
+			flag = true;
+		}
+		else if(isSelect){
+            if(!isDDLQuery){
+                db.executeSelect(dsource,sql,0,1);
+            }
+            else{
+                 db.executeSelect(dsource,sql);
+            }
             ResultSetMetaData resultMeta = db.getMeta();
             
             if(resultMeta != null) 
@@ -106,6 +125,12 @@
 			pageSize = 10;
 		}
 	}
+     boolean isPagine = true;
+    if(pageSize <= 0 ||  sql_l.startsWith("show ")  || sql_l.startsWith("desc ")){
+        isPagine = false;
+    }
+    out.println("<br>isPagine:"+isPagine);
+    
 
   %>
   
@@ -115,7 +140,7 @@
   		if(flag && columnList != null)
   		{
   		%>
-  			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="false" maxPageItems="<%=pageSize%>">
+  			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="<%=!isPagine %>" maxPageItems="<%=pageSize%>">
   				<pg:param name="sqlContent" value="<%=sql %>"/>
   				<pg:param name="dsource2" value="<%=dsource %>"/>
   				<pg:param name="pageSize2"/>
