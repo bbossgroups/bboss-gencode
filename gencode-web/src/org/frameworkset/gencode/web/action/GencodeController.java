@@ -2,6 +2,8 @@ package org.frameworkset.gencode.web.action;
 
 import com.frameworkset.common.poolman.DBUtil;
 import com.frameworkset.common.poolman.sql.TableMetaData;
+import com.frameworkset.common.poolman.util.DBConf;
+import com.frameworkset.common.poolman.util.SQLManager;
 import com.frameworkset.util.FileUtil;
 import com.frameworkset.util.ListInfo;
 import com.frameworkset.util.SimpleStringUtil;
@@ -17,6 +19,8 @@ import org.frameworkset.gencode.web.service.DatasourceException;
 import org.frameworkset.gencode.web.service.GencodeException;
 import org.frameworkset.gencode.web.service.GencodeService;
 import org.frameworkset.soa.ObjectSerializable;
+import org.frameworkset.spi.assemble.PropertiesContainer;
+import org.frameworkset.spi.assemble.PropertiesUtil;
 import org.frameworkset.util.annotations.PagerParam;
 import org.frameworkset.util.annotations.ResponseBody;
 import org.frameworkset.web.servlet.ModelMap;
@@ -346,8 +350,31 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 	}
 
 	private boolean initDatasource(Datasource ds) {
-		return DBUtil.startPool(ds.getDbname(), ds.getDbdriver(), ds.getDburl(), ds.getDbuser(), ds.getDbpassword(),
-				ds.getValidationQuery());
+        DBConf tempConf = new DBConf();
+        tempConf.setPoolname(ds.getDbname());
+        tempConf.setDriver(ds.getDbdriver());
+        tempConf.setJdbcurl( ds.getDburl());
+        tempConf.setUsername(ds.getDbuser());
+        tempConf.setPassword(ds.getDbpassword());
+        tempConf.setValidationQuery(ds.getValidationQuery());
+        //tempConf.setTxIsolationLevel("READ_COMMITTED");
+        tempConf.setJndiName("jndi-"+ds.getDbname());
+        PropertiesContainer propertiesContainer = PropertiesUtil.getPropertiesContainer();
+        int initialConnections = propertiesContainer.getIntProperty("initialConnections",5);
+        tempConf.setInitialConnections(initialConnections);
+        int minimumSize = propertiesContainer.getIntProperty("minimumSize",5);
+        tempConf.setMinimumSize(minimumSize);
+        int maximumSize = propertiesContainer.getIntProperty("maximumSize",10);
+        tempConf.setMaximumSize(maximumSize);
+        tempConf.setUsepool(true);
+        tempConf.setExternal(false);
+        tempConf.setEncryptdbinfo(false);       
+        boolean showsql = propertiesContainer.getBooleanProperty("showsql",true);
+        tempConf.setShowsql(showsql);
+        tempConf.setQueryfetchsize(null);
+        tempConf.setEnableBalance(true);
+        tempConf.setBalance(DBConf.BALANCE_RANDOM);
+		return SQLManager.startPool(tempConf);
 	}
 
 	public String selecttable(ModelMap model, GencodeCondition conditions) {

@@ -610,7 +610,7 @@
 						</table>
 					</div>
 				</form>
-				<tab:iframe id="queryList" name="queryList" src="" frameborder="0" width="99%" height="350px"/>
+				<tab:iframe id="queryList" name="queryList" src="" frameborder="0" width="99%" height="600px"/>
 			</tab:tabPane>
 			
 			<tab:tabPane id="sql-menu" tabTitle="数据库管理" lazeload="true">
@@ -671,7 +671,7 @@
 						</tr>
 					</table>
 					<br/>
-				<tab:iframe  id="sqlList" name="sqlList"  src="javascript:void(0)" frameborder="0" width="99%" height="350px"/>	
+				<tab:iframe  id="sqlList" name="sqlList"  src="javascript:void(0)" frameborder="0" width="99%" height="600px"/>	
 				 
 			</tab:tabPane>
 			

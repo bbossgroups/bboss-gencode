@@ -19,7 +19,7 @@ dependencies {
 
     api 'mysql:mysql-connector-java:8.0.33'
     api(
-            [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],
+            [group: 'com.github.housepower', name: 'clickhouse-native-jdbc-shaded', version: "${clickhouse_verion}", transitive: true],
     )
      api (
              
