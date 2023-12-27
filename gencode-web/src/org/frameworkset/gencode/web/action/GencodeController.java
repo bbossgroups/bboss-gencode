@@ -372,8 +372,6 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
         boolean showsql = propertiesContainer.getBooleanProperty("showsql",true);
         tempConf.setShowsql(showsql);
         tempConf.setQueryfetchsize(null);
-        tempConf.setEnableBalance(true);
-        tempConf.setBalance(DBConf.BALANCE_RANDOM);
 		return SQLManager.startPool(tempConf);
 	}
 
