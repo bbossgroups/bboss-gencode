@@ -19,12 +19,12 @@
     if(querySQLText != null && !querySQLText.equals("")){
         querySql = querySql + " and sql_text like ?";
         out.print(querySql);
-        datas = SQLExecutor.queryListWithDBName(Map.class,dbname,querySql,dbname,"%"+querySQLText+"%");
+        datas = SQLExecutor.queryListWithDBName(Map.class,"gencode",querySql,dbname,"%"+querySQLText+"%");
        
     }
     else{
         out.print(querySql);
-        datas = SQLExecutor.queryListWithDBName(Map.class,dbname,querySql,dbname);
+        datas = SQLExecutor.queryListWithDBName(Map.class,"gencode",querySql,dbname);
     }
     
     
