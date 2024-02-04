@@ -141,7 +141,7 @@
   		{
   		%>
   			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="<%=!isPagine %>" maxPageItems="<%=pageSize%>">
-  				<pg:param name="sqlContent" value="<%=sql %>"/>
+  				<pg:param name="sqlContent" encode="true" value="<%=sql %>"/>
   				<pg:param name="dsource2" value="<%=dsource %>"/>
   				<pg:param name="pageSize2"/>
   				
