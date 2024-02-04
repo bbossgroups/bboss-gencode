@@ -99,8 +99,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 				SQLExecutor.updateWithDBName("gencode",tsql);
 				log.info("创建BBOSS_GENCODE表成功："+tsql+"。");
 			} catch (SQLException e1) {
-				log.info("创建BBOSS_GENCODE表失败："+tsql+"。",e1);
-				e1.printStackTrace();
+				log.warn("创建BBOSS_GENCODE表失败："+tsql+"。",e1);
 			}
 		}
 		
@@ -119,10 +118,25 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
 				SQLExecutor.updateWithDBName("gencode",tsql);
 				log.info("创建BBOSS_DATASOURCE表成功："+tsql+"。");
 			} catch (SQLException e1) {
-				log.info("创建BBOSS_DATASOURCE表失败："+tsql+"。",e1);
-				e1.printStackTrace();
+				log.warn("创建BBOSS_DATASOURCE表失败："+tsql+"。",e1);
 			}
 		}
+
+        exist = "select 1 from sql_history";
+
+        try {
+            //SQLExecutor.updateWithDBName("gencode","drop table BBOSS_DATASOURCE");
+            SQLExecutor.queryObjectWithDBName(int.class,"gencode", exist);
+        } catch (Exception e) {
+            String tsql = "create table sql_history (ID string,DBNAME string,sql_text TEXT,  PRIMARY KEY (ID))";
+            log.info("sql_history table 不存在，创建sql_history表："+tsql+"。");
+            try {
+                SQLExecutor.updateWithDBName("gencode",tsql);
+                log.info("创建sql_history表成功："+tsql+"。");
+            } catch (SQLException e1) {
+                log.warn("创建sql_history表失败："+tsql+"。",e1);
+            }
+        }
 		
 	}
 	@Override

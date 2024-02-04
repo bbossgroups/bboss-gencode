@@ -5,7 +5,7 @@
 <%@ taglib uri="/WEB-INF/pager-taglib.tld" prefix="pg"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page import="com.frameworkset.common.poolman.SQLExecutor"%>
 
 <%@ page import="java.sql.ResultSetMetaData" %>
 <%@ page import="com.frameworkset.common.poolman.DBUtil"%>
@@ -35,6 +35,12 @@
  		out.print("查询条件不足,请检查是否选择数据源或是否输入了SQL语句!!!");
  		return ;
  	}
+     //记录历史sql
+     String id = sql.hashCode()+"_"+dsource;
+    int count =  SQLExecutor.queryObjectWithDBName(Integer.class,"gencode","select count(1) from sql_history where dbname=? and id=?",dsource,id);
+     if(count <= 0){
+        SQLExecutor.insertWithDBName("gencode","insert into sql_history(id,sql_text,DBNAME) values(?,?,?)",id,sql,dsource);
+    }
  	
  	//去掉sql空格
  	sql = sql.trim();

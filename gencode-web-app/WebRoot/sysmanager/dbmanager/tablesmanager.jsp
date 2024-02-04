@@ -82,6 +82,10 @@
                      */
 				}
 			}
+            function setSQL(sql){
+                var sqlContent = document.getElementById("sqlContent");
+                sqlContent.value = sql;
+            }
             
             function queryTableData(tableName){
                 var query = document.getElementById("query");
@@ -458,7 +462,19 @@
 				}
 			}
 			
-			
+			function selectHistorySQL(){
+                var dsource = document.getElementById("dsource2").value;
+                if(dsource !="")
+                {
+                    var path = "select_historysql.jsp?dsource=" + dsource ;
+                    var win = window.open(path,window,featrue);
+                    
+                }
+                else{
+                    alert("选择数据源！");
+                    document.getElementById("dsource2").focus();
+                }
+            }
 			function checkSQLData()
 			{
 			    var dsource2 = document.getElementById("dsource2").value;	
@@ -656,9 +672,11 @@
                                 管理DDL:&nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true"/>
 							</td>
 							<td colspan="1" height='30' valign='middle' align="center" width="*" nowrap>
-								<input name="search" type="button" class="input" value="执行" onClick="checkSQLData()"/>
+                                
+                                <input name="search" type="button" class="input" value="执行" onClick="checkSQLData()"/>
 								&nbsp;&nbsp;&nbsp;
 								<input type="reset" class="input" value="重置"/>
+                                <input name="history" type="button" class="input" value="历史SQL" onClick="selectHistorySQL()"/>
 							</td>
 						</tr>
 						<tr>
