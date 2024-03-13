@@ -77,6 +77,8 @@ The BBoss Framework is released under version 2.0 of the [Apache License][].
 
 ui输入类型支持textarea、选择部门、选择用户、当前部门、当前机构、当前时间等类型
 
+### 添加历史sql创建时间字段
 
+ALTER TABLE sql_history ADD COLUMN CREATETIME number(10);
 
 

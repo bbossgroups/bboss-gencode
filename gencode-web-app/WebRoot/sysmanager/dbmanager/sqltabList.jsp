@@ -9,6 +9,7 @@
 
 <%@ page import="java.sql.ResultSetMetaData" %>
 <%@ page import="com.frameworkset.common.poolman.DBUtil"%>
+<%@ page import="java.util.Date" %>
 
 <html>
 	<head>
@@ -39,7 +40,7 @@
      String id = sql.hashCode()+"_"+dsource;
     int count =  SQLExecutor.queryObjectWithDBName(Integer.class,"gencode","select count(1) from sql_history where dbname=? and id=?",dsource,id);
      if(count <= 0){
-        SQLExecutor.insertWithDBName("gencode","insert into sql_history(id,sql_text,DBNAME) values(?,?,?)",id,sql,dsource);
+        SQLExecutor.insertWithDBName("gencode","insert into sql_history(id,sql_text,DBNAME,CREATETIME) values(?,?,?,?)",id,sql,dsource,new Date().getTime());
     }
  	
  	//去掉sql空格

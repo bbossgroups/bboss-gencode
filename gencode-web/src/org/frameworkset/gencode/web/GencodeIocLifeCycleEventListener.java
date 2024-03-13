@@ -128,7 +128,7 @@ public class GencodeIocLifeCycleEventListener implements IocLifeCycleEventListen
             //SQLExecutor.updateWithDBName("gencode","drop table BBOSS_DATASOURCE");
             SQLExecutor.queryObjectWithDBName(int.class,"gencode", exist);
         } catch (Exception e) {
-            String tsql = "create table sql_history (ID string,DBNAME string,sql_text TEXT,  PRIMARY KEY (ID))";
+            String tsql = "create table sql_history (ID string,DBNAME string,sql_text TEXT,CREATETIME number(10),  PRIMARY KEY (ID))";
             log.info("sql_history table 不存在，创建sql_history表："+tsql+"。");
             try {
                 SQLExecutor.updateWithDBName("gencode",tsql);

@@ -17,12 +17,13 @@
     String querySql = "select * from sql_history where DBNAME=?";
     List<Map> datas = null;
     if(querySQLText != null && !querySQLText.equals("")){
-        querySql = querySql + " and sql_text like ?";
+        querySql = querySql + " and sql_text like ?  order by CREATETIME desc";
         out.print(querySql);
         datas = SQLExecutor.queryListWithDBName(Map.class,"gencode",querySql,dbname,"%"+querySQLText+"%");
        
     }
     else{
+        querySql = querySql + " order by CREATETIME desc";
         out.print(querySql);
         datas = SQLExecutor.queryListWithDBName(Map.class,"gencode",querySql,dbname);
     }
