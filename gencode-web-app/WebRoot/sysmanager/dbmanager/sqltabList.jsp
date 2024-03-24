@@ -39,8 +39,11 @@
      //记录历史sql
      String id = sql.hashCode()+"_"+dsource;
     int count =  SQLExecutor.queryObjectWithDBName(Integer.class,"gencode","select count(1) from sql_history where dbname=? and id=?",dsource,id);
-     if(count <= 0){
+    if(count <= 0){
         SQLExecutor.insertWithDBName("gencode","insert into sql_history(id,sql_text,DBNAME,CREATETIME) values(?,?,?,?)",id,sql,dsource,new Date().getTime());
+    }
+    else{
+        SQLExecutor.updateWithDBName("gencode","update  sql_history set CREATETIME = ? where id =?",new Date().getTime(),id);
     }
  	
  	//去掉sql空格
