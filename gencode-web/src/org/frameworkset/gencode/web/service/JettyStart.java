@@ -95,8 +95,9 @@ public class JettyStart {
                 Configuration.ClassList classlist = Configuration.ClassList
                         .setServerDefault( server );
                 classlist.addBefore(
-                        "org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
-                        "org.eclipse.jetty.annotations.AnnotationConfiguration" );
+                        "org.eclipse.jetty.webapp.JettyWebXmlConfiguration"
+                        ,"org.eclipse.jetty.annotations.AnnotationConfiguration"
+                );
 
                 // Set the ContainerIncludeJarPattern so that jetty examines these
                 // container-path jars for tlds, web-fragments etc.

@@ -21,6 +21,7 @@ dependencies {
     api(
             [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],
     )
+    api 'com.clickhouse:clickhouse-jdbc:0.4.6:http'
      api (
              
             [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: true],
