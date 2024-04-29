@@ -21,7 +21,30 @@ dependencies {
     api(
             [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],
     )
-    api 'com.clickhouse:clickhouse-jdbc:0.4.6:http'
+    api 'com.clickhouse:clickhouse-jdbc:0.5.0:http'
+    api (
+            [group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: "5.4-alpha2", transitive: true]
+    )
+    {
+        exclude group: 'org.apache.httpcomponents.core5', module: 'httpcore5'
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+//            <dependency>
+//            <groupId>org.apache.httpcomponents.client5</groupId>
+//            <artifactId>httpclient5</artifactId>
+//    <exclusions>
+//            <exclusion>
+//            <groupId>org.apache.httpcomponents.core5</groupId>
+//                    <artifactId>httpcore5</artifactId>
+//            </exclusion>
+//                <exclusion>
+//                    <groupId>org.slf4j</groupId>
+//    <artifactId>slf4j-api</artifactId>
+//                </exclusion>
+//            </exclusions>
+//            <optional>true</optional>
+//    </dependency>
+    api 'org.apache.httpcomponents.core5:httpcore5:5.3-alpha2'
      api (
              
             [group: 'com.bbossgroups', name: 'bboss-mvc', version: "${bboss_version}", transitive: true],
