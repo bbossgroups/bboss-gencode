@@ -95,7 +95,7 @@
                 int size =resultMeta.getColumnCount();
                 for(int i=1; i<=size; i++)
                 {
-                    String columnName = resultMeta.getColumnName(i);
+                    String columnName = resultMeta.getColumnLabel(i);
                     columnList.add(columnName);
                 }
             }

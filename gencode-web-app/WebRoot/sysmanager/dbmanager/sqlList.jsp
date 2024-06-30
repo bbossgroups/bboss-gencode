@@ -75,7 +75,7 @@
 					for (int i = 0; i < datas.size(); i++)
 					{
 //                        System.out.println(SimpleStringUtil.object2json(datas.get(i)));
-						String sql_text = String.valueOf(datas.get(i).get("SQL_TEXT"));
+						String sql_text = String.valueOf(datas.get(i).get("sql_text"));
                         String ID = String.valueOf(datas.get(i).get("ID"));
 						
 				%>
