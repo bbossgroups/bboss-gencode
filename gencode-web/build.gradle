@@ -17,9 +17,12 @@ sourceSets {
 dependencies {
 	api project(':gencode-core')
 
-    api 'mysql:mysql-connector-java:8.0.33'
+//    api 'mysql:mysql-connector-java:8.0.33'
+
+    
     api(
             [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],
+            [group: 'com.mysql', name: 'mysql-connector-j', version: "${mysqlconnectorversion}", transitive: false],
     )
 //    api group: 'com.clickhouse', name: 'clickhouse-jdbc', version: '0.6.5'
     api 'com.clickhouse:clickhouse-jdbc:0.6.5:http'
