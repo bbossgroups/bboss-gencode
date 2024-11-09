@@ -81,7 +81,6 @@ dependencies {
              [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
              [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
              [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
              [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
            
           
@@ -99,7 +98,6 @@ dependencies {
             [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
             [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
             [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
             [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
 //            [group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],
 //            [group: 'org.eclipse.jetty.orbit', name: 'org.apache.jasper.glassfish', version: '2.2.2.v201112011158', transitive: false],
@@ -110,6 +108,25 @@ dependencies {
 
 
     )
+    testImplementation (
+ 
+            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
+            
+
+    )
+            {
+                //org.eclipse.jdt:ecj:3.12.3
+                exclude group: 'org.eclipse.jdt', module: 'ecj'
+            }
+    compileOnly (
+
+            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
+
+
+    ){
+        //org.eclipse.jdt:ecj:3.12.3
+        exclude group: 'org.eclipse.jdt', module: 'ecj'
+    }
      
 }
 task warcopyWebRootFiles(type: Copy){

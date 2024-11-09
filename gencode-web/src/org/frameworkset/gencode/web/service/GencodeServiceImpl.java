@@ -101,8 +101,16 @@ public class GencodeServiceImpl implements GencodeService {
 	public Datasource getDatasource(String dbname) throws DatasourceException {
 		try {
 			Datasource bean = executor.queryObject(Datasource.class, "getDatasource", dbname);
+            if(bean == null){
+                log.warn("dbname {} do not exist" ,dbname);
+                throw new GencodeException("Datasource with dbname "+dbname+" do not exist!");
+            }
 			return bean;
-		} catch (Throwable e) {
+		}
+        catch (GencodeException e){
+            throw e;
+        }
+        catch (Throwable e) {
 			throw new DatasourceException("get Datasource failed::id=" + dbname, e);
 		}
 
