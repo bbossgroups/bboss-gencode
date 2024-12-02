@@ -684,7 +684,7 @@
 								SQL语句:
 							</td>
 							<td colspan="2" valign='middle'>
-								<textarea rows="5" name="sqlContent" id="sqlContent" cols="85"></textarea>
+                                <textarea rows="5" name="sqlContent" id="sqlContent" cols="85" style="width: 1483px; height: 178px;"></textarea>
 							</td>
 						</tr>
 					</table>
