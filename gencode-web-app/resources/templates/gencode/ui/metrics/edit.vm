@@ -38,8 +38,8 @@
 			  	<input id="$field.fieldName" name="$field.fieldName" type="hidden" value="<pg:cell colName="$field.fieldName" #fieldattr($field)/>" />
 		  	#end
 		  	#foreach($field in $fields)
-				#if( $velocityCount % $controlInfo.themeCols == 0)
-					#if($velocityCount > 0)</div>#end
+				#if( $foreach.index % $controlInfo.themeCols == 0)
+					#if($foreach.index > 0)</div>#end
 				<div class="row">
 				#end
 				<div class="col-md-$controlInfo.themeColWidth" >
@@ -101,7 +101,7 @@
 							</div>
 						</div>
 					</div>
-				#if($velocityCount == ($fields.size() - 1))						
+				#if($foreach.index == ($fields.size() - 1))						
 				</div>	
 				#end
 			#end

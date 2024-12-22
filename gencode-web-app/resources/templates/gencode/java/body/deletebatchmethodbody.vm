@@ -13,7 +13,7 @@ try {
 	executor.deleteByKeys#if($dbname)WithDBName${start}"$dbname",#else${start}#end"deleteByKey", $paramName);
 #end	
 	tm.commit();
-} catch (Throwable e) {
+} catch (Exception e) {
 	
 	throw new $exception$start"batch delete ${entityName} failed::${paramName}="+${paramName},e$end;
 }
@@ -25,7 +25,7 @@ finally
 try {			 
 	${entityVarName}Service.deleteBatch${entityName}( ${paramName});
 	return "success";
-} catch (Throwable e) {
+} catch (Exception e) {
 	log.error("delete Batch ${paramName} failed:",e);
 	return StringUtil.formatBRException(e);
 } 
@@ -36,7 +36,7 @@ try {
  catch ($exception e) {
 	throw e;
 }
- catch (Throwable e) {
+ catch (Exception e) {
 	throw new $exception$start"batch delete ${entityName} failed::${paramName}="+${paramName},e$end;
 }
 #end

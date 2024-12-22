@@ -52,7 +52,7 @@ try {
  catch ($exception e) {
 	throw e;
 }
- catch (Throwable e) {
+ catch (Exception e) {
 	throw new $exception$start"query $entityName failed:",e$end;
 }
 #end

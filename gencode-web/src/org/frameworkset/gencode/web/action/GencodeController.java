@@ -61,7 +61,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		} catch (DatasourceException e) {
 			log.error("add Datasource failed:", e);
 			return StringUtil.formatBRException(e);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.error("add Datasource failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -88,7 +88,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
             log.error("delete Datasource failed:", e);
             return StringUtil.formatBRException(e);
         }
-        catch (Throwable e) {
+        catch (Exception e) {
             log.error("delete Datasource failed:", e);
             return StringUtil.formatBRException(e);
         }
@@ -114,7 +114,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
             log.error("delete Datasource failed:", e);
             return StringUtil.formatBRException(e);
         }
-        catch (Throwable e) {
+        catch (Exception e) {
             log.error("delete Datasource failed:", e);
             return StringUtil.formatBRException(e);
         }
@@ -151,7 +151,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 				log.error("delete Datasource failed:", e);
 				return StringUtil.formatBRException(e);
 			}
-		catch (Throwable e) {
+		catch (Exception e) {
 			log.error("delete Datasource failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -186,7 +186,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		} catch (GencodeException e) {
 			log.error("delete Gencode failed:", e);
 			return StringUtil.formatBRException(e);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.error("delete Gencode failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -197,7 +197,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		try {
 			gencodeService.deleteBatchGencode(ids);
 			return "success";
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.error("delete Batch ids failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -208,7 +208,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		try {
 			gencodeService.updateGencode(gencode);
 			return "success";
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.error("update Gencode failed:", e);
 			return StringUtil.formatBRException(e);
 		}
@@ -224,7 +224,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			return "path:getGencode";
 		} catch (GencodeException e) {
 			throw e;
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new GencodeException("get Gencode failed::id=" + id, e);
 		}
 
@@ -1211,7 +1211,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 		} catch (GencodeException e) {
 			log.error("add Gencode failed:", e);
 			ret.put("result", StringUtil.formatBRException(e));
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.error("add Gencode failed:", e);
 			ret.put("result", StringUtil.formatBRException(e));
 		}

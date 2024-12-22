@@ -15,7 +15,7 @@
 						stop();
 					
 
-					} catch (Throwable e) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

@@ -39,8 +39,8 @@
 								
 										
 										#foreach($condition in $conditions)
-											#if( $velocityCount % 3 == 0)
-												#if($velocityCount > 0)</tr>#end
+											#if( $foreach.index % 3 == 0)
+												#if($foreach.index > 0)</tr>#end
 											<tr>
 											#end
 												<th>#if(!$genI18n)${condition.fieldCNName}#else<pg:message code="$namespacei18n.$condition.fieldName"/>#end：</th>
@@ -59,7 +59,7 @@
 												</td>
 												
 												
-													#if($velocityCount == ($conditions.size() - 1))
+													#if($foreach.index == ($conditions.size() - 1))
 												<th>
 													&nbsp;
 												</th>
@@ -154,13 +154,13 @@ function queryData()
 	var ${condition.fieldName}=$("#${condition.fieldName}").val();
 #end	
 	#if($needcondition)
-	if(#foreach($condition in $conditions) #if($velocityCount == 0)containSpecial(${condition.fieldName})#else || containSpecial(${condition.fieldName})#end#end){
+	if(#foreach($condition in $conditions) #if($foreach.index == 0)containSpecial(${condition.fieldName})#else || containSpecial(${condition.fieldName})#end#end){
 		$.dialog.alert('查询字符串含有非法字符集,请检查输入条件！');
 		return;
 	}
 	#end
 	$("#custombackContainer").load("queryListInfo${entityName}s.page #customContent",
-	{#foreach($condition in $conditions) #if($velocityCount == 0)${condition.fieldName}:${condition.fieldName}#else,${condition.fieldName}:${condition.fieldName}#end#end},function(){});
+	{#foreach($condition in $conditions) #if($foreach.index == 0)${condition.fieldName}:${condition.fieldName}#else,${condition.fieldName}:${condition.fieldName}#end#end},function(){});
 
 
 }

@@ -5,7 +5,7 @@
 try{
 	$entityName bean=executor.queryObject#if($dbname)WithDBName${start}$entityName${dot}class, "$dbname",#else${start}$entityName${dot}class, #end"selectById", $paramName);
 	return bean;
-}catch(Throwable e){
+}catch(Exception e){
 	throw new $exception$start"get ${entityName} failed::${paramName}="+${paramName},e$end;
 }
 #elseif($componentType == 2)
@@ -15,7 +15,7 @@ try {
 	return "path:get$entityName";
 } catch ($exception e) {
 	throw e;
-} catch (Throwable e) {
+} catch (Exception e) {
 	throw new $exception("get $entityName failed::${paramName}=" + ${paramName}, e);
 }
 #elseif($componentType == 5)//webservice服务
@@ -26,7 +26,7 @@ try {
  catch ($exception e) {
 	throw e;
 }
- catch (Throwable e) {
+ catch (Exception e) {
 	throw new $exception$start"get ${entityName} failed::${paramName}="+${paramName},e$end;
 }
 #end

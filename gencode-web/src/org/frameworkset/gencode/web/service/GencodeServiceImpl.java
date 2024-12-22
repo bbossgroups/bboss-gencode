@@ -59,7 +59,7 @@ public class GencodeServiceImpl implements GencodeService {
 		try {
 			
 			executor.insertBean("addDatasource", datasource);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new DatasourceException("add Datasource failed:", e);
 		}
 
@@ -68,7 +68,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public void deleteDatasource(String dbname) throws DatasourceException {
 		try {
 			executor.delete("deleteDSByKey", dbname);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new DatasourceException("delete Datasource failed::dbname=" + dbname, e);
 		}
 
@@ -80,7 +80,7 @@ public class GencodeServiceImpl implements GencodeService {
 			tm.begin();
 			executor.deleteByKeys("deleteDSByKey", ids);
 			tm.commit();
-		} catch (Throwable e) {
+		} catch (Exception e) {
 
 			throw new DatasourceException("batch delete Datasource failed::ids=" + ids, e);
 		} finally {
@@ -92,7 +92,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public void updateDatasource(Datasource datasource) throws DatasourceException {
 		try {
 			executor.updateBean("updateDatasource", datasource);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new DatasourceException("update Datasource failed::", e);
 		}
 
@@ -110,7 +110,7 @@ public class GencodeServiceImpl implements GencodeService {
         catch (GencodeException e){
             throw e;
         }
-        catch (Throwable e) {
+        catch (Exception e) {
 			throw new DatasourceException("get Datasource failed::id=" + dbname, e);
 		}
 
@@ -156,7 +156,7 @@ public class GencodeServiceImpl implements GencodeService {
 		// 业务组件
 		try {
 			executor.insertBean("gencode", "addGencode", gencode);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new GencodeException("add Gencode failed:", e);
 		}
 
@@ -165,7 +165,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public void deleteGencode(String id) throws GencodeException {
 		try {
 			executor.deleteWithDBName("gencode", "deleteByKey", id);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new GencodeException("delete Gencode failed::id=" + id, e);
 		}
 
@@ -177,7 +177,7 @@ public class GencodeServiceImpl implements GencodeService {
 			tm.begin();
 			executor.deleteByKeysWithDBName("gencode", "deleteByKey", ids);
 			tm.commit();
-		} catch (Throwable e) {
+		} catch (Exception e) {
 
 			throw new GencodeException("batch delete Gencode failed::ids=" + ids, e);
 		} finally {
@@ -189,7 +189,7 @@ public class GencodeServiceImpl implements GencodeService {
 	public void updateGencode(Gencode gencode) throws GencodeException {
 		try {
 			executor.updateBean("gencode", "updateGencode", gencode);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new GencodeException("update Gencode failed::", e);
 		}
 
@@ -199,7 +199,7 @@ public class GencodeServiceImpl implements GencodeService {
 		try {
 			Gencode bean = executor.queryObjectWithDBName(Gencode.class, "gencode", "selectById", id);
 			return bean;
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new GencodeException("get Gencode failed::id=" + id, e);
 		}
 

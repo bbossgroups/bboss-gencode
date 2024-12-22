@@ -7,6 +7,6 @@ try {
 	return "path:update$entityName";
 } catch ($exception e) {
 	throw e;
-} catch (Throwable e) {
+} catch (Exception e) {
 	throw new $exception("get $entityName failed::${paramName}=" + ${paramName}, e);
 }

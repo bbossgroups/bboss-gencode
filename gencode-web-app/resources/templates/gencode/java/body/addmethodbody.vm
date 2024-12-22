@@ -4,7 +4,7 @@
 #if($componentType == 1)//业务组件
 try {
 	executor.insertBean(#if($dbname)"$dbname",#end"add${entityName}", ${paramName});
-} catch (Throwable e) {
+} catch (Exception e) {
 	throw new $exception${start}"add ${entityName} failed:",e${end};
 }
 #elseif($componentType == 2)//控制器
@@ -14,7 +14,7 @@ try {
 } catch ($exception e) {
 	log.error("add ${entityName} failed:",e);
 	return StringUtil.formatBRException(e);
-}catch (Throwable e) {
+}catch (Exception e) {
 	log.error("add ${entityName} failed:",e);
 	return StringUtil.formatBRException(e);
 }
@@ -25,7 +25,7 @@ try {
  catch ($exception e) {
 	throw e;
 }
- catch (Throwable e) {
+ catch (Exception e) {
 	throw new $exception${start}"add ${entityName} failed:",e${end};
 }
 #end
