@@ -56,9 +56,7 @@
 													<input id="${condition.fieldName}" name="${condition.fieldName}" type="text"
 															value="" class="w120"/>
 												#end		
-												</td>
-												
-												
+												</td>												
 													#if($foreach.index == ($conditions.size() - 1))
 												<th>
 													&nbsp;

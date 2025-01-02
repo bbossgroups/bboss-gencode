@@ -36,7 +36,7 @@
 		  	#end
 			#foreach($field in $fields)
 				#if( $foreach.index % $controlInfo.themeCols == 0)
-					#if($foreach.index > 0)</div>#end
+					#if($foreach.index > 0)						</div>#end
 				<div class="row">
 				#end
 					<div class="col-md-$controlInfo.themeColWidth" >
