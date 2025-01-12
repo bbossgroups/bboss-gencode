@@ -27,7 +27,7 @@
 			#end
 			<div class="col-md-$controlInfo.themeColWidth" >
 				<div class="form-group ">
-					<label class="col-md-3 control-label"">#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end:				 
+					<label class="col-md-3 control-label">#if(!$genI18n)$field.fieldCNName#else<pg:message code="$namespacei18n.$field.fieldName"/>#end:				 
 					</label>
 					 
 					<div class="col-md-9">
