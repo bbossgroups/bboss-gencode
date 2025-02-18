@@ -46,7 +46,13 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
 			{
 				return ("gencode为系统内置数据源，请修改为其他数据源名称!");
 			}
-			Datasource olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
+            Datasource olddatasource = null;
+            try {
+                olddatasource = this.gencodeService.getDatasource(datasource.getDbname());
+            }
+            catch (Exception e){
+                 
+            }
 			if (olddatasource == null) {
 				gencodeService.addDatasource(datasource);
 
