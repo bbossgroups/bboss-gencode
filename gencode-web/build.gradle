@@ -25,6 +25,10 @@ dependencies {
 //				[group: 'com.bbossgroups.boot', name: 'bboot-starter-tomcat', version: "${bboot_version}", transitive: true]
 
     )
+            {
+                //org.eclipse.jdt:ecj:3.12.3
+                exclude group: 'org.eclipse.jdt', module: 'ecj'
+            }
     
     api(
             [group: 'com.github.housepower', name: 'clickhouse-native-jdbc', version: "${clickhouse_verion}", transitive: true],

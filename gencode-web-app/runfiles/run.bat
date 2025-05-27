@@ -1,7 +1,16 @@
 %~d0
 cd %~dp0
 @echo off
+rem Using Java: %JAVA_CMD%
 
+set "JAVA_CMD=java"
+
+
+if not "%JAVA_HOME_17%" == "" (
+    
+   set "JAVA_CMD=%JAVA_HOME_17%/bin/java"
+     
+)
 
 setlocal enabledelayedexpansion
 setlocal enableextensions
@@ -31,13 +40,13 @@ goto end
 
 
 :start
-    java %RT_JAVA_OPTS% -jar ${project}-${bboss_version}.jar --conf=resources/application.properties
+    "%JAVA_CMD%" %RT_JAVA_OPTS% -jar ${project}-${bboss_version}.jar --conf=resources/application.properties
 goto end
 :stop
-    java -jar ${project}-${bboss_version}.jar stop --conf=resources/application.properties
+    "%JAVA_CMD%" -jar ${project}-${bboss_version}.jar stop --conf=resources/application.properties
 goto end
 :restart
-    java %RT_JAVA_OPTS% -jar ${project}-${bboss_version}.jar restart --conf=resources/application.properties
+    "%JAVA_CMD%" %RT_JAVA_OPTS% -jar ${project}-${bboss_version}.jar restart --conf=resources/application.properties
 goto end
 
 :end

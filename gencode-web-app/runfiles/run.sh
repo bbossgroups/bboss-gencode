@@ -7,20 +7,26 @@ parse_jvm_options() {
   fi
 }
 
+JAVA_CMD="\${JAVA_HOME_17:-}/bin/java"
+if [ ! -x "\$JAVA_CMD" ]; then
+  JAVA_CMD="java"
+fi
+
+
 JVM_OPTIONS_FILE=jvm.options
 
 RT_JAVA_OPTS="`parse_jvm_options "\$JVM_OPTIONS_FILE"` \$RT_JAVA_OPTS"
 echo \$RT_JAVA_OPTS
 case \$1 in
    start)
-    nohup java \$RT_JAVA_OPTS -jar ${project}-${bboss_version}.jar --conf=resources/application.properties > ${project}.log &
+    nohup \$JAVA_CMD \$RT_JAVA_OPTS -jar ${project}-${bboss_version}.jar --conf=resources/application.properties > ${project}.log &
     tail -f ${project}.log
      ;;
    stop)
-    java -jar ${project}-${bboss_version}.jar  stop --shutdownLevel=9 --conf=resources/application.properties
+    \$JAVA_CMD -jar ${project}-${bboss_version}.jar  stop --shutdownLevel=9 --conf=resources/application.properties
      ;;
    restart)
-    nohup java \$RT_JAVA_OPTS -jar ${project}-${bboss_version}.jar restart --shutdownLevel=9 --conf=resources/application.properties > ${project}.log &
+    nohup \$JAVA_CMD \$RT_JAVA_OPTS -jar ${project}-${bboss_version}.jar restart --shutdownLevel=9 --conf=resources/application.properties > ${project}.log &
     tail -f ${project}.log
     ;;
    *)
