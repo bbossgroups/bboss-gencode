@@ -36,97 +36,104 @@ sourceSets {
 dependencies {
 	api project(':gencode-core')
 	api project(':gencode-web')
-    api (
-			[group: 'javax.xml.bind', name: 'jaxb-api', version: "2.3.0", transitive: false],
+//    api (
+//			[group: 'javax.xml.bind', name: 'jaxb-api', version: "2.3.0", transitive: false],
+////
+////			[group: 'com.sun.xml.bind', name: 'jaxb-impl', version: "2.3.0", transitive: false],
+////
+////			[group: 'com.sun.xml.bind', name: 'jaxb-core', version: "2.3.0", transitive: false],
+////
+////			[group: 'javax.activation', name: 'activation', version: "1.1.1", transitive: false],
 //
-//			[group: 'com.sun.xml.bind', name: 'jaxb-impl', version: "2.3.0", transitive: false],
 //
-//			[group: 'com.sun.xml.bind', name: 'jaxb-core', version: "2.3.0", transitive: false],
 //
-//			[group: 'javax.activation', name: 'activation', version: "1.1.1", transitive: false],
-
-
-
-               [group: 'com.bbossgroups', name: 'bboss-taglib', version: "${bboss_version}", transitive: false],
-              [group: 'com.bbossgroups', name: 'bboss-htmlparser', version: "${bboss_version}", transitive: false],
-             [group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5', transitive: false],
-            [group: 'commons-io', name: 'commons-io', version: '2.4', transitive: false],
-               [group: 'jstl', name: 'jstl', version: '1.2', transitive: false],
-            
-    )
+//               [group: 'com.bbossgroups', name: 'bboss-taglib', version: "${bboss_version}", transitive: false],
+//              [group: 'com.bbossgroups', name: 'bboss-htmlparser', version: "${bboss_version}", transitive: false],
+//             [group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5', transitive: false],
+//            [group: 'commons-io', name: 'commons-io', version: '2.4', transitive: false],
+//               [group: 'jstl', name: 'jstl', version: '1.2', transitive: false],
+//            
+//    )
      api (
          fileTree(dir: '../lib/eclipse', include: '*.jar'),
          fileTree(dir: '../lib/jdbc', include: '**/*.jar'),
     	)
 	api (
-            [group: 'com.bbossgroups', name: 'bboss-tabpane', version: "${bboss_version}", transitive: false],
+//            [group: 'com.bbossgroups', name: 'bboss-tabpane', version: "${bboss_version}", transitive: false],
             [group: 'com.bbossgroups', name: 'bboss-bootstrap-rt', version: "${bboss_version}", transitive: true],
 	)
+    api  (
+            //jetty,tomcat二选一，如果需要采用tomcat，则注释jetty，打开tomcat
+
+            [group: 'com.bbossgroups.boot', name: 'bboot-starter-jetty', version: "${bboot_version}", transitive: true],
+//				[group: 'com.bbossgroups.boot', name: 'bboot-starter-tomcat', version: "${bboot_version}", transitive: true]
+
+    )
     	
-     compileOnly (
-          
-//            [group: 'javax.servlet', name: 'javax.servlet-api', version: "2.3.1", transitive: false],
-            //[group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
-            [group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1', transitive: false],
-            
-//           [group: 'javax.el', name: 'javax.el-api', version: '2.2.1', transitive: false],
-//           [group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],
-//           [group: 'org.eclipse.jetty.orbit', name: 'org.apache.jasper.glassfish', version: '2.2.2.v201112011158', transitive: false],
-//           [group: 'org.eclipse.jetty.orbit', name: 'javax.servlet.jsp', version: '2.2.0.v201112011158', transitive: false],
-//        
-//          [group: 'org.eclipse.jetty.orbit', name: 'org.apache.taglibs.standard.glassfish', version: '1.2.0.v201112081803', transitive: false],
-//           [group: 'org.eclipse.jetty.orbit', name: 'com.sun.el', version: '2.2.0.v201108011116', transitive: false],
-             [group: 'org.eclipse.jetty', name: 'jetty-server', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty', name: 'jetty-webapp', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
-             [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
-           
-          
-    )
-
-    testImplementation (
-
-//            [group: 'javax.servlet', name: 'javax.servlet-api', version: "2.3.1", transitive: false],
-            //[group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
-            [group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1', transitive: false],
-
-//            [group: 'javax.el', name: 'javax.el-api', version: '2.2.1', transitive: false],
-            [group: 'org.eclipse.jetty', name: 'jetty-server', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty', name: 'jetty-webapp', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
-            [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
-//            [group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],
-//            [group: 'org.eclipse.jetty.orbit', name: 'org.apache.jasper.glassfish', version: '2.2.2.v201112011158', transitive: false],
-//            [group: 'org.eclipse.jetty.orbit', name: 'javax.servlet.jsp', version: '2.2.0.v201112011158', transitive: false],
+//     compileOnly (
+//          
+////            [group: 'javax.servlet', name: 'javax.servlet-api', version: "2.3.1", transitive: false],
+//            //[group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
+//            [group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1', transitive: false],
+//            
+////           [group: 'javax.el', name: 'javax.el-api', version: '2.2.1', transitive: false],
+////           [group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],
+////           [group: 'org.eclipse.jetty.orbit', name: 'org.apache.jasper.glassfish', version: '2.2.2.v201112011158', transitive: false],
+////           [group: 'org.eclipse.jetty.orbit', name: 'javax.servlet.jsp', version: '2.2.0.v201112011158', transitive: false],
+////        
+////          [group: 'org.eclipse.jetty.orbit', name: 'org.apache.taglibs.standard.glassfish', version: '1.2.0.v201112081803', transitive: false],
+////           [group: 'org.eclipse.jetty.orbit', name: 'com.sun.el', version: '2.2.0.v201108011116', transitive: false],
+//             [group: 'org.eclipse.jetty', name: 'jetty-server', version: "${jetty_version}", transitive: true],
+//             [group: 'org.eclipse.jetty', name: 'jetty-webapp', version: "${jetty_version}", transitive: true],
+//             [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
+//             [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
+//             [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
+//             [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
+//           
+//          
+//    )
 //
-//            [group: 'org.eclipse.jetty.orbit', name: 'org.apache.taglibs.standard.glassfish', version: '1.2.0.v201112081803', transitive: false],
-//            [group: 'org.eclipse.jetty.orbit', name: 'com.sun.el', version: '2.2.0.v201108011116', transitive: false],
-
-
-    )
-    testImplementation (
- 
-            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
-            
-
-    )
-            {
-                //org.eclipse.jdt:ecj:3.12.3
-                exclude group: 'org.eclipse.jdt', module: 'ecj'
-            }
-    compileOnly (
-
-            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
-
-
-    ){
-        //org.eclipse.jdt:ecj:3.12.3
-        exclude group: 'org.eclipse.jdt', module: 'ecj'
-    }
+//    testImplementation (
+//
+////            [group: 'javax.servlet', name: 'javax.servlet-api', version: "2.3.1", transitive: false],
+//            //[group: 'javax.servlet', name: 'jsp-api', version: '2.0', transitive: false],
+//            [group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1', transitive: false],
+//
+////            [group: 'javax.el', name: 'javax.el-api', version: '2.2.1', transitive: false],
+//            [group: 'org.eclipse.jetty', name: 'jetty-server', version: "${jetty_version}", transitive: true],
+//            [group: 'org.eclipse.jetty', name: 'jetty-webapp', version: "${jetty_version}", transitive: true],
+//            [group: 'org.eclipse.jetty', name: 'jetty-jmx', version: "${jetty_version}", transitive: true],
+//            [group: 'org.eclipse.jetty', name: 'jetty-servlets', version: "${jetty_version}", transitive: true],
+//            [group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: "${jetty_version}", transitive: true],
+//            [group: 'org.eclipse.jetty', name: 'apache-jstl', version: "${jetty_version}", transitive: true],
+////            [group: 'org.eclipse.jetty.aggregate', name: 'jetty-all-server', version: '8.1.19.v20160209', transitive: false],
+////            [group: 'org.eclipse.jetty.orbit', name: 'org.apache.jasper.glassfish', version: '2.2.2.v201112011158', transitive: false],
+////            [group: 'org.eclipse.jetty.orbit', name: 'javax.servlet.jsp', version: '2.2.0.v201112011158', transitive: false],
+////
+////            [group: 'org.eclipse.jetty.orbit', name: 'org.apache.taglibs.standard.glassfish', version: '1.2.0.v201112081803', transitive: false],
+////            [group: 'org.eclipse.jetty.orbit', name: 'com.sun.el', version: '2.2.0.v201108011116', transitive: false],
+//
+//
+//    )
+//    testImplementation (
+// 
+//            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
+//            
+//
+//    )
+//            {
+//                //org.eclipse.jdt:ecj:3.12.3
+//                exclude group: 'org.eclipse.jdt', module: 'ecj'
+//            }
+//    compileOnly (
+//
+//            [group: 'org.eclipse.jetty', name: 'apache-jsp', version: "${jetty_version}", transitive: true],
+//
+//
+//    ){
+//        //org.eclipse.jdt:ecj:3.12.3
+//        exclude group: 'org.eclipse.jdt', module: 'ecj'
+//    }
      
 }
 task warcopyWebRootFiles(type: Copy){
