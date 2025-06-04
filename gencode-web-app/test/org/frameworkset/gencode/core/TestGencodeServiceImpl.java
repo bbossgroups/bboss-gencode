@@ -14,7 +14,7 @@ public class TestGencodeServiceImpl {
 	@Test
 	public void testGenEntityCode() throws Exception
 	{
-		 
+        
 		GencodeServiceImpl gencodeService = new GencodeServiceImpl();
 		ModuleMetaInfo moduleMetaInfo = new ModuleMetaInfo();
 		moduleMetaInfo.setTableName("ACT_RU_TASK".toLowerCase());//指定表名，根据表结构来生成所有的文件
