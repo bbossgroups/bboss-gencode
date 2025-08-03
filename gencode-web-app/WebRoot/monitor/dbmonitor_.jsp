@@ -377,25 +377,25 @@
 						</tr>
 						
 						<tr>
-						<td>skimmerFrequency</td>
-						<td height="25"><%=metadata.getSkimmerFrequency() %></td>
-						<td>60 秒</td>
-						<td>回收空闲链接操作间隔时间,秒（s）为单位，缺省为60秒</td>
+						<td>TimeBetweenEvictionRunsMillis</td>
+						<td height="25"><%=metadata.getTimeBetweenEvictionRunsMillis() %></td>
+						<td>180秒</td>
+						<td>回收空闲链接操作间隔时间,毫秒为单位，缺省为180秒</td>
 						</tr>
 						
 						
 						<tr>
-						<td>connectionTimeout</td>
-						<td height="25"><%=metadata.getConnectionTimeout() %></td>
-						<td>1200 秒</td>
+						<td>MinEvictableIdleTimeMillis</td>
+						<td height="25"><%=metadata.getMinEvictableIdleTimeMillis() %></td>
+						<td>30分钟</td>
 						<td>
-						单位：秒;
-						空闲链接回收时间，空闲时间超过指定的值时，将被回收;缺省为1200秒</td>
+						单位：毫秒;
+						空闲链接回收时间，空闲时间超过指定的值时，将被回收;缺省为30分钟</td>
 						</tr>
 						
 						<tr>
-						<td>shrinkBy</td>
-						<td height="25"><%=metadata.getShrinkBy() %></td>
+						<td>NumTestsPerEvictionRun</td>
+						<td height="25"><%=metadata.getNumTestsPerEvictionRun() %></td>
 						<td>5</td>
 						<td>每次回收的链接数,回收进程每次最多回收的空闲链接数，缺省值是5</td>
 						</tr>
