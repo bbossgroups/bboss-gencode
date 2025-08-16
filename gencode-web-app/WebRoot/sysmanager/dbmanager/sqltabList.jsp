@@ -27,6 +27,7 @@
  	String sql = request.getParameter("sqlContent");
  	
     String isDDLQuery_ = request.getParameter("isDDLQuery");
+    String isDataquery_ = request.getParameter("isDataquery");
  	
  	if(null == dsource || null == sql 
  					|| "".equals(sql)  || "".equals(dsource) || 
@@ -55,12 +56,11 @@
     String sql_l = sql.toLowerCase();
     boolean isDDLQuery = isDDLQuery_ != null && isDDLQuery_.equals("true") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
     String isDDL_ = request.getParameter("isDDL");
-    boolean isDDL = isDDL_ != null && isDDL_.equals("true") || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ");
-    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
-    if(!isSelect && isDDLQuery){
-        isSelect = true;
-    }
-        
+    boolean isDDL = (isDDL_ != null && isDDL_.equals("true")) || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ");
+    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || (isDataquery_ != null && isDataquery_.equals("true"));
+     
+  
+    out.println("<br>数据查询: "+isSelect);    
     out.println("<br>管理查询SQL: "+isDDLQuery);
     out.println("<br>管理DDL SQL: "+isDDL);
    
@@ -80,13 +80,26 @@
             db.executeUpdate(dsource,sql);
 			flag = true;
 		}
-		else if(isSelect){
-            if(!isDDLQuery){
-                db.executeSelect(dsource,sql,0,1);
+        else if(isSelect){
+            db.executeSelect(dsource,sql,0,1);
+            ResultSetMetaData resultMeta = db.getMeta();
+            
+            if(resultMeta != null) 
+            {
+                columnList = new ArrayList();
+                int size =resultMeta.getColumnCount();
+                for(int i=1; i<=size; i++)
+                {
+                    String columnName = resultMeta.getColumnLabel(i);
+                    columnList.add(columnName);
+                }
             }
-            else{
-                 db.executeSelect(dsource,sql);
-            }
+            flag = true;
+        }
+		else if(isDDLQuery){
+            
+            db.executeSelect(dsource,sql);
+           
             ResultSetMetaData resultMeta = db.getMeta();
             
             if(resultMeta != null) 
@@ -102,8 +115,10 @@
             flag = true;
         }
         else {
-            db.executeUpdate(dsource,sql);
-			flag = true;
+//            db.executeUpdate(dsource,sql);
+//			flag = true;
+            out.println("<br>不能识别的sql，请选择操作类型: "+sql);
+            return;
         }
 	} catch(Exception e)
 	{
@@ -196,7 +211,12 @@
   			}
   			else if(flag )
   			{
-  				out.print("<br/><br/>SQL执行成功!!!");
+                  if(!isSelect) {
+                      out.print("<br/><br/>SQL执行成功!!!");
+                  }
+                  else{
+                      out.print("<br/><br/>SQL执行成功：没有查询到满足条件的数据！");
+                  }
   			}
   			else
   			{

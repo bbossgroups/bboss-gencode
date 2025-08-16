@@ -143,7 +143,7 @@ public class GencodeController implements org.frameworkset.spi.InitializingBean,
             }
 			boolean startResult = this.initDatasource(datasource);
             if(startResult ) {
-                DBUtil.getTableMetaDatas(dbname, 100);
+                DBUtil.getTableMetaDatas(dbname, 50);
                 return "success";
             }
             else{

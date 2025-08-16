@@ -169,7 +169,7 @@
 	{
 		//执行sql语句
 		DBUtil db = new DBUtil();
-		db.execute(dsource,sql);
+		db.executeSelect(dsource,sql,0,1);
 		ResultSetMetaData resultMeta = db.getMeta();
 		
 		if(resultMeta != null) 

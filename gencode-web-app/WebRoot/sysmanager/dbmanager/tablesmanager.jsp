@@ -668,6 +668,7 @@
 							</td>
 							<td colspan="1" valign='middle' align="center" width="15%" nowrap>
 								每页显示记录数(<=0时不做分页查询):&nbsp;<input name="pageSize2" id="pageSize2" type="text" value="6" size="8"/>
+                               操作类型   数据查询：<input name="isDataquery" id="isDataquery" type="checkbox" value="true" checked/>
                                 管理DDLQuery:&nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"/>
                                 管理DDL:&nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true"/>
 							</td>

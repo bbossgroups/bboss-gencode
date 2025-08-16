@@ -11,12 +11,23 @@
 	
 	String selected_tablename = request.getParameter("selected_tablename");
 	selected_tablename = selected_tablename == null ? "" : selected_tablename;
-		
-	String queryTableName = request.getParameter("queryTableName") == null ? "" : request.getParameter("queryTableName");
-			
-	List tableList = new ArrayList();
-	List tableComments = new ArrayList();
-	Set set = DBUtil.getTableMetaDatas(dbname);
+    Set set = null;
+    List tableList = new ArrayList();
+    List tableComments = new ArrayList();
+    String queryTableName = request.getParameter("queryTableName") == null ? "" : request.getParameter("queryTableName");
+    if(queryTableName != null && queryTableName.trim().length() > 0) {
+        TableMetaData tableMetaData = DBUtil.getTableMetaData(dbname, queryTableName);
+        set = new TreeSet();
+        if(tableMetaData != null) {
+            set.add(tableMetaData);
+        }
+        else{
+            set = DBUtil.getTableMetaDatas(dbname,50);
+        }
+    }		
+	else{
+	    set = DBUtil.getTableMetaDatas(dbname,50);
+    }
 	Iterator it = set.iterator();
 	boolean searchNone = false;
 	
