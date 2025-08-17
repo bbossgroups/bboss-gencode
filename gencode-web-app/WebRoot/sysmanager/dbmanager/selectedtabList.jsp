@@ -182,6 +182,9 @@
 				columnList.add(columnName);
 			}
 		}
+        else{
+             columnList = new ArrayList();
+        }
 		flag = true;
 	} catch(Exception e)
 	{
