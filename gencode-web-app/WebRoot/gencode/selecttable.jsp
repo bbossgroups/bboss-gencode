@@ -78,7 +78,7 @@
 					<div class="col-md-12">
 						<button type="submit" class="btn blue" > 进入表单配置</button>
 						
-						<a href="javascript:void(0);"  class="btn default" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>
+						<a href="javascript:void(0);"  class="btn default" onclick="FormValidation.refreshdb('tableName',event)"> 刷新表结构</a>**新增或者修改表，需刷新对应数据源表结构才可用
 					</div>
 				</div>
 			</div>

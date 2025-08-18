@@ -58,7 +58,9 @@
     String isDDL_ = request.getParameter("isDDL");
     boolean isDDL = (isDDL_ != null && isDDL_.equals("true")) || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ");
     boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || (isDataquery_ != null && isDataquery_.equals("true"));
-     
+     if(isDDLQuery){
+         isSelect = false;
+     }
   
     out.println("<br>数据查询: "+isSelect);    
     out.println("<br>管理查询SQL: "+isDDLQuery);
