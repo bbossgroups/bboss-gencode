@@ -42,6 +42,10 @@ dependencies {
     )
             {
                 exclude group: 'org.slf4j', module: 'slf4j-api'
+                exclude group: 'commons-codec', module: 'commons-codec'
+                exclude group: 'commons-io', module: 'commons-io'
+                exclude group: 'org.ow2.asm', module: 'asm'
+                exclude group: 'org.apache.commons', module: 'commons-lang3' 
             }
      api (
              
