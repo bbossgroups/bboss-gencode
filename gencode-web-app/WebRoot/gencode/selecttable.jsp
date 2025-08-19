@@ -69,6 +69,7 @@
 								 <input name="tableNameCustom" id="tableNameCustom" type="text"
 										class="form-control" placeholder="直接填写表名称">
 							</div>
+                            默认加载50张表，如果表不在列表中，可直接填写表名称
 						</div>
 					</div>
 					<!--/span-->

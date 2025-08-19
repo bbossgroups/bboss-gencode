@@ -36,7 +36,7 @@
 				</tr>
 				<tr class="labeltable_middle_tr_01">
 					<td nowrap>
-						表名（如表没有出现在列表中，可直接输入完整表名进行查询）
+						表名（默认加载50张表，如果表不在列表中，可直接输入完整表名进行查询）
 						<input type="text" name="queryTableName" value="<%=selected_tablename%>" style="width:150px">
 						<input type="button" value="查询" class="input" onclick="querytable()">
 					</td>
