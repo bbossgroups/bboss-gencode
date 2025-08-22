@@ -193,8 +193,8 @@
 									<td>
 										 <pg:cell colName="dbuser"/>
 									</td>
-									<td class="center">
-										 <pg:cell colName="dbpassword"/>
+									<td class="center" n="dbpassword">
+										 ***********
 									</td>
 									<td>
 										 <pg:cell colName="validationQuery"/>
