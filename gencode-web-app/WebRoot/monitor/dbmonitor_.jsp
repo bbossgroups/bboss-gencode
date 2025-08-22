@@ -19,7 +19,7 @@
 		
 <%
 
-	String userAccount = "admin";
+	String userAccount = "guest";
 	String selectedds = request.getParameter("ds") ;
 	if(selectedds != null && !selectedds.equals("")) {
 //        selectedds = "数据库：" + selectedds + " 的链接情况";
