@@ -56,7 +56,7 @@
     String sql_l = sql.toLowerCase();
     boolean isDDLQuery = isDDLQuery_ != null && isDDLQuery_.equals("true") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
     String isDDL_ = request.getParameter("isDDL");
-    boolean isDDL = (isDDL_ != null && isDDL_.equals("true")) || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ");
+    boolean isDDL = (isDDL_ != null && isDDL_.equals("true")) || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ") || sql_l.startsWith("truncate ");
     boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || (isDataquery_ != null && isDataquery_.equals("true"));
      if(isDDLQuery){
          isSelect = false;

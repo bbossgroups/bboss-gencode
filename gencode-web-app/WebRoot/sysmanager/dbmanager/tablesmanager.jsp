@@ -461,7 +461,37 @@
 					return false;
 				}
 			}
-			
+			function tourchOpcheckbox(touchId){
+                /*
+                isDDLQuery
+                isDDL
+                isDataquery
+                */
+                 //三个checkbox，id分别为isDDLQuery，isDDL，isDataquery，将id为参数touchId的checkbox设置为选中，其他两个checkbox设置为不选中
+                var isDDLQuery = document.getElementById("isDDLQuery");
+                var isDDL = document.getElementById("isDDL");
+                var isDataquery = document.getElementById("isDataquery");
+                switch(touchId){
+                    case "isDDLQuery":
+                        isDDLQuery.checked = true;
+                        isDDL.checked = false;
+                        isDataquery.checked = false;
+                        break;
+                    case "isDDL":
+                        isDDLQuery.checked = false;
+                        isDDL.checked = true;
+                        isDataquery.checked = false
+                        break;
+                    case "isDataquery":
+                        isDDLQuery.checked = false;
+                        isDDL.checked = false;
+                        isDataquery.checked = true;
+                        break;
+                }
+                return false;
+                
+                
+            }
 			function selectHistorySQL(){
                 var dsource = document.getElementById("dsource2").value;
                 if(dsource !="")
@@ -668,9 +698,9 @@
 							</td>
 							<td colspan="1" valign='middle' align="center" width="15%" nowrap>
 								每页显示记录数(<=0时不做分页查询):&nbsp;<input name="pageSize2" id="pageSize2" type="text" value="6" size="8"/>
-                               操作类型   数据查询：<input name="isDataquery" id="isDataquery" type="checkbox" value="true" checked/>
-                                管理DDLQuery:&nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"/>
-                                管理DDL:&nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true"/>
+                               操作类型：<input name="isDataquery" id="isDataquery" type="checkbox" value="true" checked  onclick="tourchOpcheckbox('isDataquery')"/>数据查询
+                                &nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"  onclick="tourchOpcheckbox('isDDLQuery')"/>管理DDLQuery
+                                &nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true" onclick="tourchOpcheckbox('isDDL')"/> 管理DDL
 							</td>
 							<td colspan="1" height='30' valign='middle' align="center" width="*" nowrap>
                                 
