@@ -53,121 +53,112 @@
 		 
 		 
 		<SCRIPT language="javascript">
-			  var win;
-			  var featrue = "dialogWidth=600px;dialogHeight=500px;scroll=yes;status=no;titlebar=no;toolbar=no;maximize=yes;minimize=0;help=0;dialogLeft="+(screen.availWidth-600)/2+";dialogTop="+(screen.availHeight-500)/2;
-			  function getTables(e)
-			  {
-		      	var dsource = document.getElementById("dsource").value;
-		        if(dsource !="")
-		        {
-					var path = "select_tableName.jsp?dsource=" + dsource + "&tablename=" + e.value;
-					var win = window.open(path,window,featrue);
-					/**
-					if(!win)
-					{
-						e.value = '';
-					}
-					else
-					{
-						if(e.value != win)
-						{
-							e.value=win;
-							var query = document.getElementById("query");
-							//在获取表名的提交表单,从而确定是表的字段类型(注意:存在问题)
-							 query.action = "tablesmanager.jsp";
-							 query.target = "";
-							query.submit();
-						}
-					}
+            
+            var win;
+            var featrue = "dialogWidth=600px;dialogHeight=500px;scroll=yes;status=no;titlebar=no;toolbar=no;maximize=yes;minimize=0;help=0;dialogLeft=" + (screen.availWidth - 600) / 2 + ";dialogTop=" + (screen.availHeight - 500) / 2;
+
+            function getTables(e) {
+                var dsource = document.getElementById("dsource").value;
+                if (dsource != "") {
+                    var path = "select_tableName.jsp?dsource=" + dsource + "&tablename=" + e.value;
+                    var win = window.open(path, window, featrue);
+                    /**
+                     if(!win)
+                     {
+                     e.value = '';
+                     }
+                     else
+                     {
+                     if(e.value != win)
+                     {
+                     e.value=win;
+                     var query = document.getElementById("query");
+                     //在获取表名的提交表单,从而确定是表的字段类型(注意:存在问题)
+                     query.action = "tablesmanager.jsp";
+                     query.target = "";
+                     query.submit();
+                     }
+                     }
                      */
-				}
-			}
-            function setSQL(sql){
+                }
+            }
+
+            function setSQL(sql) {
                 var sqlContent = document.getElementById("sqlContent");
                 sqlContent.value = sql;
             }
-            
-            function queryTableData(tableName){
+
+            function queryTableData(tableName) {
                 var query = document.getElementById("query");
                 //在获取表名的提交表单,从而确定是表的字段类型(注意:存在问题)
                 var dsource = document.getElementById("dsource").value;
-                
-                query.action = "tablesmanager.jsp?dsource="+dsource +"&table_name="+tableName;
+
+                query.action = "tablesmanager.jsp?dsource=" + dsource + "&table_name=" + tableName;
                 query.target = "";
                 query.submit();
             }
-			
-			function getFields(obj,index,targetObject)
-			{
-				var dsource = document.getElementById("dsource").value;
-				var dname =  document.getElementById("table_name").value;
-				if(dsource=='')
-				{
-					alert('请先选择数据库!!!!');
-					return ;
-				}
-				
-				if(dname == '')
-				{
-					alert('请选择数据库表!!!');
-					return ;
-				}
-				
-				
-				var textOrDate = obj.options[obj.selectedIndex].value ;
-	
-				var arr = textOrDate.split("|");
-							
-				
-				//对日期类型和非日期类型的处理				
-				if(arr[1] == "DATE")
-				{
-				var strDate = "查询起止时间:" ;
-					
-				strDate += "<input type='text' name='startDate"+ index +"' size='10' onclick='showdate(document.all(\"startDate"+ index +"\"))' readonly='true'>";
-				
-				strDate +="到<input type='text' name='endDate"+ index +"' size='10' onclick='showdate(document.all(\"endDate"+ index +"\"))' readonly='true'>";
 
-					
-				document.getElementById("strOrDate" + index).innerHTML = strDate;
-				}
-				else
-				{
-					document.getElementById("strOrDate" + index).innerHTML = "请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue"+ index+ "'/>";
-				}
+            function getFields(obj, index, targetObject) {
+                var dsource = document.getElementById("dsource").value;
+                var dname = document.getElementById("table_name").value;
+                if (dsource == '') {
+                    alert('请先选择数据库!!!!');
+                    return;
+                }
 
-			}
-			
-			var num = 1;
-			function changeFlag(nFlag,condition)
-			{
-				//如果num是小于且状态为0返回
-				if(num <=1 && nFlag == 0)
-				{
-					return;
-				}
-				if(nFlag == 1)
-				{
-					num ++;
-				}else if(nFlag == 0)
-				{
-					num --;
-				}
-		
-				if(num <1)
-				{
-					alert('no');
-					return ;
-				}
-				
-				var dataConditionsTable = document.getElementById("dataConditions")
-                if(condition == 1){
+                if (dname == '') {
+                    alert('请选择数据库表!!!');
+                    return;
+                }
+
+
+                var textOrDate = obj.options[obj.selectedIndex].value;
+
+                var arr = textOrDate.split("|");
+
+
+                //对日期类型和非日期类型的处理				
+                if (arr[1] == "DATE") {
+                    var strDate = "查询起止时间:";
+
+                    strDate += "<input type='text' name='startDate" + index + "' size='10' onclick='showdate(document.all(\"startDate" + index + "\"))' readonly='true'>";
+
+                    strDate += "到<input type='text' name='endDate" + index + "' size='10' onclick='showdate(document.all(\"endDate" + index + "\"))' readonly='true'>";
+
+
+                    document.getElementById("strOrDate" + index).innerHTML = strDate;
+                } else {
+                    document.getElementById("strOrDate" + index).innerHTML = "请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue" + index + "'/>";
+                }
+
+            }
+
+            var num = 1;
+
+            function changeFlag(nFlag, condition) {
+                //如果num是小于且状态为0返回
+                if (num <= 1 && nFlag == 0) {
+                    return;
+                }
+                if (nFlag == 1) {
+                    num++;
+                } else if (nFlag == 0) {
+                    num--;
+                }
+
+                if (num < 1) {
+                    alert('no');
+                    return;
+                }
+
+                var dataConditionsTable = document.getElementById("dataConditions")
+                if (condition == 1) {
                     var str = "";
                     //处理表的字段
                     str += "<tr><td colspan='2' height='30' valign='middle' align='center' width='255'>表字段:&nbsp;&nbsp;&nbsp;";
 
-                    str += "<select name=advancedField" + num + " id=select" + num +"  onChange='getFields(this,"+ num +",document.getElementById(\"strOrDate"+ num +"\"))'>";
-                    str += "<option value=''>--请选择表字段--" ;
+                    str += "<select name=advancedField" + num + " id=select" + num + "  onChange='getFields(this," + num + ",document.getElementById(\"strOrDate" + num + "\"))'>";
+                    str += "<option value=''>--请选择表字段--";
 
                     <%
                             for(int i=0; i<columnNameAndTypeList.size(); i++)
@@ -178,290 +169,307 @@
                     <%
                             }
                     %>
-                    str +="</select></td>";
+                    str += "</select></td>";
                     str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-                    str +="<div id='strOrDate"+ num +"'>请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue"+ num +"'/></div></td>";
-                    str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
-                    str += "<select name=logical"+ num+ "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
+                    str += "<div id='strOrDate" + num + "'>请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue" + num + "'/></div></td>";
+                    str += "<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
+                    str += "<select name=logical" + num + "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
                     str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
                     str += "<input name='reduce' type='button' class='input' value='删除' onClick='changeFlag(0,0)'>";
                     str += "</td></tr>";
-                    dataConditionsTable.insertAdjacentHTML("beforeend",str);
-                    
-                }
-                else if(condition == 0){//删除当前行
+                    dataConditionsTable.insertAdjacentHTML("beforeend", str);
+
+                } else if (condition == 0) {//删除当前行
                     event.target.parentElement.parentElement.remove();
                 }
                 /**
-				 var str ="<table cellspacing='1' cellpadding='0' border='0' bordercolor='#EEEEEE' width=100% class='thin'>";
-					for(var i=1; i<=num; i++)
-					{
-					
-						//处理表的字段
-						str += "<tr><td colspan='2' height='30' valign='middle' align='center' width='255'>表字段:&nbsp;&nbsp;&nbsp;";
-						
-							str += "<select name=advancedField" + i + " id=select" + i +"  onChange='getFields(this,"+ i +",document.getElementById(\"strOrDate"+ i +"\"))'>";
-								str += "<option value=''>--请选择表字段--" ;
-								
-									<%
-											for(int i=0; i<columnNameAndTypeList.size(); i++)
-											{
-												String columnNameAndType = (String) columnNameAndTypeList.get(i);
-									%>
-										str += "<option value='<%=columnNameAndType%>'><%=columnNameAndType.substring(0,columnNameAndType.indexOf("|")) %>";
-									<%
-											}
-									%>
-							str +="</select></td>";
-							
-							//处理文本框
-							if(condition == 1)
-							{
-								if(i < num)
-								{
-									var selectObject  = document.getElementsByName("advancedField" +i)[0];
-									var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
-									var arr = dateAndType.split("|");
-									
-									if(arr[1] == 'DATE')
-									{
-										if(document.all("startDate" + i) != null && document.all("endDate"+i) != null)
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'>";
-												str += "<div id='strOrDate"+ i +"'>查询起止时间:";
-													str += "<input type='text' name='startDate"+ i +"' value='"+ document.getElementById('startDate'+ i ).value +"' size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
-													str += "到<input type='text' name='endDate"+ i +"' value='"+ document.getElementById('endDate' +i).value +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
-											str +="</div></td>";
-										}
-										else
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'>";
-												str += "<div id='strOrDate"+ i +"'>查询起止时间:";
-													str += "<input type='text' name='startDate"+ i +"'  size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
-													str += "到<input type='text' name='endDate"+ i +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
-											str +="</div></td>";
-										}
-									}
-									else
-									{
-										if(document.all("advancedvalue" + i) != null)
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
-											str += "</div></td>";
-										}
-										else
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"'/>";
-											str += "</div></td>";
-										}
-									}
-								}
-								else if(i == num)
-								{
-									str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-									str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue"+ i +"'/></div></td>";
-								}
-							}
-							else if(condition == 0)
-							{
-									var selectObject  = document.getElementsByName("advancedField" +i)[0];
-									var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
-									var arr = dateAndType.split("|");
-									
-									if(arr[1] == 'DATE')
-									{
-										if(document.getElementById("startDate" + i) != null && document.getElementById("endDate"+i))
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'>";
-												str += "<div id='strOrDate"+ i +"'>查询起止时间:";
-													str += "<input type='text' name='startDate"+ i +"' value='"+ document.getElementById('startDate'+ i ).value +"' size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
-													str += "到<input type='text' name='endDate"+ i +"' value='"+ document.getElementById('endDate' +i).value +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
-											str +="</div></td>";
-										}
-										else
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'>";
-												str += "<div id='strOrDate"+ i +"'>查询起止时间:";
-													str += "<input type='text' name='startDate"+ i +"'  size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
-													str += "到<input type='text' name='endDate"+ i +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
-											str +="</div></td>";
-										}
-									}
-									else
-									{
-										if(document.getElementsByName("advancedvalue" + i)[0] != null)
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
-											str += "</div></td>";
-										}
-										else
-										{
-											str += "<td colspan='2' height='30' valign='middle' align='center'> ";
-												str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
-													str += "<input type='text' name='advancedvalue"+ i +"'/>";
-											str += "</div></td>";
-										}
-									}
-							}
-							
-							
-							//处理逻辑符
-							if(i !=1)
-							{
-							
-								str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
-									str += "<select name=logical"+ i+ "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
-                                str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
-                                str += "<input name='reduce' type='button' class='input' value='减少' onClick='changeFlag(0,0)'>";
-								str += "</td></tr>";
-							
-							}
-							else 
-							{
-								str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
-									str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
-									str += "<input name='reduce' type='button' class='input' value='减少' onClick='changeFlag(0,0)'>";
-								str += "</td></tr>";
-							}
-					}
-					
-				str += "</table>";
-				rememberSelectedField();
-				rememberInputLogic();
-				div1.innerHTML = str;
-				selectField(condition);
-				selectLogic();*/
-				
-			}
-			
-			var arrSelectIndex = "";
-			function rememberSelectedField()
-			{
-				arrSelectIndex = "";
-				for(var i=1;i<=num;i++)
-				{
-					var selectID = "select" + i;
-					if (document.all( selectID ) != null)
-					{
-						arrSelectIndex += document.all( selectID ).selectedIndex + "|";
-						
-					}
-				}
-				//去除最后一个|字符
-				if (arrSelectIndex.length > 1)
-				{
-					arrSelectIndex = arrSelectIndex.substring(0,arrSelectIndex.length - 1);
-				}	
-				
-			}
+                 var str ="<table cellspacing='1' cellpadding='0' border='0' bordercolor='#EEEEEE' width=100% class='thin'>";
+                 for(var i=1; i<=num; i++)
+                 {
 
-			function selectField(condition)
-			{
-		
-			    var arrIndex = arrSelectIndex.split('|');
-				for(var i=1;i<= num;i++)
-				{
-					var selectID = "select" + i;
-					//下拉框的长度
-					var j = document.all( selectID ).length;
-		
-					if( j > i )
-					{
-						j = i-1;
-					}
-					else
-					{
-						j = j -1;
-					}
-		
+                 //处理表的字段
+                 str += "<tr><td colspan='2' height='30' valign='middle' align='center' width='255'>表字段:&nbsp;&nbsp;&nbsp;";
 
-					if(condition == 1)
-					{	
-						if(i == num)
-						{
-							document.all( selectID ).options(0).selected = true;
-						}
-						else
-						{
-							document.all( selectID ).options(parseInt(arrIndex[i-1])).selected = true;
-						}
-					}
-					else if(condition == 0)
-					{
-						document.all( selectID ).options(parseInt(arrIndex[i-1])).selected = true;
-					}
-				}
-			}
-	
-			var arrInputLogic = "";
-			function rememberInputLogic()
-			{
-				arrInputLogic = "";
-				for(var i=2;i<= num;i++)
-				{
-					var selectID = "logical" + i;
-					if (document.all( selectID ) != null)
-					{
-					arrInputLogic += document.all( selectID ).value + "|";
-					}
-				}
-				if (arrInputLogic.length > 1)
-				{
-					arrInputLogic = arrInputLogic.substring(0,arrInputLogic.length - 1);
-				}	
-			}
+                 str += "<select name=advancedField" + i + " id=select" + i +"  onChange='getFields(this,"+ i +",document.getElementById(\"strOrDate"+ i +"\"))'>";
+                 str += "<option value=''>--请选择表字段--" ;
 
-			function selectLogic()
-			{
-			   if (arrInputLogic=='') return;
-				var arrIndex = arrInputLogic.split('|');
-				for(var i=2;i<= num;i++)
-				{
-					if (arrIndex[i-2] != null && arrIndex[i-2] != '')
-					{
-						var selectID = "logical" + i;
-						document.all( selectID ).value=arrIndex[i-2];
-					}
-				}
-			}
-			
-			function checkData()
-			{
-					var dsource = document.getElementById("dsource").value;
-					var query = document.getElementById("query");
-					var table_name = document.getElementById("table_name").value;
-				if(dsource=="" )
-				{
-					alert('请选择数据源!!!');
-					document.getElementById("dsource").focus();
-					return ;
-				}
-				if(table_name=="")
-				{
-					alert('请选择数据表!!!');
-					document.getElementById("table_name").focus();
-					return ;
-				}
-				
-				if(validate("pageSize") == true)
-				{
-					document.getElementById("numCount").value = num;
-					 query.action = "selectedtabList.jsp";
-					 query.target = "queryList";
-					query.submit();
-				}
-				else
-				{
-					return false;
-				}
-			}
-			function tourchOpcheckbox(touchId){
+                 <%
+                         for(int i=0; i<columnNameAndTypeList.size(); i++)
+                         {
+                             String columnNameAndType = (String) columnNameAndTypeList.get(i);
+                 %>
+                 str += "<option value='<%=columnNameAndType%>'><%=columnNameAndType.substring(0,columnNameAndType.indexOf("|")) %>";
+                 <%
+                         }
+                 %>
+                 str +="</select></td>";
+
+                 //处理文本框
+                 if(condition == 1)
+                 {
+                 if(i < num)
+                 {
+                 var selectObject  = document.getElementsByName("advancedField" +i)[0];
+                 var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
+                 var arr = dateAndType.split("|");
+
+                 if(arr[1] == 'DATE')
+                 {
+                 if(document.all("startDate" + i) != null && document.all("endDate"+i) != null)
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'>";
+                 str += "<div id='strOrDate"+ i +"'>查询起止时间:";
+                 str += "<input type='text' name='startDate"+ i +"' value='"+ document.getElementById('startDate'+ i ).value +"' size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
+                 str += "到<input type='text' name='endDate"+ i +"' value='"+ document.getElementById('endDate' +i).value +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
+                 str +="</div></td>";
+                 }
+                 else
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'>";
+                 str += "<div id='strOrDate"+ i +"'>查询起止时间:";
+                 str += "<input type='text' name='startDate"+ i +"'  size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
+                 str += "到<input type='text' name='endDate"+ i +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
+                 str +="</div></td>";
+                 }
+                 }
+                 else
+                 {
+                 if(document.all("advancedvalue" + i) != null)
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                 str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
+                 str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
+                 str += "</div></td>";
+                 }
+                 else
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                 str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
+                 str += "<input type='text' name='advancedvalue"+ i +"'/>";
+                 str += "</div></td>";
+                 }
+                 }
+                 }
+                 else if(i == num)
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                 str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;<input type='text' name='advancedvalue"+ i +"'/></div></td>";
+                 }
+                 }
+                 else if(condition == 0)
+                 {
+                 var selectObject  = document.getElementsByName("advancedField" +i)[0];
+                 var dateAndType = selectObject.options[selectObject.selectedIndex].value ;
+                 var arr = dateAndType.split("|");
+
+                 if(arr[1] == 'DATE')
+                 {
+                 if(document.getElementById("startDate" + i) != null && document.getElementById("endDate"+i))
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'>";
+                 str += "<div id='strOrDate"+ i +"'>查询起止时间:";
+                 str += "<input type='text' name='startDate"+ i +"' value='"+ document.getElementById('startDate'+ i ).value +"' size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
+                 str += "到<input type='text' name='endDate"+ i +"' value='"+ document.getElementById('endDate' +i).value +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
+                 str +="</div></td>";
+                 }
+                 else
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'>";
+                 str += "<div id='strOrDate"+ i +"'>查询起止时间:";
+                 str += "<input type='text' name='startDate"+ i +"'  size='10' onclick='showdate(document.all(\"startDate"+ i +"\"))' readonly='true'>";
+                 str += "到<input type='text' name='endDate"+ i +"' size='10' onclick='showdate(document.all(\"endDate"+ i +"\"))' readonly='true'>";
+                 str +="</div></td>";
+                 }
+                 }
+                 else
+                 {
+                 if(document.getElementsByName("advancedvalue" + i)[0] != null)
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                 str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
+                 str += "<input type='text' name='advancedvalue"+ i +"' value='"+ document.getElementsByName('advancedvalue'+i)[0].value +"'/>";
+                 str += "</div></td>";
+                 }
+                 else
+                 {
+                 str += "<td colspan='2' height='30' valign='middle' align='center'> ";
+                 str +="<div id='strOrDate"+ i +"'>请输入过滤条件:&nbsp;&nbsp;";
+                 str += "<input type='text' name='advancedvalue"+ i +"'/>";
+                 str += "</div></td>";
+                 }
+                 }
+                 }
+
+
+                 //处理逻辑符
+                 if(i !=1)
+                 {
+
+                 str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
+                 str += "<select name=logical"+ i+ "><option value='and' selected>并且<option value='or'>或者<option value='and not'>不包含 </option></select>";
+                 str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
+                 str += "<input name='reduce' type='button' class='input' value='减少' onClick='changeFlag(0,0)'>";
+                 str += "</td></tr>";
+
+                 }
+                 else
+                 {
+                 str +="<td width='16%' height='30' colspan='1' align='center' valign='middle'>";
+                 str += "<input name='add' type='button' class='input' value='增加' onClick='changeFlag(1,1)'>&nbsp;&nbsp;"
+                 str += "<input name='reduce' type='button' class='input' value='减少' onClick='changeFlag(0,0)'>";
+                 str += "</td></tr>";
+                 }
+                 }
+
+                 str += "</table>";
+                 rememberSelectedField();
+                 rememberInputLogic();
+                 div1.innerHTML = str;
+                 selectField(condition);
+                 selectLogic();*/
+
+            }
+
+            var arrSelectIndex = "";
+
+            function rememberSelectedField() {
+                arrSelectIndex = "";
+                for (var i = 1; i <= num; i++) {
+                    var selectID = "select" + i;
+                    if (document.all(selectID) != null) {
+                        arrSelectIndex += document.all(selectID).selectedIndex + "|";
+
+                    }
+                }
+                //去除最后一个|字符
+                if (arrSelectIndex.length > 1) {
+                    arrSelectIndex = arrSelectIndex.substring(0, arrSelectIndex.length - 1);
+                }
+
+            }
+
+            function selectField(condition) {
+
+                var arrIndex = arrSelectIndex.split('|');
+                for (var i = 1; i <= num; i++) {
+                    var selectID = "select" + i;
+                    //下拉框的长度
+                    var j = document.all(selectID).length;
+
+                    if (j > i) {
+                        j = i - 1;
+                    } else {
+                        j = j - 1;
+                    }
+
+
+                    if (condition == 1) {
+                        if (i == num) {
+                            document.all(selectID).options(0).selected = true;
+                        } else {
+                            document.all(selectID).options(parseInt(arrIndex[i - 1])).selected = true;
+                        }
+                    } else if (condition == 0) {
+                        document.all(selectID).options(parseInt(arrIndex[i - 1])).selected = true;
+                    }
+                }
+            }
+
+            var arrInputLogic = "";
+
+            function rememberInputLogic() {
+                arrInputLogic = "";
+                for (var i = 2; i <= num; i++) {
+                    var selectID = "logical" + i;
+                    if (document.all(selectID) != null) {
+                        arrInputLogic += document.all(selectID).value + "|";
+                    }
+                }
+                if (arrInputLogic.length > 1) {
+                    arrInputLogic = arrInputLogic.substring(0, arrInputLogic.length - 1);
+                }
+            }
+
+            function selectLogic() {
+                if (arrInputLogic == '') return;
+                var arrIndex = arrInputLogic.split('|');
+                for (var i = 2; i <= num; i++) {
+                    if (arrIndex[i - 2] != null && arrIndex[i - 2] != '') {
+                        var selectID = "logical" + i;
+                        document.all(selectID).value = arrIndex[i - 2];
+                    }
+                }
+            }
+
+            function checkData() {
+                var dsource = document.getElementById("dsource").value;
+                var query = document.getElementById("query");
+                var table_name = document.getElementById("table_name").value;
+                if (dsource == "") {
+                    alert('请选择数据源!!!');
+                    document.getElementById("dsource").focus();
+                    return;
+                }
+                if (table_name == "") {
+                    alert('请选择数据表!!!');
+                    document.getElementById("table_name").focus();
+                    return;
+                }
+
+                if (validate("pageSize") == true) {
+                    document.getElementById("numCount").value = num;
+                    query.action = "selectedtabList.jsp";
+                    query.target = "queryList";
+                    query.submit();
+                } else {
+                    return false;
+                }
+            }
+
+            window.onload  = function() {
+                document.getElementById('isDDLQuery').addEventListener('click', function(e) {
+                    // e.preventDefault();
+                    tourchOpcheckbox('isDDLQuery', event)
+                     
+                });
+
+                document.getElementById('isDataquery').addEventListener('click', function(e) {
+                    // e.preventDefault();
+                    tourchOpcheckbox('isDataquery', event)
+
+                });
+
+                document.getElementById('isDDL').addEventListener('click', function(e) {
+                    // e.preventDefault();
+                    tourchOpcheckbox('isDDL', event)
+
+                });
+
+
+                document.getElementById('isDDLQuery').addEventListener('dblclick', function(e) {
+                    // e.preventDefault();
+                    dbtourchOpcheckbox('isDDLQuery', event)
+
+                });
+
+                document.getElementById('isDataquery').addEventListener('dblclick', function(e) {
+                    // e.preventDefault();
+                    dbtourchOpcheckbox('isDataquery', event)
+
+                });
+
+                document.getElementById('isDDL').addEventListener('dblclick', function(e) {
+                    // e.preventDefault();
+                    dbtourchOpcheckbox('isDDL', event)
+
+                });
+            }
+        
+        function tourchOpcheckbox(touchId, event){
+        //阻断事件
+        //         event.preventDefault();
+                    
+                
                 /*
                 isDDLQuery
                 isDDL
@@ -473,24 +481,72 @@
                 var isDataquery = document.getElementById("isDataquery");
                 switch(touchId){
                     case "isDDLQuery":
+                        // 切换isDDLQuery的选中状态
                         isDDLQuery.checked = true;
+                        // 其他两个设置为不选中
                         isDDL.checked = false;
                         isDataquery.checked = false;
                         break;
                     case "isDDL":
-                        isDDLQuery.checked = false;
+                        // 切换isDDL的选中状态
                         isDDL.checked = true;
-                        isDataquery.checked = false
+                        // 其他两个设置为不选中
+                        isDDLQuery.checked = false;
+                        isDataquery.checked = false;
                         break;
                     case "isDataquery":
+                        // 切换isDataquery的选中状态
+                        isDataquery.checked = true;
+                        // 其他两个设置为不选中
+                        
                         isDDLQuery.checked = false;
                         isDDL.checked = false;
-                        isDataquery.checked = true;
                         break;
                 }
-                return false;
+                return true;
                 
                 
+            }
+
+            function dbtourchOpcheckbox(touchId, event){
+                //阻断事件
+                //         event.preventDefault();
+
+
+                /*
+                isDDLQuery
+                isDDL
+                isDataquery
+                */
+                //三个checkbox，id分别为isDDLQuery，isDDL，isDataquery，将id为参数touchId的checkbox设置为选中，其他两个checkbox设置为不选中
+                var isDDLQuery = document.getElementById("isDDLQuery");
+                var isDDL = document.getElementById("isDDL");
+                var isDataquery = document.getElementById("isDataquery");
+                switch(touchId){
+                    case "isDDLQuery":
+                        // 切换isDDLQuery的选中状态
+                        if(isDDLQuery.checked)
+                            isDDLQuery.checked = false;
+                         
+                        break;
+                    case "isDDL":
+                        // 切换isDDL的选中状态
+                        if(isDDL.checked)
+                            isDDL.checked = false;
+                        
+                        break;
+                    case "isDataquery":
+                        // 切换isDataquery的选中状态
+                        if(isDataquery.checked)
+                            isDataquery.checked = false;
+                        // 其他两个设置为不选中
+
+                        
+                        break;
+                }
+                return true;
+
+
             }
 			function selectHistorySQL(){
                 var dsource = document.getElementById("dsource2").value;
@@ -698,9 +754,10 @@
 							</td>
 							<td colspan="1" valign='middle' align="center" width="15%" nowrap>
 								每页显示记录数(<=0时不做分页查询):&nbsp;<input name="pageSize2" id="pageSize2" type="text" value="6" size="8"/>
-                               操作类型：<input name="isDataquery" id="isDataquery" type="checkbox" value="true" checked  onclick="tourchOpcheckbox('isDataquery')"/>数据查询
-                                &nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"  onclick="tourchOpcheckbox('isDDLQuery')"/>管理DDLQuery
-                                &nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true" onclick="tourchOpcheckbox('isDDL')"/> 管理DDL
+                               操作类型（鼠标双击可以清空选项）：<input name="isDataquery" id="isDataquery" type="checkbox" value="true"   >数据查询
+                                &nbsp;<input name="isDDLQuery" id="isDDLQuery" type="checkbox" value="true"     />管理DDLQuery
+                                &nbsp;<input name="isDDL" id="isDDL" type="checkbox" value="true"   /> 管理DDL  
+                                
 							</td>
 							<td colspan="1" height='30' valign='middle' align="center" width="*" nowrap>
                                 

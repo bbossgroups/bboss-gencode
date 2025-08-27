@@ -26,8 +26,7 @@
  	String dsource = request.getParameter("dsource2");
  	String sql = request.getParameter("sqlContent");
  	
-    String isDDLQuery_ = request.getParameter("isDDLQuery");
-    String isDataquery_ = request.getParameter("isDataquery");
+  
  	
  	if(null == dsource || null == sql 
  					|| "".equals(sql)  || "".equals(dsource) || 
@@ -52,14 +51,33 @@
  	
 	out.println(sql);
     
-    
-    String sql_l = sql.toLowerCase();
-    boolean isDDLQuery = isDDLQuery_ != null && isDDLQuery_.equals("true") || sql_l.startsWith("show ")  || sql_l.startsWith("desc ");
+    String isDDLQuery_ = request.getParameter("isDDLQuery");
+    String isDataquery_ = request.getParameter("isDataquery");
     String isDDL_ = request.getParameter("isDDL");
-    boolean isDDL = (isDDL_ != null && isDDL_.equals("true")) || sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ") || sql_l.startsWith("truncate ");
-    boolean isSelect = sql_l.startsWith("select ") || sql_l.startsWith("with ") || (isDataquery_ != null && isDataquery_.equals("true"));
-     if(isDDLQuery){
-         isSelect = false;
+    String sql_l = sql.toLowerCase();
+    boolean isDDLQuery = false;
+    if( sql_l.startsWith("show ")  || sql_l.startsWith("desc ")) // isDDLQuery_ != null && isDDLQuery_.equals("true") 
+        isDDLQuery = true;
+    
+    boolean isDDL = false;
+    if( sql_l.startsWith("create ")  || sql_l.startsWith("alert ") || sql_l.startsWith("drop ") || sql_l.startsWith("truncate ") 
+        || sql_l.startsWith("delete ") || sql_l.startsWith("insert ")
+         || sql_l.startsWith("update ") ) //(isDDL_ != null && isDDL_.equals("true")) 
+        isDDL = true;
+    boolean isSelect = false;
+    if(sql_l.startsWith("select ") || sql_l.startsWith("with "))// || (isDataquery_ != null && isDataquery_.equals("true"));
+        isSelect = true;
+    
+     if(!isDDLQuery && !isDDL && !isSelect){
+         if(isDDLQuery_ != null && isDDLQuery_.equals("true") ){
+             isDDLQuery = true;
+         }
+         else if(isDDL_ != null && isDDL_.equals("true")){
+             isDDL = true;
+         }
+         else if(isDataquery_ != null && isDataquery_.equals("true")){
+             isSelect = true;
+         }
      }
   
     out.println("<br>数据查询: "+isSelect);    
@@ -119,7 +137,10 @@
         else {
 //            db.executeUpdate(dsource,sql);
 //			flag = true;
-            out.println("<br>不能识别的sql，请选择操作类型: "+sql);
+            out.println("<br>不能从sql识别出操作类型，默认采用管理DDL操作");
+            db.executeUpdate(dsource,sql);
+			flag = true;
+           
             return;
         }
 	} catch(Exception e)
