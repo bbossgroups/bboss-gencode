@@ -20,7 +20,9 @@ sourceSets {
 }
 
 
-webAppDirName = 'WebRoot'  
+war {
+    webAppDirectory = file('WebRoot')
+} 
 dependencies {
     api(
             [group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4j2_version}", transitive: false],
