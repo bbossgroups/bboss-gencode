@@ -29,8 +29,6 @@ configure(allprojects) { project ->
 	}
 
 	tasks.withType(Javadoc) {
-		sourceCompatibility = JAVADOC_SOURCE_LEVEL
-		targetCompatibility = JAVADOC_COMPILER_LEVEL
 		options.encoding = 'UTF-8'
 		// disable the crazy super-strict doclint tool in Java 8
         // noinspection SpellCheckingInspection
@@ -89,18 +87,19 @@ configure(allprojects) { project ->
 
  
 configure(subprojects) { subproject ->
-	task sourcesJar(type: Jar) {
-		archiveClassifier = "sources"
-		from sourceSets.main.allJava
-		duplicatesStrategy = DuplicatesStrategy.INCLUDE
-	}
+    tasks.register('sourcesJar', Jar) {
+        archiveClassifier = "sources"
+        from sourceSets.main.allJava
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
 	processResources{
 		duplicatesStrategy = DuplicatesStrategy.INCLUDE
 	}
-	task javaDocJar(type: Jar, dependsOn: javadoc) {
-		archiveClassifier = "javadoc"
-		from javadoc.destinationDir
-	}
+    tasks.register('javaDocJar', Jar) {
+        dependsOn javadoc
+        archiveClassifier = "javadoc"
+        from javadoc.destinationDir
+    }
 	artifacts {
 		archives sourcesJar, javaDocJar
 	}

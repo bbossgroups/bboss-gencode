@@ -13,7 +13,22 @@ docker {
 	apiEmail 'yin-bp@163.com'
 }*/
 
+// 创建可解析的配置
+configurations {
+    apiResolvable {
+        canBeResolved = true
+        extendsFrom api
+    }
+    compileOnlyResolvable {
+        canBeResolved = true
+        extendsFrom compileOnly
+    }
 
+    runtimeOnlyResolvable {
+        canBeResolved = true
+        extendsFrom runtimeOnly
+    }
+}
 sourceSets {
     main {
         java {
@@ -130,15 +145,15 @@ dependencies {
 //    }
      
 }
-task warcopyWebRootFiles(type: Copy){
-	 from 'WebRoot'
-	 into 'build/dist/WebRoot'
-   
+tasks.register('warcopyWebRootFiles', Copy) {
+    from 'WebRoot'
+    into 'build/dist/WebRoot'
+
     if (profile.equals("product") && archType.equals("war")) {
-        
+
         doLast {
             copy {
-               
+
                 // Copy the output of copyTask
                 from(fileTree(dir: 'config/product/WEB-INF'))
 
@@ -148,24 +163,25 @@ task warcopyWebRootFiles(type: Copy){
     }
 }
 
-task warcopyJarFiles(type: Copy,dependsOn:'warcopyWebRootFiles'){
-	 from configurations.api{
-		 canBeResolved=true
+tasks.register('warcopyJarFiles', Copy) {
+    dependsOn 'warcopyWebRootFiles'
+    from configurations.apiResolvable{
 
-	 } +  configurations.runtimeOnly{
-		 canBeResolved=true
+    } +  configurations.runtimeOnlyResolvable{
+         
 
-	 }
-	 into 'build/dist/WebRoot/WEB-INF/lib'
-	 
+    }
+    into 'build/dist/WebRoot/WEB-INF/lib'
+
 }
-
+ 
 //project.tasks.warcopyJarFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
 //project.tasks.compileJava.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
-task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
-	 
-	 from 'resources'   
-	into 'build/dist/WebRoot/WEB-INF/classes'
+tasks.register('warcopyResourceFiles', Copy) {
+    dependsOn 'warcopyJarFiles'
+
+    from 'resources'
+    into 'build/dist/WebRoot/WEB-INF/classes'
     if (profile.equals("product")) {
         doLast {
             copy {
@@ -175,8 +191,7 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
                 into 'build/dist/WebRoot/WEB-INF/classes'
             }
         }
-    }
-    else  if (profile.equals("test")) {
+    } else if (profile.equals("test")) {
         doLast {
             copy {
                 // Copy the output of copyTask
@@ -186,54 +201,53 @@ task warcopyResourceFiles(type: Copy,dependsOn:'warcopyJarFiles' ){
             }
         }
     }
-	 
-}
-
-
-task copyJarFiles(type: Sync, dependsOn: 'jar') {
-	from configurations.api{
-		canBeResolved=true
-
-	}+ configurations.compileOnly {
-		canBeResolved=true
-		exclude 'bboss-rt-**.jar'
-	}
-	from jar.outputs
-	exclude { details -> details.file.name.startsWith('bboss-rt') }
-	into 'build/dist/gencode/lib'
 
 }
 
-task copyRTJarFiles(type: Copy, dependsOn: 'copyJarFiles') {
 
-	from configurations.api{
-		canBeResolved=true
+tasks.register('copyJarFiles', Sync) {
+    dependsOn 'jar'
+    from configurations.apiResolvable{
 
-	}
-	include { details -> details.file.name.startsWith('bboss-rt') }
-	into 'build/dist/gencode'
-	rename("bboss-rt-${bboss_version}.jar", "${project.name}-${bboss_version}.jar")
+    }+ configurations.compileOnlyResolvable {
+        exclude 'bboss-rt-**.jar'
+    }
+    from jar.outputs
+    exclude { details -> details.file.name.startsWith('bboss-rt') }
+    into 'build/dist/gencode/lib'
+
 }
-task copyToolFiles(type: Copy, dependsOn: 'copyRTJarFiles') {
 
-	from("runfiles")
-			{
-				expand(
-						bboss_version: "${bboss_version}",
-						project: "${project.name}"
+tasks.register('copyRTJarFiles', Copy) {
+    dependsOn 'copyJarFiles'
 
-				)
+    from configurations.apiResolvable{
 
-			}
-	filteringCharset = 'UTF-8'
-	into 'build/dist/gencode'
+    }
+    include { details -> details.file.name.startsWith('bboss-rt') }
+    into 'build/dist/gencode'
+    rename("bboss-rt-${bboss_version}.jar", "${project.name}-${bboss_version}.jar")
+}
+tasks.register('copyToolFiles', Copy) {
+    dependsOn 'copyRTJarFiles'
 
+    from("runfiles")
+            {
+                expand(
+                        bboss_version: "${bboss_version}",
+                        project: "${project.name}"
+
+                )
+
+            }
+    filteringCharset = 'UTF-8'
+    into 'build/dist/gencode'
 
 
 }
 //task copyLibFiles(type: Copy ){
 ////	from fileTree(dir: '../lib', include: '**/*.jar')
-//	from configurations.api{
+//	from configurations.apiResolvable{
 //		canBeResolved=true
 //		exclude 'bboss-rt-**.jar'
 //
@@ -244,9 +258,9 @@ task copyToolFiles(type: Copy, dependsOn: 'copyRTJarFiles') {
 //	into 'build/dist/gencode/lib'
 //}
 //project.tasks.copyLibFiles.dependsOn(project(':gencode-web').tasks.publishToMavenLocal)
-task copyResourceFiles(type: Copy ){ 
-	from fileTree(dir: 'resources')
-	into 'build/dist/gencode/resources'
+tasks.register('copyResourceFiles', Copy) {
+    from fileTree(dir: 'resources')
+    into 'build/dist/gencode/resources'
     if (profile.equals("product")) {
         doLast {
             copy {
@@ -256,8 +270,7 @@ task copyResourceFiles(type: Copy ){
                 into 'build/dist/gencode/resources'
             }
         }
-    }
-    else  if (profile.equals("test")) {
+    } else if (profile.equals("test")) {
         doLast {
             copy {
                 // Copy the output of copyTask
@@ -269,10 +282,10 @@ task copyResourceFiles(type: Copy ){
     }
 }
 
-task copyWebrootFiles(type: Copy ){ 
-	from fileTree(dir: 'WebRoot')
-	into 'build/dist/gencode/WebRoot'
-    
+tasks.register('copyWebrootFiles', Copy) {
+    from fileTree(dir: 'WebRoot')
+    into 'build/dist/gencode/WebRoot'
+
 }
 //task copyToolFiles(type: Copy ){
 //
@@ -292,21 +305,23 @@ task copyWebrootFiles(type: Copy ){
 //	rename ("bboss-rt-${bboss_version}.jar", "${project.name}-boot-${bboss_version}.jar")
 //
 //}
- 
-task releaseRuntimeZip(type: Zip,dependsOn:['clean','copyToolFiles','copyWebrootFiles','copyResourceFiles']) {
+
+tasks.register('releaseRuntimeZip', Zip) {
+    dependsOn 'clean', 'copyToolFiles', 'copyWebrootFiles', 'copyResourceFiles'
     //appendix = 'wrapper'
-	archiveBaseName='gencode'
-   from 'build/dist/gencode'
-   
+    archiveBaseName = 'gencode'
+    from 'build/dist/gencode'
+
 }
 
-task releaseRuntimeWar(type: Zip,dependsOn:['clean','warcopyResourceFiles']) {
+tasks.register('releaseRuntimeWar', Zip) {
+    dependsOn 'clean', 'warcopyResourceFiles'
     //appendix = 'wrapper'
-  // classifier = 'released'
-	archiveExtension = 'war'
-	archiveBaseName='gencode'
-   from 'build/dist/WebRoot'
-   
+    // classifier = 'released'
+    archiveExtension = 'war'
+    archiveBaseName = 'gencode'
+    from 'build/dist/WebRoot'
+
 }
 
 /**
