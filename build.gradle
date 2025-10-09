@@ -57,9 +57,9 @@ configure(allprojects) { project ->
 	dependencies {
 		//采用log4j2记录日志
 		api(
-				[group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4j2_version}", transitive: false],
-				[group: 'org.apache.logging.log4j', name: 'log4j-core', version: "${log4j2_version}", transitive: false],
-				[group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "${log4j2_version}", transitive: true],
+				[group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j2_version, transitive: false],
+				[group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j2_version, transitive: false],
+				[group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j2_version, transitive: true],
 				//[group: 'com.bbossgroups.plugins', name: 'bboss-plugin-kafka2x', version: "${PROJ_BBOSS_plugin_VERSION}", transitive: true],
 
 
@@ -78,10 +78,9 @@ configure(allprojects) { project ->
 	}
 	if(project.getProperty('skipTest').equals("true"))
 	{
-		compileTestJava.enabled=false
-		processTestResources.enabled=false
-		testClasses.enabled = false
-		test.enabled = false  
+        tasks.withType(Test) {
+            enabled = false
+        }
 	}
 }
 
