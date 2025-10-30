@@ -162,36 +162,36 @@
  	
  	out.print(sql);
  	
- 	boolean flag  = false;
+ 	boolean flag  = true;
  	//存取列名
 	List columnList = null ;
-	try
-	{
-		//执行sql语句
-		DBUtil db = new DBUtil();
-		db.executeSelect(dsource,sql,0,1);
-		ResultSetMetaData resultMeta = db.getMeta();
-		
-		if(resultMeta != null) 
-		{
-	        columnList = new ArrayList();
-			int size =resultMeta.getColumnCount();
-			for(int i=1; i<=size; i++)
-			{
-				String columnName = resultMeta.getColumnLabel(i);
-				columnList.add(columnName);
-			}
-		}
-        else{
-             columnList = new ArrayList();
-        }
-		flag = true;
-	} catch(Exception e)
-	{
-		flag = false;
-		e.printStackTrace();
-		
-	}
+//	try
+//	{
+//		//执行sql语句
+//		DBUtil db = new DBUtil();
+//		db.executeSelect(dsource,sql,0,1);
+//		ResultSetMetaData resultMeta = db.getMeta();
+//		
+//		if(resultMeta != null) 
+//		{
+//	        columnList = new ArrayList();
+//			int size =resultMeta.getColumnCount();
+//			for(int i=1; i<=size; i++)
+//			{
+//				String columnName = resultMeta.getColumnLabel(i);
+//				columnList.add(columnName);
+//			}
+//		}
+//        else{
+//             columnList = new ArrayList();
+//        }
+//		flag = true;
+//	} catch(Exception e)
+//	{
+//		flag = false;
+//		e.printStackTrace();
+//		
+//	}
 	
 	
 	//处理每页显示的记录数:默认是10
@@ -384,16 +384,16 @@
 	    		  <pg:param name="sql"/>
 	    		  <pg:param name="pageSize"/>
 	    		  <pg:param name="table_name" value="<%=tablename %>"/>
-	    		  <pg:param name="dsource" value="<%=dsource %>"/>
-	    		  
-	    		  
-	    		  
-	    		  
+	    		  <pg:param name="dsource" value="<%=dsource %>"/>	    		  
 				<tr class="labeltable_middle_td">
 					<td height="20" size="3" class="headercolor">
 						<input type="checkbox" size="3" name="all" id="all" onclick="selectAll()"/>
 					</td>
 					<%
+                        columnList = pager_info.getColumnList();
+                        if(columnList == null){
+                            columnList = new ArrayList();
+                        }
   						for(int i=0; i<columnList.size(); i++)
   						{
   					%>	

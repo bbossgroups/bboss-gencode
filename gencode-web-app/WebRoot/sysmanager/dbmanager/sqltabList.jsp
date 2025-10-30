@@ -101,19 +101,19 @@
 			flag = true;
 		}
         else if(isSelect){
-            db.executeSelect(dsource,sql,0,1);
-            ResultSetMetaData resultMeta = db.getMeta();
-            
-            if(resultMeta != null) 
-            {
-                columnList = new ArrayList();
-                int size =resultMeta.getColumnCount();
-                for(int i=1; i<=size; i++)
-                {
-                    String columnName = resultMeta.getColumnLabel(i);
-                    columnList.add(columnName);
-                }
-            }
+//            db.executeSelect(dsource,sql,0,1);
+//            ResultSetMetaData resultMeta = db.getMeta();
+//            
+//            if(resultMeta != null) 
+//            {
+//                columnList = new ArrayList();
+//                int size =resultMeta.getColumnCount();
+//                for(int i=1; i<=size; i++)
+//                {
+//                    String columnName = resultMeta.getColumnLabel(i);
+//                    columnList.add(columnName);
+//                }
+//            }
             flag = true;
         }
 		else if(isDDLQuery){
@@ -185,10 +185,11 @@
   	<body class="contentbodymargin">
   		
   		<%
-  		if(flag && columnList != null)
+  		if(flag && isSelect)
   		{
   		%>
-  			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="<%=!isPagine %>" maxPageItems="<%=pageSize%>">
+  			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="<%=!isPagine %>" 
+                      maxPageItems="<%=pageSize%>">
   				<pg:param name="sqlContent" encode="true" value="<%=sql %>"/>
   				<pg:param name="dsource2" value="<%=dsource %>"/>
   				<pg:param name="pageSize2"/>
@@ -196,6 +197,10 @@
   				<table width="100%" border="0" cellpadding="0" cellspacing="1" class="thin">
   					<tr class="labeltable_middle_td">
   					<%
+  					    columnList = pager_info.getColumnList();
+                          if(columnList == null){
+                              columnList = new ArrayList();
+                          }
   						for(int i=0; i<columnList.size(); i++)
   						{
   					%>	
@@ -203,7 +208,8 @@
   					<%
   						}
   					 %>	
-  		 			<tr>
+                    
+  		 			</tr>
   		 			<pg:notify>
 						<tr><td colspan="<%=columnList.size()+1%>"><font color='red'>没有记录</font></td></tr>
 					</pg:notify>

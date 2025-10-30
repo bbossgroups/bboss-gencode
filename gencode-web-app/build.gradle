@@ -171,6 +171,17 @@ tasks.register('warcopyJarFiles', Copy) {
          
 
     }
+    //过滤掉jetty-开头的jar包
+    // 使用 exclude 替代 filter
+    exclude { details ->
+        return details.file.name.startsWith("jetty-")
+              || details.file.name.startsWith("websocket-")
+                || details.file.name.startsWith("jakarta.")
+                || details.file.name.startsWith("apache-")
+                || details.file.name.startsWith("taglibs-standard-")
+        
+    }
+    
     into 'build/dist/WebRoot/WEB-INF/lib'
 
 }
