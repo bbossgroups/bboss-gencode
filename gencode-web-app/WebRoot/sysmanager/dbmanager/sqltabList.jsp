@@ -148,9 +148,7 @@
        
 		 
 			flag = false;
-			errorMessage = e.getMessage();
 			errorMessage = SimpleStringUtil.exceptionToString(e) ;
-            e.printStackTrace();
 		
 		
 		
@@ -187,6 +185,7 @@
   		<%
   		if(flag && isSelect)
   		{
+              try{
   		%>
   			<pg:pager statement="<%=sql %>" dbname="<%=dsource %>" isList="<%=!isPagine %>" 
                       maxPageItems="<%=pageSize%>">
@@ -236,7 +235,13 @@
 					</tr>
 				</table>
 			</pg:pager>	
+        
   		<%
+                }
+                catch(Exception e){
+                    errorMessage = SimpleStringUtil.exceptionToString(e) ;
+                    out.print("<br/><br/>请检测SQL语句是否有问题,操作失败---> <textarea rows=\"20\" cols=\"400\">" + errorMessage+"</textarea>");
+                }
   			}
   			else if(flag )
   			{
