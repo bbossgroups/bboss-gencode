@@ -118,20 +118,20 @@
         }
 		else if(isDDLQuery){
             
-            db.executeSelect(dsource,sql);
-           
-            ResultSetMetaData resultMeta = db.getMeta();
-            
-            if(resultMeta != null) 
-            {
-                columnList = new ArrayList();
-                int size =resultMeta.getColumnCount();
-                for(int i=1; i<=size; i++)
-                {
-                    String columnName = resultMeta.getColumnLabel(i);
-                    columnList.add(columnName);
-                }
-            }
+//            db.executeSelect(dsource,sql);
+//           
+//            ResultSetMetaData resultMeta = db.getMeta();
+//            
+//            if(resultMeta != null) 
+//            {
+//                columnList = new ArrayList();
+//                int size =resultMeta.getColumnCount();
+//                for(int i=1; i<=size; i++)
+//                {
+//                    String columnName = resultMeta.getColumnLabel(i);
+//                    columnList.add(columnName);
+//                }
+//            }
             flag = true;
         }
         else {
@@ -183,7 +183,7 @@
   	<body class="contentbodymargin">
   		
   		<%
-  		if(flag && isSelect)
+  		if(flag && (isSelect || isDDLQuery))
   		{
               try{
   		%>
