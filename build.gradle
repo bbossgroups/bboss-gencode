@@ -74,6 +74,7 @@ configure(allprojects) { project ->
 			url "https://maven.aliyun.com/repository/public"
 		}
 		mavenCentral()
+        
 		
 	}
 	if(project.getProperty('skipTest').equals("true"))
