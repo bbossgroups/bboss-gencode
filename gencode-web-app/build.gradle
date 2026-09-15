@@ -254,6 +254,68 @@ tasks.register('copyToolFiles', Copy) {
     filteringCharset = 'UTF-8'
     into 'build/dist/gencode'
 
+    if (profile.equals("product")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/product/runfiles'))
+                        {
+                            expand(
+                                    bboss_version: "${bboss_version}",
+                                    project: "${project.name}"
+                            )
+
+                        }
+                into 'build/dist/gencode'
+            }
+        }
+    } else if (profile.equals("test")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/test/runfiles'))
+                        {
+                            expand(
+                                    bboss_version: "${bboss_version}",
+                                    project: "${project.name}"
+                            )
+
+                        }
+                into 'build/dist/gencode'
+            }
+        }
+    } else if (profile.equals("prdtest")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/prdtest/runfiles'))
+                        {
+                            expand(
+                                    bboss_version: "${bboss_version}",
+                                    project: "${project.name}"
+                            )
+
+                        }
+                into 'build/dist/gencode'
+            }
+        }
+    } else if (profile.equals("devpublish")) {
+        doLast {
+            copy {
+                // Copy the output of copyTask
+                from(fileTree(dir: 'config/dev/runfiles'))
+                        {
+                            expand(
+                                bboss_version: "${bboss_version}",
+                                project: "${project.name}"
+                            )
+
+                        }
+                into 'build/dist/gencode'
+            }
+        }
+    }
+
 
 }
 //task copyLibFiles(type: Copy ){
